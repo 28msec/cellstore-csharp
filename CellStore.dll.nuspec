@@ -20,7 +20,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\IO.Swagger.dll" target="lib\CellStore.dll" /> 
-    <file src="bin\IO.Swagger.xml" target="doc\CellStore.xml" /> 
+    <file src="bin\CellStore.dll" target="lib\CellStore.dll" /> 
+    <file src="bin\CellStore.xml" target="doc\CellStore.xml" /> 
   </files>
 </package>
