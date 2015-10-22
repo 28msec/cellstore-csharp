@@ -1,0 +1,29 @@
+{
+  "KeyAspects": [
+    "sec:Accepted",
+    "xbrl:Period",
+    "xbrl:Entity",
+    "xbrl:Concept",
+    "xbrl:Unit"
+  ],
+  "Aspects": {
+    "xbrl28:Archive": "0000009092-15-000002",
+    "sec:Accepted": "20150304165914",
+    "xbrl28:ArchiveFiscalPeriodFocus": "FY",
+    "xbrl28:ArchiveFiscalYearFocus": 2014,
+    "sec:FiscalPeriod": "FY",
+    "sec:FiscalYear": 2014,
+    "sec:FiscalPeriodType": "instant",
+    "xbrl:Period": "2014-12-31",
+    "xbrl:Entity": "http://www.28.io/xbrl 0000009092",
+    "xbrl:Concept": "risk:Forwards",
+    "xbrl:Unit": "iso4217:USD"
+  },
+  "Value": 32000,
+  "Decimals": -3,
+  "Concept": {
+    "Balance": "DEBIT",
+    "PeriodType": "instant",
+    "DataType": "xbrli:monetaryItemType"
+  }
+}
