@@ -1,15 +1,33 @@
-## Frameworks supported
-- .NET 3.5 or later
-- Windows Phone 7.1 (Mango)
+## Release C# Library
 
-## Dependencies
-- [RestSharp] (https://www.nuget.org/packages/RestSharp)
-- [Json.NET] (https://www.nuget.org/packages/Newtonsoft.Json/)
+The CellStore.NET library is published at [Nuget.or] (https://www.nuget.org/packages/CellStore.NET/). 
+This Readme describes how to build a release.
 
+### Dependencies
 
-NOTE: The DLLs included in the package may not be the latest version. We recommned using [NuGet] (https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
+- [NuGet] (https://nuget.org/nuget.exe): Make sure its in the PATH
+- For being able to publish:
+
 ```
-Install-Package RestSharp
-Install-Package Newtonsoft.Json
-``` 
+nuget setApiKey API-Key
+```
 
+### Prepare Release
+
+1. Increase Version in CellStore.dll.nuspec
+2. Compile: 
+
+```
+compile.bat
+```
+3. Pack:
+
+```
+nuget pack CellStore.dll.nuspec
+```
+
+4. Publish:
+
+```
+nuget push CellStore.NET.0.0.1.nupkg
+```
