@@ -4,12 +4,12 @@
         <name>CellStore</name>
     </assembly>
     <members>
-        <member name="T:IO.Swagger.Api.IDataApi">
+        <member name="T:CellStore.Api.IDataApi">
             <summary>
             Represents a collection of functions to interact with the API endpoints
             </summary>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListComponents(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListComponents(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve a summary for all components of a given filing
             </summary>
@@ -40,7 +40,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListComponentsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListComponentsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve a summary for all components of a given filing
             </summary>
@@ -71,7 +71,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListEntities(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListEntities(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
             </summary>
@@ -94,7 +94,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListEntitiesAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListEntitiesAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
             </summary>
@@ -117,7 +117,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListFacts(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Boolean}},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int32}},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListFacts(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Boolean}},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int32}},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve one or more facts for a combination of filings.
             </summary>
@@ -152,7 +152,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListFactsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Boolean}},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int32}},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListFactsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Boolean}},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int32}},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve one or more facts for a combination of filings.
             </summary>
@@ -187,7 +187,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.AddFacts(System.String,System.Object,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IDataApi.AddFacts(System.String,System.Object,System.String,System.String,System.String)">
             <summary>
             Add a fact to a filing.
             </summary>
@@ -201,7 +201,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.AddFactsAsync(System.String,System.Object,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IDataApi.AddFactsAsync(System.String,System.Object,System.String,System.String,System.String)">
             <summary>
             Add a fact to a filing.
             </summary>
@@ -215,7 +215,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListFactTable(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListFactTable(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the fact table for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).
             </summary>
@@ -251,7 +251,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListFactTableAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListFactTableAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the fact table for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).
             </summary>
@@ -287,7 +287,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListFactTableForReport(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListFactTableForReport(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
             </summary>
@@ -314,7 +314,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListFactTableForReportAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListFactTableForReportAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
             </summary>
@@ -341,7 +341,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListFilings(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListFilings(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
             </summary>
@@ -365,7 +365,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListFilingsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListFilingsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
             </summary>
@@ -389,7 +389,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.UpsertFilings(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IDataApi.UpsertFilings(System.String,System.String,System.String)">
             <summary>
             Add or updata a filing. The filings are identified with Archive IDs (AIDs).
             </summary>
@@ -401,7 +401,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository.</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.UpsertFilingsAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IDataApi.UpsertFilingsAsync(System.String,System.String,System.String)">
             <summary>
             Add or updata a filing. The filings are identified with Archive IDs (AIDs).
             </summary>
@@ -413,7 +413,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository.</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListLabels(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListLabels(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve labels for the supplied components and report elements
             </summary>
@@ -445,7 +445,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListLabelsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListLabelsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve labels for the supplied components and report elements
             </summary>
@@ -477,7 +477,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListModelStructure(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListModelStructure(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).
             </summary>
@@ -506,7 +506,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListModelStructureAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListModelStructureAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).
             </summary>
@@ -535,7 +535,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListNetworks(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListNetworks(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve a summary for all networks of a given filing
             </summary>
@@ -564,7 +564,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListNetworksAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListNetworksAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve a summary for all networks of a given filing
             </summary>
@@ -593,7 +593,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListPeriods(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListPeriods(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve the periods of the filings filed by a particular entity
             </summary>
@@ -616,7 +616,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListPeriodsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IDataApi.ListPeriodsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve the periods of the filings filed by a particular entity
             </summary>
@@ -639,7 +639,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListReportElements(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListReportElements(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Retrieve the report elements contained in a set of filings.
             </summary>
@@ -672,7 +672,7 @@
             <param name="contentType">Content-Type of the request</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListReportElementsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListReportElementsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Retrieve the report elements contained in a set of filings.
             </summary>
@@ -705,7 +705,7 @@
             <param name="contentType">Content-Type of the request</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListSections(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListSections(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve a summary for all sections of a given filing
             </summary>
@@ -735,7 +735,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListSectionsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListSectionsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve a summary for all sections of a given filing
             </summary>
@@ -765,7 +765,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.SpreadsheetForComponent(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.SpreadsheetForComponent(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the business friendly Spreadsheet for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).
             </summary>
@@ -797,7 +797,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.SpreadsheetForComponentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.IDataApi.SpreadsheetForComponentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the business friendly Spreadsheet for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure).
             </summary>
@@ -829,7 +829,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListSpreadsheetForReport(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListSpreadsheetForReport(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Retrieve the business-friendly spreadsheet for a report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
             </summary>
@@ -852,7 +852,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IDataApi.ListSpreadsheetForReportAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.IDataApi.ListSpreadsheetForReportAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Retrieve the business-friendly spreadsheet for a report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
             </summary>
@@ -875,38 +875,38 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="T:IO.Swagger.Api.DataApi">
+        <member name="T:CellStore.Api.DataApi">
             <summary>
             Represents a collection of functions to interact with the API endpoints
             </summary>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.#ctor(IO.Swagger.Client.ApiClient)">
+        <member name="M:CellStore.Api.DataApi.#ctor(CellStore.Client.ApiClient)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Api.DataApi"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Api.DataApi"/> class.
             </summary>
             <param name="apiClient"> an instance of ApiClient (optional)</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.#ctor(System.String)">
+        <member name="M:CellStore.Api.DataApi.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Api.DataApi"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Api.DataApi"/> class.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.SetBasePath(System.String)">
+        <member name="M:CellStore.Api.DataApi.SetBasePath(System.String)">
             <summary>
             Sets the base path of the API client.
             </summary>
             <param name="basePath">The base path</param>
             <value>The base path</value>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.GetBasePath">
+        <member name="M:CellStore.Api.DataApi.GetBasePath">
             <summary>
             Gets the base path of the API client.
             </summary>
             <value>The base path</value>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListComponents(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListComponents(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve a summary for all components of a given filing 
             </summary>
@@ -934,7 +934,7 @@
             <param name="language">A language code</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListComponentsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListComponentsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve a summary for all components of a given filing 
             </summary>
@@ -962,7 +962,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListEntities(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListEntities(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs. 
             </summary>
@@ -982,7 +982,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListEntitiesAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListEntitiesAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs. 
             </summary>
@@ -1002,7 +1002,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListFacts(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Boolean}},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int32}},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListFacts(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Boolean}},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int32}},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve one or more facts for a combination of filings. 
             </summary>
@@ -1034,7 +1034,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListFactsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Boolean}},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int32}},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListFactsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Boolean}},System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int32}},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve one or more facts for a combination of filings. 
             </summary>
@@ -1066,7 +1066,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.AddFacts(System.String,System.Object,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.DataApi.AddFacts(System.String,System.Object,System.String,System.String,System.String)">
             <summary>
             Add a fact to a filing. 
             </summary>
@@ -1077,7 +1077,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.AddFactsAsync(System.String,System.Object,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.DataApi.AddFactsAsync(System.String,System.Object,System.String,System.String,System.String)">
             <summary>
             Add a fact to a filing. 
             </summary>
@@ -1088,7 +1088,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListFactTable(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListFactTable(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the fact table for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure). 
             </summary>
@@ -1121,7 +1121,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListFactTableAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListFactTableAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the fact table for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure). 
             </summary>
@@ -1154,7 +1154,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListFactTableForReport(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListFactTableForReport(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
             </summary>
@@ -1178,7 +1178,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListFactTableForReportAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListFactTableForReportAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
             </summary>
@@ -1202,7 +1202,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListFilings(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListFilings(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs. 
             </summary>
@@ -1223,7 +1223,7 @@
             <param name="language">A language code</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListFilingsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListFilingsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs. 
             </summary>
@@ -1244,7 +1244,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.UpsertFilings(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.DataApi.UpsertFilings(System.String,System.String,System.String)">
             <summary>
             Add or updata a filing. The filings are identified with Archive IDs (AIDs). 
             </summary>
@@ -1253,7 +1253,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository.</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.UpsertFilingsAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.DataApi.UpsertFilingsAsync(System.String,System.String,System.String)">
             <summary>
             Add or updata a filing. The filings are identified with Archive IDs (AIDs). 
             </summary>
@@ -1262,7 +1262,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository.</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListLabels(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListLabels(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve labels for the supplied components and report elements 
             </summary>
@@ -1291,7 +1291,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListLabelsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListLabelsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve labels for the supplied components and report elements 
             </summary>
@@ -1320,7 +1320,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListModelStructure(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListModelStructure(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure). 
             </summary>
@@ -1346,7 +1346,7 @@
             <param name="language">A language code</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListModelStructureAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListModelStructureAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the model structure for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure). 
             </summary>
@@ -1372,7 +1372,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListNetworks(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListNetworks(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve a summary for all networks of a given filing 
             </summary>
@@ -1398,7 +1398,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListNetworksAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListNetworksAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve a summary for all networks of a given filing 
             </summary>
@@ -1424,7 +1424,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListPeriods(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListPeriods(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve the periods of the filings filed by a particular entity 
             </summary>
@@ -1444,7 +1444,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListPeriodsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.DataApi.ListPeriodsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieve the periods of the filings filed by a particular entity 
             </summary>
@@ -1464,7 +1464,7 @@
             <param name="skip">Skip the first [skip] results (default: 0)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListReportElements(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.DataApi.ListReportElements(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Retrieve the report elements contained in a set of filings. 
             </summary>
@@ -1494,7 +1494,7 @@
             <param name="contentType">Content-Type of the request</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListReportElementsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.DataApi.ListReportElementsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Retrieve the report elements contained in a set of filings. 
             </summary>
@@ -1524,7 +1524,7 @@
             <param name="contentType">Content-Type of the request</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListSections(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListSections(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve a summary for all sections of a given filing 
             </summary>
@@ -1551,7 +1551,7 @@
             <param name="language">A language code</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListSectionsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.ListSectionsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve a summary for all sections of a given filing 
             </summary>
@@ -1578,7 +1578,7 @@
             <param name="language">A language code</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.SpreadsheetForComponent(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.SpreadsheetForComponent(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the business friendly Spreadsheet for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure). 
             </summary>
@@ -1607,7 +1607,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.SpreadsheetForComponentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String)">
+        <member name="M:CellStore.Api.DataApi.SpreadsheetForComponentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String)">
             <summary>
             Retrieve the business friendly Spreadsheet for a given component. A component can be selected in three ways. (1) by component id (cid), (2) by accession number and disclosure (aid and disclosure), or (3) by CIK, fiscal year, fiscal period, and disclosure (cik, fiscalYear, fiscalPeriod, and disclosure). 
             </summary>
@@ -1636,7 +1636,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListSpreadsheetForReport(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.DataApi.ListSpreadsheetForReport(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Retrieve the business-friendly spreadsheet for a report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
             </summary>
@@ -1656,7 +1656,7 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.DataApi.ListSpreadsheetForReportAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.DataApi.ListSpreadsheetForReportAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Retrieve the business-friendly spreadsheet for a report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
             </summary>
@@ -1676,18 +1676,18 @@
             <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
             <returns>Object</returns>
         </member>
-        <member name="P:IO.Swagger.Api.DataApi.ApiClient">
+        <member name="P:CellStore.Api.DataApi.ApiClient">
             <summary>
             Gets or sets the API client.
             </summary>
             <value>An instance of the ApiClient</value>
         </member>
-        <member name="T:IO.Swagger.Api.IReportsApi">
+        <member name="T:CellStore.Api.IReportsApi">
             <summary>
             Represents a collection of functions to interact with the API endpoints
             </summary>
         </member>
-        <member name="M:IO.Swagger.Api.IReportsApi.AddOrReplaceOrValidateReport(System.Object,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.IReportsApi.AddOrReplaceOrValidateReport(System.Object,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Add a new, update an existing report or validates a report on the fly
             </summary>
@@ -1704,7 +1704,7 @@
             <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IReportsApi.AddOrReplaceOrValidateReportAsync(System.Object,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.IReportsApi.AddOrReplaceOrValidateReportAsync(System.Object,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Add a new, update an existing report or validates a report on the fly
             </summary>
@@ -1721,7 +1721,7 @@
             <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IReportsApi.RemoveReport(System.String,System.String)">
+        <member name="M:CellStore.Api.IReportsApi.RemoveReport(System.String,System.String)">
             <summary>
             Delete an existing report
             </summary>
@@ -1732,7 +1732,7 @@
             <param name="token">The token of the current session</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.IReportsApi.RemoveReportAsync(System.String,System.String)">
+        <member name="M:CellStore.Api.IReportsApi.RemoveReportAsync(System.String,System.String)">
             <summary>
             Delete an existing report
             </summary>
@@ -1743,7 +1743,7 @@
             <param name="token">The token of the current session</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.IReportsApi.GetParameters(System.String)">
+        <member name="M:CellStore.Api.IReportsApi.GetParameters(System.String)">
             <summary>
             Retrieve a list of all Report Parameters
             </summary>
@@ -1753,7 +1753,7 @@
             <param name="parameter">Only retrieve values for this parameter</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IReportsApi.GetParametersAsync(System.String)">
+        <member name="M:CellStore.Api.IReportsApi.GetParametersAsync(System.String)">
             <summary>
             Retrieve a list of all Report Parameters
             </summary>
@@ -1763,7 +1763,7 @@
             <param name="parameter">Only retrieve values for this parameter</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IReportsApi.ListReports(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IReportsApi.ListReports(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
             <summary>
             Retrieve a list of all Reports
             </summary>
@@ -1779,7 +1779,7 @@
             <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false)</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.IReportsApi.ListReportsAsync(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.IReportsApi.ListReportsAsync(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
             <summary>
             Retrieve a list of all Reports
             </summary>
@@ -1795,38 +1795,38 @@
             <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false)</param>
             <returns></returns>
         </member>
-        <member name="T:IO.Swagger.Api.ReportsApi">
+        <member name="T:CellStore.Api.ReportsApi">
             <summary>
             Represents a collection of functions to interact with the API endpoints
             </summary>
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.#ctor(IO.Swagger.Client.ApiClient)">
+        <member name="M:CellStore.Api.ReportsApi.#ctor(CellStore.Client.ApiClient)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Api.ReportsApi"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Api.ReportsApi"/> class.
             </summary>
             <param name="apiClient"> an instance of ApiClient (optional)</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.#ctor(System.String)">
+        <member name="M:CellStore.Api.ReportsApi.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Api.ReportsApi"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Api.ReportsApi"/> class.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.SetBasePath(System.String)">
+        <member name="M:CellStore.Api.ReportsApi.SetBasePath(System.String)">
             <summary>
             Sets the base path of the API client.
             </summary>
             <param name="basePath">The base path</param>
             <value>The base path</value>
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.GetBasePath">
+        <member name="M:CellStore.Api.ReportsApi.GetBasePath">
             <summary>
             Gets the base path of the API client.
             </summary>
             <value>The base path</value>
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.AddOrReplaceOrValidateReport(System.Object,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.ReportsApi.AddOrReplaceOrValidateReport(System.Object,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Add a new, update an existing report or validates a report on the fly 
             </summary>
@@ -1840,7 +1840,7 @@
             <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report)</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.AddOrReplaceOrValidateReportAsync(System.Object,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
+        <member name="M:CellStore.Api.ReportsApi.AddOrReplaceOrValidateReportAsync(System.Object,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Add a new, update an existing report or validates a report on the fly 
             </summary>
@@ -1854,7 +1854,7 @@
             <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.RemoveReport(System.String,System.String)">
+        <member name="M:CellStore.Api.ReportsApi.RemoveReport(System.String,System.String)">
             <summary>
             Delete an existing report 
             </summary>
@@ -1862,7 +1862,7 @@
             <param name="token">The token of the current session</param> 
             <returns></returns>            
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.RemoveReportAsync(System.String,System.String)">
+        <member name="M:CellStore.Api.ReportsApi.RemoveReportAsync(System.String,System.String)">
             <summary>
             Delete an existing report 
             </summary>
@@ -1870,21 +1870,21 @@
             <param name="token">The token of the current session</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.GetParameters(System.String)">
+        <member name="M:CellStore.Api.ReportsApi.GetParameters(System.String)">
             <summary>
             Retrieve a list of all Report Parameters 
             </summary>
             <param name="parameter">Only retrieve values for this parameter</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.GetParametersAsync(System.String)">
+        <member name="M:CellStore.Api.ReportsApi.GetParametersAsync(System.String)">
             <summary>
             Retrieve a list of all Report Parameters 
             </summary>
             <param name="parameter">Only retrieve values for this parameter</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.ListReports(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.ReportsApi.ListReports(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
             <summary>
             Retrieve a list of all Reports 
             </summary>
@@ -1897,7 +1897,7 @@
             <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false)</param> 
             <returns></returns>            
         </member>
-        <member name="M:IO.Swagger.Api.ReportsApi.ListReportsAsync(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+        <member name="M:CellStore.Api.ReportsApi.ListReportsAsync(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
             <summary>
             Retrieve a list of all Reports 
             </summary>
@@ -1910,18 +1910,18 @@
             <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false)</param>
             <returns></returns>
         </member>
-        <member name="P:IO.Swagger.Api.ReportsApi.ApiClient">
+        <member name="P:CellStore.Api.ReportsApi.ApiClient">
             <summary>
             Gets or sets the API client.
             </summary>
             <value>An instance of the ApiClient</value>
         </member>
-        <member name="T:IO.Swagger.Api.ISessionsApi">
+        <member name="T:CellStore.Api.ISessionsApi">
             <summary>
             Represents a collection of functions to interact with the API endpoints
             </summary>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.Login(System.String,System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.Login(System.String,System.String)">
             <summary>
             Login with email and password in order to retrieve a token.
             </summary>
@@ -1932,7 +1932,7 @@
             <param name="password">Password of user to login</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.LoginAsync(System.String,System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.LoginAsync(System.String,System.String)">
             <summary>
             Login with email and password in order to retrieve a token.
             </summary>
@@ -1943,7 +1943,7 @@
             <param name="password">Password of user to login</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.Logout(System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.Logout(System.String)">
             <summary>
             Logout the user identified by the given API key.
             </summary>
@@ -1953,7 +1953,7 @@
             <param name="token">API token of the current user</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.LogoutAsync(System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.LogoutAsync(System.String)">
             <summary>
             Logout the user identified by the given API key.
             </summary>
@@ -1963,7 +1963,7 @@
             <param name="token">API token of the current user</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.Revoke(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.Revoke(System.String,System.String,System.String)">
             <summary>
             Revoke a token having a custom expiration duration.
             </summary>
@@ -1975,7 +1975,7 @@
             <param name="token">API token to revoke</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.RevokeAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.RevokeAsync(System.String,System.String,System.String)">
             <summary>
             Revoke a token having a custom expiration duration.
             </summary>
@@ -1987,7 +1987,7 @@
             <param name="token">API token to revoke</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.Token(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.Token(System.String,System.String,System.String)">
             <summary>
             Create a token having a custom expiration duration.
             </summary>
@@ -1999,7 +1999,7 @@
             <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.TokenAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.TokenAsync(System.String,System.String,System.String)">
             <summary>
             Create a token having a custom expiration duration.
             </summary>
@@ -2011,7 +2011,7 @@
             <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.Tokens(System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.Tokens(System.String)">
             <summary>
             List tokens of a user identified by its token.
             </summary>
@@ -2021,7 +2021,7 @@
             <param name="token">A valid API token</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.ISessionsApi.TokensAsync(System.String)">
+        <member name="M:CellStore.Api.ISessionsApi.TokensAsync(System.String)">
             <summary>
             List tokens of a user identified by its token.
             </summary>
@@ -2031,38 +2031,38 @@
             <param name="token">A valid API token</param>
             <returns>Object</returns>
         </member>
-        <member name="T:IO.Swagger.Api.SessionsApi">
+        <member name="T:CellStore.Api.SessionsApi">
             <summary>
             Represents a collection of functions to interact with the API endpoints
             </summary>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.#ctor(IO.Swagger.Client.ApiClient)">
+        <member name="M:CellStore.Api.SessionsApi.#ctor(CellStore.Client.ApiClient)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Api.SessionsApi"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Api.SessionsApi"/> class.
             </summary>
             <param name="apiClient"> an instance of ApiClient (optional)</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.#ctor(System.String)">
+        <member name="M:CellStore.Api.SessionsApi.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Api.SessionsApi"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Api.SessionsApi"/> class.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.SetBasePath(System.String)">
+        <member name="M:CellStore.Api.SessionsApi.SetBasePath(System.String)">
             <summary>
             Sets the base path of the API client.
             </summary>
             <param name="basePath">The base path</param>
             <value>The base path</value>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.GetBasePath">
+        <member name="M:CellStore.Api.SessionsApi.GetBasePath">
             <summary>
             Gets the base path of the API client.
             </summary>
             <value>The base path</value>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.Login(System.String,System.String)">
+        <member name="M:CellStore.Api.SessionsApi.Login(System.String,System.String)">
             <summary>
             Login with email and password in order to retrieve a token. 
             </summary>
@@ -2070,7 +2070,7 @@
             <param name="password">Password of user to login</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.LoginAsync(System.String,System.String)">
+        <member name="M:CellStore.Api.SessionsApi.LoginAsync(System.String,System.String)">
             <summary>
             Login with email and password in order to retrieve a token. 
             </summary>
@@ -2078,21 +2078,21 @@
             <param name="password">Password of user to login</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.Logout(System.String)">
+        <member name="M:CellStore.Api.SessionsApi.Logout(System.String)">
             <summary>
             Logout the user identified by the given API key. 
             </summary>
             <param name="token">API token of the current user</param> 
             <returns>Outcome</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.LogoutAsync(System.String)">
+        <member name="M:CellStore.Api.SessionsApi.LogoutAsync(System.String)">
             <summary>
             Logout the user identified by the given API key. 
             </summary>
             <param name="token">API token of the current user</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.Revoke(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.SessionsApi.Revoke(System.String,System.String,System.String)">
             <summary>
             Revoke a token having a custom expiration duration. 
             </summary>
@@ -2101,7 +2101,7 @@
             <param name="token">API token to revoke</param> 
             <returns>Outcome</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.RevokeAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.SessionsApi.RevokeAsync(System.String,System.String,System.String)">
             <summary>
             Revoke a token having a custom expiration duration. 
             </summary>
@@ -2110,7 +2110,7 @@
             <param name="token">API token to revoke</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.Token(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.SessionsApi.Token(System.String,System.String,System.String)">
             <summary>
             Create a token having a custom expiration duration. 
             </summary>
@@ -2119,7 +2119,7 @@
             <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.TokenAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.SessionsApi.TokenAsync(System.String,System.String,System.String)">
             <summary>
             Create a token having a custom expiration duration. 
             </summary>
@@ -2128,32 +2128,32 @@
             <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.Tokens(System.String)">
+        <member name="M:CellStore.Api.SessionsApi.Tokens(System.String)">
             <summary>
             List tokens of a user identified by its token. 
             </summary>
             <param name="token">A valid API token</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.SessionsApi.TokensAsync(System.String)">
+        <member name="M:CellStore.Api.SessionsApi.TokensAsync(System.String)">
             <summary>
             List tokens of a user identified by its token. 
             </summary>
             <param name="token">A valid API token</param>
             <returns>Object</returns>
         </member>
-        <member name="P:IO.Swagger.Api.SessionsApi.ApiClient">
+        <member name="P:CellStore.Api.SessionsApi.ApiClient">
             <summary>
             Gets or sets the API client.
             </summary>
             <value>An instance of the ApiClient</value>
         </member>
-        <member name="T:IO.Swagger.Api.IUsersApi">
+        <member name="T:CellStore.Api.IUsersApi">
             <summary>
             Represents a collection of functions to interact with the API endpoints
             </summary>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.EditUser(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.EditUser(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Change a user firstname and lastname, and, optionally, his email.
             </summary>
@@ -2168,7 +2168,7 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.EditUserAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.EditUserAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Change a user firstname and lastname, and, optionally, his email.
             </summary>
@@ -2183,7 +2183,7 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.ForgotPassword(System.String)">
+        <member name="M:CellStore.Api.IUsersApi.ForgotPassword(System.String)">
             <summary>
             Send an email with the reset password token.
             </summary>
@@ -2193,7 +2193,7 @@
             <param name="email">The user email</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.ForgotPasswordAsync(System.String)">
+        <member name="M:CellStore.Api.IUsersApi.ForgotPasswordAsync(System.String)">
             <summary>
             Send an email with the reset password token.
             </summary>
@@ -2203,7 +2203,7 @@
             <param name="email">The user email</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.GetUser(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.GetUser(System.String,System.String,System.String)">
             <summary>
             Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
             </summary>
@@ -2215,7 +2215,7 @@
             <param name="email">A user email address</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.GetUserAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.GetUserAsync(System.String,System.String,System.String)">
             <summary>
             Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
             </summary>
@@ -2227,7 +2227,7 @@
             <param name="email">A user email address</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.IsAuthorized(System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.IsAuthorized(System.String,System.String)">
             <summary>
             Checks to see if the current logged in user has a particular right
             </summary>
@@ -2238,7 +2238,7 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.IsAuthorizedAsync(System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.IsAuthorizedAsync(System.String,System.String)">
             <summary>
             Checks to see if the current logged in user has a particular right
             </summary>
@@ -2249,7 +2249,7 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.NewUser(System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.NewUser(System.String,System.String,System.String,System.String)">
             <summary>
             Create a new user record
             </summary>
@@ -2262,7 +2262,7 @@
             <param name="password">The new user password</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.NewUserAsync(System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.NewUserAsync(System.String,System.String,System.String,System.String)">
             <summary>
             Create a new user record
             </summary>
@@ -2275,7 +2275,7 @@
             <param name="password">The new user password</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.ResetPassword(System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.ResetPassword(System.String,System.String,System.String,System.String)">
             <summary>
             Change a user password
             </summary>
@@ -2288,7 +2288,7 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.ResetPasswordAsync(System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.ResetPasswordAsync(System.String,System.String,System.String,System.String)">
             <summary>
             Change a user password
             </summary>
@@ -2301,7 +2301,7 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.SetPassword(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.SetPassword(System.String,System.String,System.String)">
             <summary>
             Set the password for a user based on email and the reset password token
             </summary>
@@ -2313,7 +2313,7 @@
             <param name="resetToken">The reset password token</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.IUsersApi.SetPasswordAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.IUsersApi.SetPasswordAsync(System.String,System.String,System.String)">
             <summary>
             Set the password for a user based on email and the reset password token
             </summary>
@@ -2325,38 +2325,38 @@
             <param name="resetToken">The reset password token</param>
             <returns>Outcome</returns>
         </member>
-        <member name="T:IO.Swagger.Api.UsersApi">
+        <member name="T:CellStore.Api.UsersApi">
             <summary>
             Represents a collection of functions to interact with the API endpoints
             </summary>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.#ctor(IO.Swagger.Client.ApiClient)">
+        <member name="M:CellStore.Api.UsersApi.#ctor(CellStore.Client.ApiClient)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Api.UsersApi"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Api.UsersApi"/> class.
             </summary>
             <param name="apiClient"> an instance of ApiClient (optional)</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.#ctor(System.String)">
+        <member name="M:CellStore.Api.UsersApi.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Api.UsersApi"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Api.UsersApi"/> class.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.SetBasePath(System.String)">
+        <member name="M:CellStore.Api.UsersApi.SetBasePath(System.String)">
             <summary>
             Sets the base path of the API client.
             </summary>
             <param name="basePath">The base path</param>
             <value>The base path</value>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.GetBasePath">
+        <member name="M:CellStore.Api.UsersApi.GetBasePath">
             <summary>
             Gets the base path of the API client.
             </summary>
             <value>The base path</value>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.EditUser(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.EditUser(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Change a user firstname and lastname, and, optionally, his email. 
             </summary>
@@ -2368,7 +2368,7 @@
             <param name="token">The token of the current session</param> 
             <returns>Outcome</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.EditUserAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.EditUserAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Change a user firstname and lastname, and, optionally, his email. 
             </summary>
@@ -2380,21 +2380,21 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.ForgotPassword(System.String)">
+        <member name="M:CellStore.Api.UsersApi.ForgotPassword(System.String)">
             <summary>
             Send an email with the reset password token. 
             </summary>
             <param name="email">The user email</param> 
             <returns>Outcome</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.ForgotPasswordAsync(System.String)">
+        <member name="M:CellStore.Api.UsersApi.ForgotPasswordAsync(System.String)">
             <summary>
             Send an email with the reset password token. 
             </summary>
             <param name="email">The user email</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.GetUser(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.GetUser(System.String,System.String,System.String)">
             <summary>
             Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned. 
             </summary>
@@ -2403,7 +2403,7 @@
             <param name="email">A user email address</param> 
             <returns>Object</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.GetUserAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.GetUserAsync(System.String,System.String,System.String)">
             <summary>
             Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned. 
             </summary>
@@ -2412,7 +2412,7 @@
             <param name="email">A user email address</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.IsAuthorized(System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.IsAuthorized(System.String,System.String)">
             <summary>
             Checks to see if the current logged in user has a particular right 
             </summary>
@@ -2420,7 +2420,7 @@
             <param name="token">The token of the current session</param> 
             <returns>Outcome</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.IsAuthorizedAsync(System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.IsAuthorizedAsync(System.String,System.String)">
             <summary>
             Checks to see if the current logged in user has a particular right 
             </summary>
@@ -2428,7 +2428,7 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.NewUser(System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.NewUser(System.String,System.String,System.String,System.String)">
             <summary>
             Create a new user record 
             </summary>
@@ -2438,7 +2438,7 @@
             <param name="password">The new user password</param> 
             <returns>Outcome</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.NewUserAsync(System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.NewUserAsync(System.String,System.String,System.String,System.String)">
             <summary>
             Create a new user record 
             </summary>
@@ -2448,7 +2448,7 @@
             <param name="password">The new user password</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.ResetPassword(System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.ResetPassword(System.String,System.String,System.String,System.String)">
             <summary>
             Change a user password 
             </summary>
@@ -2458,7 +2458,7 @@
             <param name="token">The token of the current session</param> 
             <returns>Outcome</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.ResetPasswordAsync(System.String,System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.ResetPasswordAsync(System.String,System.String,System.String,System.String)">
             <summary>
             Change a user password 
             </summary>
@@ -2468,7 +2468,7 @@
             <param name="token">The token of the current session</param>
             <returns>Outcome</returns>
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.SetPassword(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.SetPassword(System.String,System.String,System.String)">
             <summary>
             Set the password for a user based on email and the reset password token 
             </summary>
@@ -2477,7 +2477,7 @@
             <param name="resetToken">The reset password token</param> 
             <returns>Outcome</returns>            
         </member>
-        <member name="M:IO.Swagger.Api.UsersApi.SetPasswordAsync(System.String,System.String,System.String)">
+        <member name="M:CellStore.Api.UsersApi.SetPasswordAsync(System.String,System.String,System.String)">
             <summary>
             Set the password for a user based on email and the reset password token 
             </summary>
@@ -2486,24 +2486,24 @@
             <param name="resetToken">The reset password token</param>
             <returns>Outcome</returns>
         </member>
-        <member name="P:IO.Swagger.Api.UsersApi.ApiClient">
+        <member name="P:CellStore.Api.UsersApi.ApiClient">
             <summary>
             Gets or sets the API client.
             </summary>
             <value>An instance of the ApiClient</value>
         </member>
-        <member name="T:IO.Swagger.Client.ApiClient">
+        <member name="T:CellStore.Client.ApiClient">
             <summary>
             API client is mainly responible for making the HTTP call to the API backend.
             </summary>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.#ctor(System.String)">
+        <member name="M:CellStore.Client.ApiClient.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Client.ApiClient"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Client.ApiClient"/> class.
             </summary>
             <param name="basePath">The base path.</param>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.CallApi(System.String,RestSharp.Method,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,RestSharp.FileParameter},System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
+        <member name="M:CellStore.Client.ApiClient.CallApi(System.String,RestSharp.Method,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,RestSharp.FileParameter},System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
             <summary>
             Makes the HTTP request (Sync).
             </summary>
@@ -2518,7 +2518,7 @@
             <param name="authSettings">Authentication settings.</param>
             <returns>Object</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.CallApiAsync(System.String,RestSharp.Method,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,RestSharp.FileParameter},System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
+        <member name="M:CellStore.Client.ApiClient.CallApiAsync(System.String,RestSharp.Method,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,RestSharp.FileParameter},System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
             <summary>
             Makes the asynchronous HTTP request.
             </summary>
@@ -2533,7 +2533,7 @@
             <param name="authSettings">Authentication settings.</param>
             <returns>The Task instance.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.AddDefaultHeader(System.String,System.String)">
+        <member name="M:CellStore.Client.ApiClient.AddDefaultHeader(System.String,System.String)">
             <summary>
             Add default header.
             </summary>
@@ -2541,14 +2541,14 @@
             <param name="value">Header field value.</param>
             <returns></returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.EscapeString(System.String)">
+        <member name="M:CellStore.Client.ApiClient.EscapeString(System.String)">
             <summary>
             Escape string (url-encoded).
             </summary>
             <param name="str">String to be escaped.</param>
             <returns>Escaped string.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.ParameterToFile(System.String,System.IO.Stream)">
+        <member name="M:CellStore.Client.ApiClient.ParameterToFile(System.String,System.IO.Stream)">
             <summary>
             Create FileParameter based on Stream.
             </summary>
@@ -2556,7 +2556,7 @@
             <param name="stream">Input stream.</param>
             <returns>FileParameter.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.ParameterToString(System.Object)">
+        <member name="M:CellStore.Client.ApiClient.ParameterToString(System.Object)">
             <summary>
             If parameter is DateTime, output in ISO8601 format.
             If parameter is a list, join the list with ",".
@@ -2565,7 +2565,7 @@
             <param name="obj">The parameter (header, path, query, form).</param>
             <returns>Formatted string.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.Deserialize(System.String,System.Type,System.Collections.Generic.IList{RestSharp.Parameter})">
+        <member name="M:CellStore.Client.ApiClient.Deserialize(System.String,System.Type,System.Collections.Generic.IList{RestSharp.Parameter})">
             <summary>
             Deserialize the JSON string into a proper object.
             </summary>
@@ -2574,21 +2574,21 @@
             <param name="headers"></param>
             <returns>Object representation of the JSON string.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.Serialize(System.Object)">
+        <member name="M:CellStore.Client.ApiClient.Serialize(System.Object)">
             <summary>
             Serialize an object into JSON string.
             </summary>
             <param name="obj">Object.</param>
             <returns>JSON string.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.GetApiKeyWithPrefix(System.String)">
+        <member name="M:CellStore.Client.ApiClient.GetApiKeyWithPrefix(System.String)">
             <summary>
             Get the API key with prefix.
             </summary>
             <param name="apiKeyIdentifier">API key identifier (authentication scheme).</param>
             <returns>API key with prefix.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.UpdateParamsForAuth(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
+        <member name="M:CellStore.Client.ApiClient.UpdateParamsForAuth(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
             <summary>
             Update parameters based on authentication.
             </summary>
@@ -2596,7 +2596,7 @@
             <param name="headerParams">Header parameters.</param>
             <param name="authSettings">Authentication settings.</param>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.SelectHeaderAccept(System.String[])">
+        <member name="M:CellStore.Client.ApiClient.SelectHeaderAccept(System.String[])">
             <summary>
             Select the Accept header's value from the given accepts array:
             if JSON exists in the given array, use it;
@@ -2605,14 +2605,14 @@
             <param name="accepts">The accepts array to select from.</param>
             <returns>The Accept header to use.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.Base64Encode(System.String)">
+        <member name="M:CellStore.Client.ApiClient.Base64Encode(System.String)">
             <summary>
             Encode string in base64 format.
             </summary>
             <param name="text">String to be encoded.</param>
             <returns>Encoded string.</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.ConvertType(System.Object,System.Type)">
+        <member name="M:CellStore.Client.ApiClient.ConvertType(System.Object,System.Type)">
             <summary>
             Dynamically cast the object into target type.
             Ref: http://stackoverflow.com/questions/4925718/c-dynamic-runtime-cast
@@ -2621,7 +2621,7 @@
             <param name="dest">Target type</param>
             <returns>Casted object</returns>
         </member>
-        <member name="M:IO.Swagger.Client.ApiClient.AddPatternQueryParameters``1(System.Collections.Generic.Dictionary{System.String,``0},System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+        <member name="M:CellStore.Client.ApiClient.AddPatternQueryParameters``1(System.Collections.Generic.Dictionary{System.String,``0},System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
             Adds pattern-based parameters (after name validation) to a dictionary query parameters.
             </summary>
@@ -2629,146 +2629,146 @@
             <param name="pattern">Pattern</param>
             <param name="queryParams">Query parameters</param>        
         </member>
-        <member name="P:IO.Swagger.Client.ApiClient.BasePath">
+        <member name="P:CellStore.Client.ApiClient.BasePath">
             <summary>
             Gets or sets the base path.
             </summary>
             <value>The base path</value>
         </member>
-        <member name="P:IO.Swagger.Client.ApiClient.RestClient">
+        <member name="P:CellStore.Client.ApiClient.RestClient">
             <summary>
             Gets or sets the RestClient.
             </summary>
             <value>An instance of the RestClient</value>
         </member>
-        <member name="P:IO.Swagger.Client.ApiClient.DefaultHeader">
+        <member name="P:CellStore.Client.ApiClient.DefaultHeader">
             <summary>
             Gets the default header.
             </summary>
         </member>
-        <member name="P:IO.Swagger.Client.ApiClient.StatusCode">
+        <member name="P:CellStore.Client.ApiClient.StatusCode">
             <summary>
             Gets the status code of the previous request
             </summary>
         </member>
-        <member name="P:IO.Swagger.Client.ApiClient.ResponseHeaders">
+        <member name="P:CellStore.Client.ApiClient.ResponseHeaders">
             <summary>
             Gets the response headers of the previous request
             </summary>
         </member>
-        <member name="T:IO.Swagger.Client.ApiException">
+        <member name="T:CellStore.Client.ApiException">
             <summary>
             API Exception
             </summary>
         </member>
-        <member name="M:IO.Swagger.Client.ApiException.#ctor">
+        <member name="M:CellStore.Client.ApiException.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Client.ApiException"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Client.ApiException"/> class.
             </summary>
         </member>
-        <member name="M:IO.Swagger.Client.ApiException.#ctor(System.Int32,System.String)">
+        <member name="M:CellStore.Client.ApiException.#ctor(System.Int32,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Client.ApiException"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Client.ApiException"/> class.
             </summary>
             <param name="errorCode">HTTP status code.</param>
             <param name="message">Error message.</param>
         </member>
-        <member name="M:IO.Swagger.Client.ApiException.#ctor(System.Int32,System.String,System.Object)">
+        <member name="M:CellStore.Client.ApiException.#ctor(System.Int32,System.String,System.Object)">
             <summary>
-            Initializes a new instance of the <see cref="T:IO.Swagger.Client.ApiException"/> class.
+            Initializes a new instance of the <see cref="T:CellStore.Client.ApiException"/> class.
             </summary>
             <param name="errorCode">HTTP status code.</param>
             <param name="message">Error message.</param>
             <param name="errorContent">Error content.</param>
         </member>
-        <member name="P:IO.Swagger.Client.ApiException.ErrorCode">
+        <member name="P:CellStore.Client.ApiException.ErrorCode">
             <summary>
             Gets or sets the error code (HTTP status code)
             </summary>
             <value>The error code (HTTP status code).</value>
         </member>
-        <member name="P:IO.Swagger.Client.ApiException.ErrorContent">
+        <member name="P:CellStore.Client.ApiException.ErrorContent">
             <summary>
             Gets or sets the error content (body json object)
             </summary>
             <value>The error content (Http response body).</value>
         </member>
-        <member name="T:IO.Swagger.Client.Configuration">
+        <member name="T:CellStore.Client.Configuration">
             <summary>
             Represents a set of configuration settings
             </summary>
         </member>
-        <member name="F:IO.Swagger.Client.Configuration.Version">
+        <member name="F:CellStore.Client.Configuration.Version">
             <summary>
             Version of the package.
             </summary>
             <value>Version of the package.</value>
         </member>
-        <member name="F:IO.Swagger.Client.Configuration.DefaultApiClient">
+        <member name="F:CellStore.Client.Configuration.DefaultApiClient">
             <summary>
             Gets or sets the default API client for making HTTP calls.
             </summary>
             <value>The API client.</value>
         </member>
-        <member name="F:IO.Swagger.Client.Configuration.ApiKey">
+        <member name="F:CellStore.Client.Configuration.ApiKey">
             <summary>
             Gets or sets the API key based on the authentication name.
             </summary>
             <value>The API key.</value>
         </member>
-        <member name="F:IO.Swagger.Client.Configuration.ApiKeyPrefix">
+        <member name="F:CellStore.Client.Configuration.ApiKeyPrefix">
             <summary>
             Gets or sets the prefix (e.g. Token) of the API key based on the authentication name.
             </summary>
             <value>The prefix of the API key.</value>
         </member>
-        <member name="M:IO.Swagger.Client.Configuration.ToDebugReport">
+        <member name="M:CellStore.Client.Configuration.ToDebugReport">
             <summary>
             Returns a string with essential information for debugging.
             </summary>
         </member>
-        <member name="P:IO.Swagger.Client.Configuration.Username">
+        <member name="P:CellStore.Client.Configuration.Username">
             <summary>
             Gets or sets the username (HTTP basic authentication).
             </summary>
             <value>The username.</value>
         </member>
-        <member name="P:IO.Swagger.Client.Configuration.Password">
+        <member name="P:CellStore.Client.Configuration.Password">
             <summary>
             Gets or sets the password (HTTP basic authentication).
             </summary>
             <value>The password.</value>
         </member>
-        <member name="P:IO.Swagger.Client.Configuration.TempFolderPath">
+        <member name="P:CellStore.Client.Configuration.TempFolderPath">
             <summary>
             Gets or sets the temporary folder path to store the files downloaded from the server.
             </summary>
             <value>Folder path.</value>
         </member>
-        <member name="T:IO.Swagger.Model.Outcome">
+        <member name="T:CellStore.Model.Outcome">
             <summary>
             Information about an operation outcome
             </summary>
         </member>
-        <member name="M:IO.Swagger.Model.Outcome.ToString">
+        <member name="M:CellStore.Model.Outcome.ToString">
             <summary>
             Get the string presentation of the object
             </summary>
             <returns>String presentation of the object</returns>
         </member>
-        <member name="M:IO.Swagger.Model.Outcome.ToJson">
+        <member name="M:CellStore.Model.Outcome.ToJson">
             <summary>
             Get the JSON string presentation of the object
             </summary>
             <returns>JSON string presentation of the object</returns>
         </member>
-        <member name="P:IO.Swagger.Model.Outcome.Success">
+        <member name="P:CellStore.Model.Outcome.Success">
             <summary>
             Whether the requests succeeded or failed.
             </summary>
             <value>Whether the requests succeeded or failed.</value>
         </member>
-        <member name="P:IO.Swagger.Model.Outcome.Description">
+        <member name="P:CellStore.Model.Outcome.Description">
             <summary>
             A description of the error, if any.
             </summary>
