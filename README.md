@@ -16,18 +16,14 @@ nuget setApiKey API-Key
 
 1. Increase Version in CellStore.dll.nuspec
 2. Compile: 
-
 ```
 compile.bat
 ```
 3. Pack:
-
 ```
 nuget pack CellStore.dll.nuspec
 ```
-
 4. Publish:
-
 ```
 nuget push CellStore.NET.0.0.1.nupkg
 ```
