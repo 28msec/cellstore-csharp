@@ -18,8 +18,7 @@ namespace AddFacts
 
             // login .. Alternative step to create a token dynamically
             //object loginResponse = sessionsAPI.Login("example@email.com", "password");
-            //dynamic login = JsonConvert.DeserializeObject((String)loginResponse);
-            //String token = login.token;
+            //String token = loginResponse.token;
             //Console.WriteLine(login.token);
             String token = "c3049752-4d35-43da-82a2-f89f1b06f7a4";
             
