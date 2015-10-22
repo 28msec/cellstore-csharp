@@ -2,10 +2,10 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using RestSharp;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using CellStore.Client;
+using CellStore.Model;
 
-namespace IO.Swagger.Api
+namespace CellStore.Api
 {
     
     /// <summary>

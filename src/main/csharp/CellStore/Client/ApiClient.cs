@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Extensions;
 
-namespace IO.Swagger.Client
+namespace CellStore.Client
 {
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
@@ -207,6 +207,10 @@ namespace IO.Swagger.Client
                 }
                 return flattenString.Remove(flattenString.Length - 1);;
             }
+            else if (obj is bool)
+                return ((bool)obj) ? "true" : "false";
+            else if (obj is Boolean)
+                return ((Boolean)obj) ? "true" : "false";
             else
                 return Convert.ToString (obj);
         }
@@ -220,9 +224,9 @@ namespace IO.Swagger.Client
         /// <returns>Object representation of the JSON string.</returns>
         public object Deserialize(string content, Type type, IList<Parameter> headers=null)
         {
-            if (type == typeof(Object)) // return an object
+            if (type == typeof(Object)) // return a JSON object
             {
-                return content;
+                return JsonConvert.DeserializeObject(content);
             }
 
             if (type == typeof(Stream))
@@ -370,7 +374,7 @@ namespace IO.Swagger.Client
             Regex regex = new Regex(pattern);
             foreach (KeyValuePair<String, T> entry in parameters)
             {
-                if (!regex.IsMatch(entry.Key))
+                if (regex.IsMatch(entry.Key))
                 {
                     queryParams.Add(entry.Key, ParameterToString(entry.Value));
                 }

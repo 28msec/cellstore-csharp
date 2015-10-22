@@ -1,6 +1,6 @@
 using System;
 
-namespace IO.Swagger.Client {
+namespace CellStore.Client {
   /// <summary>
   /// API Exception
   /// </summary>
