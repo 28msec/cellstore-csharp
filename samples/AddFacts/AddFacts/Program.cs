@@ -12,9 +12,9 @@ namespace AddFacts
         static void Main(string[] args)
         {
             String endpoint = "http://secxbrl.28.io/v1/_queries/public";
-            IO.Swagger.Client.ApiClient client = new IO.Swagger.Client.ApiClient(endpoint);
-            IO.Swagger.Api.DataApi dataAPI = new IO.Swagger.Api.DataApi(client);
-            IO.Swagger.Api.SessionsApi sessionsAPI = new IO.Swagger.Api.SessionsApi(client);
+            CellStore.Client.ApiClient client = new CellStore.Client.ApiClient(endpoint);
+            CellStore.Api.DataApi dataAPI = new CellStore.Api.DataApi(client);
+            CellStore.Api.SessionsApi sessionsAPI = new CellStore.Api.SessionsApi(client);
 
             // login .. Alternative step to create a token dynamically
             //object loginResponse = sessionsAPI.Login("example@email.com", "password");
