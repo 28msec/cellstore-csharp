@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 4.1.0
+dependencies:
+  pre:
+    - sudo apt-get install mono-devel
+test:
+  override:
+    - gulp
