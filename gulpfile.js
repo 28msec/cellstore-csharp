@@ -46,8 +46,8 @@ gulp.task('swagger:pack', function(done){
         copyright: 'Copyright 2015 28msec',
         tags: 'CellStore JSONiq',
         dependencies: [
-            { id: 'RestSharp', version: '(105.2.2, )' },
-            { id: 'Newtonsoft.Json', version: '(7.0.1, )' }
+            { id: 'RestSharp', version: '(105.0.0, )' },
+            { id: 'Newtonsoft.Json', version: '(7.0.0, )' }
         ]
     }, [
         { src: 'build/bin/CellStore.dll', dest: 'lib/CellStore.dll' },
