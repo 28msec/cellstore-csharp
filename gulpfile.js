@@ -31,30 +31,26 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 ]));
 
 gulp.task('swagger:pack', function(done){
-    if(isOnTravisAndMaster) {
-        $.nugetPack({
-            id: 'CellStore.NET',
-            version: '0.0.2',
-            authors: '28msec',
-            owners: 'dknochen',
-            licenseUrl: 'https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE',
-            projectUrl: 'https://github.com/28msec/cellstore-csharp',
-            iconUrl: 'http://www.28.io/images/favicon/32x32.png',
-            requireLicenseAcceptance: false,
-            description: 'A CSharp Library for interfacing with the 28msec\'s Cell Store API',
-            copyright: 'Copyright 2015 28msec',
-            tags: 'CellStore JSONiq',
-            dependencies: [
-                { id: 'RestSharp', version: '(105.2.3, )' },
-                { id: 'Newtonsoft.Json', version: '(7.0.1, )' }
-            ]
-        }, [
-            { src: 'build/bin/CellStore.dll', dest: 'lib/CellStore.dll' },
-            { src: 'build/bin/CellStore.xml', dest: 'doc/CellStore.xml' }
-        ], done);
-    } else {
-        done();
-    }
+    $.nugetPack({
+        id: 'CellStore.NET',
+        version: '0.0.2',
+        authors: '28msec',
+        owners: 'dknochen',
+        licenseUrl: 'https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE',
+        projectUrl: 'https://github.com/28msec/cellstore-csharp',
+        iconUrl: 'http://www.28.io/images/favicon/32x32.png',
+        requireLicenseAcceptance: false,
+        description: 'A CSharp Library for interfacing with the 28msec\'s Cell Store API',
+        copyright: 'Copyright 2015 28msec',
+        tags: 'CellStore JSONiq',
+        dependencies: [
+            { id: 'RestSharp', version: '(105.2.3, )' },
+            { id: 'Newtonsoft.Json', version: '(7.0.1, )' }
+        ]
+    }, [
+        { src: 'build/bin/CellStore.dll', dest: 'lib/CellStore.dll' },
+        { src: 'build/bin/CellStore.xml', dest: 'doc/CellStore.xml' }
+    ], done);
 });
 
 gulp.task('swagger:push', $.shell.task([
@@ -64,7 +60,11 @@ gulp.task('swagger:push', $.shell.task([
 ]));
 
 gulp.task('swagger', function(done){
-    $.runSequence('swagger:csharp', 'swagger:pack', 'swagger:push', done);
+    if(isOnTravisAndMaster) {
+        $.runSequence('swagger:csharp', 'swagger:pack', 'swagger:push', done);
+    } else {
+        $.runSequence('swagger:csharp', done);
+    }
 });
 
 gulp.task('default', ['swagger']);
