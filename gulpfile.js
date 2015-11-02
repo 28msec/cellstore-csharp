@@ -33,7 +33,7 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 gulp.task('swagger:pack', function(done){
     $.nugetPack({
         id: 'CellStore.NET',
-        version: '0.0.2',
+        version: '0.0.3',
         authors: '28msec',
         owners: 'dknochen',
         licenseUrl: 'https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE',
