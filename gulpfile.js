@@ -32,7 +32,7 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 
 gulp.task('swagger:publish', ['swagger:csharp'], function(done){
     if(true || isOnTravisAndMaster) {
-        $.nugetpack({
+        $.nugetPack({
             id: 'CellStore.NET',
             version: '0.0.2',
             authors: '28msec',
