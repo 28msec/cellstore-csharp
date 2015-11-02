@@ -8,7 +8,7 @@ var request = require('request');
 var isOnTravis = process.env.CIRCLECI === 'true';
 var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && process.env.CIRCLE_BRANCH === 'master';
 
-var version = '0.0.3';
+var version = '0.0.4';
 
 gulp.task('swagger:clean', $.shell.task([
    'rm -rf build',
@@ -46,8 +46,8 @@ gulp.task('swagger:pack', function(done){
         copyright: 'Copyright 2015 28msec',
         tags: 'CellStore JSONiq',
         dependencies: [
-            { id: 'RestSharp', version: '(105.2.3, )' },
-            { id: 'Newtonsoft.Json', version: '(7.0.1, )' }
+            { id: 'RestSharp', version: '(105.0.0, )' },
+            { id: 'Newtonsoft.Json', version: '(7.0.0, )' }
         ]
     }, [
         { src: 'build/bin/CellStore.dll', dest: 'lib/CellStore.dll' },
