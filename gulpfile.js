@@ -31,7 +31,7 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 ]));
 
 gulp.task('swagger:pack', function(done){
-    if(true || isOnTravisAndMaster) {
+    if(isOnTravisAndMaster) {
         $.nugetPack({
             id: 'CellStore.NET',
             version: '0.0.2',
@@ -66,6 +66,5 @@ gulp.task('swagger:push', $.shell.task([
 gulp.task('swagger', function(done){
     $.runSequence('swagger:csharp', 'swagger:pack', 'swagger:push', done);
 });
-//wget https://nuget.org/nuget.exe
 
 gulp.task('default', ['swagger']);
