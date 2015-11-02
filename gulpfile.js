@@ -59,7 +59,7 @@ gulp.task('swagger:pack', function(done){
 
 gulp.task('swagger:push', $.shell.task([
     'wget https://nuget.org/nuget.exe',
-    'mono nuget.exe setApiKey ' + process.env.NUGET_API_KEY,
+    'mono nuget.exe setApiKey ' + process.env.NUGET_API_KEY + ' &> /dev/null',
     'mono nuget.exe push CellStore.NET.0.0.2.nupkg'
 ]));
 

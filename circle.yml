@@ -4,6 +4,7 @@ machine:
 dependencies:
   pre:
     - sudo apt-get install mono-devel
+    - sudo mozroots --import --machine --sync
 test:
   override:
     - gulp
