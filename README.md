@@ -1,20 +1,13 @@
-## Release C# Library
+## C# CellStore Client Library
+[![Circle CI](https://circleci.com/gh/28msec/cellstore-csharp.svg?style=svg)](https://circleci.com/gh/28msec/cellstore-csharp)
 
 The CellStore.NET library is published at [Nuget.or] (https://www.nuget.org/packages/CellStore.NET/). 
-This Readme describes how to build a release.
 
-### Dependencies
+## Development
+Prerequisite: [NPM](Prerequisites: NPM)
 
-- [NuGet] (https://nuget.org/nuget.exe): Make sure its in the PATH
-- For being able to publish:
-
+```bash
+$ npm install gulp -g
+$ npm install
+$ gulp
 ```
-nuget setApiKey API-Key
-```
-
-### Prepare Release
-
-1. Increase Version in CellStore.dll.nuspec
-2. Compile with `compile.bat`
-3. Pack with `nuget pack CellStore.dll.nuspec`
-4. Publish with `nuget push CellStore.NET.0.0.1.nupkg`

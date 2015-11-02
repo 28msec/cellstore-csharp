@@ -1,0 +1,31 @@
+{
+  "name": "cellstore-csharp",
+  "version": "0.0.1",
+  "description": "C# Bindings for the CellStore",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/28msec/cellstore-csharp.git"
+  },
+  "keywords": [
+    "jsoniq",
+    "cellstore"
+  ],
+  "author": "28msec",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/28msec/cellstore-csharp/issues"
+  },
+  "homepage": "https://github.com/28msec/cellstore-csharp#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-load-plugins": "^1.0.0",
+    "gulp-nuget-pack": "0.0.6",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-shell": "^0.5.1",
+    "request": "^2.65.0"
+  }
+}
