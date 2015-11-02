@@ -8,7 +8,7 @@ var request = require('request');
 var isOnTravis = process.env.CIRCLECI === 'true';
 var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && process.env.CIRCLE_BRANCH === 'master';
 
-var version = '0.0.3';
+var version = '0.0.4';
 
 gulp.task('swagger:clean', $.shell.task([
    'rm -rf build',
