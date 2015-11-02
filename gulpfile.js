@@ -4,7 +4,6 @@ var fs = require('fs');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var request = require('request');
-var nugetpack = require('gulp-nuget-pack');
 
 var isOnTravis = process.env.CIRCLECI === 'true';
 var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && process.env.CIRCLE_BRANCH === 'master';
@@ -33,7 +32,7 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 
 gulp.task('swagger:publish', ['swagger:csharp'], function(done){
     if(true || isOnTravisAndMaster) {
-        nugetpack({
+        $.nugetPack({
             id: 'CellStore.NET',
             version: '0.0.2',
             authors: '28msec',
@@ -46,7 +45,7 @@ gulp.task('swagger:publish', ['swagger:csharp'], function(done){
             copyright: 'Copyright 2015 28msec',
             tags: 'CellStore JSONiq',
             dependencies: [
-                { id: 'RestSharp', version: '105.2.3' },
+                { id: 'RestSharp', version: '103.0.0' },
                 { id: 'Newtonsoft.Json', version: '7.0.1' }
             ]
         }, [
