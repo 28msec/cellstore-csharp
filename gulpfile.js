@@ -8,6 +8,8 @@ var request = require('request');
 var isOnTravis = process.env.CIRCLECI === 'true';
 var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && process.env.CIRCLE_BRANCH === 'master';
 
+var version = '0.0.3';
+
 gulp.task('swagger:clean', $.shell.task([
    'rm -rf build',
    'mkdir build'
@@ -33,7 +35,7 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 gulp.task('swagger:pack', function(done){
     $.nugetPack({
         id: 'CellStore.NET',
-        version: '0.0.3',
+        version: version,
         authors: '28msec',
         owners: 'dknochen',
         licenseUrl: 'https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE',
@@ -56,7 +58,7 @@ gulp.task('swagger:pack', function(done){
 gulp.task('swagger:push', $.shell.task([
     'wget https://nuget.org/nuget.exe',
     'mono nuget.exe setApiKey ' + process.env.NUGET_API_KEY + ' &> /dev/null',
-    'mono nuget.exe push CellStore.NET.0.0.2.nupkg'
+    'mono nuget.exe push CellStore.NET.' + version + '.nupkg'
 ]));
 
 gulp.task('swagger', function(done){
