@@ -23,6 +23,7 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-load-plugins": "^1.0.0",
+    "gulp-nuget-pack": "0.0.6",
     "gulp-shell": "^0.5.1",
     "request": "^2.65.0"
   }
