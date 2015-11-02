@@ -30,7 +30,7 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
     'cd build && mcs -sdk:4.5 -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/out-x86x64.dll -recurse:src/*.cs -doc:bin/out-x86x64.xml -platform:anycpu'
 ]));
 
-gulp.task('swagger:publish', function(done){
+gulp.task('swagger:pack', function(done){
     if(true || isOnTravisAndMaster) {
         $.nugetPack({
             id: 'CellStore.NET',
@@ -57,8 +57,15 @@ gulp.task('swagger:publish', function(done){
     }
 });
 
+gulp.task('swagger:push', $.shell.task([
+    'wget https://nuget.org/nuget.exe',
+    'mono nuget.exe setApiKey ' + process.env.NUGET_API_KEY,
+    'mono nuget.exe push CellStore.NET.0.0.2.nupkg'
+]));
+
 gulp.task('swagger', function(done){
-    $.runSequence('swagger:csharp', 'swagger:publish', done);
+    $.runSequence('swagger:csharp', 'swagger:pack', 'swagger:push', done);
 });
+//wget https://nuget.org/nuget.exe
 
 gulp.task('default', ['swagger']);
