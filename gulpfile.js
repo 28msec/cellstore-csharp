@@ -37,6 +37,7 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 ]));
 
 gulp.task('swagger:pack', $.shell.task([
+    'cp CellStore.dll.nuspec build',
     'cd build && wget https://nuget.org/nuget.exe',
     'cd build && mono nuget.exe pack CellStore.dll.nuspec'
 ]));
