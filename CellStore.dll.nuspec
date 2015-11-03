@@ -20,7 +20,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin/out-x86x64.dll" target="lib/CellStore.dll" />
-    <file src="bin/out-x86x64.xml" target="doc/CellStore.xml" />
+    <file src="bin/CellStore.dll" target="lib/CellStore.dll" />
+    <file src="bin/CellStore.xml" target="doc/CellStore.xml" />
   </files>
 </package>
