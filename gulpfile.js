@@ -4,9 +4,15 @@ var fs = require('fs');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var request = require('request');
+var parseString = require('xml2js').parseString;
 
 var isOnTravis = process.env.CIRCLECI === 'true';
 var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && process.env.CIRCLE_BRANCH === 'master';
+var version;
+
+parseString(fs.readFileSync('CellStore.dll.nuspec', 'utf-8'), { async: false }, function (err, result) {
+    version = result.package.metadata[0].version[0];
+});
 
 gulp.task('swagger:clean', $.shell.task([
    'rm -rf build',
@@ -36,7 +42,7 @@ gulp.task('swagger:pack', $.shell.task([
 ]));
 
 gulp.task('swagger:push', $.shell.task([
-    'mono nuget.exe setApiKey ' + process.env.NUGET_API_KEY + ' &> /dev/null',
+    'mono nuget.exe setApiKey ' + process.env.NUGET_API_KEY + ' | cat &> /dev/null',
     'mono nuget.exe push CellStore.NET.' + version + '.nupkg'
 ]));
 
