@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>CellStore.NET</id>
+    <version>0.0.11</version>
+    <authors>28msec</authors>
+    <owners>dknochen</owners>
+    <licenseUrl>https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/28msec/cellstore-csharp</projectUrl>
+    <iconUrl>http://www.28.io/images/favicon/32x32.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A CSharp Library for interfacing with the 28msec's Cell Store API</description>
+    <copyright>Copyright 2015 28msec</copyright>
+    <tags>CellStore RestAPI C#-Library</tags>
+    <dependencies>
+      <group>
+        <dependency id="RestSharp" version="105.2.3" />
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin/CellStore.dll" target="lib/CellStore.dll" />
+    <file src="bin/CellStore.xml" target="doc/CellStore.xml" />
+  </files>
+</package>
