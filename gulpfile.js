@@ -37,12 +37,12 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 ]));
 
 gulp.task('swagger:pack', $.shell.task([
-    'wget https://nuget.org/nuget.exe',
+    'cd build && wget https://nuget.org/nuget.exe',
     'cd build && mono nuget.exe pack CellStore.dll.nuspec'
 ]));
 
 gulp.task('swagger:push', $.shell.task([
-    'mono nuget.exe setApiKey ' + process.env.NUGET_API_KEY + ' | cat &> /dev/null',
+    'cd build && mono nuget.exe setApiKey ' + process.env.NUGET_API_KEY + ' | cat &> /dev/null',
     'cd build && mono nuget.exe push CellStore.NET.' + version + '.nupkg'
 ]));
 
