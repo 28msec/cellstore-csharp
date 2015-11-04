@@ -38,7 +38,7 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 ]));
 
 gulp.task('swagger:test', $.shell.task([
-    'mcs samples/GetFacts/GetFacts/Program.cs',
+    'mcs -sdk:4.5 -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll samples/GetFacts/GetFacts/Program.cs',
     'mono samples/GetFacts/GetFacts/Program.exe'
 ]));
 
