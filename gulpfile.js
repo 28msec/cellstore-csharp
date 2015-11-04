@@ -37,6 +37,11 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
     'cd build && mcs -sdk:4.5 -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu'
 ]));
 
+gulp.task('swagger:test', $.shell.task([
+    'mcs samples/GetFacts/GetFacts/Program.cs',
+    'mono samples/GetFacts/GetFacts/Program.exe'
+]));
+
 gulp.task('swagger:pack', $.shell.task([
     'cp CellStore.dll.nuspec build',
     'cd build && wget https://nuget.org/nuget.exe',
@@ -50,9 +55,9 @@ gulp.task('swagger:push', $.shell.task([
 
 gulp.task('swagger', function(done){
     if(isOnTravisAndMaster) {
-        $.runSequence('swagger:csharp', 'swagger:pack', 'swagger:push', done);
+        $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:push', done);
     } else {
-        $.runSequence('swagger:csharp', done);
+        $.runSequence('swagger:csharp', 'swagger:test', done);
     }
 });
 
