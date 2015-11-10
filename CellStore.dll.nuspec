@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>CellStore.NET</id>
-    <version>0.0.12</version>
+    <version>0.0.13</version>
     <authors>28msec</authors>
     <owners>dknochen</owners>
     <licenseUrl>https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE</licenseUrl>
@@ -14,7 +14,7 @@
     <tags>CellStore RestAPI C#-Library</tags>
     <dependencies>
       <group>
-        <dependency id="RestSharp" version="105.2.3" />
+        <dependency id="RestSharp" version="105.1.0" />
         <dependency id="Newtonsoft.Json" version="7.0.1" />
       </group>
     </dependencies>

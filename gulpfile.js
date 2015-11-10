@@ -35,8 +35,7 @@ gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
 ]));
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
-    'cd build && mcs -sdk:4.5 -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu',
-    'cd build && if [ "' + artifactsDir + '" != "" ] ; then cp -R * ' + artifactsDir + ' ; fi'
+    'cd build && mcs -sdk:4.5 -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu'
 ]));
 
 gulp.task('swagger:test', $.shell.task([
@@ -56,12 +55,18 @@ gulp.task('swagger:push', $.shell.task([
     'cd build && mono nuget.exe push CellStore.NET.' + version + '.nupkg'
 ]));
 
+gulp.task('swagger:copy', $.shell.task([
+    'cd build && if [ "' + artifactsDir + '" != "" ] ; then cp -R * ' + artifactsDir + ' ; fi'
+]));
+
 gulp.task('swagger', function(done){
-    if(isOnTravisAndMaster) {
-        $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:push', done);
-    } else {
-        $.runSequence('swagger:csharp', 'swagger:test', done);
-    }
+    $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', function(){
+        if(isOnTravisAndMaster) {
+            $.runSequence('swagger:push', done);
+        } else {
+            done();
+        }
+    });
 });
 
 gulp.task('default', ['swagger']);
