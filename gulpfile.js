@@ -47,8 +47,7 @@ gulp.task('swagger:test', $.shell.task([
 gulp.task('swagger:pack', $.shell.task([
     'cp CellStore.dll.nuspec build',
     'cd build && wget https://nuget.org/nuget.exe',
-    'cd build && mono nuget.exe pack CellStore.dll.nuspec',
-    'cd build && if [ "' + artifactsDir + '" != "" ] ; then cp -R * ' + artifactsDir + ' ; fi'
+    'cd build && mono nuget.exe pack CellStore.dll.nuspec'
 ]));
 
 gulp.task('swagger:push', $.shell.task([
@@ -56,12 +55,18 @@ gulp.task('swagger:push', $.shell.task([
     'cd build && mono nuget.exe push CellStore.NET.' + version + '.nupkg'
 ]));
 
+gulp.task('swagger:copy', $.shell.task([
+    'cd build && if [ "' + artifactsDir + '" != "" ] ; then cp -R * ' + artifactsDir + ' ; fi'
+]));
+
 gulp.task('swagger', function(done){
-    if(isOnTravisAndMaster) {
-        $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:push', done);
-    } else {
-        $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', done);
-    }
+    $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', function(){
+        if(isOnTravisAndMaster) {
+            $.runSequence('swagger:push', done);
+        } else {
+            done();
+        }
+    });
 });
 
 gulp.task('default', ['swagger']);
