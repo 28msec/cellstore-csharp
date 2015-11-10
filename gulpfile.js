@@ -27,7 +27,7 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
     });
 });
 
-gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task('cd build && curl -L -o swagger-codegen.zip https://github.com/28msec/swagger-codegen/archive/2149dc04d52811cbf89ac72ab17a57be6a6150ac.zip && unzip -q swagger-codegen.zip && cd swagger-codegen-2149dc04d52811cbf89ac72ab17a57be6a6150ac && mvn package && cp modules/swagger-codegen-cli/target/swagger-codegen-cli.jar ..'));
+gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task('cd build && wget https://github.com/28msec/swagger-codegen/releases/download/v2.1.7/swagger-codegen-cli.jar'));
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
     'cp codegen-options.json build',
