@@ -7,6 +7,7 @@ var request = require('request');
 var parseString = require('xml2js').parseString;
 
 var isOnTravis = process.env.CIRCLECI === 'true';
+var artifactsDir = process.env.CIRCLE_ARTIFACTS;
 var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && process.env.CIRCLE_BRANCH === 'master';
 var version;
 
@@ -34,7 +35,8 @@ gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
 ]));
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
-    'cd build && mcs -sdk:4.5 -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu'
+    'cd build && mcs -sdk:4.5 -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu',
+    'cd build && if [ "' + artifactsDir + '" != "" ] ; then cp -R * ' + artifactsDir + ' ; fi'
 ]));
 
 gulp.task('swagger:test', $.shell.task([
