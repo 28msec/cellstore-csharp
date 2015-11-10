@@ -60,7 +60,7 @@ gulp.task('swagger', function(done){
     if(isOnTravisAndMaster) {
         $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:push', done);
     } else {
-        $.runSequence('swagger:csharp', 'swagger:test', done);
+        $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', done);
     }
 });
 
