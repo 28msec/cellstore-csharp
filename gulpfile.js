@@ -5,7 +5,6 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var request = require('request');
 var parseString = require('xml2js').parseString;
-var _ = require('lodash');
 
 var isOnTravis = process.env.CIRCLECI === 'true';
 var artifactsDir = process.env.CIRCLE_ARTIFACTS;

@@ -26,7 +26,6 @@
     "gulp-run-sequence": "^0.3.2",
     "gulp-shell": "^0.5.1",
     "request": "^2.65.0",
-    "xml2js": "^0.4.15",
-    "lodash": "3.10.1"
+    "xml2js": "^0.4.15"
   }
 }
