@@ -59,7 +59,8 @@ gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
 ]));
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
-    'cd build && ' + pathFix(compileCmd + ' -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu')
+    'cd build && ' + pathFix(compileCmd + ' -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu'),
+    'cp lib/CellStore.csproj build'
 ]));
 
 gulp.task('swagger:test', $.shell.task([
