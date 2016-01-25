@@ -81,7 +81,7 @@ gulp.task('swagger:push', $.shell.task([
 ]));
 
 gulp.task('swagger:copy', $.shell.task([
-    'cd build && if [ "' + artifactsDir + '" != "" ] ; then cp -R * ' + artifactsDir + ' ; fi'
+    artifactsDir ? 'cd build && cp -R * ' + artifactsDir : 'echo "CIRCLE_ARTIFACTS not set"'
 ]));
 
 gulp.task('swagger', function(done){
