@@ -34,7 +34,7 @@ namespace GetFacts
                 i++;
             }
 
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }
