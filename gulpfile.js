@@ -21,14 +21,6 @@ parseString(fs.readFileSync('CellStore.dll.nuspec', 'utf-8'), { async: false }, 
     version = result.package.metadata[0].version[0];
 });
 
-var downloadCmd = function(url, output){
-    if(isWindows){
-        return 'curl -L -o "' + output + '" ' + url;
-    } else {
-        return 'wget -O "' + output + '" ' + url;
-    }
-};
-
 var pathFix = function(str){
     if(isWindows){
         return str.replace(new RegExp('/', 'g'), '\\');
@@ -50,8 +42,8 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
 });
 
 gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
-    'cd build && ' + downloadCmd('https://github.com/28msec/swagger-codegen/releases/download/v2.1.7/swagger-codegen-cli.jar', 'swagger-codegen-cli.jar'))
-);
+    'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.1.7/swagger-codegen-cli.jar'
+));
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
     'cp codegen-options.json build',
