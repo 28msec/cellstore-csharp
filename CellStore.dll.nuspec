@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>CellStore.NET</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>28msec</authors>
     <owners>dknochen</owners>
     <licenseUrl>https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE</licenseUrl>
@@ -10,7 +10,7 @@
     <iconUrl>http://www.28.io/images/favicon/32x32.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A CSharp Library for interfacing with the 28msec's Cell Store API</description>
-    <copyright>Copyright 2015 28msec</copyright>
+    <copyright>Copyright 2015-2016 28msec</copyright>
     <tags>CellStore RestAPI C#-Library</tags>
     <dependencies>
       <group>
