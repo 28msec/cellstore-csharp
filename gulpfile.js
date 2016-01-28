@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var request = require('request');
 var parseString = require('xml2js').parseString;
+var path = require('path');
 
 var isOnTravis = process.env.CIRCLECI === 'true';
 var artifactsDir = process.env.CIRCLE_ARTIFACTS;
@@ -20,14 +21,6 @@ parseString(fs.readFileSync('CellStore.dll.nuspec', 'utf-8'), { async: false }, 
     cellstore_nuspec = result;
     version = result.package.metadata[0].version[0];
 });
-
-var pathFix = function(str){
-    if(isWindows){
-        return str.replace(new RegExp('/', 'g'), '\\');
-    } else {
-        return str;
-    }
-};
 
 gulp.task('swagger:clean', $.shell.task([
     'rm -rf build',
@@ -51,12 +44,12 @@ gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
 ]));
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
-    'cd build && ' + pathFix(compileCmd + ' -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu'),
+    'cd build && ' + path.normalize(compileCmd + ' -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu'),
     'cp lib/CellStore.csproj build'
 ]));
 
 gulp.task('swagger:test', $.shell.task([
-    pathFix(compileCmd + ' -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll -out:samples/GetFacts/GetFacts/Program.exe samples/GetFacts/GetFacts/Program.cs'),
+    path.normalize(compileCmd + ' -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll -out:samples/GetFacts/GetFacts/Program.exe samples/GetFacts/GetFacts/Program.cs'),
     'cp build/bin/*.dll samples/GetFacts/GetFacts',
     isWindows ? 'cd samples/GetFacts/GetFacts && Program.exe' : 'mono samples/GetFacts/GetFacts/Program.exe'
 ]));
