@@ -23,7 +23,7 @@ namespace GetFacts
             String token = "c3049752-4d35-43da-82a2-f89f1b06f7a4";
 
             // list some facts
-            dynamic factsResonse = dataAPI.ListFacts(token, ticker: "t", fiscalYear: "2014", fiscalPeriod: "FY", concept: "us-gaap:Assets");
+            dynamic factsResonse = dataAPI.ListFacts(token: token, ticker: "t", fiscalYear: "2014", fiscalPeriod: "FY", concept: "us-gaap:Assets");
             dynamic factTable = factsResonse["FactTable"];
             int i = 0;
             foreach (dynamic fact in factTable.Children())
