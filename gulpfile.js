@@ -40,7 +40,7 @@ gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
     'cp codegen-options.json build',
-    'cd build && java -jar swagger-codegen-cli.jar generate -i swagger-aggregated.json -l csharp -c codegen-options.json  -o .'
+    'cd build && java -jar swagger-codegen-cli.jar generate -i /home/federico/cellstore/cellstore-pro/swagger/swagger-aggregated.json -l csharp -c codegen-options.json  -o .'
 ]));
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([

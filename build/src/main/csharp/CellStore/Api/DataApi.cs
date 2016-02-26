@@ -44,7 +44,7 @@ namespace CellStore.Api
         /// <param name="language">A language code</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        Object ListComponents (string token, string eid = null, string ticker = null, string tag = null, string sic = null, string cik = null, string edinetcode = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string filingKind = null, string aid = null, string section = null, string hypercube = null, string disclosure = null, string reportElement = null, string label = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? validate = null, string language = null, bool? formatIndent = null);
+        Object ListComponents (string token, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? validate = null, string language = null, bool? formatIndent = null);
   
         /// <summary>
         /// Retrieve a summary for all components of a given filing
@@ -76,7 +76,7 @@ namespace CellStore.Api
         /// <param name="language">A language code</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        System.Threading.Tasks.Task<Object> ListComponentsAsync (string token, string eid = null, string ticker = null, string tag = null, string sic = null, string cik = null, string edinetcode = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string filingKind = null, string aid = null, string section = null, string hypercube = null, string disclosure = null, string reportElement = null, string label = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? validate = null, string language = null, bool? formatIndent = null);
+        System.Threading.Tasks.Task<Object> ListComponentsAsync (string token, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? validate = null, string language = null, bool? formatIndent = null);
         
         /// <summary>
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
@@ -194,24 +194,29 @@ namespace CellStore.Api
         /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
         /// <param name="fiscalPeriod">The fiscal period of the fact to retrieve (default: no filtering)</param>
         /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple</param>
+        /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
         /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type. (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions. Some further dimensions may have default types depending on the profile.). Each key is in the form prefix:dimension::type, each value is a string</param>
         /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string</param>
-        /// <param name="dimensionSlicers">Specifies whether the given dimensions are slicers (true) or a dicers (false). Slicer dimensions do not appear in the output fact table (default: false). Each key is in the form prefix:dimension::slicer, each value is a boolean</param>
-        /// <param name="dimensionColumns">Specifies the position at which dicer dimensions appear in the output fact table (default: arbitrary order). Each key is in the form prefix:dimension::column, each value is an integer</param>
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by key aspects, with this function.</param>
-        /// <param name="dimensionAggregation">Excludes (\&quot;aggregate\&quot;) or includes (\&quot;group\&quot;) the dimension in those used to group facts with the supplied aggregation function. By default, all key aspects are used as grouping keys and facts are aggregated along non-key aspects. Has no effect if no aggregation function is supplied.</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false)</param>
+        /// <param name="dimensionColumns">If the dimension is not a slicer, specifies the position at which it appears in the output fact table (default: arbitrary order)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
+        /// <param name="dimensionAggregation">Specifies whether this dimension is a dicer (\&quot;group\&quot;) or not (\&quot;no\&quot;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (\&quot;group\&quot;) and non-key aspects are not (\&quot;no\&quot;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer.</param>
         /// <param name="count">If true, only outputs statistics (default is false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit)</param>
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        Object ListFacts (string token, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, string additionalRules = null, bool? labels = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? count = null, int? top = null, int? skip = null, bool? formatIndent = null);
+        Object ListFacts (string token, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? count = null, int? top = null, int? skip = null, bool? formatIndent = null);
   
         /// <summary>
         /// Retrieve one or more facts for a combination of filings.
@@ -231,24 +236,29 @@ namespace CellStore.Api
         /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
         /// <param name="fiscalPeriod">The fiscal period of the fact to retrieve (default: no filtering)</param>
         /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple</param>
+        /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
         /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type. (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions. Some further dimensions may have default types depending on the profile.). Each key is in the form prefix:dimension::type, each value is a string</param>
         /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string</param>
-        /// <param name="dimensionSlicers">Specifies whether the given dimensions are slicers (true) or a dicers (false). Slicer dimensions do not appear in the output fact table (default: false). Each key is in the form prefix:dimension::slicer, each value is a boolean</param>
-        /// <param name="dimensionColumns">Specifies the position at which dicer dimensions appear in the output fact table (default: arbitrary order). Each key is in the form prefix:dimension::column, each value is an integer</param>
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by key aspects, with this function.</param>
-        /// <param name="dimensionAggregation">Excludes (\&quot;aggregate\&quot;) or includes (\&quot;group\&quot;) the dimension in those used to group facts with the supplied aggregation function. By default, all key aspects are used as grouping keys and facts are aggregated along non-key aspects. Has no effect if no aggregation function is supplied.</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false)</param>
+        /// <param name="dimensionColumns">If the dimension is not a slicer, specifies the position at which it appears in the output fact table (default: arbitrary order)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
+        /// <param name="dimensionAggregation">Specifies whether this dimension is a dicer (\&quot;group\&quot;) or not (\&quot;no\&quot;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (\&quot;group\&quot;) and non-key aspects are not (\&quot;no\&quot;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer.</param>
         /// <param name="count">If true, only outputs statistics (default is false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit)</param>
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        System.Threading.Tasks.Task<Object> ListFactsAsync (string token, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, string additionalRules = null, bool? labels = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? count = null, int? top = null, int? skip = null, bool? formatIndent = null);
+        System.Threading.Tasks.Task<Object> ListFactsAsync (string token, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? count = null, int? top = null, int? skip = null, bool? formatIndent = null);
         
         /// <summary>
         /// Add a fact to a filing.
@@ -273,6 +283,84 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddFactsAsync (string token, Object fact);
         
         /// <summary>
+        /// Patch one or more facts
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="token">The token of the current session</param>
+        /// <param name="patch">The patch object, which will be merged into each facts (the facts must be valid after applying it).</param>
+        /// <param name="eid">An Entity ID (a value of the xbrl:Entity aspect)</param>
+        /// <param name="cik">A CIK number</param>
+        /// <param name="edinetcode">An EDINET Code</param>
+        /// <param name="ticker">The ticker of the entity</param>
+        /// <param name="tag">The tag to filter entities</param>
+        /// <param name="sic">The industry group</param>
+        /// <param name="aid">The id of the filing</param>
+        /// <param name="fiscalYear">The fiscal year of the fact to retrieve (default: no filtering)</param>
+        /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
+        /// <param name="fiscalPeriod">The fiscal period of the fact to retrieve (default: no filtering)</param>
+        /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple</param>
+        /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
+        /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
+        /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
+        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type. (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions. Some further dimensions may have default types depending on the profile.). Each key is in the form prefix:dimension::type, each value is a string</param>
+        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false)</param>
+        /// <param name="dimensionColumns">If the dimension is not a slicer, specifies the position at which it appears in the output fact table (default: arbitrary order)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
+        /// <param name="dimensionAggregation">Specifies whether this dimension is a dicer (\&quot;group\&quot;) or not (\&quot;no\&quot;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (\&quot;group\&quot;) and non-key aspects are not (\&quot;no\&quot;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer.</param>
+        /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
+        /// <param name="count">If true, only outputs statistics (default is false)</param>
+        /// <returns>Object</returns>
+        Object PatchFacts (string token, Object patch, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string report = null, string additionalRules = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? formatIndent = null, bool? count = null);
+  
+        /// <summary>
+        /// Patch one or more facts
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="token">The token of the current session</param>
+        /// <param name="patch">The patch object, which will be merged into each facts (the facts must be valid after applying it).</param>
+        /// <param name="eid">An Entity ID (a value of the xbrl:Entity aspect)</param>
+        /// <param name="cik">A CIK number</param>
+        /// <param name="edinetcode">An EDINET Code</param>
+        /// <param name="ticker">The ticker of the entity</param>
+        /// <param name="tag">The tag to filter entities</param>
+        /// <param name="sic">The industry group</param>
+        /// <param name="aid">The id of the filing</param>
+        /// <param name="fiscalYear">The fiscal year of the fact to retrieve (default: no filtering)</param>
+        /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
+        /// <param name="fiscalPeriod">The fiscal period of the fact to retrieve (default: no filtering)</param>
+        /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple</param>
+        /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
+        /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
+        /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
+        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type. (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions. Some further dimensions may have default types depending on the profile.). Each key is in the form prefix:dimension::type, each value is a string</param>
+        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false)</param>
+        /// <param name="dimensionColumns">If the dimension is not a slicer, specifies the position at which it appears in the output fact table (default: arbitrary order)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
+        /// <param name="dimensionAggregation">Specifies whether this dimension is a dicer (\&quot;group\&quot;) or not (\&quot;no\&quot;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (\&quot;group\&quot;) and non-key aspects are not (\&quot;no\&quot;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer.</param>
+        /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
+        /// <param name="count">If true, only outputs statistics (default is false)</param>
+        /// <returns>Object</returns>
+        System.Threading.Tasks.Task<Object> PatchFactsAsync (string token, Object patch, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string report = null, string additionalRules = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? formatIndent = null, bool? count = null);
+        
+        /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
         /// </summary>
         /// <remarks>
@@ -289,9 +377,14 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section</param>
         /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
         /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
+        /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
         /// <param name="fiscalYear">In override mode, the fiscal year of the facts to filter (default: no filtering). Can select multiple</param>
         /// <param name="fiscalPeriod">In override mode, the fiscal period of the facts to filter (default: no filtering). Can select multiple</param>
         /// <param name="fiscalPeriodType">In override mode, the fiscal period type of the facts to filter (default: no filtering). Can select multiple</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the given dimensions are slicers (true) or a dicers (false). Slicer dimensions do not appear in the output fact table (default: false). Each key is in the form prefix:dimension::slicer, each value is a boolean</param>
         /// <param name="filingKind">Filters the results for the filings submitted for kind of filing. (default: no filtering)</param>
         /// <param name="disclosure">The disclosure of the component (e.g. BalanceSheet)</param>
         /// <param name="reportElement">Filters only those components that contained the supplied report element (e.g. us-gaap:Goodwill)</param>
@@ -303,12 +396,15 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to the component&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="language">A language code</param>
-        /// <param name="_override">Whether the fiscalYear/fiscalPeriod/fiscalPeriodType parameters should be used to filter facts (default: false)</param>
+        /// <param name="_override">Whether the component&#39;s hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: false)</param>
+        /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        Object ListFactTable (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? merge = null, bool? count = null, int? top = null, bool? skip = null, string additionalRules = null, bool? labels = null, string language = null, bool? _override = null, string profileName = null, bool? formatIndent = null);
+        Object ListFactTable (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string concept = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? merge = null, bool? count = null, int? top = null, bool? skip = null, string additionalRules = null, bool? labels = null, string auditTrails = null, string language = null, bool? _override = null, bool? open = null, string aggregationFunction = null, string profileName = null, bool? formatIndent = null);
   
         /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -327,9 +423,14 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section</param>
         /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
         /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
+        /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
         /// <param name="fiscalYear">In override mode, the fiscal year of the facts to filter (default: no filtering). Can select multiple</param>
         /// <param name="fiscalPeriod">In override mode, the fiscal period of the facts to filter (default: no filtering). Can select multiple</param>
         /// <param name="fiscalPeriodType">In override mode, the fiscal period type of the facts to filter (default: no filtering). Can select multiple</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the given dimensions are slicers (true) or a dicers (false). Slicer dimensions do not appear in the output fact table (default: false). Each key is in the form prefix:dimension::slicer, each value is a boolean</param>
         /// <param name="filingKind">Filters the results for the filings submitted for kind of filing. (default: no filtering)</param>
         /// <param name="disclosure">The disclosure of the component (e.g. BalanceSheet)</param>
         /// <param name="reportElement">Filters only those components that contained the supplied report element (e.g. us-gaap:Goodwill)</param>
@@ -341,12 +442,15 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to the component&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="language">A language code</param>
-        /// <param name="_override">Whether the fiscalYear/fiscalPeriod/fiscalPeriodType parameters should be used to filter facts (default: false)</param>
+        /// <param name="_override">Whether the component&#39;s hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: false)</param>
+        /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        System.Threading.Tasks.Task<Object> ListFactTableAsync (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? merge = null, bool? count = null, int? top = null, bool? skip = null, string additionalRules = null, bool? labels = null, string language = null, bool? _override = null, string profileName = null, bool? formatIndent = null);
+        System.Threading.Tasks.Task<Object> ListFactTableAsync (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string concept = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? merge = null, bool? count = null, int? top = null, bool? skip = null, string additionalRules = null, bool? labels = null, string auditTrails = null, string language = null, bool? _override = null, bool? open = null, string aggregationFunction = null, string profileName = null, bool? formatIndent = null);
         
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -366,6 +470,7 @@ namespace CellStore.Api
         /// <param name="report">The name of the report to be used (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="validate">Validate and stamp facts accordingly</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="language">A language code</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="count">If true, only outputs statistics (default is false)</param>
@@ -373,7 +478,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        Object ListFactTableForReport (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? validate = null, bool? labels = null, string language = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? formatIndent = null);
+        Object ListFactTableForReport (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? validate = null, bool? labels = null, string auditTrails = null, string language = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? formatIndent = null);
   
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -393,6 +498,7 @@ namespace CellStore.Api
         /// <param name="report">The name of the report to be used (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="validate">Validate and stamp facts accordingly</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="language">A language code</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="count">If true, only outputs statistics (default is false)</param>
@@ -400,7 +506,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        System.Threading.Tasks.Task<Object> ListFactTableForReportAsync (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? validate = null, bool? labels = null, string language = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? formatIndent = null);
+        System.Threading.Tasks.Task<Object> ListFactTableForReportAsync (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? validate = null, bool? labels = null, string auditTrails = null, string language = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? formatIndent = null);
         
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
@@ -613,6 +719,36 @@ namespace CellStore.Api
         /// <param name="label">The label objects (they must be valid).</param>
         /// <returns>Object</returns>
         System.Threading.Tasks.Task<Object> UpsertLabelsAsync (string token, Object label);
+        
+        /// <summary>
+        /// Deletes a label.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="token">The token of the current session</param>
+        /// <param name="aid">The AID of the filing</param>
+        /// <param name="section">The URI of the section</param>
+        /// <param name="reportElement">The name of the report element</param>
+        /// <param name="language">A language code</param>
+        /// <param name="labelRole">A label role</param>
+        /// <returns>Object</returns>
+        Object DeleteLabel (string token, string aid = null, string section = null, string reportElement = null, string language = null, string labelRole = null);
+  
+        /// <summary>
+        /// Deletes a label.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="token">The token of the current session</param>
+        /// <param name="aid">The AID of the filing</param>
+        /// <param name="section">The URI of the section</param>
+        /// <param name="reportElement">The name of the report element</param>
+        /// <param name="language">A language code</param>
+        /// <param name="labelRole">A label role</param>
+        /// <returns>Object</returns>
+        System.Threading.Tasks.Task<Object> DeleteLabelAsync (string token, string aid = null, string section = null, string reportElement = null, string language = null, string labelRole = null);
         
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -849,9 +985,9 @@ namespace CellStore.Api
         /// <param name="token">The token of the current session</param>
         /// <param name="aid">The AID of the filing</param>
         /// <param name="section">The URI of the section</param>
-        /// <param name="name">The name of the report element</param>
+        /// <param name="reportElement">The name of the report element</param>
         /// <returns>Object</returns>
-        Object DeleteReportElement (string token, string aid = null, string section = null, string name = null);
+        Object DeleteReportElement (string token, string aid = null, string section = null, string reportElement = null);
   
         /// <summary>
         /// Deletes a report element.
@@ -862,9 +998,9 @@ namespace CellStore.Api
         /// <param name="token">The token of the current session</param>
         /// <param name="aid">The AID of the filing</param>
         /// <param name="section">The URI of the section</param>
-        /// <param name="name">The name of the report element</param>
+        /// <param name="reportElement">The name of the report element</param>
         /// <returns>Object</returns>
-        System.Threading.Tasks.Task<Object> DeleteReportElementAsync (string token, string aid = null, string section = null, string name = null);
+        System.Threading.Tasks.Task<Object> DeleteReportElementAsync (string token, string aid = null, string section = null, string reportElement = null);
         
         /// <summary>
         /// Retrieve a summary for all sections of a given filing
@@ -1002,13 +1138,15 @@ namespace CellStore.Api
         /// <param name="label">A search term to search in the labels of components (e.g. stock)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false)</param>
         /// <param name="eliminate">Whether  to eliminate empty rows/columns</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination.</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination.</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (true by default).</param>
         /// <param name="merge">Whether to merge components if multiple are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to the component&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="_override">Whether the fiscalYear/fiscalPeriod/fiscalPeriodType parameters should also be used to filter facts (default: false)</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <returns>Object</returns>
-        Object SpreadsheetForComponent (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? eliminate = null, bool? flattenRowHeaders = null, bool? merge = null, string additionalRules = null, bool? _override = null, string profileName = null);
+        Object SpreadsheetForComponent (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? eliminate = null, int? row = null, int? column = null, bool? flattenRowHeaders = null, bool? merge = null, string additionalRules = null, bool? _override = null, string profileName = null);
   
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -1036,13 +1174,15 @@ namespace CellStore.Api
         /// <param name="label">A search term to search in the labels of components (e.g. stock)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false)</param>
         /// <param name="eliminate">Whether  to eliminate empty rows/columns</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination.</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination.</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (true by default).</param>
         /// <param name="merge">Whether to merge components if multiple are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to the component&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="_override">Whether the fiscalYear/fiscalPeriod/fiscalPeriodType parameters should also be used to filter facts (default: false)</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <returns>Object</returns>
-        System.Threading.Tasks.Task<Object> SpreadsheetForComponentAsync (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? eliminate = null, bool? flattenRowHeaders = null, bool? merge = null, string additionalRules = null, bool? _override = null, string profileName = null);
+        System.Threading.Tasks.Task<Object> SpreadsheetForComponentAsync (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? eliminate = null, int? row = null, int? column = null, bool? flattenRowHeaders = null, bool? merge = null, string additionalRules = null, bool? _override = null, string profileName = null);
         
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -1061,12 +1201,14 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple, but preferably not both YTD and QTD</param>
         /// <param name="report">The name of the report to be used (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="eliminate">Wwether to eliminate empty rows/colummns</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination.</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination.</param>
         /// <param name="validate">Validate and stamp facts accordingly</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (true by default).</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        Object ListSpreadsheetForReport (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? eliminate = null, bool? validate = null, bool? flattenRowHeaders = null, string profileName = null, bool? formatIndent = null);
+        Object ListSpreadsheetForReport (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? eliminate = null, int? row = null, int? column = null, bool? validate = null, bool? flattenRowHeaders = null, string profileName = null, bool? formatIndent = null);
   
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -1085,12 +1227,14 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple, but preferably not both YTD and QTD</param>
         /// <param name="report">The name of the report to be used (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="eliminate">Wwether to eliminate empty rows/colummns</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination.</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination.</param>
         /// <param name="validate">Validate and stamp facts accordingly</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (true by default).</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        System.Threading.Tasks.Task<Object> ListSpreadsheetForReportAsync (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? eliminate = null, bool? validate = null, bool? flattenRowHeaders = null, string profileName = null, bool? formatIndent = null);
+        System.Threading.Tasks.Task<Object> ListSpreadsheetForReportAsync (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? eliminate = null, int? row = null, int? column = null, bool? validate = null, bool? flattenRowHeaders = null, string profileName = null, bool? formatIndent = null);
         
     }
   
@@ -1174,7 +1318,7 @@ namespace CellStore.Api
         /// <param name="language">A language code</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param> 
         /// <returns>Object</returns>            
-        public Object ListComponents (string token, string eid = null, string ticker = null, string tag = null, string sic = null, string cik = null, string edinetcode = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string filingKind = null, string aid = null, string section = null, string hypercube = null, string disclosure = null, string reportElement = null, string label = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? validate = null, string language = null, bool? formatIndent = null)
+        public Object ListComponents (string token, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? validate = null, string language = null, bool? formatIndent = null)
         {
             
             // verify the required parameter 'token' is set
@@ -1271,7 +1415,7 @@ namespace CellStore.Api
         /// <param name="language">A language code</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListComponentsAsync (string token, string eid = null, string ticker = null, string tag = null, string sic = null, string cik = null, string edinetcode = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string filingKind = null, string aid = null, string section = null, string hypercube = null, string disclosure = null, string reportElement = null, string label = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? validate = null, string language = null, bool? formatIndent = null)
+        public async System.Threading.Tasks.Task<Object> ListComponentsAsync (string token, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? validate = null, string language = null, bool? formatIndent = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListComponents");
@@ -1737,24 +1881,29 @@ namespace CellStore.Api
         /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param> 
         /// <param name="fiscalPeriod">The fiscal period of the fact to retrieve (default: no filtering)</param> 
         /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple</param> 
+        /// <param name="archiveFiscalYear">The fiscal year of the filing.</param> 
+        /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param> 
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)</param> 
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts)</param> 
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param> 
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param> 
         /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param> 
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param> 
         /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type. (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions. Some further dimensions may have default types depending on the profile.). Each key is in the form prefix:dimension::type, each value is a string</param> 
         /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string</param> 
-        /// <param name="dimensionSlicers">Specifies whether the given dimensions are slicers (true) or a dicers (false). Slicer dimensions do not appear in the output fact table (default: false). Each key is in the form prefix:dimension::slicer, each value is a boolean</param> 
-        /// <param name="dimensionColumns">Specifies the position at which dicer dimensions appear in the output fact table (default: arbitrary order). Each key is in the form prefix:dimension::column, each value is an integer</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by key aspects, with this function.</param> 
-        /// <param name="dimensionAggregation">Excludes (\&quot;aggregate\&quot;) or includes (\&quot;group\&quot;) the dimension in those used to group facts with the supplied aggregation function. By default, all key aspects are used as grouping keys and facts are aggregated along non-key aspects. Has no effect if no aggregation function is supplied.</param> 
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param> 
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param> 
+        /// <param name="dimensionSlicers">Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false)</param> 
+        /// <param name="dimensionColumns">If the dimension is not a slicer, specifies the position at which it appears in the output fact table (default: arbitrary order)</param> 
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param> 
+        /// <param name="dimensionAggregation">Specifies whether this dimension is a dicer (\&quot;group\&quot;) or not (\&quot;no\&quot;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (\&quot;group\&quot;) and non-key aspects are not (\&quot;no\&quot;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer.</param> 
         /// <param name="count">If true, only outputs statistics (default is false)</param> 
         /// <param name="top">Output only the first [top] results (default: no limit)</param> 
         /// <param name="skip">Skip the first [skip] results (default: 0)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param> 
         /// <returns>Object</returns>            
-        public Object ListFacts (string token, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, string additionalRules = null, bool? labels = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? count = null, int? top = null, int? skip = null, bool? formatIndent = null)
+        public Object ListFacts (string token, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? count = null, int? top = null, int? skip = null, bool? formatIndent = null)
         {
             
             // verify the required parameter 'token' is set
@@ -1792,9 +1941,12 @@ namespace CellStore.Api
             if (concept != null) queryParams.Add("concept", ApiClient.ParameterToString(concept)); // query parameter
             if (fiscalPeriod != null) queryParams.Add("fiscalPeriod", ApiClient.ParameterToString(fiscalPeriod)); // query parameter
             if (fiscalPeriodType != null) queryParams.Add("fiscalPeriodType", ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
+            if (archiveFiscalYear != null) queryParams.Add("archiveFiscalYear", ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) queryParams.Add("archiveFiscalPeriod", ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
             if (report != null) queryParams.Add("report", ApiClient.ParameterToString(report)); // query parameter
             if (additionalRules != null) queryParams.Add("additional-rules", ApiClient.ParameterToString(additionalRules)); // query parameter
             if (labels != null) queryParams.Add("labels", ApiClient.ParameterToString(labels)); // query parameter
+            if (auditTrails != null) queryParams.Add("audit-trails", ApiClient.ParameterToString(auditTrails)); // query parameter
             if (open != null) queryParams.Add("open", ApiClient.ParameterToString(open)); // query parameter
             if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
             if (aggregationFunction != null) queryParams.Add("aggregation-function", ApiClient.ParameterToString(aggregationFunction)); // query parameter
@@ -1807,6 +1959,8 @@ namespace CellStore.Api
             if (dimensions != null) ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
             if (dimensionTypes != null) ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", queryParams); // pattern query parameter
             if (defaultDimensionValues != null) ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
             if (dimensionSlicers != null) ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
             if (dimensionColumns != null) ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", queryParams); // pattern query parameter
             if (dimensionAggregation != null) ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", queryParams); // pattern query parameter
@@ -1844,24 +1998,29 @@ namespace CellStore.Api
         /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
         /// <param name="fiscalPeriod">The fiscal period of the fact to retrieve (default: no filtering)</param>
         /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple</param>
+        /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
         /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type. (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions. Some further dimensions may have default types depending on the profile.). Each key is in the form prefix:dimension::type, each value is a string</param>
         /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string</param>
-        /// <param name="dimensionSlicers">Specifies whether the given dimensions are slicers (true) or a dicers (false). Slicer dimensions do not appear in the output fact table (default: false). Each key is in the form prefix:dimension::slicer, each value is a boolean</param>
-        /// <param name="dimensionColumns">Specifies the position at which dicer dimensions appear in the output fact table (default: arbitrary order). Each key is in the form prefix:dimension::column, each value is an integer</param>
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by key aspects, with this function.</param>
-        /// <param name="dimensionAggregation">Excludes (\&quot;aggregate\&quot;) or includes (\&quot;group\&quot;) the dimension in those used to group facts with the supplied aggregation function. By default, all key aspects are used as grouping keys and facts are aggregated along non-key aspects. Has no effect if no aggregation function is supplied.</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false)</param>
+        /// <param name="dimensionColumns">If the dimension is not a slicer, specifies the position at which it appears in the output fact table (default: arbitrary order)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
+        /// <param name="dimensionAggregation">Specifies whether this dimension is a dicer (\&quot;group\&quot;) or not (\&quot;no\&quot;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (\&quot;group\&quot;) and non-key aspects are not (\&quot;no\&quot;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer.</param>
         /// <param name="count">If true, only outputs statistics (default is false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit)</param>
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListFactsAsync (string token, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, string additionalRules = null, bool? labels = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? count = null, int? top = null, int? skip = null, bool? formatIndent = null)
+        public async System.Threading.Tasks.Task<Object> ListFactsAsync (string token, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? count = null, int? top = null, int? skip = null, bool? formatIndent = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListFacts");
@@ -1898,9 +2057,12 @@ namespace CellStore.Api
             if (concept != null) queryParams.Add("concept", ApiClient.ParameterToString(concept)); // query parameter
             if (fiscalPeriod != null) queryParams.Add("fiscalPeriod", ApiClient.ParameterToString(fiscalPeriod)); // query parameter
             if (fiscalPeriodType != null) queryParams.Add("fiscalPeriodType", ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
+            if (archiveFiscalYear != null) queryParams.Add("archiveFiscalYear", ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) queryParams.Add("archiveFiscalPeriod", ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
             if (report != null) queryParams.Add("report", ApiClient.ParameterToString(report)); // query parameter
             if (additionalRules != null) queryParams.Add("additional-rules", ApiClient.ParameterToString(additionalRules)); // query parameter
             if (labels != null) queryParams.Add("labels", ApiClient.ParameterToString(labels)); // query parameter
+            if (auditTrails != null) queryParams.Add("audit-trails", ApiClient.ParameterToString(auditTrails)); // query parameter
             if (open != null) queryParams.Add("open", ApiClient.ParameterToString(open)); // query parameter
             if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
             if (aggregationFunction != null) queryParams.Add("aggregation-function", ApiClient.ParameterToString(aggregationFunction)); // query parameter
@@ -1913,6 +2075,8 @@ namespace CellStore.Api
             if (dimensions != null) ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
             if (dimensionTypes != null) ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", queryParams); // pattern query parameter
             if (defaultDimensionValues != null) ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
             if (dimensionSlicers != null) ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
             if (dimensionColumns != null) ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", queryParams); // pattern query parameter
             if (dimensionAggregation != null) ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", queryParams); // pattern query parameter
@@ -2044,6 +2208,229 @@ namespace CellStore.Api
         }
         
         /// <summary>
+        /// Patch one or more facts 
+        /// </summary>
+        /// <param name="token">The token of the current session</param> 
+        /// <param name="patch">The patch object, which will be merged into each facts (the facts must be valid after applying it).</param> 
+        /// <param name="eid">An Entity ID (a value of the xbrl:Entity aspect)</param> 
+        /// <param name="cik">A CIK number</param> 
+        /// <param name="edinetcode">An EDINET Code</param> 
+        /// <param name="ticker">The ticker of the entity</param> 
+        /// <param name="tag">The tag to filter entities</param> 
+        /// <param name="sic">The industry group</param> 
+        /// <param name="aid">The id of the filing</param> 
+        /// <param name="fiscalYear">The fiscal year of the fact to retrieve (default: no filtering)</param> 
+        /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param> 
+        /// <param name="fiscalPeriod">The fiscal period of the fact to retrieve (default: no filtering)</param> 
+        /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple</param> 
+        /// <param name="archiveFiscalYear">The fiscal year of the filing.</param> 
+        /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param> 
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)</param> 
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts)</param> 
+        /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param> 
+        /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param> 
+        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type. (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions. Some further dimensions may have default types depending on the profile.). Each key is in the form prefix:dimension::type, each value is a string</param> 
+        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string</param> 
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param> 
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param> 
+        /// <param name="dimensionSlicers">Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false)</param> 
+        /// <param name="dimensionColumns">If the dimension is not a slicer, specifies the position at which it appears in the output fact table (default: arbitrary order)</param> 
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param> 
+        /// <param name="dimensionAggregation">Specifies whether this dimension is a dicer (\&quot;group\&quot;) or not (\&quot;no\&quot;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (\&quot;group\&quot;) and non-key aspects are not (\&quot;no\&quot;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer.</param> 
+        /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param> 
+        /// <param name="count">If true, only outputs statistics (default is false)</param> 
+        /// <returns>Object</returns>            
+        public Object PatchFacts (string token, Object patch, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string report = null, string additionalRules = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? formatIndent = null, bool? count = null)
+        {
+            
+            // verify the required parameter 'token' is set
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling PatchFacts");
+            
+            // verify the required parameter 'patch' is set
+            if (patch == null) throw new ApiException(400, "Missing required parameter 'patch' when calling PatchFacts");
+            
+    
+            var path = "/api/facts";
+    
+            var pathParams = new Dictionary<String, String>();
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+
+            // to determine the Accept header
+            String[] http_header_accepts = new String[] {
+                
+            };
+            String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
+            if (http_header_accept != null)
+                headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
+
+            queryParams.Add("format", ApiClient.ParameterToString("json")); // hardcoded query parameter
+            
+            
+            if (eid != null) queryParams.Add("eid", ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) queryParams.Add("cik", ApiClient.ParameterToString(cik)); // query parameter
+            if (edinetcode != null) queryParams.Add("edinetcode", ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (ticker != null) queryParams.Add("ticker", ApiClient.ParameterToString(ticker)); // query parameter
+            if (tag != null) queryParams.Add("tag", ApiClient.ParameterToString(tag)); // query parameter
+            if (sic != null) queryParams.Add("sic", ApiClient.ParameterToString(sic)); // query parameter
+            if (aid != null) queryParams.Add("aid", ApiClient.ParameterToString(aid)); // query parameter
+            if (fiscalYear != null) queryParams.Add("fiscalYear", ApiClient.ParameterToString(fiscalYear)); // query parameter
+            if (concept != null) queryParams.Add("concept", ApiClient.ParameterToString(concept)); // query parameter
+            if (fiscalPeriod != null) queryParams.Add("fiscalPeriod", ApiClient.ParameterToString(fiscalPeriod)); // query parameter
+            if (fiscalPeriodType != null) queryParams.Add("fiscalPeriodType", ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
+            if (archiveFiscalYear != null) queryParams.Add("archiveFiscalYear", ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) queryParams.Add("archiveFiscalPeriod", ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (report != null) queryParams.Add("report", ApiClient.ParameterToString(report)); // query parameter
+            if (additionalRules != null) queryParams.Add("additional-rules", ApiClient.ParameterToString(additionalRules)); // query parameter
+            if (open != null) queryParams.Add("open", ApiClient.ParameterToString(open)); // query parameter
+            if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
+            if (aggregationFunction != null) queryParams.Add("aggregation-function", ApiClient.ParameterToString(aggregationFunction)); // query parameter
+            if (formatIndent != null) queryParams.Add("format-indent", ApiClient.ParameterToString(formatIndent)); // query parameter
+            if (count != null) queryParams.Add("count", ApiClient.ParameterToString(count)); // query parameter
+            if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
+            
+            if (dimensions != null) ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
+            if (dimensionTypes != null) ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", queryParams); // pattern query parameter
+            if (defaultDimensionValues != null) ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
+            if (dimensionSlicers != null) ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
+            if (dimensionColumns != null) ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", queryParams); // pattern query parameter
+            if (dimensionAggregation != null) ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", queryParams); // pattern query parameter
+            
+            
+            
+            postBody = ApiClient.Serialize(patch); // http body (model) parameter
+            
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, pathParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PatchFacts: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling PatchFacts: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (Object) ApiClient.Deserialize(response.Content, typeof(Object), response.Headers);
+        }
+    
+        /// <summary>
+        /// Patch one or more facts 
+        /// </summary>
+        /// <param name="token">The token of the current session</param>
+        /// <param name="patch">The patch object, which will be merged into each facts (the facts must be valid after applying it).</param>
+        /// <param name="eid">An Entity ID (a value of the xbrl:Entity aspect)</param>
+        /// <param name="cik">A CIK number</param>
+        /// <param name="edinetcode">An EDINET Code</param>
+        /// <param name="ticker">The ticker of the entity</param>
+        /// <param name="tag">The tag to filter entities</param>
+        /// <param name="sic">The industry group</param>
+        /// <param name="aid">The id of the filing</param>
+        /// <param name="fiscalYear">The fiscal year of the fact to retrieve (default: no filtering)</param>
+        /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
+        /// <param name="fiscalPeriod">The fiscal period of the fact to retrieve (default: no filtering)</param>
+        /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple</param>
+        /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
+        /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
+        /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
+        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type. (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions. Some further dimensions may have default types depending on the profile.). Each key is in the form prefix:dimension::type, each value is a string</param>
+        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false)</param>
+        /// <param name="dimensionColumns">If the dimension is not a slicer, specifies the position at which it appears in the output fact table (default: arbitrary order)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
+        /// <param name="dimensionAggregation">Specifies whether this dimension is a dicer (\&quot;group\&quot;) or not (\&quot;no\&quot;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (\&quot;group\&quot;) and non-key aspects are not (\&quot;no\&quot;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer.</param>
+        /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
+        /// <param name="count">If true, only outputs statistics (default is false)</param>
+        /// <returns>Object</returns>
+        public async System.Threading.Tasks.Task<Object> PatchFactsAsync (string token, Object patch, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string aid = null, string fiscalYear = null, string concept = null, string fiscalPeriod = null, string fiscalPeriodType = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string report = null, string additionalRules = null, bool? open = null, string profileName = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, string aggregationFunction = null, Dictionary<string, string> dimensionAggregation = null, bool? formatIndent = null, bool? count = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling PatchFacts");
+            // verify the required parameter 'patch' is set
+            if (patch == null) throw new ApiException(400, "Missing required parameter 'patch' when calling PatchFacts");
+            
+    
+            var path = "/api/facts";
+    
+            var pathParams = new Dictionary<String, String>();
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+
+            // to determine the Accept header
+            String[] http_header_accepts = new String[] {
+                
+            };
+            String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
+            if (http_header_accept != null)
+                headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
+
+            queryParams.Add("format", ApiClient.ParameterToString("json")); // hardcoded query parameter
+                        
+            
+            if (eid != null) queryParams.Add("eid", ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) queryParams.Add("cik", ApiClient.ParameterToString(cik)); // query parameter
+            if (edinetcode != null) queryParams.Add("edinetcode", ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (ticker != null) queryParams.Add("ticker", ApiClient.ParameterToString(ticker)); // query parameter
+            if (tag != null) queryParams.Add("tag", ApiClient.ParameterToString(tag)); // query parameter
+            if (sic != null) queryParams.Add("sic", ApiClient.ParameterToString(sic)); // query parameter
+            if (aid != null) queryParams.Add("aid", ApiClient.ParameterToString(aid)); // query parameter
+            if (fiscalYear != null) queryParams.Add("fiscalYear", ApiClient.ParameterToString(fiscalYear)); // query parameter
+            if (concept != null) queryParams.Add("concept", ApiClient.ParameterToString(concept)); // query parameter
+            if (fiscalPeriod != null) queryParams.Add("fiscalPeriod", ApiClient.ParameterToString(fiscalPeriod)); // query parameter
+            if (fiscalPeriodType != null) queryParams.Add("fiscalPeriodType", ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
+            if (archiveFiscalYear != null) queryParams.Add("archiveFiscalYear", ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) queryParams.Add("archiveFiscalPeriod", ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (report != null) queryParams.Add("report", ApiClient.ParameterToString(report)); // query parameter
+            if (additionalRules != null) queryParams.Add("additional-rules", ApiClient.ParameterToString(additionalRules)); // query parameter
+            if (open != null) queryParams.Add("open", ApiClient.ParameterToString(open)); // query parameter
+            if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
+            if (aggregationFunction != null) queryParams.Add("aggregation-function", ApiClient.ParameterToString(aggregationFunction)); // query parameter
+            if (formatIndent != null) queryParams.Add("format-indent", ApiClient.ParameterToString(formatIndent)); // query parameter
+            if (count != null) queryParams.Add("count", ApiClient.ParameterToString(count)); // query parameter
+            if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
+            
+            if (dimensions != null) ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
+            if (dimensionTypes != null) ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", queryParams); // pattern query parameter
+            if (defaultDimensionValues != null) ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
+            if (dimensionSlicers != null) ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
+            if (dimensionColumns != null) ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", queryParams); // pattern query parameter
+            if (dimensionAggregation != null) ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", queryParams); // pattern query parameter
+            
+            
+            
+            postBody = ApiClient.Serialize(patch); // http body (model) parameter
+            
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) await ApiClient.CallApiAsync(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, pathParams, authSettings);
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling PatchFacts: " + response.Content, response.Content);
+
+            return (Object) ApiClient.Deserialize(response.Content, typeof(Object), response.Headers);
+        }
+        
+        /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <param name="token">The token of the current session</param> 
@@ -2057,9 +2444,14 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section</param> 
         /// <param name="archiveFiscalYear">The fiscal year of the filing.</param> 
         /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param> 
+        /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param> 
         /// <param name="fiscalYear">In override mode, the fiscal year of the facts to filter (default: no filtering). Can select multiple</param> 
         /// <param name="fiscalPeriod">In override mode, the fiscal period of the facts to filter (default: no filtering). Can select multiple</param> 
         /// <param name="fiscalPeriodType">In override mode, the fiscal period type of the facts to filter (default: no filtering). Can select multiple</param> 
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param> 
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param> 
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param> 
+        /// <param name="dimensionSlicers">Specifies whether the given dimensions are slicers (true) or a dicers (false). Slicer dimensions do not appear in the output fact table (default: false). Each key is in the form prefix:dimension::slicer, each value is a boolean</param> 
         /// <param name="filingKind">Filters the results for the filings submitted for kind of filing. (default: no filtering)</param> 
         /// <param name="disclosure">The disclosure of the component (e.g. BalanceSheet)</param> 
         /// <param name="reportElement">Filters only those components that contained the supplied report element (e.g. us-gaap:Goodwill)</param> 
@@ -2071,12 +2463,15 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results (default: 0)</param> 
         /// <param name="additionalRules">The name of a report from which to use rules in addition to the component&#39;s rules (e.g. FundamentalAccountingConcepts)</param> 
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param> 
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param> 
         /// <param name="language">A language code</param> 
-        /// <param name="_override">Whether the fiscalYear/fiscalPeriod/fiscalPeriodType parameters should be used to filter facts (default: false)</param> 
+        /// <param name="_override">Whether the component&#39;s hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: false)</param> 
+        /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param> 
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param> 
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param> 
         /// <returns>Object</returns>            
-        public Object ListFactTable (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? merge = null, bool? count = null, int? top = null, bool? skip = null, string additionalRules = null, bool? labels = null, string language = null, bool? _override = null, string profileName = null, bool? formatIndent = null)
+        public Object ListFactTable (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string concept = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? merge = null, bool? count = null, int? top = null, bool? skip = null, string additionalRules = null, bool? labels = null, string auditTrails = null, string language = null, bool? _override = null, bool? open = null, string aggregationFunction = null, string profileName = null, bool? formatIndent = null)
         {
             
             // verify the required parameter 'token' is set
@@ -2113,6 +2508,7 @@ namespace CellStore.Api
             if (section != null) queryParams.Add("section", ApiClient.ParameterToString(section)); // query parameter
             if (archiveFiscalYear != null) queryParams.Add("archiveFiscalYear", ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
             if (archiveFiscalPeriod != null) queryParams.Add("archiveFiscalPeriod", ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (concept != null) queryParams.Add("concept", ApiClient.ParameterToString(concept)); // query parameter
             if (fiscalYear != null) queryParams.Add("fiscalYear", ApiClient.ParameterToString(fiscalYear)); // query parameter
             if (fiscalPeriod != null) queryParams.Add("fiscalPeriod", ApiClient.ParameterToString(fiscalPeriod)); // query parameter
             if (fiscalPeriodType != null) queryParams.Add("fiscalPeriodType", ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
@@ -2127,12 +2523,19 @@ namespace CellStore.Api
             if (skip != null) queryParams.Add("skip", ApiClient.ParameterToString(skip)); // query parameter
             if (additionalRules != null) queryParams.Add("additional-rules", ApiClient.ParameterToString(additionalRules)); // query parameter
             if (labels != null) queryParams.Add("labels", ApiClient.ParameterToString(labels)); // query parameter
+            if (auditTrails != null) queryParams.Add("audit-trails", ApiClient.ParameterToString(auditTrails)); // query parameter
             if (language != null) queryParams.Add("language", ApiClient.ParameterToString(language)); // query parameter
             if (_override != null) queryParams.Add("override", ApiClient.ParameterToString(_override)); // query parameter
+            if (open != null) queryParams.Add("open", ApiClient.ParameterToString(open)); // query parameter
+            if (aggregationFunction != null) queryParams.Add("aggregation-function", ApiClient.ParameterToString(aggregationFunction)); // query parameter
             if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
             if (formatIndent != null) queryParams.Add("format-indent", ApiClient.ParameterToString(formatIndent)); // query parameter
             if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
             
+            if (dimensions != null) ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
+            if (dimensionSlicers != null) ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
             
             
             
@@ -2166,9 +2569,14 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section</param>
         /// <param name="archiveFiscalYear">The fiscal year of the filing.</param>
         /// <param name="archiveFiscalPeriod">The fiscal period of the filing.</param>
+        /// <param name="concept">The name of the concept to retrieve the fact for (alternatively, a parameter with name xbrl:Concept can be used)</param>
         /// <param name="fiscalYear">In override mode, the fiscal year of the facts to filter (default: no filtering). Can select multiple</param>
         /// <param name="fiscalPeriod">In override mode, the fiscal period of the facts to filter (default: no filtering). Can select multiple</param>
         /// <param name="fiscalPeriodType">In override mode, the fiscal period type of the facts to filter (default: no filtering). Can select multiple</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers.</param>
+        /// <param name="dimensionSlicers">Specifies whether the given dimensions are slicers (true) or a dicers (false). Slicer dimensions do not appear in the output fact table (default: false). Each key is in the form prefix:dimension::slicer, each value is a boolean</param>
         /// <param name="filingKind">Filters the results for the filings submitted for kind of filing. (default: no filtering)</param>
         /// <param name="disclosure">The disclosure of the component (e.g. BalanceSheet)</param>
         /// <param name="reportElement">Filters only those components that contained the supplied report element (e.g. us-gaap:Goodwill)</param>
@@ -2180,12 +2588,15 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to the component&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="language">A language code</param>
-        /// <param name="_override">Whether the fiscalYear/fiscalPeriod/fiscalPeriodType parameters should be used to filter facts (default: false)</param>
+        /// <param name="_override">Whether the component&#39;s hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: false)</param>
+        /// <param name="open">Whether the query has open hypercube semantics. (default: false)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function.</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListFactTableAsync (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? merge = null, bool? count = null, int? top = null, bool? skip = null, string additionalRules = null, bool? labels = null, string language = null, bool? _override = null, string profileName = null, bool? formatIndent = null)
+        public async System.Threading.Tasks.Task<Object> ListFactTableAsync (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string concept = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, Dictionary<string, string> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, string> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? merge = null, bool? count = null, int? top = null, bool? skip = null, string additionalRules = null, bool? labels = null, string auditTrails = null, string language = null, bool? _override = null, bool? open = null, string aggregationFunction = null, string profileName = null, bool? formatIndent = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListFactTable");
@@ -2221,6 +2632,7 @@ namespace CellStore.Api
             if (section != null) queryParams.Add("section", ApiClient.ParameterToString(section)); // query parameter
             if (archiveFiscalYear != null) queryParams.Add("archiveFiscalYear", ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
             if (archiveFiscalPeriod != null) queryParams.Add("archiveFiscalPeriod", ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (concept != null) queryParams.Add("concept", ApiClient.ParameterToString(concept)); // query parameter
             if (fiscalYear != null) queryParams.Add("fiscalYear", ApiClient.ParameterToString(fiscalYear)); // query parameter
             if (fiscalPeriod != null) queryParams.Add("fiscalPeriod", ApiClient.ParameterToString(fiscalPeriod)); // query parameter
             if (fiscalPeriodType != null) queryParams.Add("fiscalPeriodType", ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
@@ -2235,12 +2647,19 @@ namespace CellStore.Api
             if (skip != null) queryParams.Add("skip", ApiClient.ParameterToString(skip)); // query parameter
             if (additionalRules != null) queryParams.Add("additional-rules", ApiClient.ParameterToString(additionalRules)); // query parameter
             if (labels != null) queryParams.Add("labels", ApiClient.ParameterToString(labels)); // query parameter
+            if (auditTrails != null) queryParams.Add("audit-trails", ApiClient.ParameterToString(auditTrails)); // query parameter
             if (language != null) queryParams.Add("language", ApiClient.ParameterToString(language)); // query parameter
             if (_override != null) queryParams.Add("override", ApiClient.ParameterToString(_override)); // query parameter
+            if (open != null) queryParams.Add("open", ApiClient.ParameterToString(open)); // query parameter
+            if (aggregationFunction != null) queryParams.Add("aggregation-function", ApiClient.ParameterToString(aggregationFunction)); // query parameter
             if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
             if (formatIndent != null) queryParams.Add("format-indent", ApiClient.ParameterToString(formatIndent)); // query parameter
             if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
             
+            if (dimensions != null) ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
+            if (dimensionSlicers != null) ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
             
             
             
@@ -2272,6 +2691,7 @@ namespace CellStore.Api
         /// <param name="report">The name of the report to be used (e.g. FundamentalAccountingConcepts)</param> 
         /// <param name="validate">Validate and stamp facts accordingly</param> 
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param> 
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param> 
         /// <param name="language">A language code</param> 
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
         /// <param name="count">If true, only outputs statistics (default is false)</param> 
@@ -2279,7 +2699,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results (default: 0)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param> 
         /// <returns>Object</returns>            
-        public Object ListFactTableForReport (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? validate = null, bool? labels = null, string language = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? formatIndent = null)
+        public Object ListFactTableForReport (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? validate = null, bool? labels = null, string auditTrails = null, string language = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? formatIndent = null)
         {
             
             // verify the required parameter 'token' is set
@@ -2317,6 +2737,7 @@ namespace CellStore.Api
             if (report != null) queryParams.Add("report", ApiClient.ParameterToString(report)); // query parameter
             if (validate != null) queryParams.Add("validate", ApiClient.ParameterToString(validate)); // query parameter
             if (labels != null) queryParams.Add("labels", ApiClient.ParameterToString(labels)); // query parameter
+            if (auditTrails != null) queryParams.Add("audit-trails", ApiClient.ParameterToString(auditTrails)); // query parameter
             if (language != null) queryParams.Add("language", ApiClient.ParameterToString(language)); // query parameter
             if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
             if (count != null) queryParams.Add("count", ApiClient.ParameterToString(count)); // query parameter
@@ -2359,6 +2780,7 @@ namespace CellStore.Api
         /// <param name="report">The name of the report to be used (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="validate">Validate and stamp facts accordingly</param>
         /// <param name="labels">Whether human readable labels should be included for concepts in each fact. (default: false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact. (default: no)</param>
         /// <param name="language">A language code</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="count">If true, only outputs statistics (default is false)</param>
@@ -2366,7 +2788,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results (default: 0)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListFactTableForReportAsync (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? validate = null, bool? labels = null, string language = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? formatIndent = null)
+        public async System.Threading.Tasks.Task<Object> ListFactTableForReportAsync (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? validate = null, bool? labels = null, string auditTrails = null, string language = null, string profileName = null, bool? count = null, int? top = null, bool? skip = null, bool? formatIndent = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListFactTableForReport");
@@ -2403,6 +2825,7 @@ namespace CellStore.Api
             if (report != null) queryParams.Add("report", ApiClient.ParameterToString(report)); // query parameter
             if (validate != null) queryParams.Add("validate", ApiClient.ParameterToString(validate)); // query parameter
             if (labels != null) queryParams.Add("labels", ApiClient.ParameterToString(labels)); // query parameter
+            if (auditTrails != null) queryParams.Add("audit-trails", ApiClient.ParameterToString(auditTrails)); // query parameter
             if (language != null) queryParams.Add("language", ApiClient.ParameterToString(language)); // query parameter
             if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
             if (count != null) queryParams.Add("count", ApiClient.ParameterToString(count)); // query parameter
@@ -3161,6 +3584,126 @@ namespace CellStore.Api
             IRestResponse response = (IRestResponse) await ApiClient.CallApiAsync(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams, authSettings);
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpsertLabels: " + response.Content, response.Content);
+
+            return (Object) ApiClient.Deserialize(response.Content, typeof(Object), response.Headers);
+        }
+        
+        /// <summary>
+        /// Deletes a label. 
+        /// </summary>
+        /// <param name="token">The token of the current session</param> 
+        /// <param name="aid">The AID of the filing</param> 
+        /// <param name="section">The URI of the section</param> 
+        /// <param name="reportElement">The name of the report element</param> 
+        /// <param name="language">A language code</param> 
+        /// <param name="labelRole">A label role</param> 
+        /// <returns>Object</returns>            
+        public Object DeleteLabel (string token, string aid = null, string section = null, string reportElement = null, string language = null, string labelRole = null)
+        {
+            
+            // verify the required parameter 'token' is set
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteLabel");
+            
+    
+            var path = "/api/labels";
+    
+            var pathParams = new Dictionary<String, String>();
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+
+            // to determine the Accept header
+            String[] http_header_accepts = new String[] {
+                
+            };
+            String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
+            if (http_header_accept != null)
+                headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
+
+            
+            
+            if (aid != null) queryParams.Add("aid", ApiClient.ParameterToString(aid)); // query parameter
+            if (section != null) queryParams.Add("section", ApiClient.ParameterToString(section)); // query parameter
+            if (reportElement != null) queryParams.Add("reportElement", ApiClient.ParameterToString(reportElement)); // query parameter
+            if (language != null) queryParams.Add("language", ApiClient.ParameterToString(language)); // query parameter
+            if (labelRole != null) queryParams.Add("labelRole", ApiClient.ParameterToString(labelRole)); // query parameter
+            if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
+            
+            
+            
+            
+            
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, pathParams, authSettings);
+    
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling DeleteLabel: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException ((int)response.StatusCode, "Error calling DeleteLabel: " + response.ErrorMessage, response.ErrorMessage);
+    
+            return (Object) ApiClient.Deserialize(response.Content, typeof(Object), response.Headers);
+        }
+    
+        /// <summary>
+        /// Deletes a label. 
+        /// </summary>
+        /// <param name="token">The token of the current session</param>
+        /// <param name="aid">The AID of the filing</param>
+        /// <param name="section">The URI of the section</param>
+        /// <param name="reportElement">The name of the report element</param>
+        /// <param name="language">A language code</param>
+        /// <param name="labelRole">A label role</param>
+        /// <returns>Object</returns>
+        public async System.Threading.Tasks.Task<Object> DeleteLabelAsync (string token, string aid = null, string section = null, string reportElement = null, string language = null, string labelRole = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteLabel");
+            
+    
+            var path = "/api/labels";
+    
+            var pathParams = new Dictionary<String, String>();
+            var queryParams = new Dictionary<String, String>();
+            var headerParams = new Dictionary<String, String>();
+            var formParams = new Dictionary<String, String>();
+            var fileParams = new Dictionary<String, FileParameter>();
+            String postBody = null;
+
+            // to determine the Accept header
+            String[] http_header_accepts = new String[] {
+                
+            };
+            String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
+            if (http_header_accept != null)
+                headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
+
+                        
+            
+            if (aid != null) queryParams.Add("aid", ApiClient.ParameterToString(aid)); // query parameter
+            if (section != null) queryParams.Add("section", ApiClient.ParameterToString(section)); // query parameter
+            if (reportElement != null) queryParams.Add("reportElement", ApiClient.ParameterToString(reportElement)); // query parameter
+            if (language != null) queryParams.Add("language", ApiClient.ParameterToString(language)); // query parameter
+            if (labelRole != null) queryParams.Add("labelRole", ApiClient.ParameterToString(labelRole)); // query parameter
+            if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
+            
+            
+            
+            
+            
+    
+            // authentication setting, if any
+            String[] authSettings = new String[] {  };
+    
+            // make the HTTP request
+            IRestResponse response = (IRestResponse) await ApiClient.CallApiAsync(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, pathParams, authSettings);
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException ((int)response.StatusCode, "Error calling DeleteLabel: " + response.Content, response.Content);
 
             return (Object) ApiClient.Deserialize(response.Content, typeof(Object), response.Headers);
         }
@@ -3939,9 +4482,9 @@ namespace CellStore.Api
         /// <param name="token">The token of the current session</param> 
         /// <param name="aid">The AID of the filing</param> 
         /// <param name="section">The URI of the section</param> 
-        /// <param name="name">The name of the report element</param> 
+        /// <param name="reportElement">The name of the report element</param> 
         /// <returns>Object</returns>            
-        public Object DeleteReportElement (string token, string aid = null, string section = null, string name = null)
+        public Object DeleteReportElement (string token, string aid = null, string section = null, string reportElement = null)
         {
             
             // verify the required parameter 'token' is set
@@ -3969,7 +4512,7 @@ namespace CellStore.Api
             
             if (aid != null) queryParams.Add("aid", ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) queryParams.Add("section", ApiClient.ParameterToString(section)); // query parameter
-            if (name != null) queryParams.Add("name", ApiClient.ParameterToString(name)); // query parameter
+            if (reportElement != null) queryParams.Add("reportElement", ApiClient.ParameterToString(reportElement)); // query parameter
             if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
             
             
@@ -3997,9 +4540,9 @@ namespace CellStore.Api
         /// <param name="token">The token of the current session</param>
         /// <param name="aid">The AID of the filing</param>
         /// <param name="section">The URI of the section</param>
-        /// <param name="name">The name of the report element</param>
+        /// <param name="reportElement">The name of the report element</param>
         /// <returns>Object</returns>
-        public async System.Threading.Tasks.Task<Object> DeleteReportElementAsync (string token, string aid = null, string section = null, string name = null)
+        public async System.Threading.Tasks.Task<Object> DeleteReportElementAsync (string token, string aid = null, string section = null, string reportElement = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteReportElement");
@@ -4026,7 +4569,7 @@ namespace CellStore.Api
             
             if (aid != null) queryParams.Add("aid", ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) queryParams.Add("section", ApiClient.ParameterToString(section)); // query parameter
-            if (name != null) queryParams.Add("name", ApiClient.ParameterToString(name)); // query parameter
+            if (reportElement != null) queryParams.Add("reportElement", ApiClient.ParameterToString(reportElement)); // query parameter
             if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
             
             
@@ -4475,13 +5018,15 @@ namespace CellStore.Api
         /// <param name="label">A search term to search in the labels of components (e.g. stock)</param> 
         /// <param name="validate">Whether or not to stamp facts for validity (default is false)</param> 
         /// <param name="eliminate">Whether  to eliminate empty rows/columns</param> 
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination.</param> 
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination.</param> 
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (true by default).</param> 
         /// <param name="merge">Whether to merge components if multiple are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved</param> 
         /// <param name="additionalRules">The name of a report from which to use rules in addition to the component&#39;s rules (e.g. FundamentalAccountingConcepts)</param> 
         /// <param name="_override">Whether the fiscalYear/fiscalPeriod/fiscalPeriodType parameters should also be used to filter facts (default: false)</param> 
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
         /// <returns>Object</returns>            
-        public Object SpreadsheetForComponent (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? eliminate = null, bool? flattenRowHeaders = null, bool? merge = null, string additionalRules = null, bool? _override = null, string profileName = null)
+        public Object SpreadsheetForComponent (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? eliminate = null, int? row = null, int? column = null, bool? flattenRowHeaders = null, bool? merge = null, string additionalRules = null, bool? _override = null, string profileName = null)
         {
             
             // verify the required parameter 'token' is set
@@ -4527,6 +5072,8 @@ namespace CellStore.Api
             if (label != null) queryParams.Add("label", ApiClient.ParameterToString(label)); // query parameter
             if (validate != null) queryParams.Add("validate", ApiClient.ParameterToString(validate)); // query parameter
             if (eliminate != null) queryParams.Add("eliminate", ApiClient.ParameterToString(eliminate)); // query parameter
+            if (row != null) queryParams.Add("row", ApiClient.ParameterToString(row)); // query parameter
+            if (column != null) queryParams.Add("column", ApiClient.ParameterToString(column)); // query parameter
             if (flattenRowHeaders != null) queryParams.Add("flatten-row-headers", ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
             if (merge != null) queryParams.Add("merge", ApiClient.ParameterToString(merge)); // query parameter
             if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
@@ -4576,13 +5123,15 @@ namespace CellStore.Api
         /// <param name="label">A search term to search in the labels of components (e.g. stock)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false)</param>
         /// <param name="eliminate">Whether  to eliminate empty rows/columns</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination.</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination.</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (true by default).</param>
         /// <param name="merge">Whether to merge components if multiple are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to the component&#39;s rules (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="_override">Whether the fiscalYear/fiscalPeriod/fiscalPeriodType parameters should also be used to filter facts (default: false)</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <returns>Object</returns>
-        public async System.Threading.Tasks.Task<Object> SpreadsheetForComponentAsync (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? eliminate = null, bool? flattenRowHeaders = null, bool? merge = null, string additionalRules = null, bool? _override = null, string profileName = null)
+        public async System.Threading.Tasks.Task<Object> SpreadsheetForComponentAsync (string token, string aid = null, string eid = null, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string section = null, string archiveFiscalYear = null, string archiveFiscalPeriod = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string filingKind = null, string disclosure = null, string reportElement = null, string label = null, bool? validate = null, bool? eliminate = null, int? row = null, int? column = null, bool? flattenRowHeaders = null, bool? merge = null, string additionalRules = null, bool? _override = null, string profileName = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling SpreadsheetForComponent");
@@ -4627,6 +5176,8 @@ namespace CellStore.Api
             if (label != null) queryParams.Add("label", ApiClient.ParameterToString(label)); // query parameter
             if (validate != null) queryParams.Add("validate", ApiClient.ParameterToString(validate)); // query parameter
             if (eliminate != null) queryParams.Add("eliminate", ApiClient.ParameterToString(eliminate)); // query parameter
+            if (row != null) queryParams.Add("row", ApiClient.ParameterToString(row)); // query parameter
+            if (column != null) queryParams.Add("column", ApiClient.ParameterToString(column)); // query parameter
             if (flattenRowHeaders != null) queryParams.Add("flatten-row-headers", ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
             if (merge != null) queryParams.Add("merge", ApiClient.ParameterToString(merge)); // query parameter
             if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
@@ -4664,12 +5215,14 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple, but preferably not both YTD and QTD</param> 
         /// <param name="report">The name of the report to be used (e.g. FundamentalAccountingConcepts)</param> 
         /// <param name="eliminate">Wwether to eliminate empty rows/colummns</param> 
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination.</param> 
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination.</param> 
         /// <param name="validate">Validate and stamp facts accordingly</param> 
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (true by default).</param> 
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param> 
         /// <returns>Object</returns>            
-        public Object ListSpreadsheetForReport (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? eliminate = null, bool? validate = null, bool? flattenRowHeaders = null, string profileName = null, bool? formatIndent = null)
+        public Object ListSpreadsheetForReport (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? eliminate = null, int? row = null, int? column = null, bool? validate = null, bool? flattenRowHeaders = null, string profileName = null, bool? formatIndent = null)
         {
             
             // verify the required parameter 'token' is set
@@ -4706,6 +5259,8 @@ namespace CellStore.Api
             if (fiscalPeriodType != null) queryParams.Add("fiscalPeriodType", ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
             if (report != null) queryParams.Add("report", ApiClient.ParameterToString(report)); // query parameter
             if (eliminate != null) queryParams.Add("eliminate", ApiClient.ParameterToString(eliminate)); // query parameter
+            if (row != null) queryParams.Add("row", ApiClient.ParameterToString(row)); // query parameter
+            if (column != null) queryParams.Add("column", ApiClient.ParameterToString(column)); // query parameter
             if (validate != null) queryParams.Add("validate", ApiClient.ParameterToString(validate)); // query parameter
             if (flattenRowHeaders != null) queryParams.Add("flatten-row-headers", ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
             if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
@@ -4745,12 +5300,14 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">The fiscal period type of the fact to retrieve (default: no filtering). Can select multiple, but preferably not both YTD and QTD</param>
         /// <param name="report">The name of the report to be used (e.g. FundamentalAccountingConcepts)</param>
         /// <param name="eliminate">Wwether to eliminate empty rows/colummns</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination.</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination.</param>
         /// <param name="validate">Validate and stamp facts accordingly</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (true by default).</param>
         /// <param name="profileName">Specifies which profile to use. The default depends on the underlying repository</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent).</param>
         /// <returns>Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListSpreadsheetForReportAsync (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? eliminate = null, bool? validate = null, bool? flattenRowHeaders = null, string profileName = null, bool? formatIndent = null)
+        public async System.Threading.Tasks.Task<Object> ListSpreadsheetForReportAsync (string token, string cik = null, string edinetcode = null, string ticker = null, string tag = null, string sic = null, string fiscalYear = null, string fiscalPeriod = null, string fiscalPeriodType = null, string report = null, bool? eliminate = null, int? row = null, int? column = null, bool? validate = null, bool? flattenRowHeaders = null, string profileName = null, bool? formatIndent = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListSpreadsheetForReport");
@@ -4786,6 +5343,8 @@ namespace CellStore.Api
             if (fiscalPeriodType != null) queryParams.Add("fiscalPeriodType", ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
             if (report != null) queryParams.Add("report", ApiClient.ParameterToString(report)); // query parameter
             if (eliminate != null) queryParams.Add("eliminate", ApiClient.ParameterToString(eliminate)); // query parameter
+            if (row != null) queryParams.Add("row", ApiClient.ParameterToString(row)); // query parameter
+            if (column != null) queryParams.Add("column", ApiClient.ParameterToString(column)); // query parameter
             if (validate != null) queryParams.Add("validate", ApiClient.ParameterToString(validate)); // query parameter
             if (flattenRowHeaders != null) queryParams.Add("flatten-row-headers", ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
             if (profileName != null) queryParams.Add("profile-name", ApiClient.ParameterToString(profileName)); // query parameter
