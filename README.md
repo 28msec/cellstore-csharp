@@ -3,8 +3,16 @@
 
 This CellStore.NET library is published on [Nuget.org] (https://www.nuget.org/packages/CellStore.NET/).
 
+## Prerequisites
+
+NPM
+Linux:
+```bash
+sudo apt-get install mono-mcs
+sudo apt-get install libmono-system-runtime-serialization4.0-cil
+```
+
 ## Development
-Prerequisite: [NPM](Prerequisites: NPM)
 
 ```bash
 $ npm install gulp -g
