@@ -26,8 +26,9 @@ namespace CellStore.Api
         /// <param name="email">Current email of the authorized user (needed if changing the email)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email)</param>
         /// <param name="token">The token of the current session</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        Outcome EditUser (string firstname, string lastname, string newemail = null, string email = null, string password = null, string token = null);
+        Outcome EditUser (string firstname, string lastname, string newemail = null, string email = null, string password = null, string token = null, string format = json);
   
         /// <summary>
         /// Change a user firstname and lastname, and, optionally, his email.
@@ -41,8 +42,9 @@ namespace CellStore.Api
         /// <param name="email">Current email of the authorized user (needed if changing the email)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email)</param>
         /// <param name="token">The token of the current session</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> EditUserAsync (string firstname, string lastname, string newemail = null, string email = null, string password = null, string token = null);
+        System.Threading.Tasks.Task<Outcome> EditUserAsync (string firstname, string lastname, string newemail = null, string email = null, string password = null, string token = null, string format = json);
         
         /// <summary>
         /// Send an email with the reset password token.
@@ -51,8 +53,9 @@ namespace CellStore.Api
         /// 
         /// </remarks>
         /// <param name="email">The user email</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        Outcome ForgotPassword (string email);
+        Outcome ForgotPassword (string email, string format = json);
   
         /// <summary>
         /// Send an email with the reset password token.
@@ -61,8 +64,9 @@ namespace CellStore.Api
         /// 
         /// </remarks>
         /// <param name="email">The user email</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> ForgotPasswordAsync (string email);
+        System.Threading.Tasks.Task<Outcome> ForgotPasswordAsync (string email, string format = json);
         
         /// <summary>
         /// Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
@@ -171,8 +175,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        Outcome SetPassword (string email, string password, string resetToken);
+        Outcome SetPassword (string email, string password, string resetToken, string format = json);
   
         /// <summary>
         /// Set the password for a user based on email and the reset password token
@@ -183,8 +188,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> SetPasswordAsync (string email, string password, string resetToken);
+        System.Threading.Tasks.Task<Outcome> SetPasswordAsync (string email, string password, string resetToken, string format = json);
         
     }
   
@@ -250,8 +256,9 @@ namespace CellStore.Api
         /// <param name="email">Current email of the authorized user (needed if changing the email)</param> 
         /// <param name="password">Current password of the authorized user (needed if changing the email)</param> 
         /// <param name="token">The token of the current session</param> 
+        /// <param name="format">The result format</param> 
         /// <returns>Outcome</returns>            
-        public Outcome EditUser (string firstname, string lastname, string newemail = null, string email = null, string password = null, string token = null)
+        public Outcome EditUser (string firstname, string lastname, string newemail = null, string email = null, string password = null, string token = null, string format = json)
         {
             
             // verify the required parameter 'firstname' is set
@@ -278,7 +285,6 @@ namespace CellStore.Api
             if (http_header_accept != null)
                 headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
 
-            queryParams.Add("format", ApiClient.ParameterToString("json")); // hardcoded query parameter
             
             
             if (firstname != null) queryParams.Add("firstname", ApiClient.ParameterToString(firstname)); // query parameter
@@ -287,6 +293,7 @@ namespace CellStore.Api
             if (email != null) queryParams.Add("email", ApiClient.ParameterToString(email)); // query parameter
             if (password != null) queryParams.Add("password", ApiClient.ParameterToString(password)); // query parameter
             if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) queryParams.Add("format", ApiClient.ParameterToString(format)); // query parameter
             
             
             
@@ -316,8 +323,9 @@ namespace CellStore.Api
         /// <param name="email">Current email of the authorized user (needed if changing the email)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email)</param>
         /// <param name="token">The token of the current session</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> EditUserAsync (string firstname, string lastname, string newemail = null, string email = null, string password = null, string token = null)
+        public async System.Threading.Tasks.Task<Outcome> EditUserAsync (string firstname, string lastname, string newemail = null, string email = null, string password = null, string token = null, string format = json)
         {
             // verify the required parameter 'firstname' is set
             if (firstname == null) throw new ApiException(400, "Missing required parameter 'firstname' when calling EditUser");
@@ -342,7 +350,6 @@ namespace CellStore.Api
             if (http_header_accept != null)
                 headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
 
-            queryParams.Add("format", ApiClient.ParameterToString("json")); // hardcoded query parameter
                         
             
             if (firstname != null) queryParams.Add("firstname", ApiClient.ParameterToString(firstname)); // query parameter
@@ -351,6 +358,7 @@ namespace CellStore.Api
             if (email != null) queryParams.Add("email", ApiClient.ParameterToString(email)); // query parameter
             if (password != null) queryParams.Add("password", ApiClient.ParameterToString(password)); // query parameter
             if (token != null) queryParams.Add("token", ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) queryParams.Add("format", ApiClient.ParameterToString(format)); // query parameter
             
             
             
@@ -372,8 +380,9 @@ namespace CellStore.Api
         /// Send an email with the reset password token. 
         /// </summary>
         /// <param name="email">The user email</param> 
+        /// <param name="format">The result format</param> 
         /// <returns>Outcome</returns>            
-        public Outcome ForgotPassword (string email)
+        public Outcome ForgotPassword (string email, string format = json)
         {
             
             // verify the required parameter 'email' is set
@@ -397,10 +406,10 @@ namespace CellStore.Api
             if (http_header_accept != null)
                 headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
 
-            queryParams.Add("format", ApiClient.ParameterToString("json")); // hardcoded query parameter
             
             
             if (email != null) queryParams.Add("email", ApiClient.ParameterToString(email)); // query parameter
+            if (format != null) queryParams.Add("format", ApiClient.ParameterToString(format)); // query parameter
             
             
             
@@ -425,8 +434,9 @@ namespace CellStore.Api
         /// Send an email with the reset password token. 
         /// </summary>
         /// <param name="email">The user email</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> ForgotPasswordAsync (string email)
+        public async System.Threading.Tasks.Task<Outcome> ForgotPasswordAsync (string email, string format = json)
         {
             // verify the required parameter 'email' is set
             if (email == null) throw new ApiException(400, "Missing required parameter 'email' when calling ForgotPassword");
@@ -449,10 +459,10 @@ namespace CellStore.Api
             if (http_header_accept != null)
                 headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
 
-            queryParams.Add("format", ApiClient.ParameterToString("json")); // hardcoded query parameter
                         
             
             if (email != null) queryParams.Add("email", ApiClient.ParameterToString(email)); // query parameter
+            if (format != null) queryParams.Add("format", ApiClient.ParameterToString(format)); // query parameter
             
             
             
@@ -947,8 +957,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param> 
         /// <param name="password">The new password</param> 
         /// <param name="resetToken">The reset password token</param> 
+        /// <param name="format">The result format</param> 
         /// <returns>Outcome</returns>            
-        public Outcome SetPassword (string email, string password, string resetToken)
+        public Outcome SetPassword (string email, string password, string resetToken, string format = json)
         {
             
             // verify the required parameter 'email' is set
@@ -978,12 +989,12 @@ namespace CellStore.Api
             if (http_header_accept != null)
                 headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
 
-            queryParams.Add("format", ApiClient.ParameterToString("json")); // hardcoded query parameter
             
             
             if (email != null) queryParams.Add("email", ApiClient.ParameterToString(email)); // query parameter
             if (password != null) queryParams.Add("password", ApiClient.ParameterToString(password)); // query parameter
             if (resetToken != null) queryParams.Add("resetToken", ApiClient.ParameterToString(resetToken)); // query parameter
+            if (format != null) queryParams.Add("format", ApiClient.ParameterToString(format)); // query parameter
             
             
             
@@ -1010,8 +1021,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">The result format</param>
         /// <returns>Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> SetPasswordAsync (string email, string password, string resetToken)
+        public async System.Threading.Tasks.Task<Outcome> SetPasswordAsync (string email, string password, string resetToken, string format = json)
         {
             // verify the required parameter 'email' is set
             if (email == null) throw new ApiException(400, "Missing required parameter 'email' when calling SetPassword");
@@ -1038,12 +1050,12 @@ namespace CellStore.Api
             if (http_header_accept != null)
                 headerParams.Add("Accept", ApiClient.SelectHeaderAccept(http_header_accepts));
 
-            queryParams.Add("format", ApiClient.ParameterToString("json")); // hardcoded query parameter
                         
             
             if (email != null) queryParams.Add("email", ApiClient.ParameterToString(email)); // query parameter
             if (password != null) queryParams.Add("password", ApiClient.ParameterToString(password)); // query parameter
             if (resetToken != null) queryParams.Add("resetToken", ApiClient.ParameterToString(resetToken)); // query parameter
+            if (format != null) queryParams.Add("format", ApiClient.ParameterToString(format)); // query parameter
             
             
             
