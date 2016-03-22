@@ -210,7 +210,7 @@ namespace CellStore.Api
 
             // to determine the Accept header
             String[] http_header_accepts = new String[] {
-                
+                "application/json"
             };
             String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)
@@ -277,7 +277,7 @@ namespace CellStore.Api
 
             // to determine the Accept header
             String[] http_header_accepts = new String[] {
-                
+                "application/json"
             };
             String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)
@@ -337,7 +337,7 @@ namespace CellStore.Api
 
             // to determine the Accept header
             String[] http_header_accepts = new String[] {
-                
+                "application/json"
             };
             String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)
@@ -392,7 +392,7 @@ namespace CellStore.Api
 
             // to determine the Accept header
             String[] http_header_accepts = new String[] {
-                
+                "application/json"
             };
             String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)
@@ -440,7 +440,7 @@ namespace CellStore.Api
 
             // to determine the Accept header
             String[] http_header_accepts = new String[] {
-                
+                "application/json"
             };
             String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)
@@ -489,7 +489,7 @@ namespace CellStore.Api
 
             // to determine the Accept header
             String[] http_header_accepts = new String[] {
-                
+                "application/json"
             };
             String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)
@@ -544,7 +544,7 @@ namespace CellStore.Api
 
             // to determine the Accept header
             String[] http_header_accepts = new String[] {
-                
+                "application/json"
             };
             String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)
@@ -607,7 +607,7 @@ namespace CellStore.Api
 
             // to determine the Accept header
             String[] http_header_accepts = new String[] {
-                
+                "application/json"
             };
             String http_header_accept = ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)

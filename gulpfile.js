@@ -35,12 +35,12 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
 });
 
 gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
-    'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.1.7/swagger-codegen-cli.jar'
+    'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.2.0/swagger-codegen-cli.jar'
 ));
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
     'cp codegen-options.json build',
-    'cd build && java -jar swagger-codegen-cli.jar generate -i swagger-aggregated.json -l csharp -c codegen-options.json  -o .'
+    'cd build && java -DnoInlineModels -jar swagger-codegen-cli.jar generate -i swagger-aggregated.json -l csharp -c codegen-options.json  -o .'
 ]));
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
