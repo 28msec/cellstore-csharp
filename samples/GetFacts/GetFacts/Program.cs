@@ -24,7 +24,7 @@ namespace GetFacts
 
       // list some facts
       dynamic factsResonse = dataAPI.ListFacts(token, ticker: new List<string> { "t" }, 
-                                                      fiscalYear: new List<string> { "2014" }, 
+                                                      fiscalYear: new List<string> { "2014", "2015" }, 
                                                       fiscalPeriod: new List<string> { "FY" }, 
                                                       concept: new List<string> { "us-gaap:Assets" });
       dynamic factTable = factsResonse["FactTable"];
