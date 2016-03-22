@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
 using CellStore.Client;
@@ -14,6 +15,7 @@ namespace CellStore.Api
     /// </summary>
     public interface ISessionsApi
     {
+        #region Synchronous Operations
         
         /// <summary>
         /// Login with email and password in order to retrieve a token.
@@ -21,9 +23,10 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Object</returns>
         Object Login (string email, string password, string format = null);
   
@@ -33,35 +36,12 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> LoginWithHttpInfo (string email, string password, string format = null);
-
-        /// <summary>
-        /// Login with email and password in order to retrieve a token.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <param name="email">Email of user to login</param>
-        /// <param name="password">Password of user to login</param>
-        /// <param name="format">The result format</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> LoginAsync (string email, string password, string format = null);
-
-        /// <summary>
-        /// Login with email and password in order to retrieve a token.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <param name="email">Email of user to login</param>
-        /// <param name="password">Password of user to login</param>
-        /// <param name="format">The result format</param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password, string format = null);
         
         /// <summary>
         /// Logout the user identified by the given API key.
@@ -69,8 +49,9 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">API token of the current user</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Outcome</returns>
         Outcome Logout (string token, string format = null);
   
@@ -80,32 +61,11 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">API token of the current user</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
         ApiResponse<Outcome> LogoutWithHttpInfo (string token, string format = null);
-
-        /// <summary>
-        /// Logout the user identified by the given API key.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <param name="token">API token of the current user</param>
-        /// <param name="format">The result format</param>
-        /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> LogoutAsync (string token, string format = null);
-
-        /// <summary>
-        /// Logout the user identified by the given API key.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <param name="token">API token of the current user</param>
-        /// <param name="format">The result format</param>
-        /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token, string format = null);
         
         /// <summary>
         /// Revoke a token having a custom expiration duration.
@@ -113,10 +73,11 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">API token to revoke</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Outcome</returns>
         Outcome Revoke (string email, string password, string token, string format = null);
   
@@ -126,38 +87,13 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">API token to revoke</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
         ApiResponse<Outcome> RevokeWithHttpInfo (string email, string password, string token, string format = null);
-
-        /// <summary>
-        /// Revoke a token having a custom expiration duration.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <param name="email">Email of user that owns the token</param>
-        /// <param name="password">Password of user that owns the token</param>
-        /// <param name="token">API token to revoke</param>
-        /// <param name="format">The result format</param>
-        /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token, string format = null);
-
-        /// <summary>
-        /// Revoke a token having a custom expiration duration.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <param name="email">Email of user that owns the token</param>
-        /// <param name="password">Password of user that owns the token</param>
-        /// <param name="token">API token to revoke</param>
-        /// <param name="format">The result format</param>
-        /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token, string format = null);
         
         /// <summary>
         /// Create a token having a custom expiration duration.
@@ -165,10 +101,11 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Object</returns>
         Object Token (string email, string password, string expiration, string format = null);
   
@@ -178,38 +115,13 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> TokenWithHttpInfo (string email, string password, string expiration, string format = null);
-
-        /// <summary>
-        /// Create a token having a custom expiration duration.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <param name="email">Email of user that creates the token</param>
-        /// <param name="password">Password of user that creates the token</param>
-        /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <param name="format">The result format</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration, string format = null);
-
-        /// <summary>
-        /// Create a token having a custom expiration duration.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <param name="email">Email of user that creates the token</param>
-        /// <param name="password">Password of user that creates the token</param>
-        /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <param name="format">The result format</param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration, string format = null);
         
         /// <summary>
         /// List tokens of a user identified by its token.
@@ -217,8 +129,9 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">A valid API token</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Object</returns>
         Object Tokens (string token, string format = null);
   
@@ -228,19 +141,131 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">A valid API token</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> TokensWithHttpInfo (string token, string format = null);
+        
+        #endregion Synchronous Operations
+        
+        #region Asynchronous Operations
+        
+        /// <summary>
+        /// Login with email and password in order to retrieve a token.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="email">Email of user to login</param>
+        /// <param name="password">Password of user to login</param>
+        /// <param name="format">The result format (optional, default to json)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> LoginAsync (string email, string password, string format = null);
 
+        /// <summary>
+        /// Login with email and password in order to retrieve a token.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="email">Email of user to login</param>
+        /// <param name="password">Password of user to login</param>
+        /// <param name="format">The result format (optional, default to json)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password, string format = null);
+        
+        /// <summary>
+        /// Logout the user identified by the given API key.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">API token of the current user</param>
+        /// <param name="format">The result format (optional, default to json)</param>
+        /// <returns>Task of Outcome</returns>
+        System.Threading.Tasks.Task<Outcome> LogoutAsync (string token, string format = null);
+
+        /// <summary>
+        /// Logout the user identified by the given API key.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">API token of the current user</param>
+        /// <param name="format">The result format (optional, default to json)</param>
+        /// <returns>Task of ApiResponse (Outcome)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token, string format = null);
+        
+        /// <summary>
+        /// Revoke a token having a custom expiration duration.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="email">Email of user that owns the token</param>
+        /// <param name="password">Password of user that owns the token</param>
+        /// <param name="token">API token to revoke</param>
+        /// <param name="format">The result format (optional, default to json)</param>
+        /// <returns>Task of Outcome</returns>
+        System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token, string format = null);
+
+        /// <summary>
+        /// Revoke a token having a custom expiration duration.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="email">Email of user that owns the token</param>
+        /// <param name="password">Password of user that owns the token</param>
+        /// <param name="token">API token to revoke</param>
+        /// <param name="format">The result format (optional, default to json)</param>
+        /// <returns>Task of ApiResponse (Outcome)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token, string format = null);
+        
+        /// <summary>
+        /// Create a token having a custom expiration duration.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="email">Email of user that creates the token</param>
+        /// <param name="password">Password of user that creates the token</param>
+        /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">The result format (optional, default to json)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration, string format = null);
+
+        /// <summary>
+        /// Create a token having a custom expiration duration.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="email">Email of user that creates the token</param>
+        /// <param name="password">Password of user that creates the token</param>
+        /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">The result format (optional, default to json)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration, string format = null);
+        
         /// <summary>
         /// List tokens of a user identified by its token.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">A valid API token</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
         System.Threading.Tasks.Task<Object> TokensAsync (string token, string format = null);
 
@@ -250,10 +275,13 @@ namespace CellStore.Api
         /// <remarks>
         /// 
         /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">A valid API token</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> TokensAsyncWithHttpInfo (string token, string format = null);
+        
+        #endregion Asynchronous Operations
         
     }
   
@@ -269,6 +297,12 @@ namespace CellStore.Api
         public SessionsApi(String basePath)
         {
             this.Configuration = new Configuration(new ApiClient(basePath));
+
+            // ensure API client has configuration ready
+            if (Configuration.ApiClient.Configuration == null)
+            {
+                this.Configuration.ApiClient.Configuration = this.Configuration;
+            }
         }
     
         /// <summary>
@@ -283,6 +317,12 @@ namespace CellStore.Api
                 this.Configuration = Configuration.Default; 
             else
                 this.Configuration = configuration;
+
+            // ensure API client has configuration ready
+            if (Configuration.ApiClient.Configuration == null)
+            {
+                this.Configuration.ApiClient.Configuration = this.Configuration;
+            }
         }
 
         /// <summary>
@@ -336,55 +376,65 @@ namespace CellStore.Api
         /// <summary>
         /// Login with email and password in order to retrieve a token. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param> 
         /// <param name="password">Password of user to login</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>Object</returns>
         public Object Login (string email, string password, string format = null)
         {
-             ApiResponse<Object> response = LoginWithHttpInfo(email, password, format);
-             return response.Data;
+             ApiResponse<Object> localVarResponse = LoginWithHttpInfo(email, password, format);
+             return localVarResponse.Data;
         }
 
         /// <summary>
         /// Login with email and password in order to retrieve a token. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param> 
         /// <param name="password">Password of user to login</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > LoginWithHttpInfo (string email, string password, string format = null)
         {
             
             // verify the required parameter 'email' is set
-            if (email == null) throw new ApiException(400, "Missing required parameter 'email' when calling Login");
+            if (email == null)
+                throw new ApiException(400, "Missing required parameter 'email' when calling SessionsApi->Login");
             
             // verify the required parameter 'password' is set
-            if (password == null) throw new ApiException(400, "Missing required parameter 'password' when calling Login");
+            if (password == null)
+                throw new ApiException(400, "Missing required parameter 'password' when calling SessionsApi->Login");
             
     
-            var path_ = "/session/login";
+            var localVarPath = "/session/login";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (email != null) queryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
-            if (password != null) queryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+            if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             
             
             
@@ -394,41 +444,46 @@ namespace CellStore.Api
             
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) Configuration.ApiClient.CallApi(path_, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
     
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Login: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Login: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Login: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Login: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(response, typeof(Object)));
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-    
+
+        
         /// <summary>
         /// Login with email and password in order to retrieve a token. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
         public async System.Threading.Tasks.Task<Object> LoginAsync (string email, string password, string format = null)
         {
-             ApiResponse<Object> response = await LoginAsyncWithHttpInfo(email, password, format);
-             return response.Data;
+             ApiResponse<Object> localVarResponse = await LoginAsyncWithHttpInfo(email, password, format);
+             return localVarResponse.Data;
 
         }
 
         /// <summary>
         /// Login with email and password in order to retrieve a token. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password, string format = null)
         {
@@ -438,28 +493,34 @@ namespace CellStore.Api
             if (password == null) throw new ApiException(400, "Missing required parameter 'password' when calling Login");
             
     
-            var path_ = "/session/login";
+            var localVarPath = "/session/login";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
                         
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (email != null) queryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
-            if (password != null) queryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+            if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             
             
             
@@ -469,67 +530,78 @@ namespace CellStore.Api
             
 
             // make the HTTP request
-            IRestResponse response = (IRestResponse) await Configuration.ApiClient.CallApiAsync(path_, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
  
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Login: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Login: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Login: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Login: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(response, typeof(Object)));
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
         
         /// <summary>
         /// Logout the user identified by the given API key. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">API token of the current user</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>Outcome</returns>
         public Outcome Logout (string token, string format = null)
         {
-             ApiResponse<Outcome> response = LogoutWithHttpInfo(token, format);
-             return response.Data;
+             ApiResponse<Outcome> localVarResponse = LogoutWithHttpInfo(token, format);
+             return localVarResponse.Data;
         }
 
         /// <summary>
         /// Logout the user identified by the given API key. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">API token of the current user</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>ApiResponse of Outcome</returns>
         public ApiResponse< Outcome > LogoutWithHttpInfo (string token, string format = null)
         {
             
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling Logout");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling SessionsApi->Logout");
             
     
-            var path_ = "/session/logout";
+            var localVarPath = "/session/logout";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (token != null) queryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             
             
             
@@ -539,39 +611,44 @@ namespace CellStore.Api
             
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) Configuration.ApiClient.CallApi(path_, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
     
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Logout: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Logout: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Logout: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Logout: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
-            return new ApiResponse<Outcome>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(response, typeof(Outcome)));
+            return new ApiResponse<Outcome>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
             
         }
-    
+
+        
         /// <summary>
         /// Logout the user identified by the given API key. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">API token of the current user</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
         public async System.Threading.Tasks.Task<Outcome> LogoutAsync (string token, string format = null)
         {
-             ApiResponse<Outcome> response = await LogoutAsyncWithHttpInfo(token, format);
-             return response.Data;
+             ApiResponse<Outcome> localVarResponse = await LogoutAsyncWithHttpInfo(token, format);
+             return localVarResponse.Data;
 
         }
 
         /// <summary>
         /// Logout the user identified by the given API key. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">API token of the current user</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token, string format = null)
         {
@@ -579,27 +656,33 @@ namespace CellStore.Api
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling Logout");
             
     
-            var path_ = "/session/logout";
+            var localVarPath = "/session/logout";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
                         
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (token != null) queryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             
             
             
@@ -609,79 +692,92 @@ namespace CellStore.Api
             
 
             // make the HTTP request
-            IRestResponse response = (IRestResponse) await Configuration.ApiClient.CallApiAsync(path_, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
  
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Logout: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Logout: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Logout: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Logout: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Outcome>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(response, typeof(Outcome)));
+            return new ApiResponse<Outcome>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
             
         }
         
         /// <summary>
         /// Revoke a token having a custom expiration duration. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that owns the token</param> 
         /// <param name="password">Password of user that owns the token</param> 
         /// <param name="token">API token to revoke</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>Outcome</returns>
         public Outcome Revoke (string email, string password, string token, string format = null)
         {
-             ApiResponse<Outcome> response = RevokeWithHttpInfo(email, password, token, format);
-             return response.Data;
+             ApiResponse<Outcome> localVarResponse = RevokeWithHttpInfo(email, password, token, format);
+             return localVarResponse.Data;
         }
 
         /// <summary>
         /// Revoke a token having a custom expiration duration. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that owns the token</param> 
         /// <param name="password">Password of user that owns the token</param> 
         /// <param name="token">API token to revoke</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>ApiResponse of Outcome</returns>
         public ApiResponse< Outcome > RevokeWithHttpInfo (string email, string password, string token, string format = null)
         {
             
             // verify the required parameter 'email' is set
-            if (email == null) throw new ApiException(400, "Missing required parameter 'email' when calling Revoke");
+            if (email == null)
+                throw new ApiException(400, "Missing required parameter 'email' when calling SessionsApi->Revoke");
             
             // verify the required parameter 'password' is set
-            if (password == null) throw new ApiException(400, "Missing required parameter 'password' when calling Revoke");
+            if (password == null)
+                throw new ApiException(400, "Missing required parameter 'password' when calling SessionsApi->Revoke");
             
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling Revoke");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling SessionsApi->Revoke");
             
     
-            var path_ = "/session/revoke";
+            var localVarPath = "/session/revoke";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (email != null) queryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
-            if (password != null) queryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
-            if (token != null) queryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+            if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             
             
             
@@ -691,43 +787,48 @@ namespace CellStore.Api
             
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) Configuration.ApiClient.CallApi(path_, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
     
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Revoke: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Revoke: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Revoke: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Revoke: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
-            return new ApiResponse<Outcome>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(response, typeof(Outcome)));
+            return new ApiResponse<Outcome>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
             
         }
-    
+
+        
         /// <summary>
         /// Revoke a token having a custom expiration duration. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">API token to revoke</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
         public async System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token, string format = null)
         {
-             ApiResponse<Outcome> response = await RevokeAsyncWithHttpInfo(email, password, token, format);
-             return response.Data;
+             ApiResponse<Outcome> localVarResponse = await RevokeAsyncWithHttpInfo(email, password, token, format);
+             return localVarResponse.Data;
 
         }
 
         /// <summary>
         /// Revoke a token having a custom expiration duration. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">API token to revoke</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token, string format = null)
         {
@@ -739,29 +840,35 @@ namespace CellStore.Api
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling Revoke");
             
     
-            var path_ = "/session/revoke";
+            var localVarPath = "/session/revoke";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
                         
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (email != null) queryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
-            if (password != null) queryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
-            if (token != null) queryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+            if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             
             
             
@@ -771,79 +878,92 @@ namespace CellStore.Api
             
 
             // make the HTTP request
-            IRestResponse response = (IRestResponse) await Configuration.ApiClient.CallApiAsync(path_, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
  
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Revoke: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Revoke: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Revoke: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Revoke: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Outcome>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(response, typeof(Outcome)));
+            return new ApiResponse<Outcome>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
             
         }
         
         /// <summary>
         /// Create a token having a custom expiration duration. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that creates the token</param> 
         /// <param name="password">Password of user that creates the token</param> 
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>Object</returns>
         public Object Token (string email, string password, string expiration, string format = null)
         {
-             ApiResponse<Object> response = TokenWithHttpInfo(email, password, expiration, format);
-             return response.Data;
+             ApiResponse<Object> localVarResponse = TokenWithHttpInfo(email, password, expiration, format);
+             return localVarResponse.Data;
         }
 
         /// <summary>
         /// Create a token having a custom expiration duration. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that creates the token</param> 
         /// <param name="password">Password of user that creates the token</param> 
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > TokenWithHttpInfo (string email, string password, string expiration, string format = null)
         {
             
             // verify the required parameter 'email' is set
-            if (email == null) throw new ApiException(400, "Missing required parameter 'email' when calling Token");
+            if (email == null)
+                throw new ApiException(400, "Missing required parameter 'email' when calling SessionsApi->Token");
             
             // verify the required parameter 'password' is set
-            if (password == null) throw new ApiException(400, "Missing required parameter 'password' when calling Token");
+            if (password == null)
+                throw new ApiException(400, "Missing required parameter 'password' when calling SessionsApi->Token");
             
             // verify the required parameter 'expiration' is set
-            if (expiration == null) throw new ApiException(400, "Missing required parameter 'expiration' when calling Token");
+            if (expiration == null)
+                throw new ApiException(400, "Missing required parameter 'expiration' when calling SessionsApi->Token");
             
     
-            var path_ = "/session/token";
+            var localVarPath = "/session/token";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (email != null) queryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
-            if (password != null) queryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
-            if (expiration != null) queryParams.Add("expiration", Configuration.ApiClient.ParameterToString(expiration)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+            if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
+            if (expiration != null) localVarQueryParams.Add("expiration", Configuration.ApiClient.ParameterToString(expiration)); // query parameter
             
             
             
@@ -853,43 +973,48 @@ namespace CellStore.Api
             
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) Configuration.ApiClient.CallApi(path_, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
     
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Token: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Token: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Token: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Token: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(response, typeof(Object)));
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-    
+
+        
         /// <summary>
         /// Create a token having a custom expiration duration. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
         public async System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration, string format = null)
         {
-             ApiResponse<Object> response = await TokenAsyncWithHttpInfo(email, password, expiration, format);
-             return response.Data;
+             ApiResponse<Object> localVarResponse = await TokenAsyncWithHttpInfo(email, password, expiration, format);
+             return localVarResponse.Data;
 
         }
 
         /// <summary>
         /// Create a token having a custom expiration duration. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration, string format = null)
         {
@@ -901,29 +1026,35 @@ namespace CellStore.Api
             if (expiration == null) throw new ApiException(400, "Missing required parameter 'expiration' when calling Token");
             
     
-            var path_ = "/session/token";
+            var localVarPath = "/session/token";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
                         
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (email != null) queryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
-            if (password != null) queryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
-            if (expiration != null) queryParams.Add("expiration", Configuration.ApiClient.ParameterToString(expiration)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+            if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
+            if (expiration != null) localVarQueryParams.Add("expiration", Configuration.ApiClient.ParameterToString(expiration)); // query parameter
             
             
             
@@ -933,67 +1064,78 @@ namespace CellStore.Api
             
 
             // make the HTTP request
-            IRestResponse response = (IRestResponse) await Configuration.ApiClient.CallApiAsync(path_, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
  
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Token: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Token: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Token: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Token: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(response, typeof(Object)));
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
         
         /// <summary>
         /// List tokens of a user identified by its token. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">A valid API token</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>Object</returns>
         public Object Tokens (string token, string format = null)
         {
-             ApiResponse<Object> response = TokensWithHttpInfo(token, format);
-             return response.Data;
+             ApiResponse<Object> localVarResponse = TokensWithHttpInfo(token, format);
+             return localVarResponse.Data;
         }
 
         /// <summary>
         /// List tokens of a user identified by its token. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">A valid API token</param> 
-        /// <param name="format">The result format</param> 
+        /// <param name="format">The result format (optional, default to json)</param> 
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > TokensWithHttpInfo (string token, string format = null)
         {
             
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling Tokens");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling SessionsApi->Tokens");
             
     
-            var path_ = "/session/tokens";
+            var localVarPath = "/session/tokens";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (token != null) queryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             
             
             
@@ -1003,39 +1145,44 @@ namespace CellStore.Api
             
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) Configuration.ApiClient.CallApi(path_, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
     
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Tokens: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Tokens: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Tokens: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Tokens: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(response, typeof(Object)));
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-    
+
+        
         /// <summary>
         /// List tokens of a user identified by its token. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">A valid API token</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
         public async System.Threading.Tasks.Task<Object> TokensAsync (string token, string format = null)
         {
-             ApiResponse<Object> response = await TokensAsyncWithHttpInfo(token, format);
-             return response.Data;
+             ApiResponse<Object> localVarResponse = await TokensAsyncWithHttpInfo(token, format);
+             return localVarResponse.Data;
 
         }
 
         /// <summary>
         /// List tokens of a user identified by its token. 
         /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">A valid API token</param>
-        /// <param name="format">The result format</param>
+        /// <param name="format">The result format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> TokensAsyncWithHttpInfo (string token, string format = null)
         {
@@ -1043,27 +1190,33 @@ namespace CellStore.Api
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling Tokens");
             
     
-            var path_ = "/session/tokens";
+            var localVarPath = "/session/tokens";
     
-            var pathParams = new Dictionary<String, String>();
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
 
-            // to determine the Accept header
-            String[] http_header_accepts = new String[] {
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
                 "application/json"
             };
-            String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
-            if (http_header_accept != null)
-                headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
                         
             
-            if (format != null) queryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
-            if (token != null) queryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             
             
             
@@ -1073,18 +1226,20 @@ namespace CellStore.Api
             
 
             // make the HTTP request
-            IRestResponse response = (IRestResponse) await Configuration.ApiClient.CallApiAsync(path_, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, pathParams);
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                localVarPathParams, localVarHttpContentType);
 
-            int statusCode = (int) response.StatusCode;
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
  
-            if (statusCode >= 400)
-                throw new ApiException (statusCode, "Error calling Tokens: " + response.Content, response.Content);
-            else if (statusCode == 0)
-                throw new ApiException (statusCode, "Error calling Tokens: " + response.ErrorMessage, response.ErrorMessage);
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling Tokens: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling Tokens: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(response, typeof(Object)));
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
         

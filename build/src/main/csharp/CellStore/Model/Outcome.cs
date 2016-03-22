@@ -4,44 +4,57 @@ using System.IO;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CellStore.Model
 {
-
     /// <summary>
     /// Information about an operation outcome
     /// </summary>
     [DataContract]
-    public class Outcome :  IEquatable<Outcome>
-    {
+    public partial class Outcome :  IEquatable<Outcome>
+    { 
+    
         /// <summary>
         /// Initializes a new instance of the <see cref="Outcome" /> class.
+        /// Initializes a new instance of the <see cref="Outcome" />class.
         /// </summary>
-        public Outcome()
+        /// <param name="Success">Whether the requests succeeded or failed. (required).</param>
+        /// <param name="Description">A description of the error, if any..</param>
+
+        public Outcome(bool? Success = null, string Description = null)
         {
+            // to ensure "Success" is required (not null)
+            if (Success == null)
+            {
+                throw new InvalidDataException("Success is a required property for Outcome and cannot be null");
+            }
+            else
+            {
+                this.Success = Success;
+            }
+            this.Description = Description;
             
         }
-
         
+    
         /// <summary>
         /// Whether the requests succeeded or failed.
         /// </summary>
         /// <value>Whether the requests succeeded or failed.</value>
         [DataMember(Name="success", EmitDefaultValue=false)]
         public bool? Success { get; set; }
-  
-        
+    
         /// <summary>
         /// A description of the error, if any.
         /// </summary>
         /// <value>A description of the error, if any.</value>
         [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
-  
-        
-  
+    
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -80,7 +93,7 @@ namespace CellStore.Model
         /// <summary>
         /// Returns true if Outcome instances are equal
         /// </summary>
-        /// <param name="obj">Instance of Outcome to be compared</param>
+        /// <param name="other">Instance of Outcome to be compared</param>
         /// <returns>Boolean</returns>
         public bool Equals(Outcome other)
         {
@@ -114,10 +127,10 @@ namespace CellStore.Model
                 // Suitable nullity checks etc, of course :)
                 
                 if (this.Success != null)
-                    hash = hash * 57 + this.Success.GetHashCode();
+                    hash = hash * 59 + this.Success.GetHashCode();
                 
                 if (this.Description != null)
-                    hash = hash * 57 + this.Description.GetHashCode();
+                    hash = hash * 59 + this.Description.GetHashCode();
                 
                 return hash;
             }
