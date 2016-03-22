@@ -3877,14 +3877,14 @@ namespace CellStore.Api
             if (top != null) queryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) queryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            if (dimensions != null) Configuration.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
-            if (dimensionTypes != null) Configuration.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", queryParams); // pattern query parameter
-            if (defaultDimensionValues != null) Configuration.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", queryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
-            if (dimensionColumns != null) Configuration.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", queryParams); // pattern query parameter
-            if (dimensionAggregation != null) Configuration.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", queryParams); // pattern query parameter
+            if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
+            if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", queryParams); // pattern query parameter
+            if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
+            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
+            if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", queryParams); // pattern query parameter
+            if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", queryParams); // pattern query parameter
             
             
             
@@ -4365,14 +4365,14 @@ namespace CellStore.Api
             if (validate != null) queryParams.Add("validate", Configuration.ApiClient.ParameterToString(validate)); // query parameter
             if (count != null) queryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             
-            if (dimensions != null) Configuration.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
-            if (dimensionTypes != null) Configuration.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", queryParams); // pattern query parameter
-            if (defaultDimensionValues != null) Configuration.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", queryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
-            if (dimensionColumns != null) Configuration.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", queryParams); // pattern query parameter
-            if (dimensionAggregation != null) Configuration.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", queryParams); // pattern query parameter
+            if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
+            if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", queryParams); // pattern query parameter
+            if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
+            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
+            if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", queryParams); // pattern query parameter
+            if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", queryParams); // pattern query parameter
             
             
             
@@ -4713,10 +4713,10 @@ namespace CellStore.Api
             if (top != null) queryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) queryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            if (dimensions != null) Configuration.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
+            if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", queryParams); // pattern query parameter
+            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", queryParams); // pattern query parameter
+            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", queryParams); // pattern query parameter
+            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", queryParams); // pattern query parameter
             
             
             
