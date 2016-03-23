@@ -327,7 +327,7 @@ namespace CellStore.Test
             bool? labels = null; // TODO: replace null with proper value
             string auditTrails = null; // TODO: replace null with proper value
             bool? open = null; // TODO: replace null with proper value
-            Dictionary<string, string> dimensions = null; // TODO: replace null with proper value
+            Dictionary<string, List<string>> dimensions = null; // TODO: replace null with proper value
             Dictionary<string, string> dimensionsCategory = null; // TODO: replace null with proper value
             Dictionary<string, bool?> dimensionsVisible = null; // TODO: replace null with proper value
             Dictionary<string, bool?> dimensionSlicers = null; // TODO: replace null with proper value
@@ -417,7 +417,7 @@ namespace CellStore.Test
             bool? labels = null; // TODO: replace null with proper value
             string auditTrails = null; // TODO: replace null with proper value
             bool? open = null; // TODO: replace null with proper value
-            Dictionary<string, string> dimensions = null; // TODO: replace null with proper value
+            Dictionary<string, List<string>> dimensions = null; // TODO: replace null with proper value
             Dictionary<string, string> dimensionTypes = null; // TODO: replace null with proper value
             Dictionary<string, string> defaultDimensionValues = null; // TODO: replace null with proper value
             Dictionary<string, string> dimensionsCategory = null; // TODO: replace null with proper value
@@ -733,7 +733,7 @@ namespace CellStore.Test
             string report = null; // TODO: replace null with proper value
             string additionalRules = null; // TODO: replace null with proper value
             bool? open = null; // TODO: replace null with proper value
-            Dictionary<string, string> dimensions = null; // TODO: replace null with proper value
+            Dictionary<string, List<string>> dimensions = null; // TODO: replace null with proper value
             Dictionary<string, string> dimensionTypes = null; // TODO: replace null with proper value
             Dictionary<string, string> defaultDimensionValues = null; // TODO: replace null with proper value
             Dictionary<string, string> dimensionsCategory = null; // TODO: replace null with proper value
