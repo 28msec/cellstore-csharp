@@ -22,22 +22,59 @@ namespace GetFacts
         String token = loginResponse["token"];      
       */
 
+
+      attFacts(dataAPI, token);
+      cocaColaFacts(dataAPI, token);
+    }
+
+    private static void attFacts(CellStore.Api.DataApi dataAPI, String token)
+    {
       // list some facts
-      dynamic factsResonse = dataAPI.ListFacts(token, ticker: new List<string> { "t" }, 
-                                                      fiscalYear: new List<string> { "2014", "2015" }, 
-                                                      fiscalPeriod: new List<string> { "FY" }, 
-                                                      concept: new List<string> { "us-gaap:Assets" });
-      dynamic factTable = factsResonse["FactTable"];
+      dynamic ATandTFacts = dataAPI.ListFacts(token, ticker: new List<string> { "t" }, //AT&T ticker
+                                                     fiscalYear: new List<string> { "2014", "2015" },
+                                                     fiscalPeriod: new List<string> { "FY" },
+                                                     concept: new List<string> { "us-gaap:Assets" });
+      printFactTable(ATandTFacts);
+    }
+
+    private static void cocaColaFacts(CellStore.Api.DataApi dataAPI, String token)
+    {
+      // list some facts
+      dynamic dow30Facts = dataAPI.ListFacts(token, ticker: new List<string> { "ko" }, //Coca-Cola ticker
+                                                    concept: new List<string> { "us-gaap:Assets" },
+                                                    labels: true,
+                                                    fiscalPeriod: new List<string> { "FY" },
+                                                    fiscalYear: new List<string> { "2014" },
+                                                    dimensionSlicers: new Dictionary<string, bool?>
+                                                    {
+                                                      ["xbrl:Period::slicer"] = true,
+                                                      ["xbrl28:Archive::slicer"] = true,
+                                                      ["dei:LegalEntityAxis::slicer"] = true,
+                                                      ["xbrl28:FiscalPeriod::slicer"] = true,
+                                                      ["xbrl28:FiscalYear::slicer"] = true,
+                                                      ["xbrl28:FiscalPeriodType::slicer"] = true,
+                                                    },
+                                                    dimensionColumns: new Dictionary<string, int?>
+                                                    {
+                                                      ["xbrl:Concept::column"] = 1,
+                                                      ["xbrl:Entity::column"] = 2,
+                                                      ["xbrl:Unit::column"] = 3
+                                                    });
+      printFactTable(dow30Facts);
+    }
+
+    private static void printFactTable(dynamic factsResponse)
+    {
+      dynamic factTable = factsResponse["FactTable"];
       int i = 0;
-      foreach (dynamic fact in factTable.Children())
+      foreach (dynamic fact in factTable)
       {
         Console.WriteLine("===========================");
         Console.WriteLine("Fact " + i + ":");
         Console.WriteLine(JsonConvert.SerializeObject(fact, Formatting.Indented));
         i++;
       }
-
-      Console.ReadKey();
+      Console.WriteLine("Total: " + i);         
     }
   }
 }
