@@ -47,18 +47,19 @@ namespace GetFacts
                                                     fiscalYear: new List<string> { "2014" },
                                                     dimensionSlicers: new Dictionary<string, bool?>
                                                     {
-                                                      ["xbrl:Period::slicer"] = true,
-                                                      ["xbrl28:Archive::slicer"] = true,
-                                                      ["dei:LegalEntityAxis::slicer"] = true,
-                                                      ["xbrl28:FiscalPeriod::slicer"] = true,
-                                                      ["xbrl28:FiscalYear::slicer"] = true,
-                                                      ["xbrl28:FiscalPeriodType::slicer"] = true,
+                                                      { "xbrl:Period::slicer", true },
+                                                      //["xbrl:Period::slicer"] = true, Alternative syntax in C#6.0
+                                                      { "xbrl28:Archive::slicer", true },
+                                                      { "dei:LegalEntityAxis::slicer", true },
+                                                      { "xbrl28:FiscalPeriod::slicer", true },
+                                                      { "xbrl28:FiscalYear::slicer", true },
+                                                      { "xbrl28:FiscalPeriodType::slicer", true}
                                                     },
                                                     dimensionColumns: new Dictionary<string, int?>
                                                     {
-                                                      ["xbrl:Concept::column"] = 1,
-                                                      ["xbrl:Entity::column"] = 2,
-                                                      ["xbrl:Unit::column"] = 3
+                                                      { "xbrl:Concept::column", 1 },
+                                                      { "xbrl:Entity::column", 2},
+                                                      { "xbrl:Unit::column", 3}
                                                     });
       printFactTable(dow30Facts);
     }
