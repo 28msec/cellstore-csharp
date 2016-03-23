@@ -13,7 +13,7 @@ var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && pr
 var version;
 
 var isWindows = /^win/.test(process.platform);
-var nugetCmd = isWindows ? 'nuget' : 'sudo mono nuget.exe';
+var nugetCmd = isWindows ? 'nuget' : 'mono nuget.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
 var cellstore_nuspec;
@@ -45,6 +45,7 @@ gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
     isWindows ? ':' : 'cd build && wget https://nuget.org/nuget.exe -O nuget.exe',
+    'mozroots --import --sync',
     'cd build && ' + path.normalize(nugetCmd + ' install vendor/packages.config -o vendor'),
     'cd build && mkdir -p bin',
     'cd build && cp vendor/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll bin/Newtonsoft.Json.dll',
@@ -66,8 +67,8 @@ gulp.task('swagger:pack', $.shell.task([
 ]));
 
 gulp.task('swagger:push', $.shell.task([
-    'cd build && ' + nugetCmd + ' setApiKey ' + process.env.NUGET_API_KEY + ' | cat &> /dev/null',
-    'cd build && ' + nugetCmd + ' push CellStore.NET.' + version + '.nupkg'
+    'cd build && sudo ' + nugetCmd + ' setApiKey ' + process.env.NUGET_API_KEY + ' | cat &> /dev/null',
+    'cd build && sudo ' + nugetCmd + ' push CellStore.NET.' + version + '.nupkg'
 ]));
 
 gulp.task('swagger:copy', $.shell.task([
