@@ -3,7 +3,7 @@
   <metadata>
     <id>CellStore.NET</id>
     <version>2.0.1</version>
-    <authors>28msec</authors>
+    <authors>dknochen,fcavalieri</authors>
     <owners>dknochen,fcavalieri</owners>
     <licenseUrl>https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/28msec/cellstore-csharp</projectUrl>
