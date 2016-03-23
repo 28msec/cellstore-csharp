@@ -7,32 +7,32 @@ using Newtonsoft.Json;
 
 namespace AddFacts
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            String endpoint = "http://secxbrl.28.io/v1/_queries/public";
-            CellStore.Client.ApiClient client = new CellStore.Client.ApiClient(endpoint);
-            CellStore.Api.DataApi dataAPI = new CellStore.Api.DataApi(client);
-            CellStore.Api.SessionsApi sessionsAPI = new CellStore.Api.SessionsApi(client);
+      String endpoint = "http://secxbrl.28.io/v1/_queries/public";
+      CellStore.Api.DataApi dataAPI = new CellStore.Api.DataApi(endpoint);
 
-            // login .. Alternative step to create a token dynamically
-            //object loginResponse = sessionsAPI.Login("example@email.com", "password");
-            //String token = loginResponse.token;
-            //Console.WriteLine(login.token);
-            String token = "c3049752-4d35-43da-82a2-f89f1b06f7a4";
-            
-            string factTxt = System.IO.File.ReadAllText(@"..\..\fact.json");
-            Console.WriteLine("Fact = {0}", factTxt);
-            dynamic fact = JsonConvert.DeserializeObject(factTxt);
+      String token = "c3049752-4d35-43da-82a2-f89f1b06f7a4";
+      // login .. Alternative step to create a token dynamically
+      /*
+        CellStore.Api.SessionsApi sessionsAPI = new CellStore.Api.SessionsApi(endpoint);
+        dynamic loginResponse = sessionsAPI.Login("example@email.com", "password");
+        String token = loginResponse["token"];      
+      */            
 
-            // add a fact
-            dynamic addResonse = dataAPI.AddFacts(token, fact);
-            Console.WriteLine("=============================");
-            Console.WriteLine("Response:");
-            Console.WriteLine(addResonse);
-                
-            Console.ReadKey();
-        }
-    }
+      string factTxt = System.IO.File.ReadAllText(@"..\..\fact.json");
+      Console.WriteLine("Fact = {0}", factTxt);
+      dynamic fact = JsonConvert.DeserializeObject(factTxt);
+
+      // add a fact
+      dynamic addResponse = dataAPI.AddFacts(token, fact);
+      Console.WriteLine("=============================");
+      Console.WriteLine("Response:");
+      Console.WriteLine(addResponse);
+
+      Console.ReadKey();
+      }
+  }
 }

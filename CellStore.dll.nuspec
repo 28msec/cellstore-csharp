@@ -2,9 +2,9 @@
 <package>
   <metadata>
     <id>CellStore.NET</id>
-    <version>1.0.2</version>
+    <version>2.0.0</version>
     <authors>28msec</authors>
-    <owners>dknochen</owners>
+    <owners>dknochen,fcavalieri</owners>
     <licenseUrl>https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/28msec/cellstore-csharp</projectUrl>
     <iconUrl>http://www.28.io/images/favicon/32x32.png</iconUrl>

@@ -35,15 +35,21 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
 });
 
 gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
-    'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.1.7/swagger-codegen-cli.jar'
+    'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.5.2/swagger-codegen-cli.jar'
 ));
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
     'cp codegen-options.json build',
-    'cd build && java -jar swagger-codegen-cli.jar generate -i swagger-aggregated.json -l csharp -c codegen-options.json  -o .'
+    'cd build && java -DnoInlineModels -jar swagger-codegen-cli.jar generate -i swagger-aggregated.json -l csharp -c codegen-options.json  -o .'
 ]));
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
+    'cd build && mozroots --import --sync',
+    isWindows ? ':' : 'cd build && wget https://nuget.org/nuget.exe',
+    'cd build && ' + path.normalize(nugetCmd + ' install vendor/packages.config -o vendor'),
+    'cd build && mkdir -p bin',
+    'cd build && cp vendor/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll bin/Newtonsoft.Json.dll',
+    'cd build && cp vendor/RestSharp.105.1.0/lib/net45/RestSharp.dll bin/RestSharp.dll',
     'cd build && ' + path.normalize(compileCmd + ' -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu'),
     'cp lib/CellStore.csproj build'
 ]));
