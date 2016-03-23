@@ -62,13 +62,12 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'EditUser'
             string firstname = null; // TODO: replace null with proper value
             string lastname = null; // TODO: replace null with proper value
+            string token = null; // TODO: replace null with proper value
             string newemail = null; // TODO: replace null with proper value
             string email = null; // TODO: replace null with proper value
             string password = null; // TODO: replace null with proper value
-            string token = null; // TODO: replace null with proper value
-            string format = null; // TODO: replace null with proper value
             
-            var response = instance.EditUser(firstname, lastname, newemail, email, password, token, format);
+            var response = instance.EditUser(firstname, lastname, token, newemail, email, password);
             Assert.IsInstanceOf<Outcome> (response, "response is Outcome"); 
         }
         
@@ -80,9 +79,8 @@ namespace CellStore.Test
         {
             // TODO: add unit test for the method 'ForgotPassword'
             string email = null; // TODO: replace null with proper value
-            string format = null; // TODO: replace null with proper value
             
-            var response = instance.ForgotPassword(email, format);
+            var response = instance.ForgotPassword(email);
             Assert.IsInstanceOf<Outcome> (response, "response is Outcome"); 
         }
         
@@ -157,9 +155,8 @@ namespace CellStore.Test
             string email = null; // TODO: replace null with proper value
             string password = null; // TODO: replace null with proper value
             string resetToken = null; // TODO: replace null with proper value
-            string format = null; // TODO: replace null with proper value
             
-            var response = instance.SetPassword(email, password, resetToken, format);
+            var response = instance.SetPassword(email, password, resetToken);
             Assert.IsInstanceOf<Outcome> (response, "response is Outcome"); 
         }
         

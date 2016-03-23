@@ -25,7 +25,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="report">A JSON object containing the report</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="publicRead">Shortcut to make a report publicly readable (optional, default to null)</param>
         /// <param name="_private">Will make this report private (not readable for others; default for newly created reports) (optional, default to null)</param>
         /// <param name="validationOnly">This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off (optional, default to null)</param>
@@ -43,7 +43,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="report">A JSON object containing the report</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="publicRead">Shortcut to make a report publicly readable (optional, default to null)</param>
         /// <param name="_private">Will make this report private (not readable for others; default for newly created reports) (optional, default to null)</param>
         /// <param name="validationOnly">This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off (optional, default to null)</param>
@@ -82,7 +82,7 @@ namespace CellStore.Api
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="id">A report id (e.g. 1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc) (optional, default to null)</param>
         /// <param name="user">A user&#39;s email address to filter reports owned by this user (i.e. all reports if user = authorized user or only public-read reports of user) (optional, default to null)</param>
         /// <param name="publicRead">Filter listed reports to return only those that are publicly readable (optional, default to null)</param>
@@ -99,7 +99,7 @@ namespace CellStore.Api
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="id">A report id (e.g. 1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc) (optional, default to null)</param>
         /// <param name="user">A user&#39;s email address to filter reports owned by this user (i.e. all reports if user = authorized user or only public-read reports of user) (optional, default to null)</param>
         /// <param name="publicRead">Filter listed reports to return only those that are publicly readable (optional, default to null)</param>
@@ -117,7 +117,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts)</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <returns></returns>
         void RemoveReport (string id, string token);
   
@@ -129,7 +129,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts)</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> RemoveReportWithHttpInfo (string id, string token);
         
@@ -145,7 +145,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="report">A JSON object containing the report</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="publicRead">Shortcut to make a report publicly readable (optional, default to null)</param>
         /// <param name="_private">Will make this report private (not readable for others; default for newly created reports) (optional, default to null)</param>
         /// <param name="validationOnly">This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off (optional, default to null)</param>
@@ -163,7 +163,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="report">A JSON object containing the report</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="publicRead">Shortcut to make a report publicly readable (optional, default to null)</param>
         /// <param name="_private">Will make this report private (not readable for others; default for newly created reports) (optional, default to null)</param>
         /// <param name="validationOnly">This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off (optional, default to null)</param>
@@ -202,7 +202,7 @@ namespace CellStore.Api
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="id">A report id (e.g. 1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc) (optional, default to null)</param>
         /// <param name="user">A user&#39;s email address to filter reports owned by this user (i.e. all reports if user = authorized user or only public-read reports of user) (optional, default to null)</param>
         /// <param name="publicRead">Filter listed reports to return only those that are publicly readable (optional, default to null)</param>
@@ -219,7 +219,7 @@ namespace CellStore.Api
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="id">A report id (e.g. 1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc) (optional, default to null)</param>
         /// <param name="user">A user&#39;s email address to filter reports owned by this user (i.e. all reports if user = authorized user or only public-read reports of user) (optional, default to null)</param>
         /// <param name="publicRead">Filter listed reports to return only those that are publicly readable (optional, default to null)</param>
@@ -237,7 +237,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts)</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <returns>Task of void</returns>
         System.Threading.Tasks.Task RemoveReportAsync (string id, string token);
 
@@ -249,7 +249,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts)</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> RemoveReportAsyncWithHttpInfo (string id, string token);
         
@@ -350,7 +350,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="report">A JSON object containing the report</param> 
-        /// <param name="token">The token of the current session</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="publicRead">Shortcut to make a report publicly readable (optional, default to null)</param> 
         /// <param name="_private">Will make this report private (not readable for others; default for newly created reports) (optional, default to null)</param> 
         /// <param name="validationOnly">This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off (optional, default to null)</param> 
@@ -369,7 +369,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="report">A JSON object containing the report</param> 
-        /// <param name="token">The token of the current session</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="publicRead">Shortcut to make a report publicly readable (optional, default to null)</param> 
         /// <param name="_private">Will make this report private (not readable for others; default for newly created reports) (optional, default to null)</param> 
         /// <param name="validationOnly">This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off (optional, default to null)</param> 
@@ -460,7 +460,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="report">A JSON object containing the report</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="publicRead">Shortcut to make a report publicly readable (optional, default to null)</param>
         /// <param name="_private">Will make this report private (not readable for others; default for newly created reports) (optional, default to null)</param>
         /// <param name="validationOnly">This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off (optional, default to null)</param>
@@ -480,7 +480,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="report">A JSON object containing the report</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="publicRead">Shortcut to make a report publicly readable (optional, default to null)</param>
         /// <param name="_private">Will make this report private (not readable for others; default for newly created reports) (optional, default to null)</param>
         /// <param name="validationOnly">This parameter is either given without any value (means: on) or absent (means: off) or its value is castable to a boolean. Turns validation-only mode on or off (optional, default to null)</param>
@@ -715,7 +715,7 @@ namespace CellStore.Api
         /// Retrieve a list of all Reports 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token of the current session</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="id">A report id (e.g. 1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc) (optional, default to null)</param> 
         /// <param name="user">A user&#39;s email address to filter reports owned by this user (i.e. all reports if user = authorized user or only public-read reports of user) (optional, default to null)</param> 
         /// <param name="publicRead">Filter listed reports to return only those that are publicly readable (optional, default to null)</param> 
@@ -733,7 +733,7 @@ namespace CellStore.Api
         /// Retrieve a list of all Reports 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token of the current session</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="id">A report id (e.g. 1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc) (optional, default to null)</param> 
         /// <param name="user">A user&#39;s email address to filter reports owned by this user (i.e. all reports if user = authorized user or only public-read reports of user) (optional, default to null)</param> 
         /// <param name="publicRead">Filter listed reports to return only those that are publicly readable (optional, default to null)</param> 
@@ -812,7 +812,7 @@ namespace CellStore.Api
         /// Retrieve a list of all Reports 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="id">A report id (e.g. 1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc) (optional, default to null)</param>
         /// <param name="user">A user&#39;s email address to filter reports owned by this user (i.e. all reports if user = authorized user or only public-read reports of user) (optional, default to null)</param>
         /// <param name="publicRead">Filter listed reports to return only those that are publicly readable (optional, default to null)</param>
@@ -831,7 +831,7 @@ namespace CellStore.Api
         /// Retrieve a list of all Reports 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="id">A report id (e.g. 1fueA5hrxIHxvRf7Btr_J6efDJ3qp-s9KV731wDc4OOc) (optional, default to null)</param>
         /// <param name="user">A user&#39;s email address to filter reports owned by this user (i.e. all reports if user = authorized user or only public-read reports of user) (optional, default to null)</param>
         /// <param name="publicRead">Filter listed reports to return only those that are publicly readable (optional, default to null)</param>
@@ -908,7 +908,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts)</param> 
-        /// <param name="token">The token of the current session</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <returns></returns>
         public void RemoveReport (string id, string token)
         {
@@ -920,7 +920,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts)</param> 
-        /// <param name="token">The token of the current session</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <returns>ApiResponse of Object(void)</returns>
         public ApiResponse<Object> RemoveReportWithHttpInfo (string id, string token)
         {
@@ -993,7 +993,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts)</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <returns>Task of void</returns>
         public async System.Threading.Tasks.Task RemoveReportAsync (string id, string token)
         {
@@ -1006,7 +1006,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts)</param>
-        /// <param name="token">The token of the current session</param>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <returns>Task of ApiResponse</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> RemoveReportAsyncWithHttpInfo (string id, string token)
         {

@@ -62,9 +62,8 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'Login'
             string email = null; // TODO: replace null with proper value
             string password = null; // TODO: replace null with proper value
-            string format = null; // TODO: replace null with proper value
             
-            var response = instance.Login(email, password, format);
+            var response = instance.Login(email, password);
             Assert.IsInstanceOf<Object> (response, "response is Object"); 
         }
         
@@ -76,9 +75,8 @@ namespace CellStore.Test
         {
             // TODO: add unit test for the method 'Logout'
             string token = null; // TODO: replace null with proper value
-            string format = null; // TODO: replace null with proper value
             
-            var response = instance.Logout(token, format);
+            var response = instance.Logout(token);
             Assert.IsInstanceOf<Outcome> (response, "response is Outcome"); 
         }
         
@@ -92,9 +90,8 @@ namespace CellStore.Test
             string email = null; // TODO: replace null with proper value
             string password = null; // TODO: replace null with proper value
             string token = null; // TODO: replace null with proper value
-            string format = null; // TODO: replace null with proper value
             
-            var response = instance.Revoke(email, password, token, format);
+            var response = instance.Revoke(email, password, token);
             Assert.IsInstanceOf<Outcome> (response, "response is Outcome"); 
         }
         
@@ -108,9 +105,8 @@ namespace CellStore.Test
             string email = null; // TODO: replace null with proper value
             string password = null; // TODO: replace null with proper value
             string expiration = null; // TODO: replace null with proper value
-            string format = null; // TODO: replace null with proper value
             
-            var response = instance.Token(email, password, expiration, format);
+            var response = instance.Token(email, password, expiration);
             Assert.IsInstanceOf<Object> (response, "response is Object"); 
         }
         
@@ -122,9 +118,8 @@ namespace CellStore.Test
         {
             // TODO: add unit test for the method 'Tokens'
             string token = null; // TODO: replace null with proper value
-            string format = null; // TODO: replace null with proper value
             
-            var response = instance.Tokens(token, format);
+            var response = instance.Tokens(token);
             Assert.IsInstanceOf<Object> (response, "response is Object"); 
         }
         
