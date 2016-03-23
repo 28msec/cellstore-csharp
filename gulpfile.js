@@ -13,7 +13,7 @@ var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && pr
 var version;
 
 var isWindows = /^win/.test(process.platform);
-var nugetCmd = isWindows ? 'nuget' : 'mono nuget.exe';
+var nugetCmd = isWindows ? 'nuget' : 'sudo mono nuget.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
 var cellstore_nuspec;
