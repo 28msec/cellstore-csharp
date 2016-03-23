@@ -45,7 +45,7 @@ gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
     'cd build && mozroots --import --sync',
-    isWindows ? ':' : 'cd build && wget https://nuget.org/nuget.exe',
+    isWindows ? ':' : 'cd build && wget -r https://nuget.org/nuget.exe',
     'cd build && ' + path.normalize(nugetCmd + ' install vendor/packages.config -o vendor'),
     'cd build && mkdir -p bin',
     'cd build && cp vendor/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll bin/Newtonsoft.Json.dll',
@@ -62,7 +62,7 @@ gulp.task('swagger:test', $.shell.task([
 
 gulp.task('swagger:pack', $.shell.task([
     'cp CellStore.dll.nuspec build',
-    isWindows ? ':' : 'cd build && wget https://nuget.org/nuget.exe',
+    isWindows ? ':' : 'cd build && wget -r https://nuget.org/nuget.exe',
     'cd build && ' + nugetCmd + ' pack CellStore.dll.nuspec'
 ]));
 
