@@ -35,7 +35,9 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
 });
 
 gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
-    'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.5.2/swagger-codegen-cli.jar'
+    'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.5.3/swagger-codegen-cli.jar'
+    //LOCAL
+    //'cd build && cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar swagger-codegen-cli.jar'
 ));
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
@@ -56,6 +58,8 @@ gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
 
 gulp.task('swagger:test', $.shell.task([
     path.normalize(compileCmd + ' -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll -out:samples/GetFacts/GetFacts/Program.exe samples/GetFacts/GetFacts/Program.cs'),
+    path.normalize(compileCmd + ' -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddFacts/AddFacts/Program.exe samples/AddFacts/AddFacts/Program.cs'),
+    path.normalize(compileCmd + ' -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddFiling/AddFiling/Program.exe samples/AddFiling/AddFiling/Program.cs'),
     'cp build/bin/*.dll samples/GetFacts/GetFacts',
     isWindows ? 'cd samples/GetFacts/GetFacts && Program.exe' : 'mono samples/GetFacts/GetFacts/Program.exe'
 ]));
