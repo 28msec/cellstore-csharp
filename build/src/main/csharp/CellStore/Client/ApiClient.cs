@@ -84,6 +84,7 @@ namespace CellStore.Client
             String contentType)
         {
             var request = new RestRequest(path, method);
+            String userContentType = null;
 
             // add path parameter, if any
             foreach(var param in pathParams)
@@ -91,7 +92,11 @@ namespace CellStore.Client
 
             // add header parameter, if any
             foreach(var param in headerParams)
+            {
                 request.AddHeader(param.Key, param.Value);
+                if (param.Key.ToLower().Equals("content-type"))
+                    userContentType = param.Value;
+            }
 
             // add query parameter, if any
             foreach(var param in queryParams)
@@ -108,7 +113,11 @@ namespace CellStore.Client
 
             if (postBody != null) // http body (model or byte[]) parameter
             {
-                if (postBody.GetType() == typeof(String))
+                if (userContentType != null)
+                {
+                    request.AddParameter(userContentType, postBody, ParameterType.RequestBody);
+                }
+                else if (postBody.GetType() == typeof(String))
                 {
                     request.AddParameter("application/json", postBody, ParameterType.RequestBody);
                 }
