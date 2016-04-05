@@ -3,10 +3,10 @@
 node_modules
 build
 .vs
-samples/GetFacts/GetFacts/CellStore.dll
-samples/GetFacts/GetFacts/Newtonsoft.Json.dll
-samples/GetFacts/GetFacts/Program.exe
-samples/GetFacts/GetFacts/RestSharp.dll
-samples/GetFacts/GetFacts/bin
-samples/GetFacts/GetFacts/obj
-samples/GetFacts/.vs
+CellStore.dll
+Newtonsoft.Json.dll
+Program.exe
+RestSharp.dll
+bin
+obj
+.vs
