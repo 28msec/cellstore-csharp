@@ -36,9 +36,18 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
 
 gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
     'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.5.3/swagger-codegen-cli.jar'
-    //LOCAL
-    //'cd build && cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar swagger-codegen-cli.jar'
 ));
+
+//LOCAL
+//gulp.task('swagger:resolve', ['swagger:clean'], $.shell.task([
+//  'cd ~/cellstore/cellstore-pro && gulp swagger:resolve',
+//  'cp ~/cellstore/cellstore-pro/swagger/swagger-aggregated.json build/swagger-aggregated.json'
+//]));
+
+//LOCAL
+//gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
+    //'cd build && cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar swagger-codegen-cli.jar'
+//));
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
     'cp codegen-options.json build',
