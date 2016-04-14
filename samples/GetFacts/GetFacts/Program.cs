@@ -15,16 +15,37 @@ namespace GetFacts
       CellStore.Api.DataApi dataAPI = new CellStore.Api.DataApi(endpoint);
 
       String token = "c3049752-4d35-43da-82a2-f89f1b06f7a4";
-      // login .. Alternative step to create a token dynamically
-      /*
-        CellStore.Api.SessionsApi sessionsAPI = new CellStore.Api.SessionsApi(endpoint);
-        dynamic loginResponse = sessionsAPI.Login("example@email.com", "password");
-        String token = loginResponse["token"];      
-      */
+            // login .. Alternative step to create a token dynamically
+            /*
+              CellStore.Api.SessionsApi sessionsAPI = new CellStore.Api.SessionsApi(endpoint);
+              dynamic loginResponse = sessionsAPI.Login("example@email.com", "password");
+              String token = loginResponse["token"];      
+            */
 
 
+      pepVsCocaColaFacts(dataAPI, token);
       attFacts(dataAPI, token);
       cocaColaFacts(dataAPI, token);
+    }
+
+    private static void pepVsCocaColaFacts(CellStore.Api.DataApi dataAPI, String token)
+    {
+        // dimensions to query : 
+        //    AssetsCurrent for Pepsi and Coca Cola for FY 2011 to 2014
+        Dictionary<string, List<string>> dimensions =
+            new Dictionary<string, List<string>>
+            {
+                { "xbrl:Concept", new List<string> { "us-gaap:AssetsCurrent" } },
+                { "xbrl:Entity", new List<string> { "http://www.sec.gov/CIK 0000077476",
+                                                    "http://www.sec.gov/CIK 0000021344" } },
+                { "xbrl28:FiscalPeriod", new List<string> { "FY" } },
+                { "xbrl28:FiscalYear", new List<string> { "2011", "2012", "2013", "2014" } }
+            };
+
+        // list some facts
+        dynamic pepVsCocaColaFacts = dataAPI.ListFacts(token, dimensions: dimensions, labels: false);
+
+        printFactTable(pepVsCocaColaFacts);
     }
 
     private static void attFacts(CellStore.Api.DataApi dataAPI, String token)
