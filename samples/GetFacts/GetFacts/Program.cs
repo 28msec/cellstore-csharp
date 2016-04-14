@@ -23,14 +23,35 @@ namespace GetFacts
       */
 
 
+      pepVsCocaColaFacts(dataAPI, token);
       attFacts(dataAPI, token);
       cocaColaFacts(dataAPI, token);
+    }
+
+    private static void pepVsCocaColaFacts(CellStore.Api.DataApi dataAPI, String token)
+    {
+        // dimensions to query : 
+        //    AssetsCurrent for Pepsi and Coca Cola for FY 2011 to 2014
+        Dictionary<string, List<string>> dimensions =
+            new Dictionary<string, List<string>>
+            {
+                { "xbrl:Concept", new List<string> { "us-gaap:AssetsCurrent" } },
+                { "xbrl:Entity", new List<string> { "http://www.sec.gov/CIK 0000077476",
+                                                    "http://www.sec.gov/CIK 0000021344" } },
+                { "xbrl28:FiscalPeriod", new List<string> { "FY" } },
+                { "xbrl28:FiscalYear", new List<string> { "2011", "2012", "2013", "2014" } }
+            };
+
+        // list some facts
+        dynamic pepVsCocaColaFacts = dataAPI.ListFacts(token: token, dimensions: dimensions, labels: false);
+
+        printFactTable(pepVsCocaColaFacts);
     }
 
     private static void attFacts(CellStore.Api.DataApi dataAPI, String token)
     {
       // list some facts
-      dynamic ATandTFacts = dataAPI.ListFacts(token, ticker: new List<string> { "t" }, //AT&T ticker
+      dynamic ATandTFacts = dataAPI.ListFacts(token: token, ticker: new List<string> { "t" }, //AT&T ticker
                                                      fiscalYear: new List<string> { "2014", "2015" },
                                                      fiscalPeriod: new List<string> { "FY" },
                                                      concept: new List<string> { "us-gaap:Assets" });
@@ -40,7 +61,7 @@ namespace GetFacts
     private static void cocaColaFacts(CellStore.Api.DataApi dataAPI, String token)
     {
       // list some facts
-      dynamic dow30Facts = dataAPI.ListFacts(token, ticker: new List<string> { "ko" }, //Coca-Cola ticker
+      dynamic dow30Facts = dataAPI.ListFacts(token: token, ticker: new List<string> { "ko" }, //Coca-Cola ticker
                                                     concept: new List<string> { "us-gaap:Assets" },
                                                     labels: true,
                                                     fiscalPeriod: new List<string> { "FY" },
