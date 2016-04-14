@@ -56,7 +56,7 @@ gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
     isWindows ? ':' : 'cd build && wget https://nuget.org/nuget.exe -O nuget.exe',
-    'mozroots --import --sync',
+    isWindows ? ':' : 'mozroots --import --sync',
     'cd build && ' + path.normalize(nugetCmd + ' install vendor/packages.config -o vendor'),
     'cd build && mkdir -p bin',
     'cd build && cp vendor/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll bin/Newtonsoft.Json.dll',
