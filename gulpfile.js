@@ -27,6 +27,7 @@ gulp.task('swagger:clean', $.shell.task([
     'mkdir build'
 ]));
 
+//GITHUB
 gulp.task('swagger:resolve', ['swagger:clean'], function(done){
     request({ url: 'http://28msec.github.io/cellstore-pro/swagger-aggregated.json' }, function(err, resp){
         fs.writeFileSync('build/swagger-aggregated.json', resp.body);
@@ -34,6 +35,7 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
     });
 });
 
+//GITHUB
 gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
     'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.5.3/swagger-codegen-cli.jar'
 ));
@@ -46,7 +48,7 @@ gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
 
 //LOCAL
 //gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
-    //'cd build && cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar swagger-codegen-cli.jar'
+//  'cd build && cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar swagger-codegen-cli.jar'
 //));
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
