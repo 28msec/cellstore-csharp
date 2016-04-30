@@ -342,6 +342,38 @@ namespace CellStore.Api
         ApiResponse<Object> InsertFilingsWithHttpInfo (string token, Object filing, string profileName = null, string formatIndent = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
         
         /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Object</returns>
+        Object InsertTaxonomies (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+  
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> InsertTaxonomiesWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        
+        /// <summary>
         /// Retrieve a summary for all components of a given filing
         /// </summary>
         /// <remarks>
@@ -1836,6 +1868,38 @@ namespace CellStore.Api
         /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> InsertFilingsAsyncWithHttpInfo (string token, Object filing, string profileName = null, string formatIndent = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> InsertTaxonomiesAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> InsertTaxonomiesAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
         
         /// <summary>
         /// Retrieve a summary for all components of a given filing
@@ -5034,6 +5098,204 @@ namespace CellStore.Api
                 throw new ApiException (localVarStatusCode, "Error calling InsertFilings: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling InsertFilings: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+        
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param> 
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param> 
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param> 
+        /// <returns>Object</returns>
+        public Object InsertTaxonomies (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        {
+             ApiResponse<Object> localVarResponse = InsertTaxonomiesWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param> 
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param> 
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param> 
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > InsertTaxonomiesWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        {
+            
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->InsertTaxonomies");
+            
+            // verify the required parameter 'eid' is set
+            if (eid == null)
+                throw new ApiException(400, "Missing required parameter 'eid' when calling DataApi->InsertTaxonomies");
+            
+            // verify the required parameter 'entrypoint' is set
+            if (entrypoint == null)
+                throw new ApiException(400, "Missing required parameter 'entrypoint' when calling DataApi->InsertTaxonomies");
+            
+    
+            var localVarPath = "/api/taxonomies";
+    
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            
+            
+            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (entrypoint != null) localVarQueryParams.Add("entrypoint", Configuration.ApiClient.ParameterToString(entrypoint)); // query parameter
+            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
+            
+            
+            
+            
+            
+
+            
+    
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+    
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling InsertTaxonomies: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling InsertTaxonomies: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+    
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> InsertTaxonomiesAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        {
+             ApiResponse<Object> localVarResponse = await InsertTaxonomiesAsyncWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> InsertTaxonomiesAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling InsertTaxonomies");
+            // verify the required parameter 'eid' is set
+            if (eid == null) throw new ApiException(400, "Missing required parameter 'eid' when calling InsertTaxonomies");
+            // verify the required parameter 'entrypoint' is set
+            if (entrypoint == null) throw new ApiException(400, "Missing required parameter 'entrypoint' when calling InsertTaxonomies");
+            
+    
+            var localVarPath = "/api/taxonomies";
+    
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        
+            
+            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (entrypoint != null) localVarQueryParams.Add("entrypoint", Configuration.ApiClient.ParameterToString(entrypoint)); // query parameter
+            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
+            
+            
+            
+            
+            
+
+            
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+ 
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling InsertTaxonomies: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling InsertTaxonomies: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
