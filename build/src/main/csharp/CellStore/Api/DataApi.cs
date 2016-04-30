@@ -55,7 +55,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object DeleteComponentModelStructure (string token, string aid = null, List<string> section = null, List<string> hypercube = null);
+        Object DeleteComponentModelStructure (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
   
         /// <summary>
         /// Deletes a component including its model structure.
@@ -69,7 +69,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> DeleteComponentModelStructureWithHttpInfo (string token, string aid = null, List<string> section = null, List<string> hypercube = null);
+        ApiResponse<Object> DeleteComponentModelStructureWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
         
         /// <summary>
         /// Deletes an entity.
@@ -81,7 +81,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -98,7 +98,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -116,7 +116,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -126,7 +126,7 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object DeleteFiling (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
+        Object DeleteFiling (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
   
         /// <summary>
         /// Deletes a filing.
@@ -139,7 +139,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -149,7 +149,7 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> DeleteFilingWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
+        ApiResponse<Object> DeleteFilingWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
         
         /// <summary>
         /// Deletes a label.
@@ -167,7 +167,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object DeleteLabel (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
+        Object DeleteLabel (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
   
         /// <summary>
         /// Deletes a label.
@@ -185,7 +185,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> DeleteLabelWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
+        ApiResponse<Object> DeleteLabelWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
         
         /// <summary>
         /// Deletes a report element.
@@ -201,7 +201,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object DeleteReportElement (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null);
+        Object DeleteReportElement (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null);
   
         /// <summary>
         /// Deletes a report element.
@@ -217,7 +217,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> DeleteReportElementWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null);
+        ApiResponse<Object> DeleteReportElementWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null);
         
         /// <summary>
         /// Deletes a section.
@@ -232,7 +232,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object DeleteSection (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null);
+        Object DeleteSection (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null);
   
         /// <summary>
         /// Deletes a section.
@@ -247,7 +247,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> DeleteSectionWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null);
+        ApiResponse<Object> DeleteSectionWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null);
         
         /// <summary>
         /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.
@@ -314,7 +314,7 @@ namespace CellStore.Api
         /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param>
         /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param>
@@ -333,13 +333,45 @@ namespace CellStore.Api
         /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param>
         /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param>
         /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> InsertFilingsWithHttpInfo (string token, Object filing, string profileName = null, string formatIndent = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Object</returns>
+        Object InsertTaxonomies (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+  
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> InsertTaxonomiesWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
         
         /// <summary>
         /// Retrieve a summary for all components of a given filing
@@ -351,7 +383,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -372,7 +404,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListComponents (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
+        Object ListComponents (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
   
         /// <summary>
         /// Retrieve a summary for all components of a given filing
@@ -384,7 +416,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -405,7 +437,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListComponentsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
+        ApiResponse<Object> ListComponentsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
         
         /// <summary>
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
@@ -418,7 +450,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -444,7 +476,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -470,7 +502,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -505,7 +537,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListFactTable (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListFactTable (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -518,7 +550,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -553,7 +585,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListFactTableWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListFactTableWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -566,7 +598,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -590,7 +622,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListFactTableForReport (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListFactTableForReport (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -603,7 +635,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -627,7 +659,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListFactTableForReportWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListFactTableForReportWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve one or more facts for a combination of filings.
@@ -640,7 +672,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -673,7 +705,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListFacts (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListFacts (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve one or more facts for a combination of filings.
@@ -686,7 +718,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -719,7 +751,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListFactsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListFactsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
@@ -731,8 +763,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -746,7 +778,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListFilings (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListFilings (string token, string profileName = null, string formatIndent = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
@@ -758,8 +790,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -773,7 +805,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListFilingsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListFilingsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve labels for the supplied components and report elements
@@ -786,7 +818,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -809,7 +841,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListLabels (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListLabels (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve labels for the supplied components and report elements
@@ -822,7 +854,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -845,7 +877,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListLabelsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListLabelsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -858,7 +890,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -878,7 +910,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListModelStructure (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListModelStructure (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -891,7 +923,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -911,7 +943,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListModelStructureWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListModelStructureWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
@@ -924,7 +956,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -937,7 +969,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListPeriods (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListPeriods (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
@@ -950,7 +982,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -963,7 +995,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListPeriodsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListPeriodsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the report elements contained in a set of filings.
@@ -976,7 +1008,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -989,6 +1021,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param>
         /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param>
@@ -1000,7 +1033,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListReportElements (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListReportElements (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve the report elements contained in a set of filings.
@@ -1013,7 +1046,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1026,6 +1059,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param>
         /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param>
@@ -1037,7 +1071,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListReportElementsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListReportElementsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve a summary for all rules of a given section
@@ -1050,7 +1084,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1067,7 +1101,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListRules (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListRules (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve a summary for all rules of a given section
@@ -1080,7 +1114,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1097,7 +1131,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListRulesWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListRulesWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve a summary for all sections of a given filing
@@ -1110,7 +1144,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1130,7 +1164,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListSections (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        Object ListSections (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve a summary for all sections of a given filing
@@ -1143,7 +1177,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1163,7 +1197,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListSectionsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> ListSectionsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -1176,7 +1210,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1187,14 +1221,22 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object ListSpreadsheetForReport (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        Object ListSpreadsheetForReport (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
   
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -1207,7 +1249,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1218,14 +1260,22 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ListSpreadsheetForReportWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        ApiResponse<Object> ListSpreadsheetForReportWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
         
         /// <summary>
         /// Patch one or more facts
@@ -1239,7 +1289,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1268,7 +1318,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Object</returns>
-        Object PatchFacts (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
+        Object PatchFacts (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
   
         /// <summary>
         /// Patch one or more facts
@@ -1282,7 +1332,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1311,7 +1361,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> PatchFactsWithHttpInfo (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
+        ApiResponse<Object> PatchFactsWithHttpInfo (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
         
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -1324,7 +1374,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1352,12 +1402,13 @@ namespace CellStore.Api
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>Object</returns>
-        Object SpreadsheetForComponent (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        Object SpreadsheetForComponent (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
   
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -1370,7 +1421,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1398,12 +1449,13 @@ namespace CellStore.Api
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> SpreadsheetForComponentWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        ApiResponse<Object> SpreadsheetForComponentWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
         
         /// <summary>
         /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above.
@@ -1531,7 +1583,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> DeleteComponentModelStructureAsync (string token, string aid = null, List<string> section = null, List<string> hypercube = null);
+        System.Threading.Tasks.Task<Object> DeleteComponentModelStructureAsync (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
 
         /// <summary>
         /// Deletes a component including its model structure.
@@ -1545,7 +1597,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteComponentModelStructureAsyncWithHttpInfo (string token, string aid = null, List<string> section = null, List<string> hypercube = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteComponentModelStructureAsyncWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
         
         /// <summary>
         /// Deletes an entity.
@@ -1557,7 +1609,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1574,7 +1626,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1592,7 +1644,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1602,7 +1654,7 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> DeleteFilingAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
+        System.Threading.Tasks.Task<Object> DeleteFilingAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
 
         /// <summary>
         /// Deletes a filing.
@@ -1615,7 +1667,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1625,7 +1677,7 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteFilingAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteFilingAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
         
         /// <summary>
         /// Deletes a label.
@@ -1643,7 +1695,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> DeleteLabelAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
+        System.Threading.Tasks.Task<Object> DeleteLabelAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
 
         /// <summary>
         /// Deletes a label.
@@ -1661,7 +1713,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLabelAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLabelAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
         
         /// <summary>
         /// Deletes a report element.
@@ -1677,7 +1729,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> DeleteReportElementAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null);
+        System.Threading.Tasks.Task<Object> DeleteReportElementAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null);
 
         /// <summary>
         /// Deletes a report element.
@@ -1693,7 +1745,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteReportElementAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteReportElementAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null);
         
         /// <summary>
         /// Deletes a section.
@@ -1708,7 +1760,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> DeleteSectionAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null);
+        System.Threading.Tasks.Task<Object> DeleteSectionAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null);
 
         /// <summary>
         /// Deletes a section.
@@ -1723,7 +1775,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null);
         
         /// <summary>
         /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.
@@ -1790,7 +1842,7 @@ namespace CellStore.Api
         /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param>
         /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param>
@@ -1809,13 +1861,45 @@ namespace CellStore.Api
         /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param>
         /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param>
         /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> InsertFilingsAsyncWithHttpInfo (string token, Object filing, string profileName = null, string formatIndent = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> InsertTaxonomiesAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> InsertTaxonomiesAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
         
         /// <summary>
         /// Retrieve a summary for all components of a given filing
@@ -1827,7 +1911,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1848,7 +1932,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListComponentsAsync (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
+        System.Threading.Tasks.Task<Object> ListComponentsAsync (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
 
         /// <summary>
         /// Retrieve a summary for all components of a given filing
@@ -1860,7 +1944,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1881,7 +1965,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListComponentsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListComponentsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
         
         /// <summary>
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
@@ -1894,7 +1978,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1920,7 +2004,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1946,7 +2030,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -1981,7 +2065,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListFactTableAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListFactTableAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -1994,7 +2078,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2029,7 +2113,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListFactTableAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListFactTableAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -2042,7 +2126,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2066,7 +2150,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListFactTableForReportAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListFactTableForReportAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -2079,7 +2163,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2103,7 +2187,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListFactTableForReportAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListFactTableForReportAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve one or more facts for a combination of filings.
@@ -2116,7 +2200,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2149,7 +2233,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListFactsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListFactsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve one or more facts for a combination of filings.
@@ -2162,7 +2246,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2195,7 +2279,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListFactsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListFactsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
@@ -2207,8 +2291,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2222,7 +2306,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListFilingsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListFilingsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
@@ -2234,8 +2318,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2249,7 +2333,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListFilingsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListFilingsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve labels for the supplied components and report elements
@@ -2262,7 +2346,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2285,7 +2369,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListLabelsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListLabelsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve labels for the supplied components and report elements
@@ -2298,7 +2382,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2321,7 +2405,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListLabelsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListLabelsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -2334,7 +2418,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2354,7 +2438,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListModelStructureAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListModelStructureAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -2367,7 +2451,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2387,7 +2471,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListModelStructureAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListModelStructureAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
@@ -2400,7 +2484,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2413,7 +2497,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListPeriodsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListPeriodsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
@@ -2426,7 +2510,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2439,7 +2523,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListPeriodsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListPeriodsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the report elements contained in a set of filings.
@@ -2452,7 +2536,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2465,6 +2549,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param>
         /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param>
@@ -2476,7 +2561,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListReportElementsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListReportElementsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve the report elements contained in a set of filings.
@@ -2489,7 +2574,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2502,6 +2587,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param>
         /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param>
@@ -2513,7 +2599,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListReportElementsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListReportElementsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve a summary for all rules of a given section
@@ -2526,7 +2612,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2543,7 +2629,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListRulesAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListRulesAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve a summary for all rules of a given section
@@ -2556,7 +2642,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2573,7 +2659,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListRulesAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListRulesAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve a summary for all sections of a given filing
@@ -2586,7 +2672,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2606,7 +2692,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListSectionsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> ListSectionsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve a summary for all sections of a given filing
@@ -2619,7 +2705,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2639,7 +2725,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListSectionsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListSectionsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -2652,7 +2738,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2663,14 +2749,22 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ListSpreadsheetForReportAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        System.Threading.Tasks.Task<Object> ListSpreadsheetForReportAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
 
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering.
@@ -2683,7 +2777,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2694,14 +2788,22 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ListSpreadsheetForReportAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListSpreadsheetForReportAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
         
         /// <summary>
         /// Patch one or more facts
@@ -2715,7 +2817,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2744,7 +2846,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> PatchFactsAsync (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
+        System.Threading.Tasks.Task<Object> PatchFactsAsync (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
 
         /// <summary>
         /// Patch one or more facts
@@ -2758,7 +2860,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2787,7 +2889,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> PatchFactsAsyncWithHttpInfo (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> PatchFactsAsyncWithHttpInfo (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
         
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -2800,7 +2902,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2828,12 +2930,13 @@ namespace CellStore.Api
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SpreadsheetForComponentAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        System.Threading.Tasks.Task<Object> SpreadsheetForComponentAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
 
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -2846,7 +2949,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -2874,12 +2977,13 @@ namespace CellStore.Api
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> SpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> SpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
         
         /// <summary>
         /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above.
@@ -3252,7 +3356,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object DeleteComponentModelStructure (string token, string aid = null, List<string> section = null, List<string> hypercube = null)
+        public Object DeleteComponentModelStructure (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
              ApiResponse<Object> localVarResponse = DeleteComponentModelStructureWithHttpInfo(token, aid, section, hypercube);
              return localVarResponse.Data;
@@ -3267,7 +3371,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > DeleteComponentModelStructureWithHttpInfo (string token, string aid = null, List<string> section = null, List<string> hypercube = null)
+        public ApiResponse< Object > DeleteComponentModelStructureWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
             
             // verify the required parameter 'token' is set
@@ -3340,7 +3444,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> DeleteComponentModelStructureAsync (string token, string aid = null, List<string> section = null, List<string> hypercube = null)
+        public async System.Threading.Tasks.Task<Object> DeleteComponentModelStructureAsync (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
              ApiResponse<Object> localVarResponse = await DeleteComponentModelStructureAsyncWithHttpInfo(token, aid, section, hypercube);
              return localVarResponse.Data;
@@ -3356,7 +3460,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteComponentModelStructureAsyncWithHttpInfo (string token, string aid = null, List<string> section = null, List<string> hypercube = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteComponentModelStructureAsyncWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteComponentModelStructure");
@@ -3424,7 +3528,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -3442,7 +3546,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -3521,7 +3625,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -3540,7 +3644,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -3617,7 +3721,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -3627,7 +3731,7 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object DeleteFiling (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+        public Object DeleteFiling (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
         {
              ApiResponse<Object> localVarResponse = DeleteFilingWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind);
              return localVarResponse.Data;
@@ -3641,7 +3745,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -3651,7 +3755,7 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > DeleteFilingWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+        public ApiResponse< Object > DeleteFilingWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
         {
             
             // verify the required parameter 'token' is set
@@ -3732,7 +3836,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -3742,7 +3846,7 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> DeleteFilingAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+        public async System.Threading.Tasks.Task<Object> DeleteFilingAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
         {
              ApiResponse<Object> localVarResponse = await DeleteFilingAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind);
              return localVarResponse.Data;
@@ -3757,7 +3861,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -3767,7 +3871,7 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteFilingAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteFilingAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteFiling");
@@ -3850,7 +3954,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object DeleteLabel (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
+        public Object DeleteLabel (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
         {
              ApiResponse<Object> localVarResponse = DeleteLabelWithHttpInfo(token, profileName, formatIndent, aid, section, reportElement, language, labelRole);
              return localVarResponse.Data;
@@ -3869,7 +3973,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > DeleteLabelWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
+        public ApiResponse< Object > DeleteLabelWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
         {
             
             // verify the required parameter 'token' is set
@@ -3950,7 +4054,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> DeleteLabelAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
+        public async System.Threading.Tasks.Task<Object> DeleteLabelAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
         {
              ApiResponse<Object> localVarResponse = await DeleteLabelAsyncWithHttpInfo(token, profileName, formatIndent, aid, section, reportElement, language, labelRole);
              return localVarResponse.Data;
@@ -3970,7 +4074,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLabelAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLabelAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteLabel");
@@ -4046,7 +4150,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object DeleteReportElement (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null)
+        public Object DeleteReportElement (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null)
         {
              ApiResponse<Object> localVarResponse = DeleteReportElementWithHttpInfo(token, profileName, formatIndent, aid, section, reportElement);
              return localVarResponse.Data;
@@ -4063,7 +4167,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > DeleteReportElementWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null)
+        public ApiResponse< Object > DeleteReportElementWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null)
         {
             
             // verify the required parameter 'token' is set
@@ -4140,7 +4244,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> DeleteReportElementAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null)
+        public async System.Threading.Tasks.Task<Object> DeleteReportElementAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null)
         {
              ApiResponse<Object> localVarResponse = await DeleteReportElementAsyncWithHttpInfo(token, profileName, formatIndent, aid, section, reportElement);
              return localVarResponse.Data;
@@ -4158,7 +4262,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteReportElementAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null, List<string> reportElement = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteReportElementAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteReportElement");
@@ -4231,7 +4335,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object DeleteSection (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null)
+        public Object DeleteSection (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null)
         {
              ApiResponse<Object> localVarResponse = DeleteSectionWithHttpInfo(token, profileName, formatIndent, aid, section);
              return localVarResponse.Data;
@@ -4247,7 +4351,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > DeleteSectionWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null)
+        public ApiResponse< Object > DeleteSectionWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null)
         {
             
             // verify the required parameter 'token' is set
@@ -4322,7 +4426,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> DeleteSectionAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null)
+        public async System.Threading.Tasks.Task<Object> DeleteSectionAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null)
         {
              ApiResponse<Object> localVarResponse = await DeleteSectionAsyncWithHttpInfo(token, profileName, formatIndent, aid, section);
              return localVarResponse.Data;
@@ -4339,7 +4443,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> section = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> section = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteSection");
@@ -4787,7 +4891,7 @@ namespace CellStore.Api
         /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
         /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param> 
         /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param> 
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param> 
@@ -4807,7 +4911,7 @@ namespace CellStore.Api
         /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
         /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param> 
         /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param> 
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param> 
@@ -4900,7 +5004,7 @@ namespace CellStore.Api
         /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param>
         /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param>
@@ -4921,7 +5025,7 @@ namespace CellStore.Api
         /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param>
         /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param>
@@ -5002,13 +5106,211 @@ namespace CellStore.Api
         }
         
         /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param> 
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param> 
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param> 
+        /// <returns>Object</returns>
+        public Object InsertTaxonomies (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        {
+             ApiResponse<Object> localVarResponse = InsertTaxonomiesWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param> 
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param> 
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param> 
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > InsertTaxonomiesWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        {
+            
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->InsertTaxonomies");
+            
+            // verify the required parameter 'eid' is set
+            if (eid == null)
+                throw new ApiException(400, "Missing required parameter 'eid' when calling DataApi->InsertTaxonomies");
+            
+            // verify the required parameter 'entrypoint' is set
+            if (entrypoint == null)
+                throw new ApiException(400, "Missing required parameter 'entrypoint' when calling DataApi->InsertTaxonomies");
+            
+    
+            var localVarPath = "/api/taxonomies";
+    
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            
+            
+            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (entrypoint != null) localVarQueryParams.Add("entrypoint", Configuration.ApiClient.ParameterToString(entrypoint)); // query parameter
+            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
+            
+            
+            
+            
+            
+
+            
+    
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+    
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling InsertTaxonomies: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling InsertTaxonomies: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+    
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> InsertTaxonomiesAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        {
+             ApiResponse<Object> localVarResponse = await InsertTaxonomiesAsyncWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> InsertTaxonomiesAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling InsertTaxonomies");
+            // verify the required parameter 'eid' is set
+            if (eid == null) throw new ApiException(400, "Missing required parameter 'eid' when calling InsertTaxonomies");
+            // verify the required parameter 'entrypoint' is set
+            if (entrypoint == null) throw new ApiException(400, "Missing required parameter 'entrypoint' when calling InsertTaxonomies");
+            
+    
+            var localVarPath = "/api/taxonomies";
+    
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        
+            
+            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (entrypoint != null) localVarQueryParams.Add("entrypoint", Configuration.ApiClient.ParameterToString(entrypoint)); // query parameter
+            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
+            
+            
+            
+            
+            
+
+            
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+ 
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling InsertTaxonomies: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling InsertTaxonomies: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+        
+        /// <summary>
         /// Retrieve a summary for all components of a given filing 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -5029,7 +5331,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param> 
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListComponents (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
+        public Object ListComponents (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
         {
              ApiResponse<Object> localVarResponse = ListComponentsWithHttpInfo(token, profileName, formatIndent, eid, ticker, tag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, filingKind, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language);
              return localVarResponse.Data;
@@ -5042,7 +5344,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -5063,7 +5365,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param> 
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListComponentsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
+        public ApiResponse< Object > ListComponentsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
         {
             
             // verify the required parameter 'token' is set
@@ -5153,7 +5455,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -5174,7 +5476,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListComponentsAsync (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
+        public async System.Threading.Tasks.Task<Object> ListComponentsAsync (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
         {
              ApiResponse<Object> localVarResponse = await ListComponentsAsyncWithHttpInfo(token, profileName, formatIndent, eid, ticker, tag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, filingKind, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language);
              return localVarResponse.Data;
@@ -5188,7 +5490,7 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -5209,7 +5511,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListComponentsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListComponentsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListComponents");
@@ -5297,7 +5599,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -5324,7 +5626,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -5421,7 +5723,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -5449,7 +5751,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -5543,7 +5845,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -5578,7 +5880,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListFactTable (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListFactTable (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListFactTableWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, labels, auditTrails, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, count, top, skip);
              return localVarResponse.Data;
@@ -5592,7 +5894,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -5627,7 +5929,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListFactTableWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListFactTableWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -5733,7 +6035,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -5768,7 +6070,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListFactTableAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListFactTableAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListFactTableAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, labels, auditTrails, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, count, top, skip);
              return localVarResponse.Data;
@@ -5783,7 +6085,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -5818,7 +6120,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListFactTableAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListFactTableAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListFactTable");
@@ -5921,7 +6223,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -5945,7 +6247,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListFactTableForReport (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListFactTableForReport (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListFactTableForReportWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, open, report, labels, auditTrails, language, aggregationFunction, validate, _override, count, top, skip);
              return localVarResponse.Data;
@@ -5959,7 +6261,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -5983,7 +6285,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListFactTableForReportWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListFactTableForReportWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -6078,7 +6380,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -6102,7 +6404,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListFactTableForReportAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListFactTableForReportAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListFactTableForReportAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, open, report, labels, auditTrails, language, aggregationFunction, validate, _override, count, top, skip);
              return localVarResponse.Data;
@@ -6117,7 +6419,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -6141,7 +6443,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListFactTableForReportAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListFactTableForReportAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListFactTableForReport");
@@ -6233,7 +6535,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -6266,7 +6568,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListFacts (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListFacts (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListFactsWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, labels, auditTrails, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count, top, skip);
              return localVarResponse.Data;
@@ -6280,7 +6582,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -6313,7 +6615,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListFactsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListFactsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -6417,7 +6719,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -6450,7 +6752,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListFactsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListFactsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListFactsAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, labels, auditTrails, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count, top, skip);
              return localVarResponse.Data;
@@ -6465,7 +6767,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -6498,7 +6800,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListFactsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListFactsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListFacts");
@@ -6598,8 +6900,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -6613,7 +6915,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListFilings (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListFilings (string token, string profileName = null, string formatIndent = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListFilingsWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, language, count, top, skip);
              return localVarResponse.Data;
@@ -6626,8 +6928,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -6641,7 +6943,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListFilingsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListFilingsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -6725,8 +7027,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -6740,7 +7042,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListFilingsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListFilingsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListFilingsAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, language, count, top, skip);
              return localVarResponse.Data;
@@ -6754,8 +7056,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -6769,7 +7071,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListFilingsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListFilingsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListFilings");
@@ -6851,7 +7153,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -6874,7 +7176,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListLabels (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListLabels (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListLabelsWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, labelRole, onlyTextBlocks, kind, eliminateReportElementDuplicates, count, top, skip);
              return localVarResponse.Data;
@@ -6888,7 +7190,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -6911,7 +7213,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListLabelsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListLabelsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -7005,7 +7307,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -7028,7 +7330,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListLabelsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListLabelsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListLabelsAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, labelRole, onlyTextBlocks, kind, eliminateReportElementDuplicates, count, top, skip);
              return localVarResponse.Data;
@@ -7043,7 +7345,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -7066,7 +7368,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListLabelsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListLabelsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListLabels");
@@ -7157,7 +7459,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -7177,7 +7479,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListModelStructure (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListModelStructure (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListModelStructureWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
              return localVarResponse.Data;
@@ -7191,7 +7493,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -7211,7 +7513,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListModelStructureWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListModelStructureWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -7302,7 +7604,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -7322,7 +7624,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListModelStructureAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListModelStructureAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListModelStructureAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
              return localVarResponse.Data;
@@ -7337,7 +7639,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -7357,7 +7659,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListModelStructureAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListModelStructureAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListModelStructure");
@@ -7445,7 +7747,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -7458,7 +7760,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListPeriods (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListPeriods (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListPeriodsWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, count, top, skip);
              return localVarResponse.Data;
@@ -7472,7 +7774,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -7485,7 +7787,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListPeriodsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListPeriodsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -7569,7 +7871,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -7582,7 +7884,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListPeriodsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListPeriodsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListPeriodsAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, count, top, skip);
              return localVarResponse.Data;
@@ -7597,7 +7899,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -7610,7 +7912,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListPeriodsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListPeriodsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListPeriods");
@@ -7691,7 +7993,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -7704,6 +8006,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param> 
         /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param> 
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
         /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param> 
@@ -7715,9 +8018,9 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListReportElements (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListReportElements (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
         {
-             ApiResponse<Object> localVarResponse = ListReportElementsWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
+             ApiResponse<Object> localVarResponse = ListReportElementsWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
              return localVarResponse.Data;
         }
 
@@ -7729,7 +8032,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -7742,6 +8045,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param> 
         /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param> 
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
         /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param> 
@@ -7753,7 +8057,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListReportElementsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListReportElementsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -7803,6 +8107,7 @@ namespace CellStore.Api
             if (hypercube != null) localVarQueryParams.Add("hypercube", Configuration.ApiClient.ParameterToString(hypercube)); // query parameter
             if (disclosure != null) localVarQueryParams.Add("disclosure", Configuration.ApiClient.ParameterToString(disclosure)); // query parameter
             if (reportElement != null) localVarQueryParams.Add("reportElement", Configuration.ApiClient.ParameterToString(reportElement)); // query parameter
+            if (builtin != null) localVarQueryParams.Add("builtin", Configuration.ApiClient.ParameterToString(builtin)); // query parameter
             if (onlyNames != null) localVarQueryParams.Add("onlyNames", Configuration.ApiClient.ParameterToString(onlyNames)); // query parameter
             if (report != null) localVarQueryParams.Add("report", Configuration.ApiClient.ParameterToString(report)); // query parameter
             if (label != null) localVarQueryParams.Add("label", Configuration.ApiClient.ParameterToString(label)); // query parameter
@@ -7848,7 +8153,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -7861,6 +8166,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param>
         /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param>
@@ -7872,9 +8178,9 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListReportElementsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListReportElementsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
         {
-             ApiResponse<Object> localVarResponse = await ListReportElementsAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
+             ApiResponse<Object> localVarResponse = await ListReportElementsAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
              return localVarResponse.Data;
 
         }
@@ -7887,7 +8193,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -7900,6 +8206,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param>
         /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param>
@@ -7911,7 +8218,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListReportElementsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListReportElementsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListReportElements");
@@ -7959,6 +8266,7 @@ namespace CellStore.Api
             if (hypercube != null) localVarQueryParams.Add("hypercube", Configuration.ApiClient.ParameterToString(hypercube)); // query parameter
             if (disclosure != null) localVarQueryParams.Add("disclosure", Configuration.ApiClient.ParameterToString(disclosure)); // query parameter
             if (reportElement != null) localVarQueryParams.Add("reportElement", Configuration.ApiClient.ParameterToString(reportElement)); // query parameter
+            if (builtin != null) localVarQueryParams.Add("builtin", Configuration.ApiClient.ParameterToString(builtin)); // query parameter
             if (onlyNames != null) localVarQueryParams.Add("onlyNames", Configuration.ApiClient.ParameterToString(onlyNames)); // query parameter
             if (report != null) localVarQueryParams.Add("report", Configuration.ApiClient.ParameterToString(report)); // query parameter
             if (label != null) localVarQueryParams.Add("label", Configuration.ApiClient.ParameterToString(label)); // query parameter
@@ -8003,7 +8311,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -8020,7 +8328,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListRules (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListRules (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListRulesWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, disclosure, reportElement, label, count, top, skip);
              return localVarResponse.Data;
@@ -8034,7 +8342,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -8051,7 +8359,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListRulesWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListRulesWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -8139,7 +8447,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -8156,7 +8464,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListRulesAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListRulesAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListRulesAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, disclosure, reportElement, label, count, top, skip);
              return localVarResponse.Data;
@@ -8171,7 +8479,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -8188,7 +8496,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListRulesAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListRulesAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListRules");
@@ -8273,7 +8581,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -8293,7 +8601,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListSections (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public Object ListSections (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = ListSectionsWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, validate, language, count, top, skip);
              return localVarResponse.Data;
@@ -8307,7 +8615,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -8327,7 +8635,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListSectionsWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > ListSectionsWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
@@ -8418,7 +8726,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -8438,7 +8746,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListSectionsAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> ListSectionsAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
              ApiResponse<Object> localVarResponse = await ListSectionsAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, validate, language, count, top, skip);
              return localVarResponse.Data;
@@ -8453,7 +8761,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -8473,7 +8781,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListSectionsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListSectionsAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListSections");
@@ -8561,7 +8869,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -8572,16 +8880,24 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param> 
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param> 
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param> 
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param> 
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object ListSpreadsheetForReport (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public Object ListSpreadsheetForReport (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null)
         {
-             ApiResponse<Object> localVarResponse = ListSpreadsheetForReportWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, language, eliminate, eliminationThreshold, row, column, flattenRowHeaders);
+             ApiResponse<Object> localVarResponse = ListSpreadsheetForReportWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, filingKind, archiveFiscalYear, archiveFiscalPeriod, _override, open, aggregationFunction);
              return localVarResponse.Data;
         }
 
@@ -8593,7 +8909,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -8604,14 +8920,22 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param> 
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param> 
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param> 
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param> 
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ListSpreadsheetForReportWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public ApiResponse< Object > ListSpreadsheetForReportWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null)
         {
             
             // verify the required parameter 'token' is set
@@ -8659,12 +8983,20 @@ namespace CellStore.Api
             if (fiscalPeriodType != null) localVarQueryParams.Add("fiscalPeriodType", Configuration.ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
             if (report != null) localVarQueryParams.Add("report", Configuration.ApiClient.ParameterToString(report)); // query parameter
             if (validate != null) localVarQueryParams.Add("validate", Configuration.ApiClient.ParameterToString(validate)); // query parameter
+            if (auditTrails != null) localVarQueryParams.Add("audit-trails", Configuration.ApiClient.ParameterToString(auditTrails)); // query parameter
             if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
             if (eliminate != null) localVarQueryParams.Add("eliminate", Configuration.ApiClient.ParameterToString(eliminate)); // query parameter
             if (eliminationThreshold != null) localVarQueryParams.Add("elimination-threshold", Configuration.ApiClient.ParameterToString(eliminationThreshold)); // query parameter
+            if (populate != null) localVarQueryParams.Add("populate", Configuration.ApiClient.ParameterToString(populate)); // query parameter
             if (row != null) localVarQueryParams.Add("row", Configuration.ApiClient.ParameterToString(row)); // query parameter
             if (column != null) localVarQueryParams.Add("column", Configuration.ApiClient.ParameterToString(column)); // query parameter
             if (flattenRowHeaders != null) localVarQueryParams.Add("flatten-row-headers", Configuration.ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
+            if (filingKind != null) localVarQueryParams.Add("filingKind", Configuration.ApiClient.ParameterToString(filingKind)); // query parameter
+            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (_override != null) localVarQueryParams.Add("override", Configuration.ApiClient.ParameterToString(_override)); // query parameter
+            if (open != null) localVarQueryParams.Add("open", Configuration.ApiClient.ParameterToString(open)); // query parameter
+            if (aggregationFunction != null) localVarQueryParams.Add("aggregation-function", Configuration.ApiClient.ParameterToString(aggregationFunction)); // query parameter
             
             
             
@@ -8700,7 +9032,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -8711,16 +9043,24 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ListSpreadsheetForReportAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public async System.Threading.Tasks.Task<Object> ListSpreadsheetForReportAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null)
         {
-             ApiResponse<Object> localVarResponse = await ListSpreadsheetForReportAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, language, eliminate, eliminationThreshold, row, column, flattenRowHeaders);
+             ApiResponse<Object> localVarResponse = await ListSpreadsheetForReportAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, filingKind, archiveFiscalYear, archiveFiscalPeriod, _override, open, aggregationFunction);
              return localVarResponse.Data;
 
         }
@@ -8733,7 +9073,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -8744,14 +9084,22 @@ namespace CellStore.Api
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListSpreadsheetForReportAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListSpreadsheetForReportAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListSpreadsheetForReport");
@@ -8797,12 +9145,20 @@ namespace CellStore.Api
             if (fiscalPeriodType != null) localVarQueryParams.Add("fiscalPeriodType", Configuration.ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
             if (report != null) localVarQueryParams.Add("report", Configuration.ApiClient.ParameterToString(report)); // query parameter
             if (validate != null) localVarQueryParams.Add("validate", Configuration.ApiClient.ParameterToString(validate)); // query parameter
+            if (auditTrails != null) localVarQueryParams.Add("audit-trails", Configuration.ApiClient.ParameterToString(auditTrails)); // query parameter
             if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
             if (eliminate != null) localVarQueryParams.Add("eliminate", Configuration.ApiClient.ParameterToString(eliminate)); // query parameter
             if (eliminationThreshold != null) localVarQueryParams.Add("elimination-threshold", Configuration.ApiClient.ParameterToString(eliminationThreshold)); // query parameter
+            if (populate != null) localVarQueryParams.Add("populate", Configuration.ApiClient.ParameterToString(populate)); // query parameter
             if (row != null) localVarQueryParams.Add("row", Configuration.ApiClient.ParameterToString(row)); // query parameter
             if (column != null) localVarQueryParams.Add("column", Configuration.ApiClient.ParameterToString(column)); // query parameter
             if (flattenRowHeaders != null) localVarQueryParams.Add("flatten-row-headers", Configuration.ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
+            if (filingKind != null) localVarQueryParams.Add("filingKind", Configuration.ApiClient.ParameterToString(filingKind)); // query parameter
+            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (_override != null) localVarQueryParams.Add("override", Configuration.ApiClient.ParameterToString(_override)); // query parameter
+            if (open != null) localVarQueryParams.Add("open", Configuration.ApiClient.ParameterToString(open)); // query parameter
+            if (aggregationFunction != null) localVarQueryParams.Add("aggregation-function", Configuration.ApiClient.ParameterToString(aggregationFunction)); // query parameter
             
             
             
@@ -8838,7 +9194,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -8867,7 +9223,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
         /// <returns>Object</returns>
-        public Object PatchFacts (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
+        public Object PatchFacts (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
         {
              ApiResponse<Object> localVarResponse = PatchFactsWithHttpInfo(token, patch, profileName, formatIndent, tag, eid, cik, edinetcode, sic, ticker, aid, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count);
              return localVarResponse.Data;
@@ -8882,7 +9238,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -8911,7 +9267,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > PatchFactsWithHttpInfo (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
+        public ApiResponse< Object > PatchFactsWithHttpInfo (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
         {
             
             // verify the required parameter 'token' is set
@@ -9023,7 +9379,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -9052,7 +9408,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> PatchFactsAsync (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
+        public async System.Threading.Tasks.Task<Object> PatchFactsAsync (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
         {
              ApiResponse<Object> localVarResponse = await PatchFactsAsyncWithHttpInfo(token, patch, profileName, formatIndent, tag, eid, cik, edinetcode, sic, ticker, aid, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count);
              return localVarResponse.Data;
@@ -9068,7 +9424,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -9097,7 +9453,7 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> PatchFactsAsyncWithHttpInfo (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> PatchFactsAsyncWithHttpInfo (string token, Object patch, string profileName = null, string formatIndent = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling PatchFacts");
@@ -9203,7 +9559,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -9231,14 +9587,15 @@ namespace CellStore.Api
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param> 
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param> 
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param> 
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param> 
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param> 
         /// <returns>Object</returns>
-        public Object SpreadsheetForComponent (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public Object SpreadsheetForComponent (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
         {
-             ApiResponse<Object> localVarResponse = SpreadsheetForComponentWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, autoSlice, row, column, flattenRowHeaders);
+             ApiResponse<Object> localVarResponse = SpreadsheetForComponentWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders);
              return localVarResponse.Data;
         }
 
@@ -9250,7 +9607,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param> 
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
@@ -9278,12 +9635,13 @@ namespace CellStore.Api
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param> 
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param> 
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param> 
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param> 
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > SpreadsheetForComponentWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public ApiResponse< Object > SpreadsheetForComponentWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
         {
             
             // verify the required parameter 'token' is set
@@ -9348,6 +9706,7 @@ namespace CellStore.Api
             if (_override != null) localVarQueryParams.Add("override", Configuration.ApiClient.ParameterToString(_override)); // query parameter
             if (eliminate != null) localVarQueryParams.Add("eliminate", Configuration.ApiClient.ParameterToString(eliminate)); // query parameter
             if (eliminationThreshold != null) localVarQueryParams.Add("elimination-threshold", Configuration.ApiClient.ParameterToString(eliminationThreshold)); // query parameter
+            if (populate != null) localVarQueryParams.Add("populate", Configuration.ApiClient.ParameterToString(populate)); // query parameter
             if (autoSlice != null) localVarQueryParams.Add("auto-slice", Configuration.ApiClient.ParameterToString(autoSlice)); // query parameter
             if (row != null) localVarQueryParams.Add("row", Configuration.ApiClient.ParameterToString(row)); // query parameter
             if (column != null) localVarQueryParams.Add("column", Configuration.ApiClient.ParameterToString(column)); // query parameter
@@ -9387,7 +9746,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -9415,14 +9774,15 @@ namespace CellStore.Api
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> SpreadsheetForComponentAsync (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public async System.Threading.Tasks.Task<Object> SpreadsheetForComponentAsync (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
         {
-             ApiResponse<Object> localVarResponse = await SpreadsheetForComponentAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, autoSlice, row, column, flattenRowHeaders);
+             ApiResponse<Object> localVarResponse = await SpreadsheetForComponentAsyncWithHttpInfo(token, profileName, formatIndent, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders);
              return localVarResponse.Data;
 
         }
@@ -9435,7 +9795,7 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="formatIndent">Whether or not to indent JSON or XML output (default: no indent). (optional, default to no)</param>
         /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EID (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
@@ -9463,12 +9823,13 @@ namespace CellStore.Api
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
         /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> SpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> SpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, string formatIndent = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
         {
             // verify the required parameter 'token' is set
             if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling SpreadsheetForComponent");
@@ -9531,6 +9892,7 @@ namespace CellStore.Api
             if (_override != null) localVarQueryParams.Add("override", Configuration.ApiClient.ParameterToString(_override)); // query parameter
             if (eliminate != null) localVarQueryParams.Add("eliminate", Configuration.ApiClient.ParameterToString(eliminate)); // query parameter
             if (eliminationThreshold != null) localVarQueryParams.Add("elimination-threshold", Configuration.ApiClient.ParameterToString(eliminationThreshold)); // query parameter
+            if (populate != null) localVarQueryParams.Add("populate", Configuration.ApiClient.ParameterToString(populate)); // query parameter
             if (autoSlice != null) localVarQueryParams.Add("auto-slice", Configuration.ApiClient.ParameterToString(autoSlice)); // query parameter
             if (row != null) localVarQueryParams.Add("row", Configuration.ApiClient.ParameterToString(row)); // query parameter
             if (column != null) localVarQueryParams.Add("column", Configuration.ApiClient.ParameterToString(column)); // query parameter
