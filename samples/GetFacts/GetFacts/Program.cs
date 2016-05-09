@@ -43,7 +43,7 @@ namespace GetFacts
             };
 
         // list some facts
-        dynamic pepVsCocaColaFacts = dataAPI.ListFacts(token: token, dimensions: dimensions, labels: false);
+        dynamic pepVsCocaColaFacts = dataAPI.GetFacts(token: token, dimensions: dimensions, labels: false);
 
         printFactTable(pepVsCocaColaFacts);
     }
@@ -51,7 +51,7 @@ namespace GetFacts
     private static void attFacts(CellStore.Api.DataApi dataAPI, String token)
     {
       // list some facts
-      dynamic ATandTFacts = dataAPI.ListFacts(token: token, ticker: new List<string> { "t" }, //AT&T ticker
+      dynamic ATandTFacts = dataAPI.GetFacts(token: token, ticker: new List<string> { "t" }, //AT&T ticker
                                                      fiscalYear: new List<string> { "2014", "2015" },
                                                      fiscalPeriod: new List<string> { "FY" },
                                                      concept: new List<string> { "us-gaap:Assets" });
@@ -61,7 +61,7 @@ namespace GetFacts
     private static void cocaColaFacts(CellStore.Api.DataApi dataAPI, String token)
     {
       // list some facts
-      dynamic dow30Facts = dataAPI.ListFacts(token: token, ticker: new List<string> { "ko" }, //Coca-Cola ticker
+      dynamic dow30Facts = dataAPI.GetFacts(token: token, ticker: new List<string> { "ko" }, //Coca-Cola ticker
                                                     concept: new List<string> { "us-gaap:Assets" },
                                                     labels: true,
                                                     fiscalPeriod: new List<string> { "FY" },
