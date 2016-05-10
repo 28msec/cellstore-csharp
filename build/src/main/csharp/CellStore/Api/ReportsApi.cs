@@ -90,7 +90,7 @@ namespace CellStore.Api
         /// <param name="export">If set to true a report will be retrieved in a binary format. Only a single report can be exported at once (optional, default to null)</param>
         /// <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false) (optional, default to null)</param>
         /// <returns>List&lt;Object&gt;</returns>
-        List<Object> ListReports (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null);
+        List<Object> GetReports (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null);
   
         /// <summary>
         /// Retrieve a list of all Reports
@@ -107,7 +107,7 @@ namespace CellStore.Api
         /// <param name="export">If set to true a report will be retrieved in a binary format. Only a single report can be exported at once (optional, default to null)</param>
         /// <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false) (optional, default to null)</param>
         /// <returns>ApiResponse of List&lt;Object&gt;</returns>
-        ApiResponse<List<Object>> ListReportsWithHttpInfo (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null);
+        ApiResponse<List<Object>> GetReportsWithHttpInfo (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null);
         
         /// <summary>
         /// Delete an existing report
@@ -210,7 +210,7 @@ namespace CellStore.Api
         /// <param name="export">If set to true a report will be retrieved in a binary format. Only a single report can be exported at once (optional, default to null)</param>
         /// <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false) (optional, default to null)</param>
         /// <returns>Task of List&lt;Object&gt;</returns>
-        System.Threading.Tasks.Task<List<Object>> ListReportsAsync (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null);
+        System.Threading.Tasks.Task<List<Object>> GetReportsAsync (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null);
 
         /// <summary>
         /// Retrieve a list of all Reports
@@ -227,7 +227,7 @@ namespace CellStore.Api
         /// <param name="export">If set to true a report will be retrieved in a binary format. Only a single report can be exported at once (optional, default to null)</param>
         /// <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false) (optional, default to null)</param>
         /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<Object>>> ListReportsAsyncWithHttpInfo (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null);
+        System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetReportsAsyncWithHttpInfo (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null);
         
         /// <summary>
         /// Delete an existing report
@@ -723,9 +723,9 @@ namespace CellStore.Api
         /// <param name="export">If set to true a report will be retrieved in a binary format. Only a single report can be exported at once (optional, default to null)</param> 
         /// <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false) (optional, default to null)</param> 
         /// <returns>List&lt;Object&gt;</returns>
-        public List<Object> ListReports (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
+        public List<Object> GetReports (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
         {
-             ApiResponse<List<Object>> localVarResponse = ListReportsWithHttpInfo(token, id, user, publicRead, _private, export, onlyMetadata);
+             ApiResponse<List<Object>> localVarResponse = GetReportsWithHttpInfo(token, id, user, publicRead, _private, export, onlyMetadata);
              return localVarResponse.Data;
         }
 
@@ -741,12 +741,12 @@ namespace CellStore.Api
         /// <param name="export">If set to true a report will be retrieved in a binary format. Only a single report can be exported at once (optional, default to null)</param> 
         /// <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false) (optional, default to null)</param> 
         /// <returns>ApiResponse of List&lt;Object&gt;</returns>
-        public ApiResponse< List<Object> > ListReportsWithHttpInfo (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
+        public ApiResponse< List<Object> > GetReportsWithHttpInfo (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
         {
             
             // verify the required parameter 'token' is set
             if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling ReportsApi->ListReports");
+                throw new ApiException(400, "Missing required parameter 'token' when calling ReportsApi->GetReports");
             
     
             var localVarPath = "/reports/reports";
@@ -797,9 +797,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
     
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling ListReports: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling GetReports: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling ListReports: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling GetReports: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
             return new ApiResponse<List<Object>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -820,9 +820,9 @@ namespace CellStore.Api
         /// <param name="export">If set to true a report will be retrieved in a binary format. Only a single report can be exported at once (optional, default to null)</param>
         /// <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false) (optional, default to null)</param>
         /// <returns>Task of List&lt;Object&gt;</returns>
-        public async System.Threading.Tasks.Task<List<Object>> ListReportsAsync (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
+        public async System.Threading.Tasks.Task<List<Object>> GetReportsAsync (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
         {
-             ApiResponse<List<Object>> localVarResponse = await ListReportsAsyncWithHttpInfo(token, id, user, publicRead, _private, export, onlyMetadata);
+             ApiResponse<List<Object>> localVarResponse = await GetReportsAsyncWithHttpInfo(token, id, user, publicRead, _private, export, onlyMetadata);
              return localVarResponse.Data;
 
         }
@@ -839,10 +839,10 @@ namespace CellStore.Api
         /// <param name="export">If set to true a report will be retrieved in a binary format. Only a single report can be exported at once (optional, default to null)</param>
         /// <param name="onlyMetadata">If set to true will return only the metadata of reports instead of the complete reports. (default: false) (optional, default to null)</param>
         /// <returns>Task of ApiResponse (List&lt;Object&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<Object>>> ListReportsAsyncWithHttpInfo (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
+        public async System.Threading.Tasks.Task<ApiResponse<List<Object>>> GetReportsAsyncWithHttpInfo (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling ListReports");
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetReports");
             
     
             var localVarPath = "/reports/reports";
@@ -893,9 +893,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
  
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling ListReports: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling GetReports: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling ListReports: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling GetReports: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<List<Object>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),

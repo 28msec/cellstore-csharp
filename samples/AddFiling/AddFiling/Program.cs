@@ -25,7 +25,7 @@ namespace GetFacts
        
       byte[] filing = File.ReadAllBytes(@"filing.zip");
 
-      dynamic result = dataAPI.InsertFilings(token: token, filing: filing, contentType: "application/xbrlx", profileName: "SEC");
+      dynamic result = dataAPI.AddFilings(token: token, filing: filing, contentType: "application/xbrlx", profileName: "SEC");
 
       Console.WriteLine(JsonConvert.SerializeObject(result));
       Console.ReadKey();
