@@ -140,7 +140,7 @@ namespace CellStore.Api
         /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object AddModelStructure (string token, Object modelStructure, string profileName = null);
+        Object AddModelStructureForComponent (string token, Object modelStructure, string profileName = null);
   
         /// <summary>
         /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.
@@ -153,7 +153,7 @@ namespace CellStore.Api
         /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> AddModelStructureWithHttpInfo (string token, Object modelStructure, string profileName = null);
+        ApiResponse<Object> AddModelStructureForComponentWithHttpInfo (string token, Object modelStructure, string profileName = null);
         
         /// <summary>
         /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
@@ -221,7 +221,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Object</returns>
-        Object AddTaxonomies (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
   
         /// <summary>
         /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
@@ -237,7 +237,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> AddTaxonomiesWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        ApiResponse<Object> AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
         
         /// <summary>
         /// Deletes an entity.
@@ -361,7 +361,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object DeleteModelStructure (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
+        Object DeleteModelStructureForComponent (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
   
         /// <summary>
         /// Deletes a component including its model structure.
@@ -375,7 +375,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> DeleteModelStructureWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
+        ApiResponse<Object> DeleteModelStructureForComponentWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
         
         /// <summary>
         /// Deletes a report element.
@@ -1047,7 +1047,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object GetModelStructure (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
+        Object GetModelStructureForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
   
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -1079,7 +1079,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> GetModelStructureWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> GetModelStructureForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
@@ -1622,7 +1622,7 @@ namespace CellStore.Api
         /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> AddModelStructureAsync (string token, Object modelStructure, string profileName = null);
+        System.Threading.Tasks.Task<Object> AddModelStructureForComponentAsync (string token, Object modelStructure, string profileName = null);
 
         /// <summary>
         /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.
@@ -1635,7 +1635,7 @@ namespace CellStore.Api
         /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> AddModelStructureAsyncWithHttpInfo (string token, Object modelStructure, string profileName = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddModelStructureForComponentAsyncWithHttpInfo (string token, Object modelStructure, string profileName = null);
         
         /// <summary>
         /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
@@ -1703,7 +1703,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> AddTaxonomiesAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
 
         /// <summary>
         /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
@@ -1719,7 +1719,7 @@ namespace CellStore.Api
         /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomiesAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
         
         /// <summary>
         /// Deletes an entity.
@@ -1843,7 +1843,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> DeleteModelStructureAsync (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
+        System.Threading.Tasks.Task<Object> DeleteModelStructureForComponentAsync (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
 
         /// <summary>
         /// Deletes a component including its model structure.
@@ -1857,7 +1857,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteModelStructureAsyncWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteModelStructureForComponentAsyncWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
         
         /// <summary>
         /// Deletes a report element.
@@ -2529,7 +2529,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> GetModelStructureAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> GetModelStructureForComponentAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -2561,7 +2561,7 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> GetModelStructureAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> GetModelStructureForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
         
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
@@ -3845,9 +3845,9 @@ namespace CellStore.Api
         /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object AddModelStructure (string token, Object modelStructure, string profileName = null)
+        public Object AddModelStructureForComponent (string token, Object modelStructure, string profileName = null)
         {
-             ApiResponse<Object> localVarResponse = AddModelStructureWithHttpInfo(token, modelStructure, profileName);
+             ApiResponse<Object> localVarResponse = AddModelStructureForComponentWithHttpInfo(token, modelStructure, profileName);
              return localVarResponse.Data;
         }
 
@@ -3859,16 +3859,16 @@ namespace CellStore.Api
         /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param> 
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > AddModelStructureWithHttpInfo (string token, Object modelStructure, string profileName = null)
+        public ApiResponse< Object > AddModelStructureForComponentWithHttpInfo (string token, Object modelStructure, string profileName = null)
         {
             
             // verify the required parameter 'token' is set
             if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddModelStructure");
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddModelStructureForComponent");
             
             // verify the required parameter 'modelStructure' is set
             if (modelStructure == null)
-                throw new ApiException(400, "Missing required parameter 'modelStructure' when calling DataApi->AddModelStructure");
+                throw new ApiException(400, "Missing required parameter 'modelStructure' when calling DataApi->AddModelStructureForComponent");
             
     
             var localVarPath = "/api/modelstructure-for-component";
@@ -3921,9 +3921,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
     
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling AddModelStructure: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling AddModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling AddModelStructure: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling AddModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -3940,9 +3940,9 @@ namespace CellStore.Api
         /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> AddModelStructureAsync (string token, Object modelStructure, string profileName = null)
+        public async System.Threading.Tasks.Task<Object> AddModelStructureForComponentAsync (string token, Object modelStructure, string profileName = null)
         {
-             ApiResponse<Object> localVarResponse = await AddModelStructureAsyncWithHttpInfo(token, modelStructure, profileName);
+             ApiResponse<Object> localVarResponse = await AddModelStructureForComponentAsyncWithHttpInfo(token, modelStructure, profileName);
              return localVarResponse.Data;
 
         }
@@ -3955,12 +3955,12 @@ namespace CellStore.Api
         /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddModelStructureAsyncWithHttpInfo (string token, Object modelStructure, string profileName = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddModelStructureForComponentAsyncWithHttpInfo (string token, Object modelStructure, string profileName = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddModelStructure");
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddModelStructureForComponent");
             // verify the required parameter 'modelStructure' is set
-            if (modelStructure == null) throw new ApiException(400, "Missing required parameter 'modelStructure' when calling AddModelStructure");
+            if (modelStructure == null) throw new ApiException(400, "Missing required parameter 'modelStructure' when calling AddModelStructureForComponent");
             
     
             var localVarPath = "/api/modelstructure-for-component";
@@ -4013,9 +4013,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
  
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling AddModelStructure: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling AddModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling AddModelStructure: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling AddModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -4406,9 +4406,9 @@ namespace CellStore.Api
         /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param> 
         /// <returns>Object</returns>
-        public Object AddTaxonomies (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        public Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
         {
-             ApiResponse<Object> localVarResponse = AddTaxonomiesWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
+             ApiResponse<Object> localVarResponse = AddTaxonomyWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
              return localVarResponse.Data;
         }
 
@@ -4423,20 +4423,20 @@ namespace CellStore.Api
         /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > AddTaxonomiesWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        public ApiResponse< Object > AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
         {
             
             // verify the required parameter 'token' is set
             if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddTaxonomies");
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddTaxonomy");
             
             // verify the required parameter 'eid' is set
             if (eid == null)
-                throw new ApiException(400, "Missing required parameter 'eid' when calling DataApi->AddTaxonomies");
+                throw new ApiException(400, "Missing required parameter 'eid' when calling DataApi->AddTaxonomy");
             
             // verify the required parameter 'entrypoint' is set
             if (entrypoint == null)
-                throw new ApiException(400, "Missing required parameter 'entrypoint' when calling DataApi->AddTaxonomies");
+                throw new ApiException(400, "Missing required parameter 'entrypoint' when calling DataApi->AddTaxonomy");
             
     
             var localVarPath = "/api/taxonomies";
@@ -4486,9 +4486,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
     
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling AddTaxonomies: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling AddTaxonomies: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -4508,9 +4508,9 @@ namespace CellStore.Api
         /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> AddTaxonomiesAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        public async System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
         {
-             ApiResponse<Object> localVarResponse = await AddTaxonomiesAsyncWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
+             ApiResponse<Object> localVarResponse = await AddTaxonomyAsyncWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
              return localVarResponse.Data;
 
         }
@@ -4526,14 +4526,14 @@ namespace CellStore.Api
         /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomiesAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddTaxonomies");
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddTaxonomy");
             // verify the required parameter 'eid' is set
-            if (eid == null) throw new ApiException(400, "Missing required parameter 'eid' when calling AddTaxonomies");
+            if (eid == null) throw new ApiException(400, "Missing required parameter 'eid' when calling AddTaxonomy");
             // verify the required parameter 'entrypoint' is set
-            if (entrypoint == null) throw new ApiException(400, "Missing required parameter 'entrypoint' when calling AddTaxonomies");
+            if (entrypoint == null) throw new ApiException(400, "Missing required parameter 'entrypoint' when calling AddTaxonomy");
             
     
             var localVarPath = "/api/taxonomies";
@@ -4583,9 +4583,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
  
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling AddTaxonomies: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling AddTaxonomies: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -5202,9 +5202,9 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object DeleteModelStructure (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
+        public Object DeleteModelStructureForComponent (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
-             ApiResponse<Object> localVarResponse = DeleteModelStructureWithHttpInfo(token, aid, section, hypercube);
+             ApiResponse<Object> localVarResponse = DeleteModelStructureForComponentWithHttpInfo(token, aid, section, hypercube);
              return localVarResponse.Data;
         }
 
@@ -5217,12 +5217,12 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > DeleteModelStructureWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
+        public ApiResponse< Object > DeleteModelStructureForComponentWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
             
             // verify the required parameter 'token' is set
             if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteModelStructure");
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteModelStructureForComponent");
             
     
             var localVarPath = "/api/modelstructure-for-component";
@@ -5270,9 +5270,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
     
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructure: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructure: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -5290,9 +5290,9 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> DeleteModelStructureAsync (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
+        public async System.Threading.Tasks.Task<Object> DeleteModelStructureForComponentAsync (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
-             ApiResponse<Object> localVarResponse = await DeleteModelStructureAsyncWithHttpInfo(token, aid, section, hypercube);
+             ApiResponse<Object> localVarResponse = await DeleteModelStructureForComponentAsyncWithHttpInfo(token, aid, section, hypercube);
              return localVarResponse.Data;
 
         }
@@ -5306,10 +5306,10 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteModelStructureAsyncWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteModelStructureForComponentAsyncWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteModelStructure");
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteModelStructureForComponent");
             
     
             var localVarPath = "/api/modelstructure-for-component";
@@ -5357,9 +5357,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
  
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructure: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructure: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -8232,9 +8232,9 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>Object</returns>
-        public Object GetModelStructure (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+        public Object GetModelStructureForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
-             ApiResponse<Object> localVarResponse = GetModelStructureWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
+             ApiResponse<Object> localVarResponse = GetModelStructureForComponentWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
              return localVarResponse.Data;
         }
 
@@ -8265,12 +8265,12 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > GetModelStructureWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > GetModelStructureForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
             
             // verify the required parameter 'token' is set
             if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetModelStructure");
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetModelStructureForComponent");
             
     
             var localVarPath = "/api/modelstructure-for-component";
@@ -8336,9 +8336,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
     
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling GetModelStructure: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling GetModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling GetModelStructure: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling GetModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -8374,9 +8374,9 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> GetModelStructureAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> GetModelStructureForComponentAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
-             ApiResponse<Object> localVarResponse = await GetModelStructureAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
+             ApiResponse<Object> localVarResponse = await GetModelStructureForComponentAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
              return localVarResponse.Data;
 
         }
@@ -8408,10 +8408,10 @@ namespace CellStore.Api
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> GetModelStructureAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> GetModelStructureForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetModelStructure");
+            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetModelStructureForComponent");
             
     
             var localVarPath = "/api/modelstructure-for-component";
@@ -8477,9 +8477,9 @@ namespace CellStore.Api
             int localVarStatusCode = (int) localVarResponse.StatusCode;
  
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling GetModelStructure: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling GetModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling GetModelStructure: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling GetModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
