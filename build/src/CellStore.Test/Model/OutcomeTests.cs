@@ -31,7 +31,7 @@ namespace CellStore.Test
         {
             instance = new Outcome();
         }
-    
+
         /// <summary>
         /// Clean up after each test
         /// </summary>
@@ -39,7 +39,7 @@ namespace CellStore.Test
         public void Cleanup()
         {
 
-        }   
+        }
 
         /// <summary>
         /// Test an instance of Outcome
@@ -50,25 +50,22 @@ namespace CellStore.Test
             Assert.IsInstanceOf<Outcome> (instance, "instance is a Outcome");
         }
 
-        
         /// <summary>
-        /// Test the property 'Success' 
+        /// Test the property 'Success'
         /// </summary>
         [Test]
         public void SuccessTest()
         {
-            // TODO: unit test for the property 'Success' 
+            // TODO: unit test for the property 'Success'
         }
-        
         /// <summary>
-        /// Test the property 'Description' 
+        /// Test the property 'Description'
         /// </summary>
         [Test]
         public void DescriptionTest()
         {
-            // TODO: unit test for the property 'Description' 
+            // TODO: unit test for the property 'Description'
         }
-        
 
     }
 

@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,16 +8,14 @@ using CellStore.Model;
 
 namespace CellStore.Api
 {
-    
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
     public interface IDataApi
     {
         #region Synchronous Operations
-        
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).\n\nAn entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| EID   | string | optional | The entity ID (EID). |\n| EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:\n\n- Archives (string)\n\nSeveral entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -29,9 +26,9 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         Object AddEntities (string token, Object entity, string profileName = null);
-  
+
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).\n\nAn entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| EID   | string | optional | The entity ID (EID). |\n| EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:\n\n- Archives (string)\n\nSeveral entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -42,7 +39,6 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddEntitiesWithHttpInfo (string token, Object entity, string profileName = null);
-        
         /// <summary>
         /// Add a fact to a filing.
         /// </summary>
@@ -54,7 +50,7 @@ namespace CellStore.Api
         /// <param name="fact">The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field.</param>
         /// <returns>Object</returns>
         Object AddFacts (string token, Object fact);
-  
+
         /// <summary>
         /// Add a fact to a filing.
         /// </summary>
@@ -66,9 +62,8 @@ namespace CellStore.Api
         /// <param name="fact">The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field.</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddFactsWithHttpInfo (string token, Object fact);
-        
         /// <summary>
-        /// Add or update filings. The filings are identified with Archive IDs (AIDs).\n\nThere are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.\n\nA full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.\n\nAlternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive |\n| Entity   | string | optional | The EID to which the archive belongs |\n| Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. |\n| InstanceURL  | string | optional | The URL of the original XBRL instance |\n| Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:\n\n- Components (string)\n- Sections (string)\n- NumSections (integer)\n- NumFacts (integer)\n- NumFootnotes (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n\nSeveral empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update filings. The filings are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -84,9 +79,9 @@ namespace CellStore.Api
         /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object AddFilings (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
-  
+
         /// <summary>
-        /// Add or update filings. The filings are identified with Archive IDs (AIDs).\n\nThere are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.\n\nA full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.\n\nAlternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive |\n| Entity   | string | optional | The EID to which the archive belongs |\n| Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. |\n| InstanceURL  | string | optional | The URL of the original XBRL instance |\n| Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:\n\n- Components (string)\n- Sections (string)\n- NumSections (integer)\n- NumFacts (integer)\n- NumFootnotes (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n\nSeveral empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update filings. The filings are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -102,9 +97,8 @@ namespace CellStore.Api
         /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddFilingsWithHttpInfo (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
-        
         /// <summary>
-        /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above.
+        /// Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |---------------|--------|----------|----------------------------------| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -115,9 +109,9 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         Object AddLabels (string token, Object label, string profileName = null);
-  
+
         /// <summary>
-        /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above.
+        /// Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |---------------|--------|----------|----------------------------------| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -128,9 +122,8 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddLabelsWithHttpInfo (string token, Object label, string profileName = null);
-        
         /// <summary>
-        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.
+        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | Name | string | required | The qualified name of a report element that exists in the component&#39;s section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |------------------------|---------------------------------------------| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -141,9 +134,9 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         Object AddModelStructureForComponent (string token, Object modelStructure, string profileName = null);
-  
+
         /// <summary>
-        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.
+        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | Name | string | required | The qualified name of a report element that exists in the component&#39;s section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |------------------------|---------------------------------------------| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -154,9 +147,8 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddModelStructureForComponentWithHttpInfo (string token, Object modelStructure, string profileName = null);
-        
         /// <summary>
-        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -167,9 +159,9 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         Object AddReportElements (string token, Object reportElement, string profileName = null);
-  
+
         /// <summary>
-        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -180,9 +172,8 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddReportElementsWithHttpInfo (string token, Object reportElement, string profileName = null);
-        
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.\n\nA section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the section belongs |\n| SectionURI   | string | required | The URI of the section |\n| Section  | string | required | A user-friendly label for the section (preferably in English). |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:\n\n- Components (string)\n- ReportElements (string)\n- FactTable (string)\n- Spreadsheet (string)\n- Category (string)\n- SubCategory (string)\n- Disclosure (string)\n- NumRules (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n- EntityRegistrantName (string)\n- CIK (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n- AcceptanceDatetime (string)\n- FormType (string)\n\nSeveral empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -193,9 +184,9 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         Object AddSections (string token, Object section, string profileName = null);
-  
+
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.\n\nA section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the section belongs |\n| SectionURI   | string | required | The URI of the section |\n| Section  | string | required | A user-friendly label for the section (preferably in English). |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:\n\n- Components (string)\n- ReportElements (string)\n- FactTable (string)\n- Spreadsheet (string)\n- Category (string)\n- SubCategory (string)\n- Disclosure (string)\n- NumRules (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n- EntityRegistrantName (string)\n- CIK (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n- AcceptanceDatetime (string)\n- FormType (string)\n\nSeveral empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -206,9 +197,8 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddSectionsWithHttpInfo (string token, Object section, string profileName = null);
-        
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
         /// </summary>
         /// <remarks>
         /// 
@@ -222,9 +212,9 @@ namespace CellStore.Api
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Object</returns>
         Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
-  
+
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
         /// </summary>
         /// <remarks>
         /// 
@@ -238,7 +228,6 @@ namespace CellStore.Api
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
-        
         /// <summary>
         /// Deletes an entity.
         /// </summary>
@@ -254,7 +243,7 @@ namespace CellStore.Api
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object DeleteEntity (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> ticker = null);
-  
+
         /// <summary>
         /// Deletes an entity.
         /// </summary>
@@ -270,7 +259,6 @@ namespace CellStore.Api
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteEntityWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> ticker = null);
-        
         /// <summary>
         /// Deletes a filing.
         /// </summary>
@@ -292,7 +280,7 @@ namespace CellStore.Api
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Object</returns>
         Object DeleteFiling (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
-  
+
         /// <summary>
         /// Deletes a filing.
         /// </summary>
@@ -314,7 +302,6 @@ namespace CellStore.Api
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteFilingWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
-        
         /// <summary>
         /// Deletes a label.
         /// </summary>
@@ -331,7 +318,7 @@ namespace CellStore.Api
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>Object</returns>
         Object DeleteLabel (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
-  
+
         /// <summary>
         /// Deletes a label.
         /// </summary>
@@ -348,7 +335,6 @@ namespace CellStore.Api
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteLabelWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
-        
         /// <summary>
         /// Deletes a component including its model structure.
         /// </summary>
@@ -362,7 +348,7 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object DeleteModelStructureForComponent (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
-  
+
         /// <summary>
         /// Deletes a component including its model structure.
         /// </summary>
@@ -376,7 +362,6 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteModelStructureForComponentWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
-        
         /// <summary>
         /// Deletes a report element.
         /// </summary>
@@ -391,7 +376,7 @@ namespace CellStore.Api
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Object</returns>
         Object DeleteReportElement (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null);
-  
+
         /// <summary>
         /// Deletes a report element.
         /// </summary>
@@ -406,7 +391,6 @@ namespace CellStore.Api
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteReportElementWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null);
-        
         /// <summary>
         /// Deletes a section.
         /// </summary>
@@ -420,7 +404,7 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object DeleteSection (string token, string profileName = null, List<string> aid = null, List<string> section = null);
-  
+
         /// <summary>
         /// Deletes a section.
         /// </summary>
@@ -434,7 +418,6 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteSectionWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null);
-        
         /// <summary>
         /// Patch one or more facts
         /// </summary>
@@ -476,7 +459,7 @@ namespace CellStore.Api
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Object</returns>
         Object EditFacts (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
-  
+
         /// <summary>
         /// Patch one or more facts
         /// </summary>
@@ -518,7 +501,6 @@ namespace CellStore.Api
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> EditFactsWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
-        
         /// <summary>
         /// Retrieve a summary for all components of a given filing
         /// </summary>
@@ -550,7 +532,7 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetComponents (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
-  
+
         /// <summary>
         /// Retrieve a summary for all components of a given filing
         /// </summary>
@@ -582,7 +564,6 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetComponentsWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
-        
         /// <summary>
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
         /// </summary>
@@ -607,7 +588,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetEntities (string token, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string entitySearch = null, int? entitySearchOffset = null, int? entitySearchLimit = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
         /// </summary>
@@ -632,7 +613,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetEntitiesWithHttpInfo (string token, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string entitySearch = null, int? entitySearchOffset = null, int? entitySearchLimit = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
         /// </summary>
@@ -680,7 +660,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetFactTableForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
         /// </summary>
@@ -728,7 +708,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetFactTableForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
         /// </summary>
@@ -765,7 +744,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetFactTableForReport (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, bool? metadata = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
         /// </summary>
@@ -802,7 +781,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetFactTableForReportWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, bool? metadata = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve one or more facts for a combination of filings.
         /// </summary>
@@ -848,7 +826,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetFacts (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve one or more facts for a combination of filings.
         /// </summary>
@@ -894,7 +872,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetFactsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
         /// </summary>
@@ -920,7 +897,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetFilings (string token, string profileName = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
         /// </summary>
@@ -946,7 +923,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetFilingsWithHttpInfo (string token, string profileName = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve labels for the supplied components and report elements
         /// </summary>
@@ -981,7 +957,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetLabels (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve labels for the supplied components and report elements
         /// </summary>
@@ -1016,7 +992,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetLabelsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
         /// </summary>
@@ -1048,7 +1023,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetModelStructureForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
         /// </summary>
@@ -1080,7 +1055,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetModelStructureForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
         /// </summary>
@@ -1105,7 +1079,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetPeriods (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
         /// </summary>
@@ -1130,7 +1104,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetPeriodsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the report elements contained in a set of filings.
         /// </summary>
@@ -1167,7 +1140,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetReportElements (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve the report elements contained in a set of filings.
         /// </summary>
@@ -1204,7 +1177,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetReportElementsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve a summary for all rules of a given section
         /// </summary>
@@ -1233,7 +1205,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetRules (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve a summary for all rules of a given section
         /// </summary>
@@ -1262,7 +1234,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetRulesWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve a summary for all sections of a given filing
         /// </summary>
@@ -1294,7 +1265,7 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetSections (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-  
+
         /// <summary>
         /// Retrieve a summary for all sections of a given filing
         /// </summary>
@@ -1326,9 +1297,8 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetSectionsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+        /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1372,9 +1342,9 @@ namespace CellStore.Api
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>Object</returns>
         Object GetSpreadsheetForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
-  
+
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+        /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1418,9 +1388,8 @@ namespace CellStore.Api
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetSpreadsheetForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
-        
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering.
+        /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1456,9 +1425,9 @@ namespace CellStore.Api
         /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object GetSpreadsheetForReport (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
-  
+
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering.
+        /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1494,13 +1463,10 @@ namespace CellStore.Api
         /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetSpreadsheetForReportWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
-        
         #endregion Synchronous Operations
-        
         #region Asynchronous Operations
-        
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).\n\nAn entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| EID   | string | optional | The entity ID (EID). |\n| EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:\n\n- Archives (string)\n\nSeveral entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1513,7 +1479,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddEntitiesAsync (string token, Object entity, string profileName = null);
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).\n\nAn entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| EID   | string | optional | The entity ID (EID). |\n| EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:\n\n- Archives (string)\n\nSeveral entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1524,7 +1490,6 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddEntitiesAsyncWithHttpInfo (string token, Object entity, string profileName = null);
-        
         /// <summary>
         /// Add a fact to a filing.
         /// </summary>
@@ -1548,9 +1513,8 @@ namespace CellStore.Api
         /// <param name="fact">The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddFactsAsyncWithHttpInfo (string token, Object fact);
-        
         /// <summary>
-        /// Add or update filings. The filings are identified with Archive IDs (AIDs).\n\nThere are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.\n\nA full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.\n\nAlternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive |\n| Entity   | string | optional | The EID to which the archive belongs |\n| Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. |\n| InstanceURL  | string | optional | The URL of the original XBRL instance |\n| Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:\n\n- Components (string)\n- Sections (string)\n- NumSections (integer)\n- NumFacts (integer)\n- NumFootnotes (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n\nSeveral empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update filings. The filings are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1568,7 +1532,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddFilingsAsync (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
 
         /// <summary>
-        /// Add or update filings. The filings are identified with Archive IDs (AIDs).\n\nThere are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.\n\nA full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.\n\nAlternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive |\n| Entity   | string | optional | The EID to which the archive belongs |\n| Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. |\n| InstanceURL  | string | optional | The URL of the original XBRL instance |\n| Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:\n\n- Components (string)\n- Sections (string)\n- NumSections (integer)\n- NumFacts (integer)\n- NumFootnotes (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n\nSeveral empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update filings. The filings are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1584,9 +1548,8 @@ namespace CellStore.Api
         /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddFilingsAsyncWithHttpInfo (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
-        
         /// <summary>
-        /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above.
+        /// Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |---------------|--------|----------|----------------------------------| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1599,7 +1562,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddLabelsAsync (string token, Object label, string profileName = null);
 
         /// <summary>
-        /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above.
+        /// Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |---------------|--------|----------|----------------------------------| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1610,9 +1573,8 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddLabelsAsyncWithHttpInfo (string token, Object label, string profileName = null);
-        
         /// <summary>
-        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.
+        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | Name | string | required | The qualified name of a report element that exists in the component&#39;s section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |------------------------|---------------------------------------------| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1625,7 +1587,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddModelStructureForComponentAsync (string token, Object modelStructure, string profileName = null);
 
         /// <summary>
-        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.
+        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | Name | string | required | The qualified name of a report element that exists in the component&#39;s section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |------------------------|---------------------------------------------| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1636,9 +1598,8 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddModelStructureForComponentAsyncWithHttpInfo (string token, Object modelStructure, string profileName = null);
-        
         /// <summary>
-        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1651,7 +1612,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddReportElementsAsync (string token, Object reportElement, string profileName = null);
 
         /// <summary>
-        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1662,9 +1623,8 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddReportElementsAsyncWithHttpInfo (string token, Object reportElement, string profileName = null);
-        
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.\n\nA section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the section belongs |\n| SectionURI   | string | required | The URI of the section |\n| Section  | string | required | A user-friendly label for the section (preferably in English). |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:\n\n- Components (string)\n- ReportElements (string)\n- FactTable (string)\n- Spreadsheet (string)\n- Category (string)\n- SubCategory (string)\n- Disclosure (string)\n- NumRules (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n- EntityRegistrantName (string)\n- CIK (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n- AcceptanceDatetime (string)\n- FormType (string)\n\nSeveral empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1677,7 +1637,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddSectionsAsync (string token, Object section, string profileName = null);
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.\n\nA section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the section belongs |\n| SectionURI   | string | required | The URI of the section |\n| Section  | string | required | A user-friendly label for the section (preferably in English). |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:\n\n- Components (string)\n- ReportElements (string)\n- FactTable (string)\n- Spreadsheet (string)\n- Category (string)\n- SubCategory (string)\n- Disclosure (string)\n- NumRules (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n- EntityRegistrantName (string)\n- CIK (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n- AcceptanceDatetime (string)\n- FormType (string)\n\nSeveral empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1688,9 +1648,8 @@ namespace CellStore.Api
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddSectionsAsyncWithHttpInfo (string token, Object section, string profileName = null);
-        
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
         /// </summary>
         /// <remarks>
         /// 
@@ -1706,7 +1665,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
         /// </summary>
         /// <remarks>
         /// 
@@ -1720,7 +1679,6 @@ namespace CellStore.Api
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
-        
         /// <summary>
         /// Deletes an entity.
         /// </summary>
@@ -1752,7 +1710,6 @@ namespace CellStore.Api
         /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteEntityAsyncWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> ticker = null);
-        
         /// <summary>
         /// Deletes a filing.
         /// </summary>
@@ -1796,7 +1753,6 @@ namespace CellStore.Api
         /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteFilingAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
-        
         /// <summary>
         /// Deletes a label.
         /// </summary>
@@ -1830,7 +1786,6 @@ namespace CellStore.Api
         /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLabelAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null);
-        
         /// <summary>
         /// Deletes a component including its model structure.
         /// </summary>
@@ -1858,7 +1813,6 @@ namespace CellStore.Api
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteModelStructureForComponentAsyncWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null);
-        
         /// <summary>
         /// Deletes a report element.
         /// </summary>
@@ -1888,7 +1842,6 @@ namespace CellStore.Api
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteReportElementAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null);
-        
         /// <summary>
         /// Deletes a section.
         /// </summary>
@@ -1916,7 +1869,6 @@ namespace CellStore.Api
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null);
-        
         /// <summary>
         /// Patch one or more facts
         /// </summary>
@@ -2000,7 +1952,6 @@ namespace CellStore.Api
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> EditFactsAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
-        
         /// <summary>
         /// Retrieve a summary for all components of a given filing
         /// </summary>
@@ -2064,7 +2015,6 @@ namespace CellStore.Api
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetComponentsAsyncWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
-        
         /// <summary>
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
         /// </summary>
@@ -2114,7 +2064,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetEntitiesAsyncWithHttpInfo (string token, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string entitySearch = null, int? entitySearchOffset = null, int? entitySearchLimit = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
         /// </summary>
@@ -2210,7 +2159,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetFactTableForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
         /// </summary>
@@ -2284,7 +2232,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetFactTableForReportAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, bool? metadata = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve one or more facts for a combination of filings.
         /// </summary>
@@ -2376,7 +2323,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetFactsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs.
         /// </summary>
@@ -2428,7 +2374,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetFilingsAsyncWithHttpInfo (string token, string profileName = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve labels for the supplied components and report elements
         /// </summary>
@@ -2498,7 +2443,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetLabelsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
         /// </summary>
@@ -2562,7 +2506,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetModelStructureForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity
         /// </summary>
@@ -2612,7 +2555,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetPeriodsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve the report elements contained in a set of filings.
         /// </summary>
@@ -2686,7 +2628,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetReportElementsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve a summary for all rules of a given section
         /// </summary>
@@ -2744,7 +2685,6 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetRulesAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
         /// Retrieve a summary for all sections of a given filing
         /// </summary>
@@ -2808,9 +2748,8 @@ namespace CellStore.Api
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetSectionsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
-        
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+        /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <remarks>
         /// 
@@ -2856,7 +2795,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> GetSpreadsheetForComponentAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
 
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+        /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <remarks>
         /// 
@@ -2900,9 +2839,8 @@ namespace CellStore.Api
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
-        
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering.
+        /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
         /// <remarks>
         /// 
@@ -2940,7 +2878,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> GetSpreadsheetForReportAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
 
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering.
+        /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
         /// <remarks>
         /// 
@@ -2976,11 +2914,9 @@ namespace CellStore.Api
         /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForReportAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
-        
         #endregion Asynchronous Operations
-        
     }
-  
+
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
@@ -3000,7 +2936,7 @@ namespace CellStore.Api
                 this.Configuration.ApiClient.Configuration = this.Configuration;
             }
         }
-    
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DataApi"/> class
         /// using Configuration object
@@ -3010,7 +2946,7 @@ namespace CellStore.Api
         public DataApi(Configuration configuration = null)
         {
             if (configuration == null) // use the default one in Configuration
-                this.Configuration = Configuration.Default; 
+                this.Configuration = Configuration.Default;
             else
                 this.Configuration = configuration;
 
@@ -3039,7 +2975,7 @@ namespace CellStore.Api
         {
             // do nothing
         }
-    
+
         /// <summary>
         /// Gets or sets the configuration object
         /// </summary>
@@ -3067,15 +3003,14 @@ namespace CellStore.Api
         {
             this.Configuration.AddDefaultHeader(key, value);
         }
-   
-        
+
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).\n\nAn entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| EID   | string | optional | The entity ID (EID). |\n| EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:\n\n- Archives (string)\n\nSeveral entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="entity">The entity objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="entity">The entity objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object AddEntities (string token, Object entity, string profileName = null)
         {
@@ -3084,27 +3019,23 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).\n\nAn entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| EID   | string | optional | The entity ID (EID). |\n| EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:\n\n- Archives (string)\n\nSeveral entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="entity">The entity objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="entity">The entity objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddEntitiesWithHttpInfo (string token, Object entity, string profileName = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddEntities");
-            
             // verify the required parameter 'entity' is set
             if (entity == null)
                 throw new ApiException(400, "Missing required parameter 'entity' when calling DataApi->AddEntities");
-            
-    
+
             var localVarPath = "/api/entities";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3126,15 +3057,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (entity.GetType() != typeof(byte[]))
+                        if (entity != null && entity.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(entity); // http body (model) parameter
             }
@@ -3143,29 +3068,27 @@ namespace CellStore.Api
                 localVarPostBody = entity; // byte array
             }
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddEntities: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddEntities: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).\n\nAn entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| EID   | string | optional | The entity ID (EID). |\n| EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:\n\n- Archives (string)\n\nSeveral entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3180,7 +3103,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).\n\nAn entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| EID   | string | optional | The entity ID (EID). |\n| EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:\n\n- Archives (string)\n\nSeveral entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3190,13 +3113,13 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddEntitiesAsyncWithHttpInfo (string token, Object entity, string profileName = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddEntities");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddEntities");
             // verify the required parameter 'entity' is set
-            if (entity == null) throw new ApiException(400, "Missing required parameter 'entity' when calling AddEntities");
-            
-    
+            if (entity == null)
+                throw new ApiException(400, "Missing required parameter 'entity' when calling DataApi->AddEntities");
+
             var localVarPath = "/api/entities";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3218,15 +3141,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (entity.GetType() != typeof(byte[]))
+                        if (entity != null && entity.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(entity); // http body (model) parameter
             }
@@ -3235,15 +3152,14 @@ namespace CellStore.Api
                 localVarPostBody = entity; // byte array
             }
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddEntities: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -3254,13 +3170,13 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Add a fact to a filing. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="fact">The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field.</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fact">The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field.</param>
         /// <returns>Object</returns>
         public Object AddFacts (string token, Object fact)
         {
@@ -3272,23 +3188,19 @@ namespace CellStore.Api
         /// Add a fact to a filing. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="fact">The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field.</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fact">The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field.</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddFactsWithHttpInfo (string token, Object fact)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddFacts");
-            
             // verify the required parameter 'fact' is set
             if (fact == null)
                 throw new ApiException(400, "Missing required parameter 'fact' when calling DataApi->AddFacts");
-            
-    
+
             var localVarPath = "/api/facts";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3310,14 +3222,8 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (fact.GetType() != typeof(byte[]))
+                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+                        if (fact != null && fact.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(fact); // http body (model) parameter
             }
@@ -3326,27 +3232,25 @@ namespace CellStore.Api
                 localVarPostBody = fact; // byte array
             }
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddFacts: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddFacts: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Add a fact to a filing. 
         /// </summary>
@@ -3371,13 +3275,13 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddFactsAsyncWithHttpInfo (string token, Object fact)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddFacts");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddFacts");
             // verify the required parameter 'fact' is set
-            if (fact == null) throw new ApiException(400, "Missing required parameter 'fact' when calling AddFacts");
-            
-    
+            if (fact == null)
+                throw new ApiException(400, "Missing required parameter 'fact' when calling DataApi->AddFacts");
+
             var localVarPath = "/api/facts";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3399,14 +3303,8 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (fact.GetType() != typeof(byte[]))
+                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+                        if (fact != null && fact.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(fact); // http body (model) parameter
             }
@@ -3415,15 +3313,14 @@ namespace CellStore.Api
                 localVarPostBody = fact; // byte array
             }
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddFacts: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -3434,19 +3331,19 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
-        /// Add or update filings. The filings are identified with Archive IDs (AIDs).\n\nThere are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.\n\nA full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.\n\nAlternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive |\n| Entity   | string | optional | The EID to which the archive belongs |\n| Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. |\n| InstanceURL  | string | optional | The URL of the original XBRL instance |\n| Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:\n\n- Components (string)\n- Sections (string)\n- NumSections (integer)\n- NumFacts (integer)\n- NumFootnotes (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n\nSeveral empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update filings. The filings are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
-        /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param> 
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param> 
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param> 
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param>
+        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object AddFilings (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
         {
@@ -3455,32 +3352,28 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update filings. The filings are identified with Archive IDs (AIDs).\n\nThere are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.\n\nA full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.\n\nAlternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive |\n| Entity   | string | optional | The EID to which the archive belongs |\n| Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. |\n| InstanceURL  | string | optional | The URL of the original XBRL instance |\n| Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:\n\n- Components (string)\n- Sections (string)\n- NumSections (integer)\n- NumFacts (integer)\n- NumFootnotes (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n\nSeveral empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update filings. The filings are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
-        /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param> 
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param> 
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param> 
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="filingDetectionProfileName">when the specified filing is a folder or an xbrlx archive, this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values: XBRL (*.xbrl files), XML (*.xml files), XBRLANDXML (*.xbrl and *.xml files), SEC (*.xml files, with custom filters to exclude linkbases), and FSA. (optional, default to null)</param>
+        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL filings) (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL filings) (optional, default to true)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddFilingsWithHttpInfo (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddFilings");
-            
             // verify the required parameter 'filing' is set
             if (filing == null)
                 throw new ApiException(400, "Missing required parameter 'filing' when calling DataApi->AddFilings");
-            
-    
+
             var localVarPath = "/api/filings";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3502,20 +3395,14 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (filingDetectionProfileName != null) localVarQueryParams.Add("filing-detection-profile-name", Configuration.ApiClient.ParameterToString(filingDetectionProfileName)); // query parameter
             if (taxonomy != null) localVarQueryParams.Add("taxonomy", Configuration.ApiClient.ParameterToString(taxonomy)); // query parameter
             if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
-            
-            
-            if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
-            
-            
-            if (filing.GetType() != typeof(byte[]))
+                        if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
+            if (filing != null && filing.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(filing); // http body (model) parameter
             }
@@ -3524,29 +3411,27 @@ namespace CellStore.Api
                 localVarPostBody = filing; // byte array
             }
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddFilings: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddFilings: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Add or update filings. The filings are identified with Archive IDs (AIDs).\n\nThere are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.\n\nA full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.\n\nAlternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive |\n| Entity   | string | optional | The EID to which the archive belongs |\n| Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. |\n| InstanceURL  | string | optional | The URL of the original XBRL instance |\n| Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:\n\n- Components (string)\n- Sections (string)\n- NumSections (integer)\n- NumFacts (integer)\n- NumFootnotes (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n\nSeveral empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update filings. The filings are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3566,7 +3451,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update filings. The filings are identified with Archive IDs (AIDs).\n\nThere are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.\n\nA full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.\n\nAlternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive |\n| Entity   | string | optional | The EID to which the archive belongs |\n| Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. |\n| InstanceURL  | string | optional | The URL of the original XBRL instance |\n| Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:\n\n- Components (string)\n- Sections (string)\n- NumSections (integer)\n- NumFacts (integer)\n- NumFootnotes (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n\nSeveral empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update filings. The filings are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the filings endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty filings can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3581,13 +3466,13 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddFilingsAsyncWithHttpInfo (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddFilings");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddFilings");
             // verify the required parameter 'filing' is set
-            if (filing == null) throw new ApiException(400, "Missing required parameter 'filing' when calling AddFilings");
-            
-    
+            if (filing == null)
+                throw new ApiException(400, "Missing required parameter 'filing' when calling DataApi->AddFilings");
+
             var localVarPath = "/api/filings";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3609,20 +3494,14 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (filingDetectionProfileName != null) localVarQueryParams.Add("filing-detection-profile-name", Configuration.ApiClient.ParameterToString(filingDetectionProfileName)); // query parameter
             if (taxonomy != null) localVarQueryParams.Add("taxonomy", Configuration.ApiClient.ParameterToString(taxonomy)); // query parameter
             if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
-            
-            
-            if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
-            
-            
-            if (filing.GetType() != typeof(byte[]))
+                        if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
+            if (filing != null && filing.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(filing); // http body (model) parameter
             }
@@ -3631,15 +3510,14 @@ namespace CellStore.Api
                 localVarPostBody = filing; // byte array
             }
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddFilings: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -3650,14 +3528,14 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
-        /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above. 
+        /// Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |---------------|--------|----------|----------------------------------| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="label">The label objects (they must be valid).</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="label">The label objects (they must be valid).</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object AddLabels (string token, Object label, string profileName = null)
         {
@@ -3666,27 +3544,23 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above. 
+        /// Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |---------------|--------|----------|----------------------------------| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="label">The label objects (they must be valid).</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="label">The label objects (they must be valid).</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddLabelsWithHttpInfo (string token, Object label, string profileName = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddLabels");
-            
             // verify the required parameter 'label' is set
             if (label == null)
                 throw new ApiException(400, "Missing required parameter 'label' when calling DataApi->AddLabels");
-            
-    
+
             var localVarPath = "/api/labels";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3708,15 +3582,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (label.GetType() != typeof(byte[]))
+                        if (label != null && label.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(label); // http body (model) parameter
             }
@@ -3725,29 +3593,27 @@ namespace CellStore.Api
                 localVarPostBody = label; // byte array
             }
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddLabels: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddLabels: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above. 
+        /// Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |---------------|--------|----------|----------------------------------| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3762,7 +3628,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update labels. A label is identified with an Archive ID (AID),\na section URI, a report element, a language and a label role.\n\nA label can be created by submitting a JSON object containing general\ninformation about the label. This JSON object must be valid against a\nJSound schema. It can be either taken from the output of a GET request\nto the same endpoint (in which case it will be valid), or created\nmanually.\n\nFor convenience, we offer a user-friendly summary of the fields\ninvolved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field         | Type   | Presence | Content                          |\n|---------------|--------|----------|----------------------------------|\n| AID           | string | required | The AID of the archive to which the section belongs |\n| SectionURI    | string | required | The URI of the section           |\n| ReportElement | string | required | The name of a report element     |\n| Language      | string | required | A language code, e.g., en-US or de |\n| Role          | string | required | A label role                     |\n| Value         | string | required | The label itself                 |\n\nSeveral labels can be created at the same time by posting a sequence of\nnon-comma-separated JSON objects as above. 
+        /// Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |---------------|--------|----------|----------------------------------| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3772,13 +3638,13 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddLabelsAsyncWithHttpInfo (string token, Object label, string profileName = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddLabels");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddLabels");
             // verify the required parameter 'label' is set
-            if (label == null) throw new ApiException(400, "Missing required parameter 'label' when calling AddLabels");
-            
-    
+            if (label == null)
+                throw new ApiException(400, "Missing required parameter 'label' when calling DataApi->AddLabels");
+
             var localVarPath = "/api/labels";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3800,15 +3666,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (label.GetType() != typeof(byte[]))
+                        if (label != null && label.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(label); // http body (model) parameter
             }
@@ -3817,15 +3677,14 @@ namespace CellStore.Api
                 localVarPostBody = label; // byte array
             }
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddLabels: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -3836,14 +3695,14 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
-        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
+        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | Name | string | required | The qualified name of a report element that exists in the component&#39;s section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |------------------------|---------------------------------------------| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object AddModelStructureForComponent (string token, Object modelStructure, string profileName = null)
         {
@@ -3852,27 +3711,23 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
+        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | Name | string | required | The qualified name of a report element that exists in the component&#39;s section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |------------------------|---------------------------------------------| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="modelStructure">The model structures, which must satisfy the constraints described in the properties table.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddModelStructureForComponentWithHttpInfo (string token, Object modelStructure, string profileName = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddModelStructureForComponent");
-            
             // verify the required parameter 'modelStructure' is set
             if (modelStructure == null)
                 throw new ApiException(400, "Missing required parameter 'modelStructure' when calling DataApi->AddModelStructureForComponent");
-            
-    
+
             var localVarPath = "/api/modelstructure-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3894,15 +3749,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (modelStructure.GetType() != typeof(byte[]))
+                        if (modelStructure != null && modelStructure.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(modelStructure); // http body (model) parameter
             }
@@ -3911,29 +3760,27 @@ namespace CellStore.Api
                 localVarPostBody = modelStructure; // byte array
             }
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
+        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | Name | string | required | The qualified name of a report element that exists in the component&#39;s section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |------------------------|---------------------------------------------| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3948,7 +3795,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.\n\nA new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the component belongs |\n| SectionURI   | string (URI) | optional | The URI of the section to which the component belongs |\n| HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves |\n| ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Section (string)\n- Hypercube (string)\n\n#### Model structure node properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| Name | string | required | The qualified name of a report element that exists in the component&#39;s section |\n| Children   | array | optional | An array of model structure node objects that reference further children report elements |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:\n\n- Depth (integer)\n- Label (string)\n- BaseType (string)\n- Kind (string)\n- Order (integer)\n- DataType (string)\n- BaseDataType (string)\n- Balance (string)\n- Abstract (boolean)\n- PeriodType (string)\n\nThe hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:\n\n| Kind of report element |  Allowed children                           |\n|------------------------|---------------------------------------------|\n| Abstract               | Hypercube (if top-level), Abstract, Concept |\n| Hypercube              | Dimension, LineItems                        |\n| Dimension              | Member                                      |\n| Member                 | Member                                      |\n| LineItems              | Abstract, Concept                           |\n| Concept                | none                                        |\n\nThe model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.\n\nThe only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.\n\nSeveral components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
+        /// Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | Name | string | required | The qualified name of a report element that exists in the component&#39;s section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |------------------------|---------------------------------------------| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3958,13 +3805,13 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddModelStructureForComponentAsyncWithHttpInfo (string token, Object modelStructure, string profileName = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddModelStructureForComponent");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddModelStructureForComponent");
             // verify the required parameter 'modelStructure' is set
-            if (modelStructure == null) throw new ApiException(400, "Missing required parameter 'modelStructure' when calling AddModelStructureForComponent");
-            
-    
+            if (modelStructure == null)
+                throw new ApiException(400, "Missing required parameter 'modelStructure' when calling DataApi->AddModelStructureForComponent");
+
             var localVarPath = "/api/modelstructure-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -3986,15 +3833,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (modelStructure.GetType() != typeof(byte[]))
+                        if (modelStructure != null && modelStructure.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(modelStructure); // http body (model) parameter
             }
@@ -4003,15 +3844,14 @@ namespace CellStore.Api
                 localVarPostBody = modelStructure; // byte array
             }
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -4022,14 +3862,14 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
-        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="reportElement">The report element objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="reportElement">The report element objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object AddReportElements (string token, Object reportElement, string profileName = null)
         {
@@ -4038,27 +3878,23 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="reportElement">The report element objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="reportElement">The report element objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddReportElementsWithHttpInfo (string token, Object reportElement, string profileName = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddReportElements");
-            
             // verify the required parameter 'reportElement' is set
             if (reportElement == null)
                 throw new ApiException(400, "Missing required parameter 'reportElement' when calling DataApi->AddReportElements");
-            
-    
+
             var localVarPath = "/api/report-elements";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4080,15 +3916,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (reportElement.GetType() != typeof(byte[]))
+                        if (reportElement != null && reportElement.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(reportElement); // http body (model) parameter
             }
@@ -4097,29 +3927,27 @@ namespace CellStore.Api
                 localVarPostBody = reportElement; // byte array
             }
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddReportElements: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddReportElements: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4134,7 +3962,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.\n\nA new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the report element belongs |\n| SectionURI   | string (URI) | required | The URI of the section to which the report element belongs |\n| Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) |\n| Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element |\n| PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). |\n| DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). |\n| Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. |\n| IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:\n\n- Components (string)\n- IsAbstract (boolean)\n- BaseType (string)\n- ClosestSchemaBuiltinType (string)\n- IsTextBlock (boolean)\n- Labels (string)\n- Facts (string)\n- Labels (string)\n- Label (string)\n- Section (string)\n- CIK (string)\n- EntityRegistrantName (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n\nFor report elements with the kind Concept, the data type must be one of the following:\n\n- xbrli:decimalItemType\n- xbrli:floatItemType\n- xbrli:doubleItemType\n- xbrli:integerItemType\n- xbrli:positiveIntegerItemType\n- xbrli:nonPositiveIntegerItemType\n- xbrli:nonNegativeIntegerItemType\n- xbrli:negativeIntegershortItemType\n- xbrli:byteItemType\n- xbrli:intItemType\n- xbrli:longItemType\n- xbrli:unsignedShorItemType\n- xbrli:unsignedByteItemType\n- xbrli:unsignedIntItemType\n- xbrli:unsignedLongItemType\n- xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds)\n- xbrli:booleanItemType\n- xbrli:hexBinaryItemType\n- xbrli:base64BinaryItemType\n- xbrli:anyURIItemType\n- xbrli:QNameItemType\n- xbrli:durationItemType\n- xbrli:timeItemType\n- xbrli:dateItemType\n- xbrli:gYearMonthItemType\n- xbrli:gYearItemType\n- xbrli:gMonthItemType\n- xbrli:gMonthDayItemType\n- xbrli:gDayItemType\n- xbrli:normalizedStringItemType\n- xbrli:tokenItemType\n- xbrli:languageItemType\n- xbrli:NameItemType\n- xbrli:NCNameItemType\n- xbrli:monetaryItemType (allows Balance)\n- xbrli:pureItemType\n- xbrli:sharesItemType\n- xbrli:fractionItemType\n- nonnum:domainItemType (implied/only one allowed for Member kind)\n- nonnum:escapedItemType\n- nonnum:xmlNodesItemType\n- nonnum:xmlItemType\n- nonnum:textBlockItemType\n- num:percentItemType\n- num:perShareItemType\n- num:areaItemType\n- num:volumeItemType\n- num:massItemType\n- num:weightItemType\n- num:energyItemType\n- num:powerItemType\n- num:lengthItemType\n- num:noDecimalsMonetaryItemType (allows Balance)\n- num:nonNegativeMonetaryItemType (allows Balance)\n- num:nonNegativeNoDecimalsMonetaryItemType (allows Balance)\n- num:enumerationItemType\n\nSeveral report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4144,13 +3972,13 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddReportElementsAsyncWithHttpInfo (string token, Object reportElement, string profileName = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddReportElements");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddReportElements");
             // verify the required parameter 'reportElement' is set
-            if (reportElement == null) throw new ApiException(400, "Missing required parameter 'reportElement' when calling AddReportElements");
-            
-    
+            if (reportElement == null)
+                throw new ApiException(400, "Missing required parameter 'reportElement' when calling DataApi->AddReportElements");
+
             var localVarPath = "/api/report-elements";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4172,15 +4000,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (reportElement.GetType() != typeof(byte[]))
+                        if (reportElement != null && reportElement.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(reportElement); // http body (model) parameter
             }
@@ -4189,15 +4011,14 @@ namespace CellStore.Api
                 localVarPostBody = reportElement; // byte array
             }
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddReportElements: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -4208,14 +4029,14 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.\n\nA section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the section belongs |\n| SectionURI   | string | required | The URI of the section |\n| Section  | string | required | A user-friendly label for the section (preferably in English). |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:\n\n- Components (string)\n- ReportElements (string)\n- FactTable (string)\n- Spreadsheet (string)\n- Category (string)\n- SubCategory (string)\n- Disclosure (string)\n- NumRules (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n- EntityRegistrantName (string)\n- CIK (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n- AcceptanceDatetime (string)\n- FormType (string)\n\nSeveral empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="section">The section objects (they must be valid).</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="section">The section objects (they must be valid).</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object AddSections (string token, Object section, string profileName = null)
         {
@@ -4224,27 +4045,23 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.\n\nA section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the section belongs |\n| SectionURI   | string | required | The URI of the section |\n| Section  | string | required | A user-friendly label for the section (preferably in English). |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:\n\n- Components (string)\n- ReportElements (string)\n- FactTable (string)\n- Spreadsheet (string)\n- Category (string)\n- SubCategory (string)\n- Disclosure (string)\n- NumRules (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n- EntityRegistrantName (string)\n- CIK (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n- AcceptanceDatetime (string)\n- FormType (string)\n\nSeveral empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="section">The section objects (they must be valid).</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="section">The section objects (they must be valid).</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddSectionsWithHttpInfo (string token, Object section, string profileName = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddSections");
-            
             // verify the required parameter 'section' is set
             if (section == null)
                 throw new ApiException(400, "Missing required parameter 'section' when calling DataApi->AddSections");
-            
-    
+
             var localVarPath = "/api/sections";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4266,15 +4083,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (section.GetType() != typeof(byte[]))
+                        if (section != null && section.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(section); // http body (model) parameter
             }
@@ -4283,29 +4094,27 @@ namespace CellStore.Api
                 localVarPostBody = section; // byte array
             }
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddSections: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddSections: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.\n\nA section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the section belongs |\n| SectionURI   | string | required | The URI of the section |\n| Section  | string | required | A user-friendly label for the section (preferably in English). |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:\n\n- Components (string)\n- ReportElements (string)\n- FactTable (string)\n- Spreadsheet (string)\n- Category (string)\n- SubCategory (string)\n- Disclosure (string)\n- NumRules (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n- EntityRegistrantName (string)\n- CIK (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n- AcceptanceDatetime (string)\n- FormType (string)\n\nSeveral empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4320,7 +4129,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.\n\nA section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.\n\nFor convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.\n\n#### Body properties\n\n| Field | Type | Presence | Content |\n|-------|------|----------|---------|\n| AID | string | required | The AID of the archive to which the section belongs |\n| SectionURI   | string | required | The URI of the section |\n| Section  | string | required | A user-friendly label for the section (preferably in English). |\n| Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |\n\nAdditionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:\n\n- Components (string)\n- ReportElements (string)\n- FactTable (string)\n- Spreadsheet (string)\n- Category (string)\n- SubCategory (string)\n- Disclosure (string)\n- NumRules (integer)\n- NumReportElements (integer)\n- NumHypercubes (integer)\n- NumDimensions (integer)\n- NumMembers (integer)\n- NumLineItems (integer)\n- NumAbstracts (integer)\n- NumConcepts (integer)\n- EntityRegistrantName (string)\n- CIK (string)\n- FiscalYear (integer)\n- FiscalPeriod (string)\n- AcceptanceDatetime (string)\n- FormType (string)\n\nSeveral empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4330,13 +4139,13 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddSectionsAsyncWithHttpInfo (string token, Object section, string profileName = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddSections");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddSections");
             // verify the required parameter 'section' is set
-            if (section == null) throw new ApiException(400, "Missing required parameter 'section' when calling AddSections");
-            
-    
+            if (section == null)
+                throw new ApiException(400, "Missing required parameter 'section' when calling DataApi->AddSections");
+
             var localVarPath = "/api/sections";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4358,15 +4167,9 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            
-            
-            
-            
-            if (section.GetType() != typeof(byte[]))
+                        if (section != null && section.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(section); // http body (model) parameter
             }
@@ -4375,15 +4178,14 @@ namespace CellStore.Api
                 localVarPostBody = section; // byte array
             }
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddSections: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -4394,17 +4196,17 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param> 
-        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Object</returns>
         public Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
         {
@@ -4413,34 +4215,29 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param> 
-        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
+        /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddTaxonomy");
-            
             // verify the required parameter 'eid' is set
             if (eid == null)
                 throw new ApiException(400, "Missing required parameter 'eid' when calling DataApi->AddTaxonomy");
-            
             // verify the required parameter 'entrypoint' is set
             if (entrypoint == null)
                 throw new ApiException(400, "Missing required parameter 'entrypoint' when calling DataApi->AddTaxonomy");
-            
-    
+
             var localVarPath = "/api/taxonomies";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4462,43 +4259,34 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
             if (entrypoint != null) localVarQueryParams.Add("entrypoint", Configuration.ApiClient.ParameterToString(entrypoint)); // query parameter
             if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4516,7 +4304,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4529,15 +4317,16 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling AddTaxonomy");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddTaxonomy");
             // verify the required parameter 'eid' is set
-            if (eid == null) throw new ApiException(400, "Missing required parameter 'eid' when calling AddTaxonomy");
+            if (eid == null)
+                throw new ApiException(400, "Missing required parameter 'eid' when calling DataApi->AddTaxonomy");
             // verify the required parameter 'entrypoint' is set
-            if (entrypoint == null) throw new ApiException(400, "Missing required parameter 'entrypoint' when calling AddTaxonomy");
-            
-    
+            if (entrypoint == null)
+                throw new ApiException(400, "Missing required parameter 'entrypoint' when calling DataApi->AddTaxonomy");
+
             var localVarPath = "/api/taxonomies";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4559,29 +4348,21 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
             if (entrypoint != null) localVarQueryParams.Add("entrypoint", Configuration.ApiClient.ParameterToString(entrypoint)); // query parameter
             if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -4592,17 +4373,17 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Deletes an entity. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object DeleteEntity (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> ticker = null)
         {
@@ -4614,23 +4395,20 @@ namespace CellStore.Api
         /// Deletes an entity. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > DeleteEntityWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> ticker = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteEntity");
-            
-    
+
             var localVarPath = "/api/entities";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4652,41 +4430,32 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
             if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
             if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
             if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteEntity: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteEntity: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Deletes an entity. 
         /// </summary>
@@ -4719,11 +4488,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteEntityAsyncWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> ticker = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteEntity");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteEntity");
+
             var localVarPath = "/api/entities";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4745,29 +4513,21 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
             if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
             if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
             if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteEntity: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -4778,23 +4538,23 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Deletes a filing. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object DeleteFiling (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
         {
@@ -4806,29 +4566,26 @@ namespace CellStore.Api
         /// Deletes a filing. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > DeleteFilingWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteFiling");
-            
-    
+
             var localVarPath = "/api/filings";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4850,9 +4607,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -4865,32 +4620,25 @@ namespace CellStore.Api
             if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
             if (filingKind != null) localVarQueryParams.Add("filingKind", Configuration.ApiClient.ParameterToString(filingKind)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteFiling: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteFiling: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Deletes a filing. 
         /// </summary>
@@ -4935,11 +4683,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteFilingAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteFiling");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteFiling");
+
             var localVarPath = "/api/filings";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -4961,9 +4708,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -4976,20 +4721,14 @@ namespace CellStore.Api
             if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
             if (filingKind != null) localVarQueryParams.Add("filingKind", Configuration.ApiClient.ParameterToString(filingKind)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteFiling: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -5000,18 +4739,18 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Deletes a label. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object DeleteLabel (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
         {
@@ -5023,24 +4762,21 @@ namespace CellStore.Api
         /// Deletes a label. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > DeleteLabelWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteLabel");
-            
-    
+
             var localVarPath = "/api/labels";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5062,9 +4798,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
@@ -5072,32 +4806,25 @@ namespace CellStore.Api
             if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
             if (labelRole != null) localVarQueryParams.Add("labelRole", Configuration.ApiClient.ParameterToString(labelRole)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteLabel: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteLabel: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Deletes a label. 
         /// </summary>
@@ -5132,11 +4859,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLabelAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, string language = null, string labelRole = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteLabel");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteLabel");
+
             var localVarPath = "/api/labels";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5158,9 +4884,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
@@ -5168,20 +4892,14 @@ namespace CellStore.Api
             if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
             if (labelRole != null) localVarQueryParams.Add("labelRole", Configuration.ApiClient.ParameterToString(labelRole)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteLabel: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -5192,15 +4910,15 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Deletes a component including its model structure. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object DeleteModelStructureForComponent (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
@@ -5212,21 +4930,18 @@ namespace CellStore.Api
         /// Deletes a component including its model structure. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > DeleteModelStructureForComponentWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteModelStructureForComponent");
-            
-    
+
             var localVarPath = "/api/modelstructure-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5248,39 +4963,30 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+                        if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
             if (hypercube != null) localVarQueryParams.Add("hypercube", Configuration.ApiClient.ParameterToString(hypercube)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Deletes a component including its model structure. 
         /// </summary>
@@ -5309,11 +5015,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteModelStructureForComponentAsyncWithHttpInfo (string token, List<string> aid = null, List<string> section = null, List<string> hypercube = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteModelStructureForComponent");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteModelStructureForComponent");
+
             var localVarPath = "/api/modelstructure-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5335,27 +5040,19 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+                        if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
             if (hypercube != null) localVarQueryParams.Add("hypercube", Configuration.ApiClient.ParameterToString(hypercube)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -5366,16 +5063,16 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Deletes a report element. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object DeleteReportElement (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null)
         {
@@ -5387,22 +5084,19 @@ namespace CellStore.Api
         /// Deletes a report element. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > DeleteReportElementWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteReportElement");
-            
-    
+
             var localVarPath = "/api/report-elements";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5424,40 +5118,31 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
             if (reportElement != null) localVarQueryParams.Add("reportElement", Configuration.ApiClient.ParameterToString(reportElement)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteReportElement: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteReportElement: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Deletes a report element. 
         /// </summary>
@@ -5488,11 +5173,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteReportElementAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteReportElement");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteReportElement");
+
             var localVarPath = "/api/report-elements";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5514,28 +5198,20 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
             if (reportElement != null) localVarQueryParams.Add("reportElement", Configuration.ApiClient.ParameterToString(reportElement)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteReportElement: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -5546,15 +5222,15 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Deletes a section. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object DeleteSection (string token, string profileName = null, List<string> aid = null, List<string> section = null)
         {
@@ -5566,21 +5242,18 @@ namespace CellStore.Api
         /// Deletes a section. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > DeleteSectionWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteSection");
-            
-    
+
             var localVarPath = "/api/sections";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5602,39 +5275,30 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteSection: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteSection: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Deletes a section. 
         /// </summary>
@@ -5663,11 +5327,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> section = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling DeleteSection");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteSection");
+
             var localVarPath = "/api/sections";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5689,27 +5352,19 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling DeleteSection: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -5720,43 +5375,43 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Patch one or more facts 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="patch">The patch object, which will be merged into each facts (the facts must be valid after applying it).</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param> 
-        /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional, default to null)</param> 
-        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param> 
-        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param> 
-        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param> 
-        /// <param name="dimensionColumns">If the dimension is visible in the output, specifies the position at which it appears in the output fact table (default: arbitrary order). (optional, default to null)</param> 
-        /// <param name="dimensionAggregation">[Deprecated] Specifies whether this dimension is a dicer (&#39;group&#39;) or not (&#39;no&#39;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (&#39;group&#39;) and non-key aspects are not (&#39;no&#39;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer. (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each facts (the facts must be valid after applying it).</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
+        /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional, default to null)</param>
+        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="dimensionColumns">If the dimension is visible in the output, specifies the position at which it appears in the output fact table (default: arbitrary order). (optional, default to null)</param>
+        /// <param name="dimensionAggregation">[Deprecated] Specifies whether this dimension is a dicer (&#39;group&#39;) or not (&#39;no&#39;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (&#39;group&#39;) and non-key aspects are not (&#39;no&#39;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer. (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Object</returns>
         public Object EditFacts (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
         {
@@ -5768,53 +5423,49 @@ namespace CellStore.Api
         /// Patch one or more facts 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="patch">The patch object, which will be merged into each facts (the facts must be valid after applying it).</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param> 
-        /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional, default to null)</param> 
-        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param> 
-        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param> 
-        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param> 
-        /// <param name="dimensionColumns">If the dimension is visible in the output, specifies the position at which it appears in the output fact table (default: arbitrary order). (optional, default to null)</param> 
-        /// <param name="dimensionAggregation">[Deprecated] Specifies whether this dimension is a dicer (&#39;group&#39;) or not (&#39;no&#39;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (&#39;group&#39;) and non-key aspects are not (&#39;no&#39;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer. (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each facts (the facts must be valid after applying it).</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
+        /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional, default to null)</param>
+        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="dimensionColumns">If the dimension is visible in the output, specifies the position at which it appears in the output fact table (default: arbitrary order). (optional, default to null)</param>
+        /// <param name="dimensionAggregation">[Deprecated] Specifies whether this dimension is a dicer (&#39;group&#39;) or not (&#39;no&#39;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (&#39;group&#39;) and non-key aspects are not (&#39;no&#39;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer. (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > EditFactsWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->EditFacts");
-            
             // verify the required parameter 'patch' is set
             if (patch == null)
                 throw new ApiException(400, "Missing required parameter 'patch' when calling DataApi->EditFacts");
-            
-    
+
             var localVarPath = "/api/facts";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -5836,9 +5487,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -5861,19 +5510,15 @@ namespace CellStore.Api
             if (aggregationFunction != null) localVarQueryParams.Add("aggregation-function", Configuration.ApiClient.ParameterToString(aggregationFunction)); // query parameter
             if (validate != null) localVarQueryParams.Add("validate", Configuration.ApiClient.ParameterToString(validate)); // query parameter
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
-            
             if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
-            if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", localVarQueryParams); // pattern query parameter
-            if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", localVarQueryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
-            if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
-            if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
-            
-            
-            
-            if (patch.GetType() != typeof(byte[]))
+if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", localVarQueryParams); // pattern query parameter
+if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", localVarQueryParams); // pattern query parameter
+if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
+if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
+if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
+if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
+if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
+            if (patch != null && patch.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
             }
@@ -5882,27 +5527,25 @@ namespace CellStore.Api
                 localVarPostBody = patch; // byte array
             }
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling EditFacts: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling EditFacts: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Patch one or more facts 
         /// </summary>
@@ -5987,13 +5630,13 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> EditFactsAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling EditFacts");
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->EditFacts");
             // verify the required parameter 'patch' is set
-            if (patch == null) throw new ApiException(400, "Missing required parameter 'patch' when calling EditFacts");
-            
-    
+            if (patch == null)
+                throw new ApiException(400, "Missing required parameter 'patch' when calling DataApi->EditFacts");
+
             var localVarPath = "/api/facts";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -6015,9 +5658,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -6040,19 +5681,15 @@ namespace CellStore.Api
             if (aggregationFunction != null) localVarQueryParams.Add("aggregation-function", Configuration.ApiClient.ParameterToString(aggregationFunction)); // query parameter
             if (validate != null) localVarQueryParams.Add("validate", Configuration.ApiClient.ParameterToString(validate)); // query parameter
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
-            
             if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
-            if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", localVarQueryParams); // pattern query parameter
-            if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", localVarQueryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
-            if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
-            if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
-            
-            
-            
-            if (patch.GetType() != typeof(byte[]))
+if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", localVarQueryParams); // pattern query parameter
+if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", localVarQueryParams); // pattern query parameter
+if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
+if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
+if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
+if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
+if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
+            if (patch != null && patch.GetType() != typeof(byte[]))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
             }
@@ -6061,15 +5698,14 @@ namespace CellStore.Api
                 localVarPostBody = patch; // byte array
             }
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling EditFacts: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -6080,33 +5716,33 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve a summary for all components of a given filing 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
-        /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetComponents (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
         {
@@ -6118,39 +5754,36 @@ namespace CellStore.Api
         /// Retrieve a summary for all components of a given filing 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
-        /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetComponentsWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetComponents");
-            
-    
+
             var localVarPath = "/api/components";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -6172,9 +5805,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
             if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
@@ -6197,32 +5828,25 @@ namespace CellStore.Api
             if (validate != null) localVarQueryParams.Add("validate", Configuration.ApiClient.ParameterToString(validate)); // query parameter
             if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetComponents: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetComponents: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve a summary for all components of a given filing 
         /// </summary>
@@ -6287,11 +5911,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetComponentsAsyncWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> tag = null, List<string> sic = null, List<string> cik = null, List<int?> edinetcode = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetComponents");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetComponents");
+
             var localVarPath = "/api/components";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -6313,9 +5936,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
             if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
@@ -6338,20 +5959,14 @@ namespace CellStore.Api
             if (validate != null) localVarQueryParams.Add("validate", Configuration.ApiClient.ParameterToString(validate)); // query parameter
             if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetComponents: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -6362,26 +5977,26 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="entitySearch">Includes in the results the entities whose name match this full-text query (optional, default to null)</param> 
-        /// <param name="entitySearchOffset">Includes in the results the entities whose name match the entity-search parameter skipping the first entity-search-offset results (default: 0) (optional, default to null)</param> 
-        /// <param name="entitySearchLimit">Includes in the results the entities whose name match the entity-search parameter limited to a maximum of entity-search-limit results (default: 10) (optional, default to null)</param> 
-        /// <param name="language">Specifies in which language to perform the entity-search query (default: en-US) (optional, default to en-US)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entitySearch">Includes in the results the entities whose name match this full-text query (optional, default to null)</param>
+        /// <param name="entitySearchOffset">Includes in the results the entities whose name match the entity-search parameter skipping the first entity-search-offset results (default: 0) (optional, default to null)</param>
+        /// <param name="entitySearchLimit">Includes in the results the entities whose name match the entity-search parameter limited to a maximum of entity-search-limit results (default: 10) (optional, default to null)</param>
+        /// <param name="language">Specifies in which language to perform the entity-search query (default: en-US) (optional, default to en-US)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetEntities (string token, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string entitySearch = null, int? entitySearchOffset = null, int? entitySearchLimit = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -6393,32 +6008,29 @@ namespace CellStore.Api
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="entitySearch">Includes in the results the entities whose name match this full-text query (optional, default to null)</param> 
-        /// <param name="entitySearchOffset">Includes in the results the entities whose name match the entity-search parameter skipping the first entity-search-offset results (default: 0) (optional, default to null)</param> 
-        /// <param name="entitySearchLimit">Includes in the results the entities whose name match the entity-search parameter limited to a maximum of entity-search-limit results (default: 10) (optional, default to null)</param> 
-        /// <param name="language">Specifies in which language to perform the entity-search query (default: en-US) (optional, default to en-US)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entitySearch">Includes in the results the entities whose name match this full-text query (optional, default to null)</param>
+        /// <param name="entitySearchOffset">Includes in the results the entities whose name match the entity-search parameter skipping the first entity-search-offset results (default: 0) (optional, default to null)</param>
+        /// <param name="entitySearchLimit">Includes in the results the entities whose name match the entity-search parameter limited to a maximum of entity-search-limit results (default: 10) (optional, default to null)</param>
+        /// <param name="language">Specifies in which language to perform the entity-search query (default: en-US) (optional, default to en-US)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetEntitiesWithHttpInfo (string token, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string entitySearch = null, int? entitySearchOffset = null, int? entitySearchLimit = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetEntities");
-            
-    
+
             var localVarPath = "/api/entities";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -6440,9 +6052,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -6458,32 +6068,25 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetEntities: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetEntities: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs. 
         /// </summary>
@@ -6534,11 +6137,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetEntitiesAsyncWithHttpInfo (string token, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<int?> edinetcode = null, List<string> sic = null, List<string> ticker = null, string entitySearch = null, int? entitySearchOffset = null, int? entitySearchLimit = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetEntities");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetEntities");
+
             var localVarPath = "/api/entities";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -6560,9 +6162,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -6578,20 +6178,14 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetEntities: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -6602,49 +6196,49 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param> 
-        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param> 
-        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param> 
-        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetFactTableForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -6656,55 +6250,52 @@ namespace CellStore.Api
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param> 
-        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param> 
-        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param> 
-        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetFactTableForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetFactTableForComponent");
-            
-    
+
             var localVarPath = "/api/facttable-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -6726,9 +6317,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -6762,37 +6351,30 @@ namespace CellStore.Api
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
-            
             if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
-            
-            
-            
-            
+if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
+if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
+if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetFactTableForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetFactTableForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
@@ -6889,11 +6471,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetFactTableForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetFactTableForComponent");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetFactTableForComponent");
+
             var localVarPath = "/api/facttable-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -6915,9 +6496,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -6951,25 +6530,19 @@ namespace CellStore.Api
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
-            
             if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
-            
-            
-            
-            
+if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
+if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
+if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetFactTableForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -6980,38 +6553,38 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetFactTableForReport (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, bool? metadata = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -7023,44 +6596,41 @@ namespace CellStore.Api
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetFactTableForReportWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, bool? metadata = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetFactTableForReport");
-            
-    
+
             var localVarPath = "/api/facttable-for-report";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -7082,9 +6652,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -7112,32 +6680,25 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetFactTableForReport: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetFactTableForReport: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
@@ -7212,11 +6773,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetFactTableForReportAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, bool? metadata = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetFactTableForReport");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetFactTableForReport");
+
             var localVarPath = "/api/facttable-for-report";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -7238,9 +6798,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -7268,20 +6826,14 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetFactTableForReport: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -7292,47 +6844,47 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve one or more facts for a combination of filings. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param> 
-        /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param> 
-        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional, default to null)</param> 
-        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param> 
-        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param> 
-        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param> 
-        /// <param name="dimensionColumns">If the dimension is visible in the output, specifies the position at which it appears in the output fact table (default: arbitrary order). (optional, default to null)</param> 
-        /// <param name="dimensionAggregation">[Deprecated] Specifies whether this dimension is a dicer (&#39;group&#39;) or not (&#39;no&#39;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (&#39;group&#39;) and non-key aspects are not (&#39;no&#39;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer. (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
+        /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional, default to null)</param>
+        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="dimensionColumns">If the dimension is visible in the output, specifies the position at which it appears in the output fact table (default: arbitrary order). (optional, default to null)</param>
+        /// <param name="dimensionAggregation">[Deprecated] Specifies whether this dimension is a dicer (&#39;group&#39;) or not (&#39;no&#39;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (&#39;group&#39;) and non-key aspects are not (&#39;no&#39;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer. (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetFacts (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -7344,53 +6896,50 @@ namespace CellStore.Api
         /// Retrieve one or more facts for a combination of filings. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param> 
-        /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param> 
-        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional, default to null)</param> 
-        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional, default to null)</param> 
-        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param> 
-        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param> 
-        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param> 
-        /// <param name="dimensionColumns">If the dimension is visible in the output, specifies the position at which it appears in the output fact table (default: arbitrary order). (optional, default to null)</param> 
-        /// <param name="dimensionAggregation">[Deprecated] Specifies whether this dimension is a dicer (&#39;group&#39;) or not (&#39;no&#39;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (&#39;group&#39;) and non-key aspects are not (&#39;no&#39;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer. (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
+        /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionTypes">Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional, default to null)</param>
+        /// <param name="defaultDimensionValues">Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="dimensionColumns">If the dimension is visible in the output, specifies the position at which it appears in the output fact table (default: arbitrary order). (optional, default to null)</param>
+        /// <param name="dimensionAggregation">[Deprecated] Specifies whether this dimension is a dicer (&#39;group&#39;) or not (&#39;no&#39;). If a dicer, facts will be grouped along this dimension before applying the supplied aggregation function. By default, all key aspects, except those explicitly specified as slicers, are dicers (&#39;group&#39;) and non-key aspects are not (&#39;no&#39;). Has no effect if no aggregation function is supplied, or if the dimension is explicitly specified as a slicer. (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetFactsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetFacts");
-            
-    
+
             var localVarPath = "/api/facts";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -7412,9 +6961,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -7442,41 +6989,34 @@ namespace CellStore.Api
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
-            
             if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
-            if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", localVarQueryParams); // pattern query parameter
-            if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", localVarQueryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
-            if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
-            if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
-            
-            
-            
-            
+if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", localVarQueryParams); // pattern query parameter
+if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", localVarQueryParams); // pattern query parameter
+if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
+if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
+if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
+if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
+if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetFacts: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetFacts: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve one or more facts for a combination of filings. 
         /// </summary>
@@ -7569,11 +7109,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetFactsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetFacts");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetFacts");
+
             var localVarPath = "/api/facts";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -7595,9 +7134,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -7625,29 +7162,23 @@ namespace CellStore.Api
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
-            
             if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
-            if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", localVarQueryParams); // pattern query parameter
-            if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", localVarQueryParams); // pattern query parameter
-            if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
-            if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
-            if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
-            if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
-            if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
-            
-            
-            
-            
+if (dimensionTypes != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionTypes, "^[^:]+:[^:]+::type$", localVarQueryParams); // pattern query parameter
+if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParameters(defaultDimensionValues, "^[^:]+:[^:]+::default$", localVarQueryParams); // pattern query parameter
+if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
+if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
+if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
+if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
+if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetFacts: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -7658,27 +7189,27 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetFilings (string token, string profileName = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -7690,33 +7221,30 @@ namespace CellStore.Api
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param> 
-        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company, to add a new filing. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetFilingsWithHttpInfo (string token, string profileName = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetFilings");
-            
-    
+
             var localVarPath = "/api/filings";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -7738,9 +7266,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -7757,32 +7283,25 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetFilings: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetFilings: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve metadata about the filings, also called archives. The filings are identified with Archive IDs (AIDs). Facts can be bound with filings with the xbrl28:Archive aspect, whose values are AIDs. 
         /// </summary>
@@ -7835,11 +7354,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetFilingsAsyncWithHttpInfo (string token, string profileName = null, string aid = null, string eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetFilings");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetFilings");
+
             var localVarPath = "/api/filings";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -7861,9 +7379,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -7880,20 +7396,14 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetFilings: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -7904,36 +7414,36 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve labels for the supplied components and report elements 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param> 
-        /// <param name="onlyTextBlocks">If set to true only labels for concepts defined as textBlockItemType are returned (default: false). (optional, default to null)</param> 
-        /// <param name="kind">Filters by concept kind (default: no filtering) (optional, default to null)</param> 
-        /// <param name="eliminateReportElementDuplicates">Whether to eliminate (concept name, language, label role) duplicates. By default no duplicate elimination (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
+        /// <param name="onlyTextBlocks">If set to true only labels for concepts defined as textBlockItemType are returned (default: false). (optional, default to null)</param>
+        /// <param name="kind">Filters by concept kind (default: no filtering) (optional, default to null)</param>
+        /// <param name="eliminateReportElementDuplicates">Whether to eliminate (concept name, language, label role) duplicates. By default no duplicate elimination (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetLabels (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -7945,42 +7455,39 @@ namespace CellStore.Api
         /// Retrieve labels for the supplied components and report elements 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param> 
-        /// <param name="onlyTextBlocks">If set to true only labels for concepts defined as textBlockItemType are returned (default: false). (optional, default to null)</param> 
-        /// <param name="kind">Filters by concept kind (default: no filtering) (optional, default to null)</param> 
-        /// <param name="eliminateReportElementDuplicates">Whether to eliminate (concept name, language, label role) duplicates. By default no duplicate elimination (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="labelRole">A label role (default: no filtering by label role). A more comprehensive list of label roles can be found in the [XBRL Standard](http://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html#Standard-label-role-attribute-values). (optional, default to null)</param>
+        /// <param name="onlyTextBlocks">If set to true only labels for concepts defined as textBlockItemType are returned (default: false). (optional, default to null)</param>
+        /// <param name="kind">Filters by concept kind (default: no filtering) (optional, default to null)</param>
+        /// <param name="eliminateReportElementDuplicates">Whether to eliminate (concept name, language, label role) duplicates. By default no duplicate elimination (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetLabelsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetLabels");
-            
-    
+
             var localVarPath = "/api/labels";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -8002,9 +7509,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -8030,32 +7535,25 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetLabels: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetLabels: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve labels for the supplied components and report elements 
         /// </summary>
@@ -8126,11 +7624,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetLabelsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, string labelRole = null, bool? onlyTextBlocks = null, string kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetLabels");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetLabels");
+
             var localVarPath = "/api/labels";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -8152,9 +7649,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -8180,20 +7675,14 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetLabels: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -8204,33 +7693,33 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="indent">If set to true all labels will be prepended with 8 space characters for each level of depth within the model structure (default: false). (optional, default to false)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="indent">If set to true all labels will be prepended with 8 space characters for each level of depth within the model structure (default: false). (optional, default to false)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetModelStructureForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -8242,39 +7731,36 @@ namespace CellStore.Api
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="indent">If set to true all labels will be prepended with 8 space characters for each level of depth within the model structure (default: false). (optional, default to false)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="indent">If set to true all labels will be prepended with 8 space characters for each level of depth within the model structure (default: false). (optional, default to false)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetModelStructureForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetModelStructureForComponent");
-            
-    
+
             var localVarPath = "/api/modelstructure-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -8296,9 +7782,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -8321,32 +7805,25 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetModelStructureForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
         /// </summary>
@@ -8411,11 +7888,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetModelStructureForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetModelStructureForComponent");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetModelStructureForComponent");
+
             var localVarPath = "/api/modelstructure-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -8437,9 +7913,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -8462,20 +7936,14 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetModelStructureForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -8486,26 +7954,26 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetPeriods (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -8517,32 +7985,29 @@ namespace CellStore.Api
         /// Retrieve the periods of the filings filed by a particular entity 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetPeriodsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetPeriods");
-            
-    
+
             var localVarPath = "/api/periods";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -8564,9 +8029,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -8582,32 +8045,25 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetPeriods: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetPeriods: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve the periods of the filings filed by a particular entity 
         /// </summary>
@@ -8658,11 +8114,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetPeriodsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetPeriods");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetPeriods");
+
             var localVarPath = "/api/periods";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -8684,9 +8139,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -8702,20 +8155,14 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetPeriods: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -8726,38 +8173,38 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve the report elements contained in a set of filings. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param> 
-        /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param> 
-        /// <param name="onlyTextBlocks">Filters by text block/not text block (default: no filtering) (optional, default to null)</param> 
-        /// <param name="kind">Filters by concept kind (default: no filtering) (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="contentType">Content-Type of the request (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param>
+        /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param>
+        /// <param name="onlyTextBlocks">Filters by text block/not text block (default: no filtering) (optional, default to null)</param>
+        /// <param name="kind">Filters by concept kind (default: no filtering) (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetReportElements (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -8769,44 +8216,41 @@ namespace CellStore.Api
         /// Retrieve the report elements contained in a set of filings. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param> 
-        /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param> 
-        /// <param name="onlyTextBlocks">Filters by text block/not text block (default: no filtering) (optional, default to null)</param> 
-        /// <param name="kind">Filters by concept kind (default: no filtering) (optional, default to null)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="contentType">Content-Type of the request (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="builtin">Whether to include built-in report elements (false by default). (optional, default to null)</param>
+        /// <param name="onlyNames">Whether only the names of the report elements should be returned. If so, the values don&#39;t contain duplicates. (default: false) (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of report elements (e.g. stock) (optional, default to null)</param>
+        /// <param name="onlyTextBlocks">Filters by text block/not text block (default: no filtering) (optional, default to null)</param>
+        /// <param name="kind">Filters by concept kind (default: no filtering) (optional, default to null)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetReportElementsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetReportElements");
-            
-    
+
             var localVarPath = "/api/report-elements";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -8828,9 +8272,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -8856,34 +8298,27 @@ namespace CellStore.Api
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
-            
-            
-            if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
-            
-            
-            
+                        if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
 
-            
-    
+
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetReportElements: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetReportElements: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve the report elements contained in a set of filings. 
         /// </summary>
@@ -8958,11 +8393,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetReportElementsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, string label = null, bool? onlyTextBlocks = null, string kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetReportElements");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetReportElements");
+
             var localVarPath = "/api/report-elements";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -8984,9 +8418,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -9012,22 +8444,16 @@ namespace CellStore.Api
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
-            
-            
-            if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
-            
-            
-            
+                        if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
 
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetReportElements: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -9038,30 +8464,30 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve a summary for all rules of a given section 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetRules (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -9073,36 +8499,33 @@ namespace CellStore.Api
         /// Retrieve a summary for all rules of a given section 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetRulesWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetRules");
-            
-    
+
             var localVarPath = "/api/rules";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -9124,9 +8547,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -9146,32 +8567,25 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetRules: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetRules: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve a summary for all rules of a given section 
         /// </summary>
@@ -9230,11 +8644,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetRulesAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetRules");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetRules");
+
             var localVarPath = "/api/rules";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -9256,9 +8669,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -9278,20 +8689,14 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetRules: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -9302,33 +8707,33 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
         /// Retrieve a summary for all sections of a given filing 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetSections (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
@@ -9340,39 +8745,36 @@ namespace CellStore.Api
         /// Retrieve a summary for all sections of a given filing 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param> 
-        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param> 
-        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="validate">Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional, default to false)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetSectionsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetSections");
-            
-    
+
             var localVarPath = "/api/sections";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -9394,9 +8796,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -9419,32 +8819,25 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetSections: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetSections: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
         /// Retrieve a summary for all sections of a given filing 
         /// </summary>
@@ -9509,11 +8902,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetSectionsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetSections");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetSections");
+
             var localVarPath = "/api/sections";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -9535,9 +8927,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -9560,20 +8950,14 @@ namespace CellStore.Api
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetSections: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -9584,47 +8968,47 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
+        /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param> 
-        /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param> 
-        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param> 
-        /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param> 
-        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
-        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
+        /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>Object</returns>
         public Object GetSpreadsheetForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
         {
@@ -9633,56 +9017,53 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
+        /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param> 
-        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param> 
-        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param> 
-        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param> 
-        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param> 
-        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param> 
-        /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param> 
-        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param> 
-        /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param> 
-        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
-        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
+        /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetSpreadsheetForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetSpreadsheetForComponent");
-            
-    
+
             var localVarPath = "/api/spreadsheet-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -9704,9 +9085,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -9743,34 +9122,27 @@ namespace CellStore.Api
             if (column != null) localVarQueryParams.Add("column", Configuration.ApiClient.ParameterToString(column)); // query parameter
             if (flattenRowHeaders != null) localVarQueryParams.Add("flatten-row-headers", Configuration.ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetSpreadsheetForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetSpreadsheetForComponent: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
+        /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -9818,7 +9190,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a given component.\n\nA component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
+        /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -9861,11 +9233,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, string label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetSpreadsheetForComponent");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetSpreadsheetForComponent");
+
             var localVarPath = "/api/spreadsheet-for-component";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -9887,9 +9258,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -9926,20 +9295,14 @@ namespace CellStore.Api
             if (column != null) localVarQueryParams.Add("column", Configuration.ApiClient.ParameterToString(column)); // query parameter
             if (flattenRowHeaders != null) localVarQueryParams.Add("flatten-row-headers", Configuration.ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetSpreadsheetForComponent: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -9950,39 +9313,39 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering. 
+        /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param> 
-        /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param> 
-        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param> 
-        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
-        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object GetSpreadsheetForReport (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null)
         {
@@ -9991,48 +9354,45 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering. 
+        /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param> 
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param> 
-        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param> 
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param> 
-        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param> 
-        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param> 
-        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param> 
-        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param> 
-        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param> 
-        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param> 
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param> 
-        /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param> 
-        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param> 
-        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
-        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param> 
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param> 
-        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param> 
-        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param> 
-        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param> 
-        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param> 
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
+        /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
+        /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
+        /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
+        /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
+        /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to null)</param>
+        /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > GetSpreadsheetForReportWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null)
         {
-            
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetSpreadsheetForReport");
-            
-    
+
             var localVarPath = "/api/spreadsheet-for-report";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -10054,9 +9414,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -10085,34 +9443,27 @@ namespace CellStore.Api
             if (open != null) localVarQueryParams.Add("open", Configuration.ApiClient.ParameterToString(open)); // query parameter
             if (aggregationFunction != null) localVarQueryParams.Add("aggregation-function", Configuration.ApiClient.ParameterToString(aggregationFunction)); // query parameter
             
-            
-            
-            
-            
 
-            
-    
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetSpreadsheetForReport: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetSpreadsheetForReport: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
-        
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering. 
+        /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -10152,7 +9503,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Retrieve the business-friendly spreadsheet for a report.\n\nFilters can be overriden. Filters MUST be overriden if the report is not already filtering. 
+        /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -10187,11 +9538,10 @@ namespace CellStore.Api
         public async System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForReportAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<int?> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null)
         {
             // verify the required parameter 'token' is set
-            if (token == null) throw new ApiException(400, "Missing required parameter 'token' when calling GetSpreadsheetForReport");
-            
-    
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->GetSpreadsheetForReport");
+
             var localVarPath = "/api/spreadsheet-for-report";
-    
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, List<String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -10213,9 +9563,7 @@ namespace CellStore.Api
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-                        
-            
-            if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
@@ -10244,20 +9592,14 @@ namespace CellStore.Api
             if (open != null) localVarQueryParams.Add("open", Configuration.ApiClient.ParameterToString(open)); // query parameter
             if (aggregationFunction != null) localVarQueryParams.Add("aggregation-function", Configuration.ApiClient.ParameterToString(aggregationFunction)); // query parameter
             
-            
-            
-            
-            
-
-            
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
+
             if (localVarStatusCode >= 400)
                 throw new ApiException (localVarStatusCode, "Error calling GetSpreadsheetForReport: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
@@ -10268,7 +9610,6 @@ namespace CellStore.Api
                 (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
-        
+
     }
-    
 }

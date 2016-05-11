@@ -68,9 +68,8 @@ namespace CellStore.Test
             bool? import = null; // TODO: replace null with proper value
             string id = null; // TODO: replace null with proper value
             string label = null; // TODO: replace null with proper value
-            
             var response = instance.AddOrReplaceOrValidateReport(report, token, publicRead, _private, validationOnly, import, id, label);
-            Assert.IsInstanceOf<Object> (response, "response is Object"); 
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>
@@ -81,18 +80,17 @@ namespace CellStore.Test
         {
             // TODO: add unit test for the method 'GetParameters'
             string parameter = null; // TODO: replace null with proper value
-            
             var response = instance.GetParameters(parameter);
-            Assert.IsInstanceOf<Object> (response, "response is Object"); 
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>
-        /// Test ListReports
+        /// Test GetReports
         /// </summary>
         [Test]
-        public void ListReportsTest()
+        public void GetReportsTest()
         {
-            // TODO: add unit test for the method 'ListReports'
+            // TODO: add unit test for the method 'GetReports'
             string token = null; // TODO: replace null with proper value
             string id = null; // TODO: replace null with proper value
             string user = null; // TODO: replace null with proper value
@@ -100,9 +98,8 @@ namespace CellStore.Test
             bool? _private = null; // TODO: replace null with proper value
             bool? export = null; // TODO: replace null with proper value
             bool? onlyMetadata = null; // TODO: replace null with proper value
-            
-            var response = instance.ListReports(token, id, user, publicRead, _private, export, onlyMetadata);
-            Assert.IsInstanceOf<List<Object>> (response, "response is List<Object>"); 
+            var response = instance.GetReports(token, id, user, publicRead, _private, export, onlyMetadata);
+            Assert.IsInstanceOf<List<Object>> (response, "response is List<Object>");
         }
         
         /// <summary>
@@ -114,9 +111,8 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'RemoveReport'
             string id = null; // TODO: replace null with proper value
             string token = null; // TODO: replace null with proper value
-            
             instance.RemoveReport(id, token);
-             
+            
         }
         
     }

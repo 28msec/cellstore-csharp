@@ -25,7 +25,7 @@ namespace CellStore.Client
         /// <param name="tempFolderPath">Temp folder path</param>
         /// <param name="dateTimeFormat">DateTime format string</param>
         /// <param name="timeout">HTTP connection timeout (in milliseconds)</param>
-        /// <param name="userAgent">User Agent</param>
+        /// <param name="userAgent">HTTP user agent</param>
         public Configuration(ApiClient apiClient = null,
                              Dictionary<String, String> defaultHeader = null,
                              string username = null,
@@ -87,7 +87,7 @@ namespace CellStore.Client
         {
             get { return ApiClient.RestClient.Timeout; }
 
-            set 
+            set
             {
                 if (ApiClient != null)
                     ApiClient.RestClient.Timeout = value;
@@ -220,7 +220,7 @@ namespace CellStore.Client
                 }
 
                 // create the directory if it does not exist
-                if (!Directory.Exists(value)) 
+                if (!Directory.Exists(value))
                     Directory.CreateDirectory(value);
 
                 // check if the path contains directory separator at the end

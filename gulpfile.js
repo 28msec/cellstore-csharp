@@ -13,77 +13,81 @@ var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && pr
 var version;
 
 var isWindows = /^win/.test(process.platform);
-var nugetCmd = isWindows ? 'nuget' : 'mono nuget.exe';
+var nugetCmd = isWindows ? 'build-resources/nuget' : 'mono build-resources/nuget.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
 var cellstore_nuspec;
-parseString(fs.readFileSync('CellStore.dll.nuspec', 'utf-8'), { async: false }, function (err, result) {
+parseString(fs.readFileSync('resources/CellStore.dll.nuspec', 'utf-8'), { async: false }, function (err, result) {
     cellstore_nuspec = result;
     version = result.package.metadata[0].version[0];
 });
 
 gulp.task('swagger:clean', $.shell.task([
     'rm -rf build',
-    'mkdir build'
+    'mkdir build',
+    'rm -rf build-resources',
+    'mkdir build-resources',
+    'rm -rf build-binary',
+    'mkdir build-binary'
 ]));
 
 //GITHUB
 gulp.task('swagger:resolve', ['swagger:clean'], function(done){
     request({ url: 'http://28msec.github.io/cellstore-pro/swagger-aggregated.json' }, function(err, resp){
-        fs.writeFileSync('build/swagger-aggregated.json', resp.body);
+        fs.writeFileSync('build-resources/swagger-aggregated.json', resp.body);
         done();
     });
 });
 
 //GITHUB
-gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
-    'cd build && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.5.3/swagger-codegen-cli.jar'
-));
+//gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
+//    'cd build-resources && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.5.3/swagger-codegen-cli.jar'
+//));
 
 //LOCAL
 //gulp.task('swagger:resolve', ['swagger:clean'], $.shell.task([
 //  'cd ~/cellstore/cellstore-pro && gulp swagger:resolve',
-//  'cp ~/cellstore/cellstore-pro/swagger/swagger-aggregated.json build/swagger-aggregated.json'
+//  'cp ~/cellstore/cellstore-pro/swagger/swagger-aggregated.json build-resources/swagger-aggregated.json'
 //]));
 
 //LOCAL
-//gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
-//  'cd build && cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar swagger-codegen-cli.jar'
-//));
+gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
+  'cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar build-resources/swagger-codegen-cli.jar'
+));
 
 gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
-    'cp codegen-options.json build',
-    'cd build && java -DnoInlineModels -jar swagger-codegen-cli.jar generate -i swagger-aggregated.json -l csharp -c codegen-options.json  -o .'
+    'cp resources/codegen-options.json build-resources',
+    'java -DnoInlineModels -jar build-resources/swagger-codegen-cli.jar generate -i build-resources/swagger-aggregated.json -l cellstore-csharp -c build-resources/codegen-options.json  -o build'
 ]));
 
 gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
-    isWindows ? ':' : 'cd build && wget https://nuget.org/nuget.exe -O nuget.exe',
+    isWindows ? ':' : 'wget https://nuget.org/nuget.exe -O build-resources/nuget.exe',
     isWindows ? ':' : 'mozroots --import --sync',
-    'cd build && ' + path.normalize(nugetCmd + ' install vendor/packages.config -o vendor'),
-    'cd build && mkdir -p bin',
-    'cd build && cp vendor/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll bin/Newtonsoft.Json.dll',
-    'cd build && cp vendor/RestSharp.105.1.0/lib/net45/RestSharp.dll bin/RestSharp.dll',
-    'cd build && ' + path.normalize(compileCmd + ' -r:bin/Newtonsoft.Json.dll,bin/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:bin/CellStore.dll -recurse:src/*.cs -doc:bin/CellStore.xml -platform:anycpu'),
-    'cp lib/CellStore.csproj build'
+    path.normalize(nugetCmd + ' install build/src/CellStore/packages.config -o build-resources/dependencies'),
+    'mkdir -p build-binary/lib',
+    'cp build-resources/dependencies/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll build-binary/lib/Newtonsoft.Json.dll',
+    'cp build-resources/dependencies/RestSharp.105.1.0/lib/net45/RestSharp.dll build-binary/lib/RestSharp.dll',
+    path.normalize(compileCmd + ' -r:build-binary/lib/Newtonsoft.Json.dll,build-binary/lib/RestSharp.dll,System.Runtime.Serialization.dll -target:library -out:build-binary/CellStore.dll -recurse:build/src/CellStore/*.cs -doc:build-binary/CellStore.xml -platform:anycpu'),
 ]));
 
 gulp.task('swagger:test', $.shell.task([
-    path.normalize(compileCmd + ' -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll -out:samples/GetFacts/GetFacts/Program.exe samples/GetFacts/GetFacts/Program.cs'),
-    path.normalize(compileCmd + ' -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddFacts/AddFacts/Program.exe samples/AddFacts/AddFacts/Program.cs'),
-    path.normalize(compileCmd + ' -r:build/bin/Newtonsoft.Json.dll,build/bin/RestSharp.dll,build/bin/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddFiling/AddFiling/Program.exe samples/AddFiling/AddFiling/Program.cs'),
-    'cp build/bin/*.dll samples/GetFacts/GetFacts',
+    path.normalize(compileCmd + ' -r:build-binary/lib/Newtonsoft.Json.dll,build-binary/lib/RestSharp.dll,build-binary/CellStore.dll,System.Runtime.Serialization.dll -out:samples/GetFacts/GetFacts/Program.exe samples/GetFacts/GetFacts/Program.cs'),
+    path.normalize(compileCmd + ' -r:build-binary/lib/Newtonsoft.Json.dll,build-binary/lib/RestSharp.dll,build-binary/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddFacts/AddFacts/Program.exe samples/AddFacts/AddFacts/Program.cs'),
+    path.normalize(compileCmd + ' -r:build-binary/lib/Newtonsoft.Json.dll,build-binary/lib/RestSharp.dll,build-binary/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddFiling/AddFiling/Program.exe samples/AddFiling/AddFiling/Program.cs'),
+    'cp build-binary/lib/*.dll samples/GetFacts/GetFacts',
+    'cp build-binary/*.dll samples/GetFacts/GetFacts',
     isWindows ? 'cd samples/GetFacts/GetFacts && Program.exe' : 'mono samples/GetFacts/GetFacts/Program.exe'
 ]));
 
 gulp.task('swagger:pack', $.shell.task([
-    'cp CellStore.dll.nuspec build',
-    isWindows ? ':' : 'cd build && wget https://nuget.org/nuget.exe -O nuget.exe',
-    'cd build && ' + nugetCmd + ' pack CellStore.dll.nuspec'
+    'cp resources/CellStore.dll.nuspec build-binary',
+    isWindows ? ':' : 'wget https://nuget.org/nuget.exe -O build-resources/nuget.exe',
+    nugetCmd + ' pack build-resources/CellStore.dll.nuspec'
 ]));
 
 gulp.task('swagger:push', $.shell.task([
-    'cd build && sudo ' + nugetCmd + ' setApiKey ' + process.env.NUGET_API_KEY + ' | cat &> /dev/null',
-    'cd build && sudo ' + nugetCmd + ' push CellStore.NET.' + version + '.nupkg'
+    'sudo ' + nugetCmd + ' setApiKey ' + process.env.NUGET_API_KEY + ' | cat &> /dev/null',
+    'sudo ' + nugetCmd + ' push CellStore.NET.' + version + '.nupkg'
 ]));
 
 gulp.task('swagger:copy', $.shell.task([

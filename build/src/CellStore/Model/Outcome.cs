@@ -16,15 +16,12 @@ namespace CellStore.Model
     /// </summary>
     [DataContract]
     public partial class Outcome :  IEquatable<Outcome>
-    { 
-    
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="Outcome" /> class.
-        /// Initializes a new instance of the <see cref="Outcome" />class.
         /// </summary>
         /// <param name="Success">Whether the requests succeeded or failed. (required).</param>
         /// <param name="Description">A description of the error, if any..</param>
-
         public Outcome(bool? Success = null, string Description = null)
         {
             // to ensure "Success" is required (not null)
@@ -36,25 +33,24 @@ namespace CellStore.Model
             {
                 this.Success = Success;
             }
-            this.Description = Description;
+            
+            
+                        this.Description = Description;
             
         }
         
-    
         /// <summary>
         /// Whether the requests succeeded or failed.
         /// </summary>
         /// <value>Whether the requests succeeded or failed.</value>
         [DataMember(Name="success", EmitDefaultValue=false)]
         public bool? Success { get; set; }
-    
         /// <summary>
         /// A description of the error, if any.
         /// </summary>
         /// <value>A description of the error, if any.</value>
         [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
-    
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -64,8 +60,7 @@ namespace CellStore.Model
             var sb = new StringBuilder();
             sb.Append("class Outcome {\n");
             sb.Append("  Success: ").Append(Success).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            
+sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -125,16 +120,13 @@ namespace CellStore.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                
                 if (this.Success != null)
                     hash = hash * 59 + this.Success.GetHashCode();
-                
                 if (this.Description != null)
                     hash = hash * 59 + this.Description.GetHashCode();
-                
                 return hash;
             }
         }
-
     }
+
 }
