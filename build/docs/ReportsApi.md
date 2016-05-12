@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **AddOrReplaceOrValidateReport**
-> Object AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
+> JObject AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
 
 Add a new, update an existing report or validates a report on the fly
 
@@ -43,7 +43,7 @@ namespace Example
             try
             {
                 // Add a new, update an existing report or validates a report on the fly
-                Object result = apiInstance.AddOrReplaceOrValidateReport(report, token, publicRead, _private, validationOnly, import, id, label);
+                JObject result = apiInstance.AddOrReplaceOrValidateReport(report, token, publicRead, _private, validationOnly, import, id, label);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+**JObject**
 
 ### Authorization
 
@@ -84,7 +84,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetParameters**
-> Object GetParameters (string parameter = null)
+> JObject GetParameters (string parameter = null)
 
 Retrieve a list of all Report Parameters
 
@@ -109,7 +109,7 @@ namespace Example
             try
             {
                 // Retrieve a list of all Report Parameters
-                Object result = apiInstance.GetParameters(parameter);
+                JObject result = apiInstance.GetParameters(parameter);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+**JObject**
 
 ### Authorization
 

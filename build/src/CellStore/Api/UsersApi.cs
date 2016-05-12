@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
+using Newtonsoft.Json.Linq;
 using CellStore.Client;
 using CellStore.Model;
 
@@ -76,8 +77,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="userid">A user ID (optional, default to null)</param>
         /// <param name="email">A user email address (optional, default to null)</param>
-        /// <returns>Object</returns>
-        Object GetUser (string token, string userid = null, string email = null);
+        /// <returns>JObject</returns>
+        JObject GetUser (string token, string userid = null, string email = null);
 
         /// <summary>
         /// Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
@@ -89,8 +90,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="userid">A user ID (optional, default to null)</param>
         /// <param name="email">A user email address (optional, default to null)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> GetUserWithHttpInfo (string token, string userid = null, string email = null);
+        /// <returns>ApiResponse of JObject</returns>
+        ApiResponse<JObject> GetUserWithHttpInfo (string token, string userid = null, string email = null);
         /// <summary>
         /// Checks to see if the current logged in user has a particular right
         /// </summary>
@@ -257,8 +258,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="userid">A user ID (optional, default to null)</param>
         /// <param name="email">A user email address (optional, default to null)</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> GetUserAsync (string token, string userid = null, string email = null);
+        /// <returns>Task of JObject</returns>
+        System.Threading.Tasks.Task<JObject> GetUserAsync (string token, string userid = null, string email = null);
 
         /// <summary>
         /// Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
@@ -270,8 +271,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="userid">A user ID (optional, default to null)</param>
         /// <param name="email">A user email address (optional, default to null)</param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> GetUserAsyncWithHttpInfo (string token, string userid = null, string email = null);
+        /// <returns>Task of ApiResponse (JObject)</returns>
+        System.Threading.Tasks.Task<ApiResponse<JObject>> GetUserAsyncWithHttpInfo (string token, string userid = null, string email = null);
         /// <summary>
         /// Checks to see if the current logged in user has a particular right
         /// </summary>
@@ -783,10 +784,10 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="userid">A user ID (optional, default to null)</param>
         /// <param name="email">A user email address (optional, default to null)</param>
-        /// <returns>Object</returns>
-        public Object GetUser (string token, string userid = null, string email = null)
+        /// <returns>JObject</returns>
+        public JObject GetUser (string token, string userid = null, string email = null)
         {
-             ApiResponse<Object> localVarResponse = GetUserWithHttpInfo(token, userid, email);
+             ApiResponse<JObject> localVarResponse = GetUserWithHttpInfo(token, userid, email);
              return localVarResponse.Data;
         }
 
@@ -797,8 +798,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="userid">A user ID (optional, default to null)</param>
         /// <param name="email">A user email address (optional, default to null)</param>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > GetUserWithHttpInfo (string token, string userid = null, string email = null)
+        /// <returns>ApiResponse of JObject</returns>
+        public ApiResponse< JObject > GetUserWithHttpInfo (string token, string userid = null, string email = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -843,9 +844,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetUser: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<JObject>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -856,10 +857,10 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="userid">A user ID (optional, default to null)</param>
         /// <param name="email">A user email address (optional, default to null)</param>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> GetUserAsync (string token, string userid = null, string email = null)
+        /// <returns>Task of JObject</returns>
+        public async System.Threading.Tasks.Task<JObject> GetUserAsync (string token, string userid = null, string email = null)
         {
-             ApiResponse<Object> localVarResponse = await GetUserAsyncWithHttpInfo(token, userid, email);
+             ApiResponse<JObject> localVarResponse = await GetUserAsyncWithHttpInfo(token, userid, email);
              return localVarResponse.Data;
 
         }
@@ -871,8 +872,8 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="userid">A user ID (optional, default to null)</param>
         /// <param name="email">A user email address (optional, default to null)</param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> GetUserAsyncWithHttpInfo (string token, string userid = null, string email = null)
+        /// <returns>Task of ApiResponse (JObject)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<JObject>> GetUserAsyncWithHttpInfo (string token, string userid = null, string email = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -917,9 +918,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetUser: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<JObject>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
