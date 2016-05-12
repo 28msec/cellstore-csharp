@@ -142,7 +142,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetUser**
-> JObject GetUser (string token, string userid = null, string email = null)
+> Newtonsoft.Json.Linq.JObject GetUser (string token, string userid = null, string email = null)
 
 Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
 
@@ -169,7 +169,7 @@ namespace Example
             try
             {
                 // Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
-                JObject result = apiInstance.GetUser(token, userid, email);
+                Newtonsoft.Json.Linq.JObject result = apiInstance.GetUser(token, userid, email);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**JObject**
+**Newtonsoft.Json.Linq.JObject**
 
 ### Authorization
 
