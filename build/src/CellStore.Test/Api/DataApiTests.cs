@@ -64,7 +64,7 @@ namespace CellStore.Test
             Object entity = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
             var response = instance.AddEntities(token, entity, profileName);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -77,7 +77,7 @@ namespace CellStore.Test
             string token = null; // TODO: replace null with proper value
             Object fact = null; // TODO: replace null with proper value
             var response = instance.AddFacts(token, fact);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -96,7 +96,7 @@ namespace CellStore.Test
             bool? insertEntity = null; // TODO: replace null with proper value
             string contentType = null; // TODO: replace null with proper value
             var response = instance.AddFilings(token, filing, profileName, aid, filingDetectionProfileName, taxonomy, insertEntity, contentType);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -110,7 +110,7 @@ namespace CellStore.Test
             Object label = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
             var response = instance.AddLabels(token, label, profileName);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -124,7 +124,7 @@ namespace CellStore.Test
             Object modelStructure = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
             var response = instance.AddModelStructureForComponent(token, modelStructure, profileName);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -138,7 +138,7 @@ namespace CellStore.Test
             Object reportElement = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
             var response = instance.AddReportElements(token, reportElement, profileName);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -152,7 +152,7 @@ namespace CellStore.Test
             Object section = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
             var response = instance.AddSections(token, section, profileName);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -169,7 +169,7 @@ namespace CellStore.Test
             string aid = null; // TODO: replace null with proper value
             bool? insertEntity = null; // TODO: replace null with proper value
             var response = instance.AddTaxonomy(token, eid, entrypoint, profileName, aid, insertEntity);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -186,7 +186,7 @@ namespace CellStore.Test
             List<int?> edinetcode = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             var response = instance.DeleteEntity(token, profileName, eid, cik, edinetcode, ticker);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -209,7 +209,7 @@ namespace CellStore.Test
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             var response = instance.DeleteFiling(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -227,7 +227,7 @@ namespace CellStore.Test
             string language = null; // TODO: replace null with proper value
             string labelRole = null; // TODO: replace null with proper value
             var response = instance.DeleteLabel(token, profileName, aid, section, reportElement, language, labelRole);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -242,7 +242,7 @@ namespace CellStore.Test
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
             var response = instance.DeleteModelStructureForComponent(token, aid, section, hypercube);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -258,7 +258,7 @@ namespace CellStore.Test
             List<string> section = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
             var response = instance.DeleteReportElement(token, profileName, aid, section, reportElement);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -273,7 +273,7 @@ namespace CellStore.Test
             List<string> aid = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             var response = instance.DeleteSection(token, profileName, aid, section);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -316,7 +316,7 @@ namespace CellStore.Test
             bool? validate = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
             var response = instance.EditFacts(token, patch, profileName, tag, eid, cik, edinetcode, sic, ticker, aid, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -349,7 +349,7 @@ namespace CellStore.Test
             bool? validate = null; // TODO: replace null with proper value
             string language = null; // TODO: replace null with proper value
             var response = instance.GetComponents(token, profileName, eid, ticker, tag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, filingKind, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -375,7 +375,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetEntities(token, profileName, tag, eid, cik, edinetcode, sic, ticker, entitySearch, entitySearchOffset, entitySearchLimit, language, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -424,7 +424,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetFactTableForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -462,7 +462,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetFactTableForReport(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, open, report, labels, metadata, auditTrails, language, aggregationFunction, validate, _override, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -509,7 +509,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetFacts(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -536,7 +536,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetFilings(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, language, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -572,7 +572,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetLabels(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, labelRole, onlyTextBlocks, kind, eliminateReportElementDuplicates, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -605,7 +605,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetModelStructureForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -631,7 +631,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetPeriods(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -669,7 +669,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetReportElements(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -699,7 +699,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetRules(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, disclosure, reportElement, label, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -732,7 +732,7 @@ namespace CellStore.Test
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
             var response = instance.GetSections(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, validate, language, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -779,7 +779,7 @@ namespace CellStore.Test
             List<int?> column = null; // TODO: replace null with proper value
             bool? flattenRowHeaders = null; // TODO: replace null with proper value
             var response = instance.GetSpreadsheetForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -818,7 +818,7 @@ namespace CellStore.Test
             bool? open = null; // TODO: replace null with proper value
             string aggregationFunction = null; // TODO: replace null with proper value
             var response = instance.GetSpreadsheetForReport(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, filingKind, archiveFiscalYear, archiveFiscalPeriod, _override, open, aggregationFunction);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
     }

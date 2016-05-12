@@ -69,7 +69,7 @@ namespace CellStore.Test
             string id = null; // TODO: replace null with proper value
             string label = null; // TODO: replace null with proper value
             var response = instance.AddOrReplaceOrValidateReport(report, token, publicRead, _private, validationOnly, import, id, label);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
@@ -81,7 +81,7 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'GetParameters'
             string parameter = null; // TODO: replace null with proper value
             var response = instance.GetParameters(parameter);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
+            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
         }
         
         /// <summary>
