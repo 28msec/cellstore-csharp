@@ -8,4 +8,4 @@ obj
 samples/*/*/*.dll
 samples/*/*/*.exe
 .idea
-.nupkg
+*.nupkg
