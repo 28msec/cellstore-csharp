@@ -82,7 +82,7 @@ gulp.task('swagger:test', $.shell.task([
 gulp.task('swagger:pack', $.shell.task([
     'cp resources/CellStore.dll.nuspec build-binary',
     isWindows ? ':' : 'wget https://nuget.org/nuget.exe -O build-resources/nuget.exe',
-    nugetCmd + ' pack build-resources/CellStore.dll.nuspec'
+    nugetCmd + ' pack build-binary/CellStore.dll.nuspec'
 ]));
 
 gulp.task('swagger:push', $.shell.task([
