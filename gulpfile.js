@@ -31,7 +31,6 @@ gulp.task('swagger:clean', $.shell.task([
     'mkdir build-binary'
 ]));
 
-//GITHUB
 gulp.task('swagger:resolve', ['swagger:clean'], function(done){
     request({ url: 'http://28msec.github.io/cellstore-pro/swagger-aggregated.json' }, function(err, resp){
         fs.writeFileSync('build-resources/swagger-aggregated.json', resp.body);
@@ -39,28 +38,29 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
     });
 });
 
-//GITHUB
-gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
+gulp.task('swagger:resolve-dev', ['swagger:clean'], $.shell.task([
+  'cd ~/cellstore/cellstore-pro && gulp swagger:resolve',
+  'cp ~/cellstore/cellstore-pro/swagger/swagger-aggregated.json build-resources/swagger-aggregated.json'
+]));
+
+gulp.task('swagger:resolve-repository', ['swagger:clean'], $.shell.task([
+  'cp swagger/swagger-aggregated.json build-resources/swagger-aggregated.json'
+]));
+
+gulp.task('swagger:install-codegen', $.shell.task(
     'cd build-resources && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.6.0/swagger-codegen-cli.jar'
 ));
 
-//LOCAL
-//gulp.task('swagger:resolve', ['swagger:clean'], $.shell.task([
-//  'cd ~/cellstore/cellstore-pro && gulp swagger:resolve',
-//  'cp ~/cellstore/cellstore-pro/swagger/swagger-aggregated.json build-resources/swagger-aggregated.json'
-//]));
+gulp.task('swagger:install-codegen-dev', $.shell.task(
+  'cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar build-resources/swagger-codegen-cli.jar'
+));
 
-//LOCAL
-//gulp.task('swagger:install-codegen', ['swagger:resolve'], $.shell.task(
-//  'cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar build-resources/swagger-codegen-cli.jar'
-//));
-
-gulp.task('swagger:generate-csharp', ['swagger:install-codegen'], $.shell.task([
+gulp.task('swagger:generate-csharp', $.shell.task([
     'cp resources/codegen-options.json build-resources',
     'java -DnoInlineModels -jar build-resources/swagger-codegen-cli.jar generate -i build-resources/swagger-aggregated.json -l cellstore-csharp -c build-resources/codegen-options.json  -o build'
 ]));
 
-gulp.task('swagger:csharp', ['swagger:generate-csharp'], $.shell.task([
+gulp.task('swagger:csharp', $.shell.task([
     isWindows ? ':' : 'wget https://nuget.org/nuget.exe -O build-resources/nuget.exe',
     isWindows ? ':' : 'mozroots --import --sync',
     path.normalize(nugetCmd + ' install build/src/CellStore/packages.config -o build-resources/dependencies'),
@@ -95,7 +95,7 @@ gulp.task('swagger:copy', $.shell.task([
 ]));
 
 gulp.task('swagger', function(done){
-    $.runSequence('swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', function(){
+    $.runSequence('swagger:resolve', 'swagger:install-codegen', 'swagger:generate-csharp', 'swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', function(){
         if(isOnTravisAndMaster) {
             $.runSequence('swagger:push', done);
         } else {
@@ -104,4 +104,23 @@ gulp.task('swagger', function(done){
     });
 });
 
-gulp.task('default', ['swagger']);
+gulp.task('swagger-repository', function(done){
+    $.runSequence('swagger:resolve-repository', 'swagger:install-codegen', 'swagger:generate-csharp', 'swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', function(){
+        if(isOnTravisAndMaster) {
+            $.runSequence('swagger:push', done);
+        } else {
+            done();
+        }
+    });
+});
+
+
+gulp.task('swagger-dev', function(done){
+        if(isOnTravis)
+          throw 'This task cannot be run on the PQ';
+        $.runSequence('swagger:resolve-dev', 'swagger:install-codegen-dev', 'swagger:generate-csharp', 'swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', done);  
+});
+
+//gulp.task('default', ['swagger']); //Use released swagger-codegen and documentation
+gulp.task('default', ['swagger-repository']); //Use released swagger-codegen and documentation committed in this repository
+//gulp.task('default', ['swagger-dev']); //Use local swagger-codegen and documentation
