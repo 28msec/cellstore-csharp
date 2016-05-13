@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
-using Newtonsoft.Json.Linq;
 using CellStore.Client;
 using CellStore.Model;
 
@@ -30,8 +29,8 @@ namespace CellStore.Api
         /// <param name="import">If set to true, the body of the request will be treated as binary report and imported into the users account (optional, default to null)</param>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report (optional, default to null)</param>
         /// <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report) (optional, default to null)</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        Newtonsoft.Json.Linq.JObject AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null);
+        /// <returns>Object</returns>
+        Object AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null);
 
         /// <summary>
         /// Add a new, update an existing report or validates a report on the fly
@@ -48,8 +47,8 @@ namespace CellStore.Api
         /// <param name="import">If set to true, the body of the request will be treated as binary report and imported into the users account (optional, default to null)</param>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report (optional, default to null)</param>
         /// <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report) (optional, default to null)</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        ApiResponse<Newtonsoft.Json.Linq.JObject> AddOrReplaceOrValidateReportWithHttpInfo (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null);
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> AddOrReplaceOrValidateReportWithHttpInfo (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null);
         /// <summary>
         /// Retrieve a list of all Report Parameters
         /// </summary>
@@ -58,8 +57,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="parameter">Only retrieve values for this parameter (optional, default to null)</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        Newtonsoft.Json.Linq.JObject GetParameters (string parameter = null);
+        /// <returns>Object</returns>
+        Object GetParameters (string parameter = null);
 
         /// <summary>
         /// Retrieve a list of all Report Parameters
@@ -69,8 +68,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="parameter">Only retrieve values for this parameter (optional, default to null)</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        ApiResponse<Newtonsoft.Json.Linq.JObject> GetParametersWithHttpInfo (string parameter = null);
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> GetParametersWithHttpInfo (string parameter = null);
         /// <summary>
         /// Retrieve a list of all Reports
         /// </summary>
@@ -144,8 +143,8 @@ namespace CellStore.Api
         /// <param name="import">If set to true, the body of the request will be treated as binary report and imported into the users account (optional, default to null)</param>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report (optional, default to null)</param>
         /// <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report) (optional, default to null)</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> AddOrReplaceOrValidateReportAsync (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null);
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> AddOrReplaceOrValidateReportAsync (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null);
 
         /// <summary>
         /// Add a new, update an existing report or validates a report on the fly
@@ -162,8 +161,8 @@ namespace CellStore.Api
         /// <param name="import">If set to true, the body of the request will be treated as binary report and imported into the users account (optional, default to null)</param>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report (optional, default to null)</param>
         /// <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report) (optional, default to null)</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> AddOrReplaceOrValidateReportAsyncWithHttpInfo (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null);
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddOrReplaceOrValidateReportAsyncWithHttpInfo (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null);
         /// <summary>
         /// Retrieve a list of all Report Parameters
         /// </summary>
@@ -172,8 +171,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="parameter">Only retrieve values for this parameter (optional, default to null)</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> GetParametersAsync (string parameter = null);
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> GetParametersAsync (string parameter = null);
 
         /// <summary>
         /// Retrieve a list of all Report Parameters
@@ -183,8 +182,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="parameter">Only retrieve values for this parameter (optional, default to null)</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> GetParametersAsyncWithHttpInfo (string parameter = null);
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> GetParametersAsyncWithHttpInfo (string parameter = null);
         /// <summary>
         /// Retrieve a list of all Reports
         /// </summary>
@@ -343,10 +342,10 @@ namespace CellStore.Api
         /// <param name="import">If set to true, the body of the request will be treated as binary report and imported into the users account (optional, default to null)</param>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report (optional, default to null)</param>
         /// <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report) (optional, default to null)</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        public Newtonsoft.Json.Linq.JObject AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
+        /// <returns>Object</returns>
+        public Object AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = AddOrReplaceOrValidateReportWithHttpInfo(report, token, publicRead, _private, validationOnly, import, id, label);
+             ApiResponse<Object> localVarResponse = AddOrReplaceOrValidateReportWithHttpInfo(report, token, publicRead, _private, validationOnly, import, id, label);
              return localVarResponse.Data;
         }
 
@@ -362,8 +361,8 @@ namespace CellStore.Api
         /// <param name="import">If set to true, the body of the request will be treated as binary report and imported into the users account (optional, default to null)</param>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report (optional, default to null)</param>
         /// <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report) (optional, default to null)</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        public ApiResponse< Newtonsoft.Json.Linq.JObject > AddOrReplaceOrValidateReportWithHttpInfo (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > AddOrReplaceOrValidateReportWithHttpInfo (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
         {
             // verify the required parameter 'report' is set
             if (report == null)
@@ -423,9 +422,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddOrReplaceOrValidateReport: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -441,10 +440,10 @@ namespace CellStore.Api
         /// <param name="import">If set to true, the body of the request will be treated as binary report and imported into the users account (optional, default to null)</param>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report (optional, default to null)</param>
         /// <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report) (optional, default to null)</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        public async System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> AddOrReplaceOrValidateReportAsync (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> AddOrReplaceOrValidateReportAsync (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = await AddOrReplaceOrValidateReportAsyncWithHttpInfo(report, token, publicRead, _private, validationOnly, import, id, label);
+             ApiResponse<Object> localVarResponse = await AddOrReplaceOrValidateReportAsyncWithHttpInfo(report, token, publicRead, _private, validationOnly, import, id, label);
              return localVarResponse.Data;
 
         }
@@ -461,8 +460,8 @@ namespace CellStore.Api
         /// <param name="import">If set to true, the body of the request will be treated as binary report and imported into the users account (optional, default to null)</param>
         /// <param name="id">A report id (e.g. FundamentalAccountingConcepts). For example, when importing a report the id can be provided to create a new report (optional, default to null)</param>
         /// <param name="label">A report label (e.g. &#39;Key Value Indicators&#39;). Will overwrite the Label of the report given in the body (binary report as well as json report) (optional, default to null)</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> AddOrReplaceOrValidateReportAsyncWithHttpInfo (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddOrReplaceOrValidateReportAsyncWithHttpInfo (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
         {
             // verify the required parameter 'report' is set
             if (report == null)
@@ -522,9 +521,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddOrReplaceOrValidateReport: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -533,10 +532,10 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="parameter">Only retrieve values for this parameter (optional, default to null)</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        public Newtonsoft.Json.Linq.JObject GetParameters (string parameter = null)
+        /// <returns>Object</returns>
+        public Object GetParameters (string parameter = null)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = GetParametersWithHttpInfo(parameter);
+             ApiResponse<Object> localVarResponse = GetParametersWithHttpInfo(parameter);
              return localVarResponse.Data;
         }
 
@@ -545,8 +544,8 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="parameter">Only retrieve values for this parameter (optional, default to null)</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        public ApiResponse< Newtonsoft.Json.Linq.JObject > GetParametersWithHttpInfo (string parameter = null)
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > GetParametersWithHttpInfo (string parameter = null)
         {
 
             var localVarPath = "/reports/parameters";
@@ -586,9 +585,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetParameters: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -597,10 +596,10 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="parameter">Only retrieve values for this parameter (optional, default to null)</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        public async System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> GetParametersAsync (string parameter = null)
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> GetParametersAsync (string parameter = null)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = await GetParametersAsyncWithHttpInfo(parameter);
+             ApiResponse<Object> localVarResponse = await GetParametersAsyncWithHttpInfo(parameter);
              return localVarResponse.Data;
 
         }
@@ -610,8 +609,8 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="parameter">Only retrieve values for this parameter (optional, default to null)</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> GetParametersAsyncWithHttpInfo (string parameter = null)
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> GetParametersAsyncWithHttpInfo (string parameter = null)
         {
 
             var localVarPath = "/reports/parameters";
@@ -651,9 +650,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetParameters: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 

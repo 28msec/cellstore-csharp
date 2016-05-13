@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **AddOrReplaceOrValidateReport**
-> Newtonsoft.Json.Linq.JObject AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
+> Object AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
 
 Add a new, update an existing report or validates a report on the fly
 
@@ -43,7 +43,7 @@ namespace Example
             try
             {
                 // Add a new, update an existing report or validates a report on the fly
-                Newtonsoft.Json.Linq.JObject result = apiInstance.AddOrReplaceOrValidateReport(report, token, publicRead, _private, validationOnly, import, id, label);
+                Object result = apiInstance.AddOrReplaceOrValidateReport(report, token, publicRead, _private, validationOnly, import, id, label);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Newtonsoft.Json.Linq.JObject**
+**Object**
 
 ### Authorization
 
@@ -84,7 +84,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetParameters**
-> Newtonsoft.Json.Linq.JObject GetParameters (string parameter = null)
+> Object GetParameters (string parameter = null)
 
 Retrieve a list of all Report Parameters
 
@@ -109,7 +109,7 @@ namespace Example
             try
             {
                 // Retrieve a list of all Report Parameters
-                Newtonsoft.Json.Linq.JObject result = apiInstance.GetParameters(parameter);
+                Object result = apiInstance.GetParameters(parameter);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Newtonsoft.Json.Linq.JObject**
+**Object**
 
 ### Authorization
 

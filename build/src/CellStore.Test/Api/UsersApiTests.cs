@@ -93,7 +93,7 @@ namespace CellStore.Test
             string userid = null; // TODO: replace null with proper value
             string email = null; // TODO: replace null with proper value
             var response = instance.GetUser(token, userid, email);
-            Assert.IsInstanceOf<Newtonsoft.Json.Linq.JObject> (response, "response is Newtonsoft.Json.Linq.JObject");
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
-using Newtonsoft.Json.Linq;
 using CellStore.Client;
 using CellStore.Model;
 
@@ -24,8 +23,8 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        Newtonsoft.Json.Linq.JObject Login (string email, string password);
+        /// <returns>Object</returns>
+        Object Login (string email, string password);
 
         /// <summary>
         /// Login with email and password in order to retrieve a token.
@@ -36,8 +35,8 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        ApiResponse<Newtonsoft.Json.Linq.JObject> LoginWithHttpInfo (string email, string password);
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> LoginWithHttpInfo (string email, string password);
         /// <summary>
         /// Logout the user identified by the given API key.
         /// </summary>
@@ -94,8 +93,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        Newtonsoft.Json.Linq.JObject Token (string email, string password, string expiration);
+        /// <returns>Object</returns>
+        Object Token (string email, string password, string expiration);
 
         /// <summary>
         /// Create a token having a custom expiration duration.
@@ -107,8 +106,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        ApiResponse<Newtonsoft.Json.Linq.JObject> TokenWithHttpInfo (string email, string password, string expiration);
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> TokenWithHttpInfo (string email, string password, string expiration);
         /// <summary>
         /// List tokens of a user identified by its token.
         /// </summary>
@@ -117,8 +116,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        Newtonsoft.Json.Linq.JObject Tokens (string token);
+        /// <returns>Object</returns>
+        Object Tokens (string token);
 
         /// <summary>
         /// List tokens of a user identified by its token.
@@ -128,8 +127,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        ApiResponse<Newtonsoft.Json.Linq.JObject> TokensWithHttpInfo (string token);
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> TokensWithHttpInfo (string token);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -141,8 +140,8 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> LoginAsync (string email, string password);
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> LoginAsync (string email, string password);
 
         /// <summary>
         /// Login with email and password in order to retrieve a token.
@@ -153,8 +152,8 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> LoginAsyncWithHttpInfo (string email, string password);
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password);
         /// <summary>
         /// Logout the user identified by the given API key.
         /// </summary>
@@ -211,8 +210,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> TokenAsync (string email, string password, string expiration);
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration);
 
         /// <summary>
         /// Create a token having a custom expiration duration.
@@ -224,8 +223,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> TokenAsyncWithHttpInfo (string email, string password, string expiration);
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration);
         /// <summary>
         /// List tokens of a user identified by its token.
         /// </summary>
@@ -234,8 +233,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> TokensAsync (string token);
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> TokensAsync (string token);
 
         /// <summary>
         /// List tokens of a user identified by its token.
@@ -245,8 +244,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> TokensAsyncWithHttpInfo (string token);
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> TokensAsyncWithHttpInfo (string token);
         #endregion Asynchronous Operations
     }
 
@@ -343,10 +342,10 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        public Newtonsoft.Json.Linq.JObject Login (string email, string password)
+        /// <returns>Object</returns>
+        public Object Login (string email, string password)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = LoginWithHttpInfo(email, password);
+             ApiResponse<Object> localVarResponse = LoginWithHttpInfo(email, password);
              return localVarResponse.Data;
         }
 
@@ -356,8 +355,8 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        public ApiResponse< Newtonsoft.Json.Linq.JObject > LoginWithHttpInfo (string email, string password)
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > LoginWithHttpInfo (string email, string password)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -404,9 +403,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Login: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -416,10 +415,10 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        public async System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> LoginAsync (string email, string password)
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> LoginAsync (string email, string password)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = await LoginAsyncWithHttpInfo(email, password);
+             ApiResponse<Object> localVarResponse = await LoginAsyncWithHttpInfo(email, password);
              return localVarResponse.Data;
 
         }
@@ -430,8 +429,8 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> LoginAsyncWithHttpInfo (string email, string password)
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -478,9 +477,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Login: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -785,10 +784,10 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        public Newtonsoft.Json.Linq.JObject Token (string email, string password, string expiration)
+        /// <returns>Object</returns>
+        public Object Token (string email, string password, string expiration)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = TokenWithHttpInfo(email, password, expiration);
+             ApiResponse<Object> localVarResponse = TokenWithHttpInfo(email, password, expiration);
              return localVarResponse.Data;
         }
 
@@ -799,8 +798,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        public ApiResponse< Newtonsoft.Json.Linq.JObject > TokenWithHttpInfo (string email, string password, string expiration)
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > TokenWithHttpInfo (string email, string password, string expiration)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -851,9 +850,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Token: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -864,10 +863,10 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        public async System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> TokenAsync (string email, string password, string expiration)
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = await TokenAsyncWithHttpInfo(email, password, expiration);
+             ApiResponse<Object> localVarResponse = await TokenAsyncWithHttpInfo(email, password, expiration);
              return localVarResponse.Data;
 
         }
@@ -879,8 +878,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> TokenAsyncWithHttpInfo (string email, string password, string expiration)
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -931,9 +930,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Token: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -942,10 +941,10 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Newtonsoft.Json.Linq.JObject</returns>
-        public Newtonsoft.Json.Linq.JObject Tokens (string token)
+        /// <returns>Object</returns>
+        public Object Tokens (string token)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = TokensWithHttpInfo(token);
+             ApiResponse<Object> localVarResponse = TokensWithHttpInfo(token);
              return localVarResponse.Data;
         }
 
@@ -954,8 +953,8 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>ApiResponse of Newtonsoft.Json.Linq.JObject</returns>
-        public ApiResponse< Newtonsoft.Json.Linq.JObject > TokensWithHttpInfo (string token)
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > TokensWithHttpInfo (string token)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -998,9 +997,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Tokens: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -1009,10 +1008,10 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of Newtonsoft.Json.Linq.JObject</returns>
-        public async System.Threading.Tasks.Task<Newtonsoft.Json.Linq.JObject> TokensAsync (string token)
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> TokensAsync (string token)
         {
-             ApiResponse<Newtonsoft.Json.Linq.JObject> localVarResponse = await TokensAsyncWithHttpInfo(token);
+             ApiResponse<Object> localVarResponse = await TokensAsyncWithHttpInfo(token);
              return localVarResponse.Data;
 
         }
@@ -1022,8 +1021,8 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of ApiResponse (Newtonsoft.Json.Linq.JObject)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Newtonsoft.Json.Linq.JObject>> TokensAsyncWithHttpInfo (string token)
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> TokensAsyncWithHttpInfo (string token)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -1066,9 +1065,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Tokens: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Newtonsoft.Json.Linq.JObject>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Newtonsoft.Json.Linq.JObject) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 

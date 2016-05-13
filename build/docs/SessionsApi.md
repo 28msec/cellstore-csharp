@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **Login**
-> Newtonsoft.Json.Linq.JObject Login (string email, string password)
+> Object Login (string email, string password)
 
 Login with email and password in order to retrieve a token.
 
@@ -38,7 +38,7 @@ namespace Example
             try
             {
                 // Login with email and password in order to retrieve a token.
-                Newtonsoft.Json.Linq.JObject result = apiInstance.Login(email, password);
+                Object result = apiInstance.Login(email, password);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Newtonsoft.Json.Linq.JObject**
+**Object**
 
 ### Authorization
 
@@ -195,7 +195,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **Token**
-> Newtonsoft.Json.Linq.JObject Token (string email, string password, string expiration)
+> Object Token (string email, string password, string expiration)
 
 Create a token having a custom expiration duration.
 
@@ -222,7 +222,7 @@ namespace Example
             try
             {
                 // Create a token having a custom expiration duration.
-                Newtonsoft.Json.Linq.JObject result = apiInstance.Token(email, password, expiration);
+                Object result = apiInstance.Token(email, password, expiration);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -244,7 +244,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Newtonsoft.Json.Linq.JObject**
+**Object**
 
 ### Authorization
 
@@ -258,7 +258,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **Tokens**
-> Newtonsoft.Json.Linq.JObject Tokens (string token)
+> Object Tokens (string token)
 
 List tokens of a user identified by its token.
 
@@ -283,7 +283,7 @@ namespace Example
             try
             {
                 // List tokens of a user identified by its token.
-                Newtonsoft.Json.Linq.JObject result = apiInstance.Tokens(token);
+                Object result = apiInstance.Tokens(token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Newtonsoft.Json.Linq.JObject**
+**Object**
 
 ### Authorization
 
