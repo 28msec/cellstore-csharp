@@ -62,8 +62,7 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'AddEntities'
             string token = null; // TODO: replace null with proper value
             Object entity = null; // TODO: replace null with proper value
-            string profileName = null; // TODO: replace null with proper value
-            var response = instance.AddEntities(token, entity, profileName);
+            var response = instance.AddEntities(token, entity);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -108,8 +107,7 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'AddLabels'
             string token = null; // TODO: replace null with proper value
             Object label = null; // TODO: replace null with proper value
-            string profileName = null; // TODO: replace null with proper value
-            var response = instance.AddLabels(token, label, profileName);
+            var response = instance.AddLabels(token, label);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -136,8 +134,7 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'AddReportElements'
             string token = null; // TODO: replace null with proper value
             Object reportElement = null; // TODO: replace null with proper value
-            string profileName = null; // TODO: replace null with proper value
-            var response = instance.AddReportElements(token, reportElement, profileName);
+            var response = instance.AddReportElements(token, reportElement);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -183,7 +180,7 @@ namespace CellStore.Test
             string profileName = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             var response = instance.DeleteEntity(token, profileName, eid, cik, edinetcode, ticker);
             Assert.IsInstanceOf<Object> (response, "response is Object");
@@ -202,10 +199,10 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             var response = instance.DeleteFiling(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind);
@@ -221,11 +218,11 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'DeleteLabel'
             string token = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            List<string> aid = null; // TODO: replace null with proper value
-            List<string> section = null; // TODO: replace null with proper value
-            List<string> reportElement = null; // TODO: replace null with proper value
+            string aid = null; // TODO: replace null with proper value
+            string section = null; // TODO: replace null with proper value
+            string reportElement = null; // TODO: replace null with proper value
             string language = null; // TODO: replace null with proper value
-            string labelRole = null; // TODO: replace null with proper value
+            List<string> labelRole = null; // TODO: replace null with proper value
             var response = instance.DeleteLabel(token, profileName, aid, section, reportElement, language, labelRole);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
@@ -254,9 +251,9 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'DeleteReportElement'
             string token = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            List<string> aid = null; // TODO: replace null with proper value
-            List<string> section = null; // TODO: replace null with proper value
-            List<string> reportElement = null; // TODO: replace null with proper value
+            string aid = null; // TODO: replace null with proper value
+            string section = null; // TODO: replace null with proper value
+            string reportElement = null; // TODO: replace null with proper value
             var response = instance.DeleteReportElement(token, profileName, aid, section, reportElement);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
@@ -270,8 +267,8 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'DeleteSection'
             string token = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            List<string> aid = null; // TODO: replace null with proper value
-            List<string> section = null; // TODO: replace null with proper value
+            string aid = null; // TODO: replace null with proper value
+            string section = null; // TODO: replace null with proper value
             var response = instance.DeleteSection(token, profileName, aid, section);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
@@ -289,7 +286,7 @@ namespace CellStore.Test
             List<string> tag = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> aid = null; // TODO: replace null with proper value
@@ -333,8 +330,8 @@ namespace CellStore.Test
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             List<string> aid = null; // TODO: replace null with proper value
@@ -342,7 +339,7 @@ namespace CellStore.Test
             List<string> hypercube = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
-            string label = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
@@ -364,7 +361,7 @@ namespace CellStore.Test
             List<string> tag = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             string entitySearch = null; // TODO: replace null with proper value
@@ -391,7 +388,7 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
@@ -400,7 +397,7 @@ namespace CellStore.Test
             List<string> fiscalYear = null; // TODO: replace null with proper value
             List<string> fiscalPeriod = null; // TODO: replace null with proper value
             List<string> fiscalPeriodType = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             string additionalRules = null; // TODO: replace null with proper value
             bool? labels = null; // TODO: replace null with proper value
@@ -414,7 +411,7 @@ namespace CellStore.Test
             List<string> filingKind = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
-            string label = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
             string aggregationFunction = null; // TODO: replace null with proper value
             bool? validate = null; // TODO: replace null with proper value
             bool? merge = null; // TODO: replace null with proper value
@@ -440,14 +437,14 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> concept = null; // TODO: replace null with proper value
             List<string> fiscalYear = null; // TODO: replace null with proper value
             List<string> fiscalPeriod = null; // TODO: replace null with proper value
             List<string> fiscalPeriodType = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             bool? open = null; // TODO: replace null with proper value
             string report = null; // TODO: replace null with proper value
@@ -478,7 +475,7 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> concept = null; // TODO: replace null with proper value
@@ -521,14 +518,14 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'GetFilings'
             string token = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            string aid = null; // TODO: replace null with proper value
-            string eid = null; // TODO: replace null with proper value
+            List<string> aid = null; // TODO: replace null with proper value
+            List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             string language = null; // TODO: replace null with proper value
@@ -552,21 +549,21 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
-            string label = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
             string language = null; // TODO: replace null with proper value
-            string labelRole = null; // TODO: replace null with proper value
+            List<string> labelRole = null; // TODO: replace null with proper value
             bool? onlyTextBlocks = null; // TODO: replace null with proper value
-            string kind = null; // TODO: replace null with proper value
+            List<string> kind = null; // TODO: replace null with proper value
             bool? eliminateReportElementDuplicates = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
@@ -588,17 +585,17 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
-            string label = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
             string language = null; // TODO: replace null with proper value
             bool? indent = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
@@ -621,10 +618,10 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
@@ -647,10 +644,10 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
@@ -660,9 +657,9 @@ namespace CellStore.Test
             bool? builtin = null; // TODO: replace null with proper value
             bool? onlyNames = null; // TODO: replace null with proper value
             string report = null; // TODO: replace null with proper value
-            string label = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
             bool? onlyTextBlocks = null; // TODO: replace null with proper value
-            string kind = null; // TODO: replace null with proper value
+            List<string> kind = null; // TODO: replace null with proper value
             string language = null; // TODO: replace null with proper value
             string contentType = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
@@ -685,16 +682,16 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
-            string label = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
@@ -715,17 +712,17 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             List<string> filingKind = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
-            string label = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
             bool? validate = null; // TODO: replace null with proper value
             string language = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
@@ -748,7 +745,7 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
@@ -757,7 +754,7 @@ namespace CellStore.Test
             List<string> fiscalYear = null; // TODO: replace null with proper value
             List<string> fiscalPeriod = null; // TODO: replace null with proper value
             List<string> fiscalPeriodType = null; // TODO: replace null with proper value
-            string archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             string additionalRules = null; // TODO: replace null with proper value
             string auditTrails = null; // TODO: replace null with proper value
@@ -765,7 +762,7 @@ namespace CellStore.Test
             List<string> filingKind = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
-            string label = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
             string aggregationFunction = null; // TODO: replace null with proper value
             bool? validate = null; // TODO: replace null with proper value
             bool? merge = null; // TODO: replace null with proper value
@@ -795,7 +792,7 @@ namespace CellStore.Test
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<int?> edinetcode = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> tag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> fiscalYear = null; // TODO: replace null with proper value

@@ -121,6 +121,6 @@ gulp.task('swagger-dev', function(done){
         $.runSequence('swagger:resolve-dev', 'swagger:install-codegen-dev', 'swagger:generate-csharp', 'swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', done);  
 });
 
-gulp.task('default', ['swagger']); //Use released swagger-codegen and documentation
-//gulp.task('default', ['swagger-repository']); //Use released swagger-codegen and documentation committed in this repository
+//gulp.task('default', ['swagger']); //Use released swagger-codegen and documentation
+gulp.task('default', ['swagger-repository']); //Use released swagger-codegen and documentation committed in this repository
 //gulp.task('default', ['swagger-dev']); //Use local swagger-codegen and documentation
