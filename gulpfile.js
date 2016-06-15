@@ -62,7 +62,7 @@ gulp.task('swagger:generate-csharp', $.shell.task([
 
 gulp.task('swagger:csharp', $.shell.task([
     isWindows ? ':' : 'wget https://nuget.org/nuget.exe -O build-resources/nuget.exe',
-    isWindows ? ':' : 'mozroots --import --sync',
+    isWindows ? ':' : 'mozroots --import --sync --url http://anduin.linuxfromscratch.org/BLFS/other/certdata.txt',
     path.normalize(nugetCmd + ' install build/src/CellStore/packages.config -o build-resources/dependencies'),
     'mkdir -p build-binary/lib',
     'cp build-resources/dependencies/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll build-binary/lib/Newtonsoft.Json.dll',
@@ -121,6 +121,6 @@ gulp.task('swagger-dev', function(done){
         $.runSequence('swagger:resolve-dev', 'swagger:install-codegen-dev', 'swagger:generate-csharp', 'swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', done);  
 });
 
-//gulp.task('default', ['swagger']); //Use released swagger-codegen and documentation
-gulp.task('default', ['swagger-repository']); //Use released swagger-codegen and documentation committed in this repository
+gulp.task('default', ['swagger']); //Use released swagger-codegen and documentation
+//gulp.task('default', ['swagger-repository']); //Use released swagger-codegen and documentation committed in this repository
 //gulp.task('default', ['swagger-dev']); //Use local swagger-codegen and documentation

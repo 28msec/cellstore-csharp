@@ -413,6 +413,43 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteSectionWithHttpInfo (string token, string profileName = null, string aid = null, string section = null);
         /// <summary>
+        /// Update one or more entities with partial information
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <returns>Object</returns>
+        Object EditEntities (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null);
+
+        /// <summary>
+        /// Update one or more entities with partial information
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> EditEntitiesWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null);
+        /// <summary>
         /// Patch one or more facts
         /// </summary>
         /// <remarks>
@@ -495,6 +532,51 @@ namespace CellStore.Api
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> EditFactsWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
+        /// <summary>
+        /// Update one or more filings with partial information
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Object</returns>
+        Object EditFilings (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
+
+        /// <summary>
+        /// Update one or more filings with partial information
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> EditFilingsWithHttpInfo (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
         /// <summary>
         /// Retrieve a summary for all components of a given filing
         /// </summary>
@@ -1457,6 +1539,93 @@ namespace CellStore.Api
         /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetSpreadsheetForReportWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
+        /// <summary>
+        /// Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <returns>Object</returns>
+        Object ListDataPoints (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+
+        /// <summary>
+        /// Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> ListDataPointsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -1858,6 +2027,43 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, string aid = null, string section = null);
         /// <summary>
+        /// Update one or more entities with partial information
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> EditEntitiesAsync (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null);
+
+        /// <summary>
+        /// Update one or more entities with partial information
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> EditEntitiesAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null);
+        /// <summary>
         /// Patch one or more facts
         /// </summary>
         /// <remarks>
@@ -1940,6 +2146,51 @@ namespace CellStore.Api
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> EditFactsAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null);
+        /// <summary>
+        /// Update one or more filings with partial information
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> EditFilingsAsync (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
+
+        /// <summary>
+        /// Update one or more filings with partial information
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> EditFilingsAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null);
         /// <summary>
         /// Retrieve a summary for all components of a given filing
         /// </summary>
@@ -2902,6 +3153,93 @@ namespace CellStore.Api
         /// <param name="aggregationFunction">Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForReportAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> filingKind = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, string aggregationFunction = null);
+        /// <summary>
+        /// Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> ListDataPointsAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
+
+        /// <summary>
+        /// Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ListDataPointsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null);
         #endregion Asynchronous Operations
     }
 
@@ -5347,6 +5685,209 @@ namespace CellStore.Api
         }
 
         /// <summary>
+        /// Update one or more entities with partial information 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <returns>Object</returns>
+        public Object EditEntities (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null)
+        {
+             ApiResponse<Object> localVarResponse = EditEntitiesWithHttpInfo(token, patch, profileName, tag, eid, cik, edinetcode, sic, ticker);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Update one or more entities with partial information 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > EditEntitiesWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->EditEntities");
+            // verify the required parameter 'patch' is set
+            if (patch == null)
+                throw new ApiException(400, "Missing required parameter 'patch' when calling DataApi->EditEntities");
+
+            var localVarPath = "/api/entities";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
+            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
+            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
+                        if (patch != null && patch.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = patch; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling EditEntities: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling EditEntities: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Update one or more entities with partial information 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> EditEntitiesAsync (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null)
+        {
+             ApiResponse<Object> localVarResponse = await EditEntitiesAsyncWithHttpInfo(token, patch, profileName, tag, eid, cik, edinetcode, sic, ticker);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Update one or more entities with partial information 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> EditEntitiesAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->EditEntities");
+            // verify the required parameter 'patch' is set
+            if (patch == null)
+                throw new ApiException(400, "Missing required parameter 'patch' when calling DataApi->EditEntities");
+
+            var localVarPath = "/api/entities";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
+            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
+            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
+                        if (patch != null && patch.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = patch; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling EditEntities: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling EditEntities: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
         /// Patch one or more facts 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
@@ -5680,6 +6221,233 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
                 throw new ApiException (localVarStatusCode, "Error calling EditFacts: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling EditFacts: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Update one or more filings with partial information 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Object</returns>
+        public Object EditFilings (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+        {
+             ApiResponse<Object> localVarResponse = EditFilingsWithHttpInfo(token, patch, profileName, aid, tag, eid, cik, edinetcode, sic, ticker, archiveFiscalYear, archiveFiscalPeriod, filingKind);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Update one or more filings with partial information 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > EditFilingsWithHttpInfo (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->EditFilings");
+            // verify the required parameter 'patch' is set
+            if (patch == null)
+                throw new ApiException(400, "Missing required parameter 'patch' when calling DataApi->EditFilings");
+
+            var localVarPath = "/api/filings";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
+            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
+            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
+            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (filingKind != null) localVarQueryParams.Add("filingKind", Configuration.ApiClient.ParameterToString(filingKind)); // query parameter
+                        if (patch != null && patch.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = patch; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling EditFilings: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling EditFilings: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Update one or more filings with partial information 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> EditFilingsAsync (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+        {
+             ApiResponse<Object> localVarResponse = await EditFilingsAsyncWithHttpInfo(token, patch, profileName, aid, tag, eid, cik, edinetcode, sic, ticker, archiveFiscalYear, archiveFiscalPeriod, filingKind);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Update one or more filings with partial information 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> EditFilingsAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->EditFilings");
+            // verify the required parameter 'patch' is set
+            if (patch == null)
+                throw new ApiException(400, "Missing required parameter 'patch' when calling DataApi->EditFilings");
+
+            var localVarPath = "/api/filings";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
+            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
+            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
+            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (filingKind != null) localVarQueryParams.Add("filingKind", Configuration.ApiClient.ParameterToString(filingKind)); // query parameter
+                        if (patch != null && patch.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = patch; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling EditFilings: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling EditFilings: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -9574,6 +10342,339 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
                 throw new ApiException (localVarStatusCode, "Error calling GetSpreadsheetForReport: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling GetSpreadsheetForReport: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <returns>Object</returns>
+        public Object ListDataPoints (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        {
+             ApiResponse<Object> localVarResponse = ListDataPointsWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, labels, metadata, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, merge, language, _override, count, top, skip);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > ListDataPointsWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->ListDataPoints");
+
+            var localVarPath = "/api/data-points-for-component";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
+            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
+            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
+            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
+            if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
+            if (hypercube != null) localVarQueryParams.Add("hypercube", Configuration.ApiClient.ParameterToString(hypercube)); // query parameter
+            if (concept != null) localVarQueryParams.Add("concept", Configuration.ApiClient.ParameterToString(concept)); // query parameter
+            if (fiscalYear != null) localVarQueryParams.Add("fiscalYear", Configuration.ApiClient.ParameterToString(fiscalYear)); // query parameter
+            if (fiscalPeriod != null) localVarQueryParams.Add("fiscalPeriod", Configuration.ApiClient.ParameterToString(fiscalPeriod)); // query parameter
+            if (fiscalPeriodType != null) localVarQueryParams.Add("fiscalPeriodType", Configuration.ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
+            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (labels != null) localVarQueryParams.Add("labels", Configuration.ApiClient.ParameterToString(labels)); // query parameter
+            if (metadata != null) localVarQueryParams.Add("metadata", Configuration.ApiClient.ParameterToString(metadata)); // query parameter
+            if (open != null) localVarQueryParams.Add("open", Configuration.ApiClient.ParameterToString(open)); // query parameter
+            if (filingKind != null) localVarQueryParams.Add("filingKind", Configuration.ApiClient.ParameterToString(filingKind)); // query parameter
+            if (disclosure != null) localVarQueryParams.Add("disclosure", Configuration.ApiClient.ParameterToString(disclosure)); // query parameter
+            if (reportElement != null) localVarQueryParams.Add("reportElement", Configuration.ApiClient.ParameterToString(reportElement)); // query parameter
+            if (label != null) localVarQueryParams.Add("label", Configuration.ApiClient.ParameterToString(label)); // query parameter
+            if (merge != null) localVarQueryParams.Add("merge", Configuration.ApiClient.ParameterToString(merge)); // query parameter
+            if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
+            if (_override != null) localVarQueryParams.Add("override", Configuration.ApiClient.ParameterToString(_override)); // query parameter
+            if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
+            if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
+            if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
+            if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
+if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
+if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
+if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling ListDataPoints: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling ListDataPoints: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> ListDataPointsAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        {
+             ApiResponse<Object> localVarResponse = await ListDataPointsAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, labels, metadata, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, merge, language, _override, count, top, skip);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve filings, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="tag">The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
+        /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
+        /// <param name="concept">The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional, default to null)</param>
+        /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
+        /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
+        /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
+        /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
+        /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
+        /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
+        /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
+        /// <param name="filingKind">The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
+        /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
+        /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
+        /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
+        /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional, default to null)</param>
+        /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
+        /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
+        /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ListDataPointsAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->ListDataPoints");
+
+            var localVarPath = "/api/data-points-for-component";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
+            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
+            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (tag != null) localVarQueryParams.Add("tag", Configuration.ApiClient.ParameterToString(tag)); // query parameter
+            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
+            if (section != null) localVarQueryParams.Add("section", Configuration.ApiClient.ParameterToString(section)); // query parameter
+            if (hypercube != null) localVarQueryParams.Add("hypercube", Configuration.ApiClient.ParameterToString(hypercube)); // query parameter
+            if (concept != null) localVarQueryParams.Add("concept", Configuration.ApiClient.ParameterToString(concept)); // query parameter
+            if (fiscalYear != null) localVarQueryParams.Add("fiscalYear", Configuration.ApiClient.ParameterToString(fiscalYear)); // query parameter
+            if (fiscalPeriod != null) localVarQueryParams.Add("fiscalPeriod", Configuration.ApiClient.ParameterToString(fiscalPeriod)); // query parameter
+            if (fiscalPeriodType != null) localVarQueryParams.Add("fiscalPeriodType", Configuration.ApiClient.ParameterToString(fiscalPeriodType)); // query parameter
+            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (labels != null) localVarQueryParams.Add("labels", Configuration.ApiClient.ParameterToString(labels)); // query parameter
+            if (metadata != null) localVarQueryParams.Add("metadata", Configuration.ApiClient.ParameterToString(metadata)); // query parameter
+            if (open != null) localVarQueryParams.Add("open", Configuration.ApiClient.ParameterToString(open)); // query parameter
+            if (filingKind != null) localVarQueryParams.Add("filingKind", Configuration.ApiClient.ParameterToString(filingKind)); // query parameter
+            if (disclosure != null) localVarQueryParams.Add("disclosure", Configuration.ApiClient.ParameterToString(disclosure)); // query parameter
+            if (reportElement != null) localVarQueryParams.Add("reportElement", Configuration.ApiClient.ParameterToString(reportElement)); // query parameter
+            if (label != null) localVarQueryParams.Add("label", Configuration.ApiClient.ParameterToString(label)); // query parameter
+            if (merge != null) localVarQueryParams.Add("merge", Configuration.ApiClient.ParameterToString(merge)); // query parameter
+            if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
+            if (_override != null) localVarQueryParams.Add("override", Configuration.ApiClient.ParameterToString(_override)); // query parameter
+            if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
+            if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
+            if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
+            if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
+if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
+if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
+if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionSlicers, "^[^:]+:[^:]+::slicer$", localVarQueryParams); // pattern query parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling ListDataPoints: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling ListDataPoints: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
