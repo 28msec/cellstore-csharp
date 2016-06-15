@@ -7,6 +7,7 @@ dependencies:
     - echo -ne '\n' | sudo certmgr -ssl -m https://go.microsoft.com
     - echo -ne '\n' | sudo certmgr -ssl -m https://nugetgallery.blob.core.windows.net
     - echo -ne '\n' | sudo certmgr -ssl -m https://nuget.org
+    - echo $NUGET_API_KEY
 test:
   override:
     - gulp
