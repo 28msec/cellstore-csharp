@@ -4,7 +4,7 @@ machine:
 dependencies:
   pre:
     - sudo apt-get install mono-devel 
-    - sudo mozroots --import --machine --sync --url http://anduin.linuxfromscratch.org/BLFS/other/certdata.txt
+    - sudo mozroots --import --sync --url http://anduin.linuxfromscratch.org/BLFS/other/certdata.txt
     - echo -ne '\n' | sudo certmgr -ssl -m https://go.microsoft.com
     - echo -ne '\n' | sudo certmgr -ssl -m https://nugetgallery.blob.core.windows.net
     - echo -ne '\n' | sudo certmgr -ssl -m https://nuget.org
