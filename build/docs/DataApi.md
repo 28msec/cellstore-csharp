@@ -18,7 +18,9 @@ Method | HTTP request | Description
 [**DeleteModelStructureForComponent**](DataApi.md#deletemodelstructureforcomponent) | **DELETE** /api/modelstructure-for-component | Deletes a component including its model structure.
 [**DeleteReportElement**](DataApi.md#deletereportelement) | **DELETE** /api/report-elements | Deletes a report element.
 [**DeleteSection**](DataApi.md#deletesection) | **DELETE** /api/sections | Deletes a section.
+[**EditEntities**](DataApi.md#editentities) | **PATCH** /api/entities | Update one or more entities with partial information
 [**EditFacts**](DataApi.md#editfacts) | **PATCH** /api/facts | Patch one or more facts
+[**EditFilings**](DataApi.md#editfilings) | **PATCH** /api/filings | Update one or more filings with partial information
 [**GetComponents**](DataApi.md#getcomponents) | **GET** /api/components | Retrieve a summary for all components of a given filing
 [**GetEntities**](DataApi.md#getentities) | **GET** /api/entities | Retrieve metadata about the entities that submit filings. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
 [**GetFactTableForComponent**](DataApi.md#getfacttableforcomponent) | **GET** /api/facttable-for-component | Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
@@ -33,6 +35,7 @@ Method | HTTP request | Description
 [**GetSections**](DataApi.md#getsections) | **GET** /api/sections | Retrieve a summary for all sections of a given filing
 [**GetSpreadsheetForComponent**](DataApi.md#getspreadsheetforcomponent) | **GET** /api/spreadsheet-for-component | Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
 [**GetSpreadsheetForReport**](DataApi.md#getspreadsheetforreport) | **GET** /api/spreadsheet-for-report | Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
+[**ListDataPoints**](DataApi.md#listdatapoints) | **GET** /api/data-points-for-component | Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
 
 
 # **AddEntities**
@@ -965,6 +968,81 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **EditEntities**
+> Object EditEntities (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null)
+
+Update one or more entities with partial information
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using CellStore.Api;
+using CellStore.Client;
+using CellStore.Model;
+
+namespace Example
+{
+    public class EditEntitiesExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DataApi();
+            var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var patch = ;  // Object | The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed.  (default to null)
+            var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var tag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+
+            try
+            {
+                // Update one or more entities with partial information
+                Object result = apiInstance.EditEntities(token, patch, profileName, tag, eid, cik, edinetcode, sic, ticker);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DataApi.EditEntities: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **patch** | **Object**| The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed.  | [default to null]
+ **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **tag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **EditFacts**
 > Object EditFacts (string token, Object patch, string profileName = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
 
@@ -1070,6 +1148,89 @@ Name | Type | Description  | Notes
  **aggregationFunction** | **string**| Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. | [optional] [default to null]
  **validate** | **bool?**| Whether or not to stamp facts for validity (default is false). | [optional] [default to false]
  **count** | **bool?**| If true, only outputs statistics (default: false). | [optional] [default to false]
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **EditFilings**
+> Object EditFilings (string token, Object patch, string profileName = null, List<string> aid = null, List<string> tag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> filingKind = null)
+
+Update one or more filings with partial information
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using CellStore.Api;
+using CellStore.Client;
+using CellStore.Model;
+
+namespace Example
+{
+    public class EditFilingsExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DataApi();
+            var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var patch = ;  // Object | The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed.  (default to null)
+            var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var aid = new List<string>(); // List<string> | Archive IDs, to retrieve filings, sections, components or slice facts. (optional)  (default to null)
+            var tag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var filingKind = new List<string>(); // List<string> | The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional)  (default to null)
+
+            try
+            {
+                // Update one or more filings with partial information
+                Object result = apiInstance.EditFilings(token, patch, profileName, aid, tag, eid, cik, edinetcode, sic, ticker, archiveFiscalYear, archiveFiscalPeriod, filingKind);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DataApi.EditFilings: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **patch** | **Object**| The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed.  | [default to null]
+ **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve filings, sections, components or slice facts. | [optional] [default to null]
+ **tag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **filingKind** | [**List<string>**](string.md)| The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). | [optional] [default to null]
 
 ### Return type
 
@@ -2564,6 +2725,131 @@ Name | Type | Description  | Notes
  **_override** | **bool?**| Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). | [optional] [default to null]
  **open** | **bool?**| Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). | [optional] [default to false]
  **aggregationFunction** | **string**| Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. | [optional] [default to null]
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListDataPoints**
+> Object ListDataPoints (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> tag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> filingKind = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+
+Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using CellStore.Api;
+using CellStore.Client;
+using CellStore.Model;
+
+namespace Example
+{
+    public class ListDataPointsExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DataApi();
+            var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var aid = new List<string>(); // List<string> | Archive IDs, to retrieve filings, sections, components or slice facts. (optional)  (default to null)
+            var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var tag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. (optional)  (default to null)
+            var section = new List<string>(); // List<string> | The URI of a particular section, to retrieve a section, component or report element. (optional)  (default to null)
+            var hypercube = new List<string>(); // List<string> | The name of a hypercube report element, to retrieve components / sections. (optional)  (default to null)
+            var concept = new List<string>(); // List<string> | The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). (optional)  (default to null)
+            var fiscalYear = new List<string>(); // List<string> | A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional)  (default to null)
+            var fiscalPeriod = new List<string>(); // List<string> | A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional)  (default to null)
+            var fiscalPeriodType = new List<string>(); // List<string> | A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var labels = true;  // bool? | Whether human-readable labels should be included for concepts in each fact (default: false). (optional)  (default to false)
+            var metadata = true;  // bool? | Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional)  (default to false)
+            var open = true;  // bool? | Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional)  (default to false)
+            var dimensions = new Dictionary<string, List<string>>(); // Dictionary<string, List<string>> | A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional)  (default to null)
+            var dimensionsCategory = prefixdimensioncategory_example;  // Dictionary<string, string> | Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional)  (default to null)
+            var dimensionsVisible = true;  // Dictionary<string, bool?> | Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional)  (default to null)
+            var dimensionSlicers = true;  // Dictionary<string, bool?> | [Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional)  (default to null)
+            var filingKind = new List<string>(); // List<string> | The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). (optional)  (default to null)
+            var disclosure = new List<string>(); // List<string> | A disclosure, to identify sections or components (e.g. BalanceSheet). (optional)  (default to null)
+            var reportElement = new List<string>(); // List<string> | The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional)  (default to null)
+            var label = new List<string>(); // List<string> | A search term to search in the labels of components, to retrieve components (e.g. stock). (optional)  (default to null)
+            var merge = true;  // bool? | Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional)  (default to true)
+            var language = language_example;  // string | A language code (default: en-US) for displaying labels. (optional)  (default to null)
+            var _override = true;  // bool? | Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). (optional)  (default to null)
+            var count = true;  // bool? | If true, only outputs statistics (default: false). (optional)  (default to false)
+            var top = 56;  // int? | Output only the first [top] results (default: no limit). (optional)  (default to null)
+            var skip = 56;  // int? | Skip the first [skip] results. (optional)  (default to null)
+
+            try
+            {
+                // Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
+                Object result = apiInstance.ListDataPoints(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, labels, metadata, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, merge, language, _override, count, top, skip);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DataApi.ListDataPoints: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve filings, sections, components or slice facts. | [optional] [default to null]
+ **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **tag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, filings, sections, components or dice facts. | [optional] [default to null]
+ **section** | [**List<string>**](string.md)| The URI of a particular section, to retrieve a section, component or report element. | [optional] [default to null]
+ **hypercube** | [**List<string>**](string.md)| The name of a hypercube report element, to retrieve components / sections. | [optional] [default to null]
+ **concept** | [**List<string>**](string.md)| The name of a concept to dice facts (a synonym for the dimension xbrl:Concept). | [optional] [default to null]
+ **fiscalYear** | [**List<string>**](string.md)| A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). | [optional] [default to null]
+ **fiscalPeriod** | [**List<string>**](string.md)| A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). | [optional] [default to null]
+ **fiscalPeriodType** | [**List<string>**](string.md)| A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the filing, to retrieve filings, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **labels** | **bool?**| Whether human-readable labels should be included for concepts in each fact (default: false). | [optional] [default to false]
+ **metadata** | **bool?**| Whether metadata about the facts concept and dimensions should be included in each fact (default: false). | [optional] [default to false]
+ **open** | **bool?**| Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). | [optional] [default to false]
+ **dimensions** | [**Dictionary<string, List<string>>**](List&lt;string&gt;.md)| A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. | [optional] [default to null]
+ **dimensionsCategory** | **Dictionary<string, string>**| Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). | [optional] [default to null]
+ **dimensionsVisible** | **Dictionary<string, bool?>**| Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. | [optional] [default to null]
+ **dimensionSlicers** | **Dictionary<string, bool?>**| [Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). | [optional] [default to null]
+ **filingKind** | [**List<string>**](string.md)| The kind of the filing, to retrieve filings, sections, components or slice facts (default: no filtering). | [optional] [default to null]
+ **disclosure** | [**List<string>**](string.md)| A disclosure, to identify sections or components (e.g. BalanceSheet). | [optional] [default to null]
+ **reportElement** | [**List<string>**](string.md)| The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). | [optional] [default to null]
+ **label** | [**List<string>**](string.md)| A search term to search in the labels of components, to retrieve components (e.g. stock). | [optional] [default to null]
+ **merge** | **bool?**| Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). | [optional] [default to true]
+ **language** | **string**| A language code (default: en-US) for displaying labels. | [optional] [default to null]
+ **_override** | **bool?**| Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: automatically detected). | [optional] [default to null]
+ **count** | **bool?**| If true, only outputs statistics (default: false). | [optional] [default to false]
+ **top** | **int?**| Output only the first [top] results (default: no limit). | [optional] [default to null]
+ **skip** | **int?**| Skip the first [skip] results. | [optional] [default to null]
 
 ### Return type
 

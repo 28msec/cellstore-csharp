@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D432275-609B-4767-92AD-052E0E8BD1FF}</ProjectGuid>
+    <ProjectGuid>{AAF26B34-E57B-4298-81A5-2ACEE98B3C75}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Swagger Library</RootNamespace>

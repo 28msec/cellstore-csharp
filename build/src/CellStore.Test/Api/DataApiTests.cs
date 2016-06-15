@@ -274,6 +274,26 @@ namespace CellStore.Test
         }
         
         /// <summary>
+        /// Test EditEntities
+        /// </summary>
+        [Test]
+        public void EditEntitiesTest()
+        {
+            // TODO: add unit test for the method 'EditEntities'
+            string token = null; // TODO: replace null with proper value
+            Object patch = null; // TODO: replace null with proper value
+            string profileName = null; // TODO: replace null with proper value
+            List<string> tag = null; // TODO: replace null with proper value
+            List<string> eid = null; // TODO: replace null with proper value
+            List<string> cik = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
+            List<string> sic = null; // TODO: replace null with proper value
+            List<string> ticker = null; // TODO: replace null with proper value
+            var response = instance.EditEntities(token, patch, profileName, tag, eid, cik, edinetcode, sic, ticker);
+            Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
         /// Test EditFacts
         /// </summary>
         [Test]
@@ -313,6 +333,30 @@ namespace CellStore.Test
             bool? validate = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
             var response = instance.EditFacts(token, patch, profileName, tag, eid, cik, edinetcode, sic, ticker, aid, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count);
+            Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
+        /// Test EditFilings
+        /// </summary>
+        [Test]
+        public void EditFilingsTest()
+        {
+            // TODO: add unit test for the method 'EditFilings'
+            string token = null; // TODO: replace null with proper value
+            Object patch = null; // TODO: replace null with proper value
+            string profileName = null; // TODO: replace null with proper value
+            List<string> aid = null; // TODO: replace null with proper value
+            List<string> tag = null; // TODO: replace null with proper value
+            List<string> eid = null; // TODO: replace null with proper value
+            List<string> cik = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
+            List<string> sic = null; // TODO: replace null with proper value
+            List<string> ticker = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
+            List<string> filingKind = null; // TODO: replace null with proper value
+            var response = instance.EditFilings(token, patch, profileName, aid, tag, eid, cik, edinetcode, sic, ticker, archiveFiscalYear, archiveFiscalPeriod, filingKind);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -815,6 +859,51 @@ namespace CellStore.Test
             bool? open = null; // TODO: replace null with proper value
             string aggregationFunction = null; // TODO: replace null with proper value
             var response = instance.GetSpreadsheetForReport(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, filingKind, archiveFiscalYear, archiveFiscalPeriod, _override, open, aggregationFunction);
+            Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
+        /// Test ListDataPoints
+        /// </summary>
+        [Test]
+        public void ListDataPointsTest()
+        {
+            // TODO: add unit test for the method 'ListDataPoints'
+            string token = null; // TODO: replace null with proper value
+            string profileName = null; // TODO: replace null with proper value
+            List<string> aid = null; // TODO: replace null with proper value
+            List<string> eid = null; // TODO: replace null with proper value
+            List<string> cik = null; // TODO: replace null with proper value
+            List<string> ticker = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
+            List<string> tag = null; // TODO: replace null with proper value
+            List<string> sic = null; // TODO: replace null with proper value
+            List<string> section = null; // TODO: replace null with proper value
+            List<string> hypercube = null; // TODO: replace null with proper value
+            List<string> concept = null; // TODO: replace null with proper value
+            List<string> fiscalYear = null; // TODO: replace null with proper value
+            List<string> fiscalPeriod = null; // TODO: replace null with proper value
+            List<string> fiscalPeriodType = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
+            bool? labels = null; // TODO: replace null with proper value
+            bool? metadata = null; // TODO: replace null with proper value
+            bool? open = null; // TODO: replace null with proper value
+            Dictionary<string, List<string>> dimensions = null; // TODO: replace null with proper value
+            Dictionary<string, string> dimensionsCategory = null; // TODO: replace null with proper value
+            Dictionary<string, bool?> dimensionsVisible = null; // TODO: replace null with proper value
+            Dictionary<string, bool?> dimensionSlicers = null; // TODO: replace null with proper value
+            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> disclosure = null; // TODO: replace null with proper value
+            List<string> reportElement = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
+            bool? merge = null; // TODO: replace null with proper value
+            string language = null; // TODO: replace null with proper value
+            bool? _override = null; // TODO: replace null with proper value
+            bool? count = null; // TODO: replace null with proper value
+            int? top = null; // TODO: replace null with proper value
+            int? skip = null; // TODO: replace null with proper value
+            var response = instance.ListDataPoints(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, labels, metadata, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, merge, language, _override, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
