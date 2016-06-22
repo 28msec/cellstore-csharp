@@ -9,3 +9,5 @@ samples/*/*/*.dll
 samples/*/*/*.exe
 .idea
 *.nupkg
+
+*.swp
