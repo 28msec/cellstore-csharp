@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace GetFacts
+namespace GetRules
 {
   class Program
   {
@@ -23,7 +23,11 @@ namespace GetFacts
             token: token,
             aid: new List<string> {"12001_90_16__20140630"}
         );
-
+		foreach(dynamic rule in result["Rules"]){
+			foreach (dynamic filter in rule["XBRLFormula"]["VariableSetFilters"]) {
+				Console.WriteLine (filter);		
+			}
+		}
     }
   }
 }
