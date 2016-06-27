@@ -62,7 +62,6 @@ gulp.task('swagger:generate-csharp', $.shell.task([
 
 gulp.task('swagger:csharp', $.shell.task([
     isWindows ? ':' : 'wget https://nuget.org/nuget.exe -O build-resources/nuget.exe',
-    isWindows ? ':' : 'mozroots --import --sync --url http://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt',
     path.normalize(nugetCmd + ' install build/src/CellStore/packages.config -o build-resources/dependencies'),
     'mkdir -p build-binary/lib',
     'cp build-resources/dependencies/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll build-binary/lib/Newtonsoft.Json.dll',
