@@ -72,7 +72,7 @@ gulp.task('swagger:csharp', $.shell.task([
 gulp.task('swagger:test', $.shell.task([
     path.normalize(compileCmd + ' -r:build-binary/lib/Newtonsoft.Json.dll,build-binary/lib/RestSharp.dll,build-binary/CellStore.dll,System.Runtime.Serialization.dll -out:samples/GetFacts/GetFacts/Program.exe samples/GetFacts/GetFacts/Program.cs'),
     path.normalize(compileCmd + ' -r:build-binary/lib/Newtonsoft.Json.dll,build-binary/lib/RestSharp.dll,build-binary/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddFacts/AddFacts/Program.exe samples/AddFacts/AddFacts/Program.cs'),
-    path.normalize(compileCmd + ' -r:build-binary/lib/Newtonsoft.Json.dll,build-binary/lib/RestSharp.dll,build-binary/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddFiling/AddFiling/Program.exe samples/AddFiling/AddFiling/Program.cs'),
+    path.normalize(compileCmd + ' -r:build-binary/lib/Newtonsoft.Json.dll,build-binary/lib/RestSharp.dll,build-binary/CellStore.dll,System.Runtime.Serialization.dll -out:samples/AddArchives/AddArchives/Program.exe samples/AddArchives/AddArchives/Program.cs'),
     'cp build-binary/lib/*.dll samples/GetFacts/GetFacts',
     'cp build-binary/*.dll samples/GetFacts/GetFacts',
     isWindows ? 'cd samples/GetFacts/GetFacts && Program.exe' : 'mono samples/GetFacts/GetFacts/Program.exe'

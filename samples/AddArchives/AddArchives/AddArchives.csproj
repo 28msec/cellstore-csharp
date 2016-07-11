@@ -7,8 +7,8 @@
     <ProjectGuid>{FDF3C231-1741-49F9-B858-D671233B832E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AddFiling</RootNamespace>
-    <AssemblyName>AddFiling</AssemblyName>
+    <RootNamespace>AddArchives</RootNamespace>
+    <AssemblyName>AddArchives</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
