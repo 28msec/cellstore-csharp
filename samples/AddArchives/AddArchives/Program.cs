@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace GetFacts
+namespace AddArchives
 {
   class Program
   {
@@ -25,7 +25,7 @@ namespace GetFacts
        
       byte[] filing = File.ReadAllBytes(@"filing.zip");
 
-      dynamic result = dataAPI.AddFilings(token: token, filing: filing, contentType: "application/xbrlx", profileName: "SEC");
+      dynamic result = dataAPI.AddArchives(token: token, filing: filing, contentType: "application/xbrlx", profileName: "SEC");
 
       Console.WriteLine(JsonConvert.SerializeObject(result));
       Console.ReadKey();

@@ -54,6 +54,25 @@ namespace CellStore.Test
 
         
         /// <summary>
+        /// Test AddArchives
+        /// </summary>
+        [Test]
+        public void AddArchivesTest()
+        {
+            // TODO: add unit test for the method 'AddArchives'
+            string token = null; // TODO: replace null with proper value
+            Object filing = null; // TODO: replace null with proper value
+            string profileName = null; // TODO: replace null with proper value
+            string aid = null; // TODO: replace null with proper value
+            string filingDetectionProfileName = null; // TODO: replace null with proper value
+            bool? taxonomy = null; // TODO: replace null with proper value
+            bool? insertEntity = null; // TODO: replace null with proper value
+            string contentType = null; // TODO: replace null with proper value
+            var response = instance.AddArchives(token, filing, profileName, aid, filingDetectionProfileName, taxonomy, insertEntity, contentType);
+            Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
         /// Test AddEntities
         /// </summary>
         [Test]
@@ -76,25 +95,6 @@ namespace CellStore.Test
             string token = null; // TODO: replace null with proper value
             Object fact = null; // TODO: replace null with proper value
             var response = instance.AddFacts(token, fact);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
-        }
-        
-        /// <summary>
-        /// Test AddFilings
-        /// </summary>
-        [Test]
-        public void AddFilingsTest()
-        {
-            // TODO: add unit test for the method 'AddFilings'
-            string token = null; // TODO: replace null with proper value
-            Object filing = null; // TODO: replace null with proper value
-            string profileName = null; // TODO: replace null with proper value
-            string aid = null; // TODO: replace null with proper value
-            string filingDetectionProfileName = null; // TODO: replace null with proper value
-            bool? taxonomy = null; // TODO: replace null with proper value
-            bool? insertEntity = null; // TODO: replace null with proper value
-            string contentType = null; // TODO: replace null with proper value
-            var response = instance.AddFilings(token, filing, profileName, aid, filingDetectionProfileName, taxonomy, insertEntity, contentType);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -200,12 +200,12 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
-            var response = instance.DeleteFiling(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind);
+            List<string> archiveTag = null; // TODO: replace null with proper value
+            var response = instance.DeleteFiling(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -274,6 +274,30 @@ namespace CellStore.Test
         }
         
         /// <summary>
+        /// Test EditArchives
+        /// </summary>
+        [Test]
+        public void EditArchivesTest()
+        {
+            // TODO: add unit test for the method 'EditArchives'
+            string token = null; // TODO: replace null with proper value
+            Object patch = null; // TODO: replace null with proper value
+            string profileName = null; // TODO: replace null with proper value
+            List<string> aid = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
+            List<string> eid = null; // TODO: replace null with proper value
+            List<string> cik = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
+            List<string> sic = null; // TODO: replace null with proper value
+            List<string> ticker = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
+            var response = instance.EditArchives(token, patch, profileName, aid, entityTag, eid, cik, edinetcode, sic, ticker, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
+            Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
         /// Test EditEntities
         /// </summary>
         [Test]
@@ -283,13 +307,13 @@ namespace CellStore.Test
             string token = null; // TODO: replace null with proper value
             Object patch = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            var response = instance.EditEntities(token, patch, profileName, tag, eid, cik, edinetcode, sic, ticker);
+            var response = instance.EditEntities(token, patch, profileName, entityTag, eid, cik, edinetcode, sic, ticker);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -303,7 +327,7 @@ namespace CellStore.Test
             string token = null; // TODO: replace null with proper value
             Object patch = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
@@ -332,31 +356,34 @@ namespace CellStore.Test
             string aggregationFunction = null; // TODO: replace null with proper value
             bool? validate = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
-            var response = instance.EditFacts(token, patch, profileName, tag, eid, cik, edinetcode, sic, ticker, aid, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count);
+            var response = instance.EditFacts(token, patch, profileName, entityTag, eid, cik, edinetcode, sic, ticker, aid, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>
-        /// Test EditFilings
+        /// Test GetArchives
         /// </summary>
         [Test]
-        public void EditFilingsTest()
+        public void GetArchivesTest()
         {
-            // TODO: add unit test for the method 'EditFilings'
+            // TODO: add unit test for the method 'GetArchives'
             string token = null; // TODO: replace null with proper value
-            Object patch = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
             List<string> aid = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
-            List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> sic = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
+            List<string> sic = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
-            var response = instance.EditFilings(token, patch, profileName, aid, tag, eid, cik, edinetcode, sic, ticker, archiveFiscalYear, archiveFiscalPeriod, filingKind);
+            List<string> archiveTag = null; // TODO: replace null with proper value
+            string language = null; // TODO: replace null with proper value
+            bool? count = null; // TODO: replace null with proper value
+            int? top = null; // TODO: replace null with proper value
+            int? skip = null; // TODO: replace null with proper value
+            var response = instance.GetArchives(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -371,13 +398,13 @@ namespace CellStore.Test
             string profileName = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             List<string> aid = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
@@ -389,7 +416,52 @@ namespace CellStore.Test
             int? skip = null; // TODO: replace null with proper value
             bool? validate = null; // TODO: replace null with proper value
             string language = null; // TODO: replace null with proper value
-            var response = instance.GetComponents(token, profileName, eid, ticker, tag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, filingKind, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language);
+            var response = instance.GetComponents(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language);
+            Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
+        /// Test GetDataPointsForComponent
+        /// </summary>
+        [Test]
+        public void GetDataPointsForComponentTest()
+        {
+            // TODO: add unit test for the method 'GetDataPointsForComponent'
+            string token = null; // TODO: replace null with proper value
+            string profileName = null; // TODO: replace null with proper value
+            List<string> aid = null; // TODO: replace null with proper value
+            List<string> eid = null; // TODO: replace null with proper value
+            List<string> cik = null; // TODO: replace null with proper value
+            List<string> ticker = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
+            List<string> sic = null; // TODO: replace null with proper value
+            List<string> section = null; // TODO: replace null with proper value
+            List<string> hypercube = null; // TODO: replace null with proper value
+            List<string> concept = null; // TODO: replace null with proper value
+            List<string> fiscalYear = null; // TODO: replace null with proper value
+            List<string> fiscalPeriod = null; // TODO: replace null with proper value
+            List<string> fiscalPeriodType = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
+            bool? labels = null; // TODO: replace null with proper value
+            bool? metadata = null; // TODO: replace null with proper value
+            bool? open = null; // TODO: replace null with proper value
+            Dictionary<string, List<string>> dimensions = null; // TODO: replace null with proper value
+            Dictionary<string, string> dimensionsCategory = null; // TODO: replace null with proper value
+            Dictionary<string, bool?> dimensionsVisible = null; // TODO: replace null with proper value
+            Dictionary<string, bool?> dimensionSlicers = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
+            List<string> disclosure = null; // TODO: replace null with proper value
+            List<string> reportElement = null; // TODO: replace null with proper value
+            List<string> label = null; // TODO: replace null with proper value
+            bool? merge = null; // TODO: replace null with proper value
+            string language = null; // TODO: replace null with proper value
+            bool? _override = null; // TODO: replace null with proper value
+            bool? count = null; // TODO: replace null with proper value
+            int? top = null; // TODO: replace null with proper value
+            int? skip = null; // TODO: replace null with proper value
+            var response = instance.GetDataPointsForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, labels, metadata, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, archiveTag, disclosure, reportElement, label, merge, language, _override, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -402,7 +474,7 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'GetEntities'
             string token = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
@@ -415,7 +487,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetEntities(token, profileName, tag, eid, cik, edinetcode, sic, ticker, entitySearch, entitySearchOffset, entitySearchLimit, language, count, top, skip);
+            var response = instance.GetEntities(token, profileName, entityTag, eid, cik, edinetcode, sic, ticker, entitySearch, entitySearchOffset, entitySearchLimit, language, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -433,7 +505,7 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
@@ -452,7 +524,7 @@ namespace CellStore.Test
             Dictionary<string, string> dimensionsCategory = null; // TODO: replace null with proper value
             Dictionary<string, bool?> dimensionsVisible = null; // TODO: replace null with proper value
             Dictionary<string, bool?> dimensionSlicers = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
             List<string> label = null; // TODO: replace null with proper value
@@ -464,7 +536,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetFactTableForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, count, top, skip);
+            var response = instance.GetFactTableForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, archiveTag, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -482,7 +554,7 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> concept = null; // TODO: replace null with proper value
             List<string> fiscalYear = null; // TODO: replace null with proper value
@@ -502,7 +574,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetFactTableForReport(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, open, report, labels, metadata, auditTrails, language, aggregationFunction, validate, _override, count, top, skip);
+            var response = instance.GetFactTableForReport(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, open, report, labels, metadata, auditTrails, language, aggregationFunction, validate, _override, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -520,7 +592,7 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> concept = null; // TODO: replace null with proper value
             List<string> fiscalYear = null; // TODO: replace null with proper value
@@ -549,34 +621,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetFacts(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count, top, skip);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
-        }
-        
-        /// <summary>
-        /// Test GetFilings
-        /// </summary>
-        [Test]
-        public void GetFilingsTest()
-        {
-            // TODO: add unit test for the method 'GetFilings'
-            string token = null; // TODO: replace null with proper value
-            string profileName = null; // TODO: replace null with proper value
-            List<string> aid = null; // TODO: replace null with proper value
-            List<string> eid = null; // TODO: replace null with proper value
-            List<string> cik = null; // TODO: replace null with proper value
-            List<string> ticker = null; // TODO: replace null with proper value
-            List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
-            List<string> sic = null; // TODO: replace null with proper value
-            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
-            List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
-            string language = null; // TODO: replace null with proper value
-            bool? count = null; // TODO: replace null with proper value
-            int? top = null; // TODO: replace null with proper value
-            int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetFilings(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, language, count, top, skip);
+            var response = instance.GetFacts(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -594,11 +639,11 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
@@ -612,7 +657,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetLabels(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, labelRole, onlyTextBlocks, kind, eliminateReportElementDuplicates, count, top, skip);
+            var response = instance.GetLabels(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, language, labelRole, onlyTextBlocks, kind, eliminateReportElementDuplicates, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -630,11 +675,11 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
@@ -645,7 +690,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetModelStructureForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
+            var response = instance.GetModelStructureForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -663,15 +708,15 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetPeriods(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, count, top, skip);
+            var response = instance.GetPeriods(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -689,11 +734,11 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
@@ -709,7 +754,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetReportElements(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
+            var response = instance.GetReportElements(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -727,11 +772,11 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
@@ -739,7 +784,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetRules(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, disclosure, reportElement, label, count, top, skip);
+            var response = instance.GetRules(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, disclosure, reportElement, label, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -757,11 +802,11 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
@@ -772,7 +817,7 @@ namespace CellStore.Test
             bool? count = null; // TODO: replace null with proper value
             int? top = null; // TODO: replace null with proper value
             int? skip = null; // TODO: replace null with proper value
-            var response = instance.GetSections(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, archiveFiscalYear, archiveFiscalPeriod, filingKind, section, hypercube, disclosure, reportElement, label, validate, language, count, top, skip);
+            var response = instance.GetSections(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, validate, language, count, top, skip);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -790,7 +835,7 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> section = null; // TODO: replace null with proper value
             List<string> hypercube = null; // TODO: replace null with proper value
@@ -803,7 +848,11 @@ namespace CellStore.Test
             string additionalRules = null; // TODO: replace null with proper value
             string auditTrails = null; // TODO: replace null with proper value
             bool? open = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
+            Dictionary<string, List<string>> dimensions = null; // TODO: replace null with proper value
+            Dictionary<string, string> dimensionsCategory = null; // TODO: replace null with proper value
+            Dictionary<string, bool?> dimensionsVisible = null; // TODO: replace null with proper value
+            Dictionary<string, bool?> dimensionSlicers = null; // TODO: replace null with proper value
             List<string> disclosure = null; // TODO: replace null with proper value
             List<string> reportElement = null; // TODO: replace null with proper value
             List<string> label = null; // TODO: replace null with proper value
@@ -819,7 +868,7 @@ namespace CellStore.Test
             List<int?> row = null; // TODO: replace null with proper value
             List<int?> column = null; // TODO: replace null with proper value
             bool? flattenRowHeaders = null; // TODO: replace null with proper value
-            var response = instance.GetSpreadsheetForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, filingKind, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders);
+            var response = instance.GetSpreadsheetForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -837,7 +886,7 @@ namespace CellStore.Test
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
             List<string> sic = null; // TODO: replace null with proper value
             List<string> fiscalYear = null; // TODO: replace null with proper value
             List<string> fiscalPeriod = null; // TODO: replace null with proper value
@@ -852,58 +901,17 @@ namespace CellStore.Test
             List<int?> row = null; // TODO: replace null with proper value
             List<int?> column = null; // TODO: replace null with proper value
             bool? flattenRowHeaders = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
             List<string> archiveFiscalYear = null; // TODO: replace null with proper value
             List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
             bool? _override = null; // TODO: replace null with proper value
-            bool? open = null; // TODO: replace null with proper value
-            string aggregationFunction = null; // TODO: replace null with proper value
-            var response = instance.GetSpreadsheetForReport(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, filingKind, archiveFiscalYear, archiveFiscalPeriod, _override, open, aggregationFunction);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
-        }
-        
-        /// <summary>
-        /// Test ListDataPoints
-        /// </summary>
-        [Test]
-        public void ListDataPointsTest()
-        {
-            // TODO: add unit test for the method 'ListDataPoints'
-            string token = null; // TODO: replace null with proper value
-            string profileName = null; // TODO: replace null with proper value
-            List<string> aid = null; // TODO: replace null with proper value
-            List<string> eid = null; // TODO: replace null with proper value
-            List<string> cik = null; // TODO: replace null with proper value
-            List<string> ticker = null; // TODO: replace null with proper value
-            List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> tag = null; // TODO: replace null with proper value
-            List<string> sic = null; // TODO: replace null with proper value
-            List<string> section = null; // TODO: replace null with proper value
-            List<string> hypercube = null; // TODO: replace null with proper value
-            List<string> concept = null; // TODO: replace null with proper value
-            List<string> fiscalYear = null; // TODO: replace null with proper value
-            List<string> fiscalPeriod = null; // TODO: replace null with proper value
-            List<string> fiscalPeriodType = null; // TODO: replace null with proper value
-            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
-            List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            bool? labels = null; // TODO: replace null with proper value
-            bool? metadata = null; // TODO: replace null with proper value
             bool? open = null; // TODO: replace null with proper value
             Dictionary<string, List<string>> dimensions = null; // TODO: replace null with proper value
             Dictionary<string, string> dimensionsCategory = null; // TODO: replace null with proper value
             Dictionary<string, bool?> dimensionsVisible = null; // TODO: replace null with proper value
             Dictionary<string, bool?> dimensionSlicers = null; // TODO: replace null with proper value
-            List<string> filingKind = null; // TODO: replace null with proper value
-            List<string> disclosure = null; // TODO: replace null with proper value
-            List<string> reportElement = null; // TODO: replace null with proper value
-            List<string> label = null; // TODO: replace null with proper value
-            bool? merge = null; // TODO: replace null with proper value
-            string language = null; // TODO: replace null with proper value
-            bool? _override = null; // TODO: replace null with proper value
-            bool? count = null; // TODO: replace null with proper value
-            int? top = null; // TODO: replace null with proper value
-            int? skip = null; // TODO: replace null with proper value
-            var response = instance.ListDataPoints(token, profileName, aid, eid, cik, ticker, edinetcode, tag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, labels, metadata, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, filingKind, disclosure, reportElement, label, merge, language, _override, count, top, skip);
+            string aggregationFunction = null; // TODO: replace null with proper value
+            var response = instance.GetSpreadsheetForReport(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, archiveTag, archiveFiscalYear, archiveFiscalPeriod, _override, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, aggregationFunction);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
