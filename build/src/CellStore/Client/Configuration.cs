@@ -275,7 +275,7 @@ namespace CellStore.Client
                      .GetExecutingAssembly()
                      .GetReferencedAssemblies()
                      .Where(x => x.Name == "System.Core").First().Version.ToString()  + "\n";
-            report += "    Version of the API: vX.X.X\n";
+            report += "    Version of the API: v24.0.1\n";
             report += "    SDK Package Version: 1.0.0\n";
 
             return report;

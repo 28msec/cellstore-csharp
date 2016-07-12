@@ -15,40 +15,40 @@ namespace CellStore.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
-        /// <param name="filingDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object AddArchives (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        Object AddArchives (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
-        /// <param name="filingDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> AddArchivesWithHttpInfo (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        ApiResponse<Object> AddArchivesWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
         /// <summary>
         /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
@@ -73,7 +73,7 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddEntitiesWithHttpInfo (string token, Object entity);
         /// <summary>
-        /// Add a fact to a filing.
+        /// Add a fact to a archive.
         /// </summary>
         /// <remarks>
         /// 
@@ -85,7 +85,7 @@ namespace CellStore.Api
         Object AddFacts (string token, Object fact);
 
         /// <summary>
-        /// Add a fact to a filing.
+        /// Add a fact to a archive.
         /// </summary>
         /// <remarks>
         /// 
@@ -192,7 +192,7 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddSectionsWithHttpInfo (string token, Object section, string profileName = null);
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
         /// </summary>
         /// <remarks>
         /// 
@@ -202,13 +202,13 @@ namespace CellStore.Api
         /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Object</returns>
         Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
         /// </summary>
         /// <remarks>
         /// 
@@ -218,10 +218,53 @@ namespace CellStore.Api
         /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        /// <summary>
+        /// Deletes an archive.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Object</returns>
+        Object DeleteArchive (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
+
+        /// <summary>
+        /// Deletes an archive.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> DeleteArchiveWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
         /// <summary>
         /// Deletes an entity.
         /// </summary>
@@ -254,49 +297,6 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteEntityWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> ticker = null);
         /// <summary>
-        /// Deletes a filing.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <returns>Object</returns>
-        Object DeleteFiling (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
-
-        /// <summary>
-        /// Deletes a filing.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> DeleteFilingWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
-        /// <summary>
         /// Deletes a label.
         /// </summary>
         /// <remarks>
@@ -305,7 +305,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
@@ -322,7 +322,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
@@ -365,7 +365,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Object</returns>
@@ -380,7 +380,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
@@ -394,7 +394,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <returns>Object</returns>
         Object DeleteSection (string token, string profileName = null, string aid = null, string section = null);
@@ -408,7 +408,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> DeleteSectionWithHttpInfo (string token, string profileName = null, string aid = null, string section = null);
@@ -420,7 +420,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="patch">The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed. </param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
@@ -429,9 +429,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Object</returns>
         Object EditArchives (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
 
@@ -443,7 +443,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="patch">The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed. </param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
@@ -452,9 +452,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> EditArchivesWithHttpInfo (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
         /// <summary>
@@ -515,8 +515,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -557,8 +557,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -593,9 +593,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
@@ -619,9 +619,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
@@ -629,7 +629,7 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetArchivesWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null);
         /// <summary>
-        /// Retrieve a summary for all components of a given filing
+        /// Retrieve a summary for all components of a given archive
         /// </summary>
         /// <remarks>
         /// 
@@ -643,9 +643,9 @@ namespace CellStore.Api
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
@@ -661,7 +661,7 @@ namespace CellStore.Api
         Object GetComponents (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
 
         /// <summary>
-        /// Retrieve a summary for all components of a given filing
+        /// Retrieve a summary for all components of a given archive
         /// </summary>
         /// <remarks>
         /// 
@@ -675,9 +675,9 @@ namespace CellStore.Api
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
@@ -713,8 +713,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
@@ -722,7 +722,7 @@ namespace CellStore.Api
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -757,8 +757,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
@@ -766,7 +766,7 @@ namespace CellStore.Api
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -849,8 +849,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
@@ -860,7 +860,7 @@ namespace CellStore.Api
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -897,8 +897,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
@@ -908,7 +908,7 @@ namespace CellStore.Api
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -942,8 +942,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
@@ -979,8 +979,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
@@ -1015,8 +1015,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -1061,8 +1061,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -1102,9 +1102,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -1137,9 +1137,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -1171,9 +1171,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -1203,9 +1203,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -1234,9 +1234,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
@@ -1259,9 +1259,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
@@ -1283,9 +1283,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -1320,9 +1320,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -1356,9 +1356,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
@@ -1385,9 +1385,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
@@ -1398,7 +1398,7 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetRulesWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null);
         /// <summary>
-        /// Retrieve a summary for all sections of a given filing
+        /// Retrieve a summary for all sections of a given archive
         /// </summary>
         /// <remarks>
         /// 
@@ -1413,9 +1413,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -1430,7 +1430,7 @@ namespace CellStore.Api
         Object GetSections (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
-        /// Retrieve a summary for all sections of a given filing
+        /// Retrieve a summary for all sections of a given archive
         /// </summary>
         /// <remarks>
         /// 
@@ -1445,9 +1445,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -1482,12 +1482,12 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
@@ -1532,12 +1532,12 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
@@ -1588,9 +1588,9 @@ namespace CellStore.Api
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional, default to null)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
@@ -1630,9 +1630,9 @@ namespace CellStore.Api
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional, default to null)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
@@ -1645,40 +1645,40 @@ namespace CellStore.Api
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
-        /// <param name="filingDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> AddArchivesAsync (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        System.Threading.Tasks.Task<Object> AddArchivesAsync (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
-        /// <param name="filingDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> AddArchivesAsyncWithHttpInfo (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddArchivesAsyncWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
         /// <summary>
         /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
@@ -1703,7 +1703,7 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddEntitiesAsyncWithHttpInfo (string token, Object entity);
         /// <summary>
-        /// Add a fact to a filing.
+        /// Add a fact to a archive.
         /// </summary>
         /// <remarks>
         /// 
@@ -1715,7 +1715,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddFactsAsync (string token, Object fact);
 
         /// <summary>
-        /// Add a fact to a filing.
+        /// Add a fact to a archive.
         /// </summary>
         /// <remarks>
         /// 
@@ -1822,7 +1822,7 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddSectionsAsyncWithHttpInfo (string token, Object section, string profileName = null);
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
         /// </summary>
         /// <remarks>
         /// 
@@ -1832,13 +1832,13 @@ namespace CellStore.Api
         /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of Object</returns>
         System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID). 
+        /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
         /// </summary>
         /// <remarks>
         /// 
@@ -1848,10 +1848,53 @@ namespace CellStore.Api
         /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        /// <summary>
+        /// Deletes an archive.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> DeleteArchiveAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
+
+        /// <summary>
+        /// Deletes an archive.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteArchiveAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
         /// <summary>
         /// Deletes an entity.
         /// </summary>
@@ -1884,49 +1927,6 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteEntityAsyncWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> ticker = null);
         /// <summary>
-        /// Deletes a filing.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> DeleteFilingAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
-
-        /// <summary>
-        /// Deletes a filing.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteFilingAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
-        /// <summary>
         /// Deletes a label.
         /// </summary>
         /// <remarks>
@@ -1935,7 +1935,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
@@ -1952,7 +1952,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
@@ -1995,7 +1995,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
@@ -2010,7 +2010,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
@@ -2024,7 +2024,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
         System.Threading.Tasks.Task<Object> DeleteSectionAsync (string token, string profileName = null, string aid = null, string section = null);
@@ -2038,7 +2038,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, string aid = null, string section = null);
@@ -2050,7 +2050,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="patch">The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed. </param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
@@ -2059,9 +2059,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
         System.Threading.Tasks.Task<Object> EditArchivesAsync (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
 
@@ -2073,7 +2073,7 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="patch">The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed. </param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
@@ -2082,9 +2082,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> EditArchivesAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null);
         /// <summary>
@@ -2145,8 +2145,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -2187,8 +2187,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -2223,9 +2223,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
@@ -2249,9 +2249,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
@@ -2259,7 +2259,7 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetArchivesAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null);
         /// <summary>
-        /// Retrieve a summary for all components of a given filing
+        /// Retrieve a summary for all components of a given archive
         /// </summary>
         /// <remarks>
         /// 
@@ -2273,9 +2273,9 @@ namespace CellStore.Api
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
@@ -2291,7 +2291,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> GetComponentsAsync (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null);
 
         /// <summary>
-        /// Retrieve a summary for all components of a given filing
+        /// Retrieve a summary for all components of a given archive
         /// </summary>
         /// <remarks>
         /// 
@@ -2305,9 +2305,9 @@ namespace CellStore.Api
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
@@ -2343,8 +2343,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
@@ -2352,7 +2352,7 @@ namespace CellStore.Api
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -2387,8 +2387,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
@@ -2396,7 +2396,7 @@ namespace CellStore.Api
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -2479,8 +2479,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
@@ -2490,7 +2490,7 @@ namespace CellStore.Api
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -2527,8 +2527,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
@@ -2538,7 +2538,7 @@ namespace CellStore.Api
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -2572,8 +2572,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
@@ -2609,8 +2609,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
@@ -2645,8 +2645,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -2691,8 +2691,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -2732,9 +2732,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -2767,9 +2767,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -2801,9 +2801,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -2833,9 +2833,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -2864,9 +2864,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
@@ -2889,9 +2889,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
@@ -2913,9 +2913,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -2950,9 +2950,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -2986,9 +2986,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
@@ -3015,9 +3015,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
@@ -3028,7 +3028,7 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetRulesAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null);
         /// <summary>
-        /// Retrieve a summary for all sections of a given filing
+        /// Retrieve a summary for all sections of a given archive
         /// </summary>
         /// <remarks>
         /// 
@@ -3043,9 +3043,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -3060,7 +3060,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> GetSectionsAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
-        /// Retrieve a summary for all sections of a given filing
+        /// Retrieve a summary for all sections of a given archive
         /// </summary>
         /// <remarks>
         /// 
@@ -3075,9 +3075,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -3112,12 +3112,12 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
@@ -3162,12 +3162,12 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
@@ -3218,9 +3218,9 @@ namespace CellStore.Api
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional, default to null)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
@@ -3260,9 +3260,9 @@ namespace CellStore.Api
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional, default to null)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
@@ -3363,45 +3363,45 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
-        /// <param name="filingDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Object</returns>
-        public Object AddArchives (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
+        public Object AddArchives (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
         {
-             ApiResponse<Object> localVarResponse = AddArchivesWithHttpInfo(token, filing, profileName, aid, filingDetectionProfileName, taxonomy, insertEntity, contentType);
+             ApiResponse<Object> localVarResponse = AddArchivesWithHttpInfo(token, archive, profileName, aid, archiveDetectionProfileName, taxonomy, insertEntity, contentType);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
-        /// <param name="filingDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > AddArchivesWithHttpInfo (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
+        public ApiResponse< Object > AddArchivesWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddArchives");
-            // verify the required parameter 'filing' is set
-            if (filing == null)
-                throw new ApiException(400, "Missing required parameter 'filing' when calling DataApi->AddArchives");
+            // verify the required parameter 'archive' is set
+            if (archive == null)
+                throw new ApiException(400, "Missing required parameter 'archive' when calling DataApi->AddArchives");
 
             var localVarPath = "/api/archives";
             var localVarPathParams = new Dictionary<String, String>();
@@ -3428,17 +3428,17 @@ namespace CellStore.Api
                         if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
-            if (filingDetectionProfileName != null) localVarQueryParams.Add("filing-detection-profile-name", Configuration.ApiClient.ParameterToString(filingDetectionProfileName)); // query parameter
+            if (archiveDetectionProfileName != null) localVarQueryParams.Add("archive-detection-profile-name", Configuration.ApiClient.ParameterToString(archiveDetectionProfileName)); // query parameter
             if (taxonomy != null) localVarQueryParams.Add("taxonomy", Configuration.ApiClient.ParameterToString(taxonomy)); // query parameter
             if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
                         if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
-            if (filing != null && filing.GetType() != typeof(byte[]))
+            if (archive != null && archive.GetType() != typeof(byte[]))
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(filing); // http body (model) parameter
+                localVarPostBody = Configuration.ApiClient.Serialize(archive); // http body (model) parameter
             }
             else
             {
-                localVarPostBody = filing; // byte array
+                localVarPostBody = archive; // byte array
             }
 
 
@@ -3461,46 +3461,46 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
-        /// <param name="filingDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> AddArchivesAsync (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
+        public async System.Threading.Tasks.Task<Object> AddArchivesAsync (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
         {
-             ApiResponse<Object> localVarResponse = await AddArchivesAsyncWithHttpInfo(token, filing, profileName, aid, filingDetectionProfileName, taxonomy, insertEntity, contentType);
+             ApiResponse<Object> localVarResponse = await AddArchivesAsyncWithHttpInfo(token, archive, profileName, aid, archiveDetectionProfileName, taxonomy, insertEntity, contentType);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create a filing: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty filing with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty filing can be created by submitting a JSON object containing general information about the filing. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the filing (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |-------|------|----------|---------| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="filing">The body of the request. If the content type is application/json, the filing JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL filing.</param>
+        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
-        /// <param name="filingDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the filing entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified filing is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing a filing in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL filing. (optional, default to null)</param>
+        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddArchivesAsyncWithHttpInfo (string token, Object filing, string profileName = null, string aid = null, string filingDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddArchivesAsyncWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
                 throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddArchives");
-            // verify the required parameter 'filing' is set
-            if (filing == null)
-                throw new ApiException(400, "Missing required parameter 'filing' when calling DataApi->AddArchives");
+            // verify the required parameter 'archive' is set
+            if (archive == null)
+                throw new ApiException(400, "Missing required parameter 'archive' when calling DataApi->AddArchives");
 
             var localVarPath = "/api/archives";
             var localVarPathParams = new Dictionary<String, String>();
@@ -3527,17 +3527,17 @@ namespace CellStore.Api
                         if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
-            if (filingDetectionProfileName != null) localVarQueryParams.Add("filing-detection-profile-name", Configuration.ApiClient.ParameterToString(filingDetectionProfileName)); // query parameter
+            if (archiveDetectionProfileName != null) localVarQueryParams.Add("archive-detection-profile-name", Configuration.ApiClient.ParameterToString(archiveDetectionProfileName)); // query parameter
             if (taxonomy != null) localVarQueryParams.Add("taxonomy", Configuration.ApiClient.ParameterToString(taxonomy)); // query parameter
             if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
                         if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
-            if (filing != null && filing.GetType() != typeof(byte[]))
+            if (archive != null && archive.GetType() != typeof(byte[]))
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(filing); // http body (model) parameter
+                localVarPostBody = Configuration.ApiClient.Serialize(archive); // http body (model) parameter
             }
             else
             {
-                localVarPostBody = filing; // byte array
+                localVarPostBody = archive; // byte array
             }
 
 
@@ -3721,7 +3721,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add a fact to a filing. 
+        /// Add a fact to a archive. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3734,7 +3734,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add a fact to a filing. 
+        /// Add a fact to a archive. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3801,7 +3801,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add a fact to a filing. 
+        /// Add a fact to a archive. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3815,7 +3815,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add a fact to a filing. 
+        /// Add a fact to a archive. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4538,14 +4538,14 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).  
+        /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID).  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Object</returns>
         public Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
@@ -4555,14 +4555,14 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).  
+        /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID).  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
@@ -4626,14 +4626,14 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).  
+        /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID).  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of Object</returns>
         public async System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
@@ -4644,14 +4644,14 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Adds a new taxonomy filing given one or more entrypoints. The taxonomy filing is identified with an Archive ID (AID).  
+        /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID).  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="eid">The EID (scheme + local name) of a company, to add a new taxonomy.</param>
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
@@ -4707,6 +4707,207 @@ namespace CellStore.Api
                 throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling AddTaxonomy: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Deletes an archive. 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Object</returns>
+        public Object DeleteArchive (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
+        {
+             ApiResponse<Object> localVarResponse = DeleteArchiveWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes an archive. 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > DeleteArchiveWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteArchive");
+
+            var localVarPath = "/api/archives";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
+            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
+            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (entityTag != null) localVarQueryParams.Add("entity-tag", Configuration.ApiClient.ParameterToString(entityTag)); // query parameter
+            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
+            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (archiveTag != null) localVarQueryParams.Add("archive-tag", Configuration.ApiClient.ParameterToString(archiveTag)); // query parameter
+            
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling DeleteArchive: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling DeleteArchive: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Deletes an archive. 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> DeleteArchiveAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
+        {
+             ApiResponse<Object> localVarResponse = await DeleteArchiveAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Deletes an archive. 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
+        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteArchiveAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteArchive");
+
+            var localVarPath = "/api/archives";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
+            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
+            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
+            if (entityTag != null) localVarQueryParams.Add("entity-tag", Configuration.ApiClient.ParameterToString(entityTag)); // query parameter
+            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
+            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
+            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
+            if (archiveTag != null) localVarQueryParams.Add("archive-tag", Configuration.ApiClient.ParameterToString(archiveTag)); // query parameter
+            
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling DeleteArchive: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling DeleteArchive: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
@@ -4880,213 +5081,12 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Deletes a filing. 
-        /// </summary>
-        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <returns>Object</returns>
-        public Object DeleteFiling (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
-        {
-             ApiResponse<Object> localVarResponse = DeleteFilingWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Deletes a filing. 
-        /// </summary>
-        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > DeleteFilingWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
-        {
-            // verify the required parameter 'token' is set
-            if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteFiling");
-
-            var localVarPath = "/api/archives";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new Dictionary<String, List<String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
-            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
-            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
-            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
-            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
-            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
-            if (entityTag != null) localVarQueryParams.Add("entity-tag", Configuration.ApiClient.ParameterToString(entityTag)); // query parameter
-            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
-            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
-            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
-            if (archiveTag != null) localVarQueryParams.Add("archive-tag", Configuration.ApiClient.ParameterToString(archiveTag)); // query parameter
-            
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteFiling: " + localVarResponse.Content, localVarResponse.Content);
-            else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteFiling: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
-            
-        }
-
-        /// <summary>
-        /// Deletes a filing. 
-        /// </summary>
-        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> DeleteFilingAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
-        {
-             ApiResponse<Object> localVarResponse = await DeleteFilingAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
-             return localVarResponse.Data;
-
-        }
-
-        /// <summary>
-        /// Deletes a filing. 
-        /// </summary>
-        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
-        /// <param name="eid">The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteFilingAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
-        {
-            // verify the required parameter 'token' is set
-            if (token == null)
-                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->DeleteFiling");
-
-            var localVarPath = "/api/archives";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new Dictionary<String, List<String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "application/json"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
-            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
-            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
-            if (cik != null) localVarQueryParams.Add("cik", Configuration.ApiClient.ParameterToString(cik)); // query parameter
-            if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
-            if (edinetcode != null) localVarQueryParams.Add("edinetcode", Configuration.ApiClient.ParameterToString(edinetcode)); // query parameter
-            if (entityTag != null) localVarQueryParams.Add("entity-tag", Configuration.ApiClient.ParameterToString(entityTag)); // query parameter
-            if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
-            if (archiveFiscalYear != null) localVarQueryParams.Add("archiveFiscalYear", Configuration.ApiClient.ParameterToString(archiveFiscalYear)); // query parameter
-            if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
-            if (archiveTag != null) localVarQueryParams.Add("archive-tag", Configuration.ApiClient.ParameterToString(archiveTag)); // query parameter
-            
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteFiling: " + localVarResponse.Content, localVarResponse.Content);
-            else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteFiling: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-
-            return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
-            
-        }
-
-        /// <summary>
         /// Deletes a label. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
@@ -5104,7 +5104,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
@@ -5171,7 +5171,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
@@ -5190,7 +5190,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
@@ -5410,7 +5410,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Object</returns>
@@ -5426,7 +5426,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
@@ -5489,7 +5489,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
@@ -5506,7 +5506,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
@@ -5569,7 +5569,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object DeleteSection (string token, string profileName = null, string aid = null, string section = null)
@@ -5584,7 +5584,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > DeleteSectionWithHttpInfo (string token, string profileName = null, string aid = null, string section = null)
@@ -5645,7 +5645,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
         public async System.Threading.Tasks.Task<Object> DeleteSectionAsync (string token, string profileName = null, string aid = null, string section = null)
@@ -5661,7 +5661,7 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the new filing or taxonomy. (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the new archive or taxonomy. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteSectionAsyncWithHttpInfo (string token, string profileName = null, string aid = null, string section = null)
@@ -5721,7 +5721,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="patch">The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed. </param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
@@ -5730,9 +5730,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Object</returns>
         public Object EditArchives (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
         {
@@ -5745,7 +5745,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="patch">The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed. </param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
@@ -5754,9 +5754,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > EditArchivesWithHttpInfo (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
         {
@@ -5834,7 +5834,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="patch">The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed. </param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
@@ -5843,9 +5843,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of Object</returns>
         public async System.Threading.Tasks.Task<Object> EditArchivesAsync (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
         {
@@ -5859,7 +5859,7 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="patch">The patch object, which will be merged into each filing (the archive objects must be valid after applying it).  Updating the AID of a filing is not allowed. </param>
+        /// <param name="patch">The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed. </param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
@@ -5868,9 +5868,9 @@ namespace CellStore.Api
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="ticker">The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> EditArchivesAsyncWithHttpInfo (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
         {
@@ -6164,8 +6164,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -6207,8 +6207,8 @@ namespace CellStore.Api
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -6334,8 +6334,8 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -6378,8 +6378,8 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -6500,9 +6500,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
@@ -6527,9 +6527,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
@@ -6612,9 +6612,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
@@ -6640,9 +6640,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
@@ -6713,7 +6713,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         }
 
         /// <summary>
-        /// Retrieve a summary for all components of a given filing 
+        /// Retrieve a summary for all components of a given archive 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -6724,9 +6724,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
@@ -6746,7 +6746,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         }
 
         /// <summary>
-        /// Retrieve a summary for all components of a given filing 
+        /// Retrieve a summary for all components of a given archive 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -6757,9 +6757,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
@@ -6843,7 +6843,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         }
 
         /// <summary>
-        /// Retrieve a summary for all components of a given filing 
+        /// Retrieve a summary for all components of a given archive 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -6854,9 +6854,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
@@ -6877,7 +6877,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         }
 
         /// <summary>
-        /// Retrieve a summary for all components of a given filing 
+        /// Retrieve a summary for all components of a given archive 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -6888,9 +6888,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="cik">The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="aid">Archive IDs, to retrieve archives, sections, components or slice facts. (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
@@ -6992,8 +6992,8 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
@@ -7001,7 +7001,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -7037,8 +7037,8 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
@@ -7046,7 +7046,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -7158,8 +7158,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
@@ -7167,7 +7167,7 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -7204,8 +7204,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
@@ -7213,7 +7213,7 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -7544,8 +7544,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
@@ -7555,7 +7555,7 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -7593,8 +7593,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
@@ -7604,7 +7604,7 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -7722,8 +7722,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
@@ -7733,7 +7733,7 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -7772,8 +7772,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
         /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
@@ -7783,7 +7783,7 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
         /// <param name="dimensionSlicers">[Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). (optional, default to null)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
         /// <param name="label">A search term to search in the labels of components, to retrieve components (e.g. stock). (optional, default to null)</param>
@@ -7899,8 +7899,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
@@ -7937,8 +7937,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
@@ -8044,8 +8044,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
@@ -8083,8 +8083,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
         /// <param name="labels">Whether human-readable labels should be included for concepts in each fact (default: false). (optional, default to false)</param>
@@ -8190,8 +8190,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -8237,8 +8237,8 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -8362,8 +8362,8 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -8410,8 +8410,8 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="map">[Deprecated, use report] The concept map that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="rule">[Deprecated, use report] The rules that should be used to resolve the concept (default: none). (optional, default to null)</param>
         /// <param name="report">The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional, default to null)</param>
@@ -8531,9 +8531,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -8567,9 +8567,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -8670,9 +8670,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -8707,9 +8707,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -8810,9 +8810,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -8843,9 +8843,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -8940,9 +8940,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -8974,9 +8974,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -9071,9 +9071,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
@@ -9097,9 +9097,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
@@ -9180,9 +9180,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
@@ -9207,9 +9207,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
@@ -9290,9 +9290,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -9328,9 +9328,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -9435,9 +9435,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -9474,9 +9474,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve labels. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -9581,9 +9581,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
@@ -9611,9 +9611,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
@@ -9702,9 +9702,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
@@ -9733,9 +9733,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
         /// <param name="reportElement">The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional, default to null)</param>
@@ -9812,7 +9812,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         }
 
         /// <summary>
-        /// Retrieve a summary for all sections of a given filing 
+        /// Retrieve a summary for all sections of a given archive 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -9824,9 +9824,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -9845,7 +9845,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         }
 
         /// <summary>
-        /// Retrieve a summary for all sections of a given filing 
+        /// Retrieve a summary for all sections of a given archive 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -9857,9 +9857,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -9942,7 +9942,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         }
 
         /// <summary>
-        /// Retrieve a summary for all sections of a given filing 
+        /// Retrieve a summary for all sections of a given archive 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -9954,9 +9954,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -9976,7 +9976,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         }
 
         /// <summary>
-        /// Retrieve a summary for all sections of a given filing 
+        /// Retrieve a summary for all sections of a given archive 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -9988,9 +9988,9 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="edinetcode">The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="entityTag">The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
         /// <param name="sic">The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="section">The URI of a particular section, to retrieve a section, component or report element. (optional, default to null)</param>
         /// <param name="hypercube">The name of a hypercube report element, to retrieve components / sections. (optional, default to null)</param>
         /// <param name="disclosure">A disclosure, to identify sections or components (e.g. BalanceSheet). (optional, default to null)</param>
@@ -10091,12 +10091,12 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
@@ -10142,12 +10142,12 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
@@ -10275,12 +10275,12 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
@@ -10327,12 +10327,12 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="fiscalYear">A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriod">A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional, default to null)</param>
         /// <param name="fiscalPeriodType">A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="additionalRules">The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). (optional, default to null)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
         /// <param name="dimensionsCategory">Specifies whether the dimension is a slicer, a dicer, or unchanged. If an aggregation function is specified, facts are aggregated along this dimension (default: unchanged). (optional, default to null)</param>
         /// <param name="dimensionsVisible">Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. (optional, default to null)</param>
@@ -10467,9 +10467,9 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional, default to null)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
@@ -10510,9 +10510,9 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional, default to null)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
@@ -10627,9 +10627,9 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional, default to null)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
@@ -10671,9 +10671,9 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
-        /// <param name="archiveTag">The tag of the filing, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
-        /// <param name="archiveFiscalYear">The fiscal year focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
-        /// <param name="archiveFiscalPeriod">The fiscal period focus of the filing, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
+        /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
+        /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional, default to null)</param>
         /// <param name="open">Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional, default to false)</param>
         /// <param name="dimensions">A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional, default to null)</param>
