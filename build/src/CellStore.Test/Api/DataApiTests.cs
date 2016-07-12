@@ -61,14 +61,14 @@ namespace CellStore.Test
         {
             // TODO: add unit test for the method 'AddArchives'
             string token = null; // TODO: replace null with proper value
-            Object filing = null; // TODO: replace null with proper value
+            Object archive = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
             string aid = null; // TODO: replace null with proper value
-            string filingDetectionProfileName = null; // TODO: replace null with proper value
+            string archiveDetectionProfileName = null; // TODO: replace null with proper value
             bool? taxonomy = null; // TODO: replace null with proper value
             bool? insertEntity = null; // TODO: replace null with proper value
             string contentType = null; // TODO: replace null with proper value
-            var response = instance.AddArchives(token, filing, profileName, aid, filingDetectionProfileName, taxonomy, insertEntity, contentType);
+            var response = instance.AddArchives(token, archive, profileName, aid, archiveDetectionProfileName, taxonomy, insertEntity, contentType);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -170,6 +170,29 @@ namespace CellStore.Test
         }
         
         /// <summary>
+        /// Test DeleteArchive
+        /// </summary>
+        [Test]
+        public void DeleteArchiveTest()
+        {
+            // TODO: add unit test for the method 'DeleteArchive'
+            string token = null; // TODO: replace null with proper value
+            string profileName = null; // TODO: replace null with proper value
+            List<string> aid = null; // TODO: replace null with proper value
+            List<string> eid = null; // TODO: replace null with proper value
+            List<string> cik = null; // TODO: replace null with proper value
+            List<string> ticker = null; // TODO: replace null with proper value
+            List<string> edinetcode = null; // TODO: replace null with proper value
+            List<string> entityTag = null; // TODO: replace null with proper value
+            List<string> sic = null; // TODO: replace null with proper value
+            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
+            List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
+            List<string> archiveTag = null; // TODO: replace null with proper value
+            var response = instance.DeleteArchive(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
+            Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
         /// Test DeleteEntity
         /// </summary>
         [Test]
@@ -183,29 +206,6 @@ namespace CellStore.Test
             List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
             var response = instance.DeleteEntity(token, profileName, eid, cik, edinetcode, ticker);
-            Assert.IsInstanceOf<Object> (response, "response is Object");
-        }
-        
-        /// <summary>
-        /// Test DeleteFiling
-        /// </summary>
-        [Test]
-        public void DeleteFilingTest()
-        {
-            // TODO: add unit test for the method 'DeleteFiling'
-            string token = null; // TODO: replace null with proper value
-            string profileName = null; // TODO: replace null with proper value
-            List<string> aid = null; // TODO: replace null with proper value
-            List<string> eid = null; // TODO: replace null with proper value
-            List<string> cik = null; // TODO: replace null with proper value
-            List<string> ticker = null; // TODO: replace null with proper value
-            List<string> edinetcode = null; // TODO: replace null with proper value
-            List<string> entityTag = null; // TODO: replace null with proper value
-            List<string> sic = null; // TODO: replace null with proper value
-            List<string> archiveFiscalYear = null; // TODO: replace null with proper value
-            List<string> archiveFiscalPeriod = null; // TODO: replace null with proper value
-            List<string> archiveTag = null; // TODO: replace null with proper value
-            var response = instance.DeleteFiling(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
             Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         

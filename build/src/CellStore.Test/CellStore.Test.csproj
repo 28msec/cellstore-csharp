@@ -65,7 +65,7 @@
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
       <ProjectReference Include="..\CellStore\CellStore.csproj">
-          <Project>{57AF79A2-0FCC-4766-8F2D-7FEF9F7C8510}</Project>
+          <Project>{5356190E-EE79-4F04-B4DE-AED4DCA3CF66}</Project>
           <Name>CellStore</Name>
       </ProjectReference>
   </ItemGroup>
