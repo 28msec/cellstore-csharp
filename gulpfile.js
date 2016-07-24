@@ -61,7 +61,7 @@ gulp.task('swagger:generate-csharp', $.shell.task([
 ]));
 
 gulp.task('swagger:csharp', $.shell.task([
-    isWindows ? ':' : 'wget https://nuget.org/nuget.exe -O build-resources/nuget.exe',
+    isWindows ? ':' : 'wget http://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O build-resources/nuget.exe',
     path.normalize(nugetCmd + ' install build/src/CellStore/packages.config -o build-resources/dependencies'),
     'mkdir -p build-binary/lib',
     'cp build-resources/dependencies/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll build-binary/lib/Newtonsoft.Json.dll',
@@ -80,7 +80,7 @@ gulp.task('swagger:test', $.shell.task([
 
 gulp.task('swagger:pack', $.shell.task([
     'cp resources/CellStore.dll.nuspec build-binary',
-    isWindows ? ':' : 'wget https://nuget.org/nuget.exe -O build-resources/nuget.exe',
+    isWindows ? ':' : 'wget http://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O build-resources/nuget.exe',
     nugetCmd + ' pack build-binary/CellStore.dll.nuspec'
 ]));
 
