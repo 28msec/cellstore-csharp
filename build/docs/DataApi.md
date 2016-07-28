@@ -1,6 +1,6 @@
 # CellStore.Api.DataApi
 
-All URIs are relative to *http://secxbrl.28.io/v1/_queries/public*
+All URIs are relative to *http://fix-aid-cardinality.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -62,7 +62,7 @@ namespace Example
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var archive = ;  // Object | The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
-            var aid = aid_example;  // string | Archive ID of the new archive or taxonomy. (optional)  (default to null)
+            var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var archiveDetectionProfileName = archiveDetectionProfileName_example;  // string | this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional)  (default to AUTO)
             var taxonomy = true;  // bool? | Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional)  (default to false)
             var insertEntity = true;  // bool? | If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional)  (default to true)
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **archive** | **Object**| The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
- **aid** | **string**| Archive ID of the new archive or taxonomy. | [optional] [default to null]
+ **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **archiveDetectionProfileName** | **string**| this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). | [optional] [default to AUTO]
  **taxonomy** | **bool?**| Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) | [optional] [default to false]
  **insertEntity** | **bool?**| If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) | [optional] [default to true]
@@ -506,7 +506,7 @@ namespace Example
             var eid = eid_example;  // string | The EID (scheme + local name) of a company, to add a new taxonomy. (default to null)
             var entrypoint = new List<string>(); // List<string> | The URI of a taxonomy entrypoint. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
-            var aid = aid_example;  // string | Archive ID of the new archive or taxonomy. (optional)  (default to null)
+            var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var insertEntity = true;  // bool? | If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional)  (default to true)
 
             try
@@ -532,7 +532,7 @@ Name | Type | Description  | Notes
  **eid** | **string**| The EID (scheme + local name) of a company, to add a new taxonomy. | [default to null]
  **entrypoint** | [**List<string>**](string.md)| The URI of a taxonomy entrypoint. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
- **aid** | **string**| Archive ID of the new archive or taxonomy. | [optional] [default to null]
+ **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **insertEntity** | **bool?**| If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) | [optional] [default to true]
 
 ### Return type
@@ -551,7 +551,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteArchive**
-> Object DeleteArchive (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
+> Object DeleteArchive (string token, string profileName = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
 
 Deletes an archive.
 
@@ -573,7 +573,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
-            var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
+            var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -605,7 +605,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
- **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
+ **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -632,7 +632,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteEntity**
-> Object DeleteEntity (string token, string profileName = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> ticker = null)
+> Object DeleteEntity (string token, string profileName = null, string eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> ticker = null)
 
 Deletes an entity.
 
@@ -654,7 +654,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
-            var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
+            var eid = eid_example;  // string | The EID (scheme + local name) of a company. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -680,7 +680,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
- **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
+ **eid** | **string**| The EID (scheme + local name) of a company. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -723,7 +723,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
-            var aid = aid_example;  // string | Archive ID of the new archive or taxonomy. (optional)  (default to null)
+            var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var section = section_example;  // string | The URI of a particular section. (optional)  (default to null)
             var reportElement = reportElement_example;  // string | The name of the report element (e.g. us-gaap:Goodwill). (optional)  (default to null)
             var language = language_example;  // string | A language code (default: en-US) for displaying labels. (optional)  (default to null)
@@ -750,7 +750,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
- **aid** | **string**| Archive ID of the new archive or taxonomy. | [optional] [default to null]
+ **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **section** | **string**| The URI of a particular section. | [optional] [default to null]
  **reportElement** | **string**| The name of the report element (e.g. us-gaap:Goodwill). | [optional] [default to null]
  **language** | **string**| A language code (default: en-US) for displaying labels. | [optional] [default to null]
@@ -859,7 +859,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
-            var aid = aid_example;  // string | Archive ID of the new archive or taxonomy. (optional)  (default to null)
+            var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var section = section_example;  // string | The URI of a particular section. (optional)  (default to null)
             var reportElement = reportElement_example;  // string | The name of the report element (e.g. us-gaap:Goodwill). (optional)  (default to null)
 
@@ -884,7 +884,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
- **aid** | **string**| Archive ID of the new archive or taxonomy. | [optional] [default to null]
+ **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **section** | **string**| The URI of a particular section. | [optional] [default to null]
  **reportElement** | **string**| The name of the report element (e.g. us-gaap:Goodwill). | [optional] [default to null]
 
@@ -926,7 +926,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
-            var aid = aid_example;  // string | Archive ID of the new archive or taxonomy. (optional)  (default to null)
+            var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var section = section_example;  // string | The URI of a particular section. (optional)  (default to null)
 
             try
@@ -950,7 +950,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
- **aid** | **string**| Archive ID of the new archive or taxonomy. | [optional] [default to null]
+ **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **section** | **string**| The URI of a particular section. | [optional] [default to null]
 
 ### Return type

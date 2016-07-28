@@ -32,7 +32,7 @@ gulp.task('swagger:clean', $.shell.task([
 ]));
 
 gulp.task('swagger:resolve', ['swagger:clean'], function(done){
-    request({ url: 'http://secxbrl.28.io/v1/_queries/public/api/docs?token=c3049752-4d35-43da-82a2-f89f1b06f7a4' }, function(err, resp){
+    request({ url: 'http://fix-aid-cardinality.28.io/v1/_queries/public/api/docs?token=c3049752-4d35-43da-82a2-f89f1b06f7a4' }, function(err, resp){
         fs.writeFileSync('build-resources/swagger-aggregated.json', resp.body);
         done();
     });
@@ -52,6 +52,7 @@ gulp.task('swagger:install-codegen', $.shell.task(
 ));
 
 gulp.task('swagger:install-codegen-dev', $.shell.task(
+  'cd ~/cellstore/swagger-codegen && mvn clean && mvn package',
   'cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar build-resources/swagger-codegen-cli.jar'
 ));
 
