@@ -178,7 +178,7 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'DeleteArchive'
             string token = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            List<string> aid = null; // TODO: replace null with proper value
+            string aid = null; // TODO: replace null with proper value
             List<string> eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value
@@ -201,7 +201,7 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'DeleteEntity'
             string token = null; // TODO: replace null with proper value
             string profileName = null; // TODO: replace null with proper value
-            List<string> eid = null; // TODO: replace null with proper value
+            string eid = null; // TODO: replace null with proper value
             List<string> cik = null; // TODO: replace null with proper value
             List<string> edinetcode = null; // TODO: replace null with proper value
             List<string> ticker = null; // TODO: replace null with proper value

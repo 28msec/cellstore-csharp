@@ -20,17 +20,17 @@ namespace CellStore.Client
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class
-        /// with default configuration and base path (http://secxbrl.28.io/v1/_queries/public).
+        /// with default configuration and base path (http://fix-aid-cardinality.28.io/v1/_queries/public).
         /// </summary>
         public ApiClient()
         {
             Configuration = Configuration.Default;
-            RestClient = new RestClient("http://secxbrl.28.io/v1/_queries/public");
+            RestClient = new RestClient("http://fix-aid-cardinality.28.io/v1/_queries/public");
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class
-        /// with default base path (http://secxbrl.28.io/v1/_queries/public).
+        /// with default base path (http://fix-aid-cardinality.28.io/v1/_queries/public).
         /// </summary>
         /// <param name="config">An instance of Configuration.</param>
         public ApiClient(Configuration config = null)
@@ -40,7 +40,7 @@ namespace CellStore.Client
             else
                 Configuration = config;
 
-            RestClient = new RestClient("http://secxbrl.28.io/v1/_queries/public");
+            RestClient = new RestClient("http://fix-aid-cardinality.28.io/v1/_queries/public");
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace CellStore.Client
         /// with default configuration.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath = "http://secxbrl.28.io/v1/_queries/public")
+        public ApiClient(String basePath = "http://fix-aid-cardinality.28.io/v1/_queries/public")
         {
            if (String.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");
