@@ -32,7 +32,7 @@ gulp.task('swagger:clean', $.shell.task([
 ]));
 
 gulp.task('swagger:resolve', ['swagger:clean'], function(done){
-    request({ url: 'http://fix-aid-cardinality.28.io/v1/_queries/public/api/docs?token=c3049752-4d35-43da-82a2-f89f1b06f7a4' }, function(err, resp){
+    request({ url: 'http://secxbrl-3.28.io/v1/_queries/public/api/docs?token=c3049752-4d35-43da-82a2-f89f1b06f7a4' }, function(err, resp){
         fs.writeFileSync('build-resources/swagger-aggregated.json', resp.body);
         done();
     });
