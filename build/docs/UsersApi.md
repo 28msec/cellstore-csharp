@@ -1,6 +1,6 @@
 # CellStore.Api.UsersApi
 
-All URIs are relative to *http://fix-aid-cardinality.28.io/v1/_queries/public*
+All URIs are relative to *http://secxbrl-24-2-0.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **EditUser**
-> Outcome EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
+> Object EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
 
 Change a user firstname and lastname, and, optionally, his email.
 
@@ -44,7 +44,7 @@ namespace Example
             try
             {
                 // Change a user firstname and lastname, and, optionally, his email.
-                Outcome result = apiInstance.EditUser(firstname, lastname, token, newemail, email, password);
+                Object result = apiInstance.EditUser(firstname, lastname, token, newemail, email, password);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Outcome**](Outcome.md)
+**Object**
 
 ### Authorization
 
@@ -83,7 +83,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ForgotPassword**
-> Outcome ForgotPassword (string email)
+> Object ForgotPassword (string email)
 
 Send an email with the reset password token.
 
@@ -108,7 +108,7 @@ namespace Example
             try
             {
                 // Send an email with the reset password token.
-                Outcome result = apiInstance.ForgotPassword(email);
+                Object result = apiInstance.ForgotPassword(email);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Outcome**](Outcome.md)
+**Object**
 
 ### Authorization
 
@@ -205,7 +205,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **IsAuthorized**
-> Outcome IsAuthorized (string right, string token)
+> Object IsAuthorized (string right, string token)
 
 Checks to see if the current logged in user has a particular right
 
@@ -231,7 +231,7 @@ namespace Example
             try
             {
                 // Checks to see if the current logged in user has a particular right
-                Outcome result = apiInstance.IsAuthorized(right, token);
+                Object result = apiInstance.IsAuthorized(right, token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -252,7 +252,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Outcome**](Outcome.md)
+**Object**
 
 ### Authorization
 
@@ -266,7 +266,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **NewUser**
-> Outcome NewUser (string firstname, string lastname, string email, string password)
+> Object NewUser (string firstname, string lastname, string email, string password)
 
 Create a new user record
 
@@ -294,7 +294,7 @@ namespace Example
             try
             {
                 // Create a new user record
-                Outcome result = apiInstance.NewUser(firstname, lastname, email, password);
+                Object result = apiInstance.NewUser(firstname, lastname, email, password);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -317,7 +317,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Outcome**](Outcome.md)
+**Object**
 
 ### Authorization
 
@@ -331,7 +331,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ResetPassword**
-> Outcome ResetPassword (string newpassword, string email, string password, string token)
+> Object ResetPassword (string newpassword, string email, string password, string token)
 
 Change a user password
 
@@ -359,7 +359,7 @@ namespace Example
             try
             {
                 // Change a user password
-                Outcome result = apiInstance.ResetPassword(newpassword, email, password, token);
+                Object result = apiInstance.ResetPassword(newpassword, email, password, token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -382,7 +382,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Outcome**](Outcome.md)
+**Object**
 
 ### Authorization
 
@@ -396,7 +396,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **SetPassword**
-> Outcome SetPassword (string email, string password, string resetToken)
+> Object SetPassword (string email, string password, string resetToken)
 
 Set the password for a user based on email and the reset password token
 
@@ -423,7 +423,7 @@ namespace Example
             try
             {
                 // Set the password for a user based on email and the reset password token
-                Outcome result = apiInstance.SetPassword(email, password, resetToken);
+                Object result = apiInstance.SetPassword(email, password, resetToken);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -445,7 +445,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Outcome**](Outcome.md)
+**Object**
 
 ### Authorization
 

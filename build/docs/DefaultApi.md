@@ -1,6 +1,6 @@
 # CellStore.Api.DefaultApi
 
-All URIs are relative to *http://fix-aid-cardinality.28.io/v1/_queries/public*
+All URIs are relative to *http://secxbrl-24-2-0.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

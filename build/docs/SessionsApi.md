@@ -1,6 +1,6 @@
 # CellStore.Api.SessionsApi
 
-All URIs are relative to *http://fix-aid-cardinality.28.io/v1/_queries/public*
+All URIs are relative to *http://secxbrl-24-2-0.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -73,7 +73,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **Logout**
-> Outcome Logout (string token)
+> Object Logout (string token)
 
 Logout the user identified by the given API key.
 
@@ -98,7 +98,7 @@ namespace Example
             try
             {
                 // Logout the user identified by the given API key.
-                Outcome result = apiInstance.Logout(token);
+                Object result = apiInstance.Logout(token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -118,7 +118,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Outcome**](Outcome.md)
+**Object**
 
 ### Authorization
 
@@ -132,7 +132,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **Revoke**
-> Outcome Revoke (string email, string password, string token)
+> Object Revoke (string email, string password, string token)
 
 Revoke a token having a custom expiration duration.
 
@@ -159,7 +159,7 @@ namespace Example
             try
             {
                 // Revoke a token having a custom expiration duration.
-                Outcome result = apiInstance.Revoke(email, password, token);
+                Object result = apiInstance.Revoke(email, password, token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Outcome**](Outcome.md)
+**Object**
 
 ### Authorization
 

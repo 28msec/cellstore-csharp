@@ -16,6 +16,8 @@ var isWindows = /^win/.test(process.platform);
 var nugetCmd = isWindows ? 'build-resources/nuget' : 'mono build-resources/nuget.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
+var docsUrl = 'http://secxbrl-24-2-0.28.io/v1/_queries/public/api/docs';
+
 var cellstore_nuspec;
 parseString(fs.readFileSync('resources/CellStore.dll.nuspec', 'utf-8'), { async: false }, function (err, result) {
     cellstore_nuspec = result;
@@ -32,7 +34,7 @@ gulp.task('swagger:clean', $.shell.task([
 ]));
 
 gulp.task('swagger:resolve', ['swagger:clean'], function(done){
-    request({ url: 'http://fix-aid-cardinality.28.io/v1/_queries/public/api/docs?token=c3049752-4d35-43da-82a2-f89f1b06f7a4' }, function(err, resp){
+    request({ url: docsUrl }, function(err, resp){
         fs.writeFileSync('build-resources/swagger-aggregated.json', resp.body);
         done();
     });

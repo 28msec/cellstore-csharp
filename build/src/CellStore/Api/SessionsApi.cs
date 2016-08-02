@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
 using CellStore.Client;
-using CellStore.Model;
 
 namespace CellStore.Api
 {
@@ -45,8 +44,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Outcome</returns>
-        Outcome Logout (string token);
+        /// <returns>Object</returns>
+        Object Logout (string token);
 
         /// <summary>
         /// Logout the user identified by the given API key.
@@ -56,8 +55,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>ApiResponse of Outcome</returns>
-        ApiResponse<Outcome> LogoutWithHttpInfo (string token);
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> LogoutWithHttpInfo (string token);
         /// <summary>
         /// Revoke a token having a custom expiration duration.
         /// </summary>
@@ -68,8 +67,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Outcome</returns>
-        Outcome Revoke (string email, string password, string token);
+        /// <returns>Object</returns>
+        Object Revoke (string email, string password, string token);
 
         /// <summary>
         /// Revoke a token having a custom expiration duration.
@@ -81,8 +80,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>ApiResponse of Outcome</returns>
-        ApiResponse<Outcome> RevokeWithHttpInfo (string email, string password, string token);
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> RevokeWithHttpInfo (string email, string password, string token);
         /// <summary>
         /// Create a token having a custom expiration duration.
         /// </summary>
@@ -162,8 +161,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> LogoutAsync (string token);
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> LogoutAsync (string token);
 
         /// <summary>
         /// Logout the user identified by the given API key.
@@ -173,8 +172,8 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token);
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> LogoutAsyncWithHttpInfo (string token);
         /// <summary>
         /// Revoke a token having a custom expiration duration.
         /// </summary>
@@ -185,8 +184,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token);
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> RevokeAsync (string email, string password, string token);
 
         /// <summary>
         /// Revoke a token having a custom expiration duration.
@@ -198,8 +197,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token);
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> RevokeAsyncWithHttpInfo (string email, string password, string token);
         /// <summary>
         /// Create a token having a custom expiration duration.
         /// </summary>
@@ -488,10 +487,10 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Outcome</returns>
-        public Outcome Logout (string token)
+        /// <returns>Object</returns>
+        public Object Logout (string token)
         {
-             ApiResponse<Outcome> localVarResponse = LogoutWithHttpInfo(token);
+             ApiResponse<Object> localVarResponse = LogoutWithHttpInfo(token);
              return localVarResponse.Data;
         }
 
@@ -500,8 +499,8 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>ApiResponse of Outcome</returns>
-        public ApiResponse< Outcome > LogoutWithHttpInfo (string token)
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > LogoutWithHttpInfo (string token)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -544,9 +543,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Logout: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Outcome>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -555,10 +554,10 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> LogoutAsync (string token)
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> LogoutAsync (string token)
         {
-             ApiResponse<Outcome> localVarResponse = await LogoutAsyncWithHttpInfo(token);
+             ApiResponse<Object> localVarResponse = await LogoutAsyncWithHttpInfo(token);
              return localVarResponse.Data;
 
         }
@@ -568,8 +567,8 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of ApiResponse (Outcome)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token)
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> LogoutAsyncWithHttpInfo (string token)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -612,9 +611,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Logout: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Outcome>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -625,10 +624,10 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Outcome</returns>
-        public Outcome Revoke (string email, string password, string token)
+        /// <returns>Object</returns>
+        public Object Revoke (string email, string password, string token)
         {
-             ApiResponse<Outcome> localVarResponse = RevokeWithHttpInfo(email, password, token);
+             ApiResponse<Object> localVarResponse = RevokeWithHttpInfo(email, password, token);
              return localVarResponse.Data;
         }
 
@@ -639,8 +638,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>ApiResponse of Outcome</returns>
-        public ApiResponse< Outcome > RevokeWithHttpInfo (string email, string password, string token)
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > RevokeWithHttpInfo (string email, string password, string token)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -691,9 +690,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Revoke: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Outcome>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -704,10 +703,10 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token)
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> RevokeAsync (string email, string password, string token)
         {
-             ApiResponse<Outcome> localVarResponse = await RevokeAsyncWithHttpInfo(email, password, token);
+             ApiResponse<Object> localVarResponse = await RevokeAsyncWithHttpInfo(email, password, token);
              return localVarResponse.Data;
 
         }
@@ -719,8 +718,8 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <returns>Task of ApiResponse (Outcome)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token)
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> RevokeAsyncWithHttpInfo (string email, string password, string token)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -771,9 +770,9 @@ namespace CellStore.Api
             else if (localVarStatusCode == 0)
                 throw new ApiException (localVarStatusCode, "Error calling Revoke: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            return new ApiResponse<Outcome>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 

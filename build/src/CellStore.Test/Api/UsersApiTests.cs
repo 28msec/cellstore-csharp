@@ -9,7 +9,6 @@ using NUnit.Framework;
 
 using CellStore.Client;
 using CellStore.Api;
-using CellStore.Model;
 
 namespace CellStore.Test
 {
@@ -67,7 +66,7 @@ namespace CellStore.Test
             string email = null; // TODO: replace null with proper value
             string password = null; // TODO: replace null with proper value
             var response = instance.EditUser(firstname, lastname, token, newemail, email, password);
-            Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>
@@ -79,7 +78,7 @@ namespace CellStore.Test
             // TODO: add unit test for the method 'ForgotPassword'
             string email = null; // TODO: replace null with proper value
             var response = instance.ForgotPassword(email);
-            Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>
@@ -106,7 +105,7 @@ namespace CellStore.Test
             string right = null; // TODO: replace null with proper value
             string token = null; // TODO: replace null with proper value
             var response = instance.IsAuthorized(right, token);
-            Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>
@@ -121,7 +120,7 @@ namespace CellStore.Test
             string email = null; // TODO: replace null with proper value
             string password = null; // TODO: replace null with proper value
             var response = instance.NewUser(firstname, lastname, email, password);
-            Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>
@@ -136,7 +135,7 @@ namespace CellStore.Test
             string password = null; // TODO: replace null with proper value
             string token = null; // TODO: replace null with proper value
             var response = instance.ResetPassword(newpassword, email, password, token);
-            Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
         /// <summary>
@@ -150,7 +149,7 @@ namespace CellStore.Test
             string password = null; // TODO: replace null with proper value
             string resetToken = null; // TODO: replace null with proper value
             var response = instance.SetPassword(email, password, resetToken);
-            Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
+            Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
     }
