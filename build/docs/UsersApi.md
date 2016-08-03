@@ -1,6 +1,6 @@
 # CellStore.Api.UsersApi
 
-All URIs are relative to *http://secxbrl-24-2-0.28.io/v1/_queries/public*
+All URIs are relative to *http://cellstore.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**SetPassword**](UsersApi.md#setpassword) | **POST** /users/setPassword | Set the password for a user based on email and the reset password token
 
 
+<a name="edituser"></a>
 # **EditUser**
 > Object EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
 
@@ -82,6 +83,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="forgotpassword"></a>
 # **ForgotPassword**
 > Object ForgotPassword (string email)
 
@@ -141,6 +143,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="getuser"></a>
 # **GetUser**
 > Object GetUser (string token, string userid = null, string email = null)
 
@@ -204,6 +207,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="isauthorized"></a>
 # **IsAuthorized**
 > Object IsAuthorized (string right, string token)
 
@@ -265,6 +269,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="newuser"></a>
 # **NewUser**
 > Object NewUser (string firstname, string lastname, string email, string password)
 
@@ -330,6 +335,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="resetpassword"></a>
 # **ResetPassword**
 > Object ResetPassword (string newpassword, string email, string password, string token)
 
@@ -395,6 +401,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="setpassword"></a>
 # **SetPassword**
 > Object SetPassword (string email, string password, string resetToken)
 

@@ -1,6 +1,6 @@
 # CellStore.Api.ReportsApi
 
-All URIs are relative to *http://secxbrl-24-2-0.28.io/v1/_queries/public*
+All URIs are relative to *http://cellstore.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**RemoveReport**](ReportsApi.md#removereport) | **POST** /reports/delete-report | Delete an existing report
 
 
+<a name="addorreplaceorvalidatereport"></a>
 # **AddOrReplaceOrValidateReport**
 > Object AddOrReplaceOrValidateReport (Object report, string token, bool? publicRead = null, bool? _private = null, bool? validationOnly = null, bool? import = null, string id = null, string label = null)
 
@@ -83,6 +84,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="getparameters"></a>
 # **GetParameters**
 > Object GetParameters (string parameter = null)
 
@@ -142,6 +144,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="getreports"></a>
 # **GetReports**
 > List<Object> GetReports (string token, string id = null, string user = null, bool? publicRead = null, bool? _private = null, bool? export = null, bool? onlyMetadata = null)
 
@@ -213,6 +216,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="removereport"></a>
 # **RemoveReport**
 > void RemoveReport (string id, string token)
 

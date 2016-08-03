@@ -15,7 +15,7 @@
     <dependencies>
       <group>
         <dependency id="RestSharp" version="105.1.0" />
-        <dependency id="Newtonsoft.Json" version="8.0.2" />
+        <dependency id="Newtonsoft.Json" version="8.0.3" />
       </group>
     </dependencies>
   </metadata>

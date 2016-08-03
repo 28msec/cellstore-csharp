@@ -1,6 +1,6 @@
 # CellStore.Api.SessionsApi
 
-All URIs are relative to *http://secxbrl-24-2-0.28.io/v1/_queries/public*
+All URIs are relative to *http://cellstore.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**Tokens**](SessionsApi.md#tokens) | **GET** /session/tokens | List tokens of a user identified by its token.
 
 
+<a name="login"></a>
 # **Login**
 > Object Login (string email, string password)
 
@@ -72,6 +73,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="logout"></a>
 # **Logout**
 > Object Logout (string token)
 
@@ -131,6 +133,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="revoke"></a>
 # **Revoke**
 > Object Revoke (string email, string password, string token)
 
@@ -194,6 +197,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="token"></a>
 # **Token**
 > Object Token (string email, string password, string expiration)
 
@@ -257,6 +261,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a name="tokens"></a>
 # **Tokens**
 > Object Tokens (string token)
 
