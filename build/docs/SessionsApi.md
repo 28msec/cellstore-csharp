@@ -75,7 +75,7 @@ No authorization required
 
 <a name="logout"></a>
 # **Logout**
-> Object Logout (string token)
+> Outcome Logout (string token)
 
 Logout the user identified by the given API key.
 
@@ -100,7 +100,7 @@ namespace Example
             try
             {
                 // Logout the user identified by the given API key.
-                Object result = apiInstance.Logout(token);
+                Outcome result = apiInstance.Logout(token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**Outcome**](Outcome.md)
 
 ### Authorization
 
@@ -135,7 +135,7 @@ No authorization required
 
 <a name="revoke"></a>
 # **Revoke**
-> Object Revoke (string email, string password, string token)
+> Outcome Revoke (string email, string password, string token)
 
 Revoke a token having a custom expiration duration.
 
@@ -162,7 +162,7 @@ namespace Example
             try
             {
                 // Revoke a token having a custom expiration duration.
-                Object result = apiInstance.Revoke(email, password, token);
+                Outcome result = apiInstance.Revoke(email, password, token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -184,7 +184,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**Outcome**](Outcome.md)
 
 ### Authorization
 

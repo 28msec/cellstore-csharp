@@ -26,6 +26,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
 using CellStore.Client;
+using CellStore.Model;
 
 namespace CellStore.Api
 {

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="edituser"></a>
 # **EditUser**
-> Object EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
+> Outcome EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
 
 Change a user firstname and lastname, and, optionally, his email.
 
@@ -45,7 +45,7 @@ namespace Example
             try
             {
                 // Change a user firstname and lastname, and, optionally, his email.
-                Object result = apiInstance.EditUser(firstname, lastname, token, newemail, email, password);
+                Outcome result = apiInstance.EditUser(firstname, lastname, token, newemail, email, password);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**Outcome**](Outcome.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ No authorization required
 
 <a name="forgotpassword"></a>
 # **ForgotPassword**
-> Object ForgotPassword (string email)
+> Outcome ForgotPassword (string email)
 
 Send an email with the reset password token.
 
@@ -110,7 +110,7 @@ namespace Example
             try
             {
                 // Send an email with the reset password token.
-                Object result = apiInstance.ForgotPassword(email);
+                Outcome result = apiInstance.ForgotPassword(email);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**Outcome**](Outcome.md)
 
 ### Authorization
 
@@ -209,7 +209,7 @@ No authorization required
 
 <a name="isauthorized"></a>
 # **IsAuthorized**
-> Object IsAuthorized (string right, string token)
+> Outcome IsAuthorized (string right, string token)
 
 Checks to see if the current logged in user has a particular right
 
@@ -235,7 +235,7 @@ namespace Example
             try
             {
                 // Checks to see if the current logged in user has a particular right
-                Object result = apiInstance.IsAuthorized(right, token);
+                Outcome result = apiInstance.IsAuthorized(right, token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**Outcome**](Outcome.md)
 
 ### Authorization
 
@@ -271,7 +271,7 @@ No authorization required
 
 <a name="newuser"></a>
 # **NewUser**
-> Object NewUser (string firstname, string lastname, string email, string password)
+> Outcome NewUser (string firstname, string lastname, string email, string password)
 
 Create a new user record
 
@@ -299,7 +299,7 @@ namespace Example
             try
             {
                 // Create a new user record
-                Object result = apiInstance.NewUser(firstname, lastname, email, password);
+                Outcome result = apiInstance.NewUser(firstname, lastname, email, password);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -322,7 +322,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**Outcome**](Outcome.md)
 
 ### Authorization
 
@@ -337,7 +337,7 @@ No authorization required
 
 <a name="resetpassword"></a>
 # **ResetPassword**
-> Object ResetPassword (string newpassword, string email, string password, string token)
+> Outcome ResetPassword (string newpassword, string email, string password, string token)
 
 Change a user password
 
@@ -365,7 +365,7 @@ namespace Example
             try
             {
                 // Change a user password
-                Object result = apiInstance.ResetPassword(newpassword, email, password, token);
+                Outcome result = apiInstance.ResetPassword(newpassword, email, password, token);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**Outcome**](Outcome.md)
 
 ### Authorization
 
@@ -403,7 +403,7 @@ No authorization required
 
 <a name="setpassword"></a>
 # **SetPassword**
-> Object SetPassword (string email, string password, string resetToken)
+> Outcome SetPassword (string email, string password, string resetToken)
 
 Set the password for a user based on email and the reset password token
 
@@ -430,7 +430,7 @@ namespace Example
             try
             {
                 // Set the password for a user based on email and the reset password token
-                Object result = apiInstance.SetPassword(email, password, resetToken);
+                Outcome result = apiInstance.SetPassword(email, password, resetToken);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -452,7 +452,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**Outcome**](Outcome.md)
 
 ### Authorization
 

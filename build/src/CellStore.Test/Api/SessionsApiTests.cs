@@ -31,6 +31,7 @@ using NUnit.Framework;
 
 using CellStore.Client;
 using CellStore.Api;
+using CellStore.Model;
 
 namespace CellStore.Test
 {
@@ -97,7 +98,7 @@ namespace CellStore.Test
             // TODO uncomment below to test the method and replace null with proper value
             //string token = null;
             //var response = instance.Logout(token);
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
         }
         
         /// <summary>
@@ -111,7 +112,7 @@ namespace CellStore.Test
             //string password = null;
             //string token = null;
             //var response = instance.Revoke(email, password, token);
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
         }
         
         /// <summary>

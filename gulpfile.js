@@ -20,6 +20,9 @@ var docsUrl = 'http://secxbrl-24-2-0.28.io/v1/_queries/public/api/docs';
 //var docsUrl = 'https://www.dropbox.com/s/5v43dzjmxef0a9e/swagger-fully-resolved.json?dl=1';
 //var docsUrl = 'http://secxbrl-3.28.io/v1/_queries/public/api/docs';
 
+var cellstoreFolder = '~/cellstore/cellstore-pro';
+var swaggerCodegenFolder = '~/cellstore/swagger-codegen';
+
 var cellstore_nuspec;
 parseString(fs.readFileSync('resources/CellStore.dll.nuspec', 'utf-8'), { async: false }, function (err, result) {
     cellstore_nuspec = result;
@@ -37,18 +40,18 @@ gulp.task('swagger:clean', $.shell.task([
 
 gulp.task('swagger:resolve', ['swagger:clean'], function(done){
     request({ url: docsUrl }, function(err, resp){
-        fs.writeFileSync('build-resources/swagger-aggregated.json', resp.body);
+        fs.writeFileSync('build-resources/swagger.json', resp.body);
         done();
     });
 });
 
 gulp.task('swagger:resolve-dev', ['swagger:clean'], $.shell.task([
-  '(cd ~/cellstore/cellstore-pro && gulp swagger:resolve)',
-  'cp ~/cellstore/cellstore-pro/swagger/swagger-fully-resolved.json build-resources/swagger-aggregated.json'
+  'cd ' + cellstoreFolder + ' && gulp swagger:resolve',
+  'cp ' + cellstoreFolder + '/swagger/swagger-remotes-resolved.json build-resources/swagger.json'
 ]));
 
 gulp.task('swagger:resolve-repository', ['swagger:clean'], $.shell.task([
-  'cp swagger/swagger-fully-resolved.json build-resources/swagger-aggregated.json'
+  'cp swagger/swagger.json build-resources/swagger.json'
 ]));
 
 gulp.task('swagger:install-codegen', $.shell.task(
@@ -56,13 +59,13 @@ gulp.task('swagger:install-codegen', $.shell.task(
 ));
 
 gulp.task('swagger:install-codegen-dev', $.shell.task([
-  'cd ~/cellstore/swagger-codegen && mvn clean && mvn package',
-  'cp ~/cellstore/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar build-resources/swagger-codegen-cli.jar'
+  'cd ' + swaggerCodegenFolder + ' && mvn clean && mvn package',
+  'cp ' + swaggerCodegenFolder + '/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar build-resources/swagger-codegen-cli.jar'
 ]));
 
 gulp.task('swagger:generate-csharp', $.shell.task([
     'cp resources/codegen-options.json build-resources',
-    'java -DnoInlineModels -jar build-resources/swagger-codegen-cli.jar generate -i build-resources/swagger-aggregated.json -l cellstore-csharp -c build-resources/codegen-options.json  -o build'
+    'java -DnoInlineModels -jar build-resources/swagger-codegen-cli.jar generate -i build-resources/swagger.json -l cellstore-csharp -c build-resources/codegen-options.json  -o build'
 ]));
 
 gulp.task('swagger:csharp', $.shell.task([

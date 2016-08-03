@@ -31,6 +31,7 @@ using NUnit.Framework;
 
 using CellStore.Client;
 using CellStore.Api;
+using CellStore.Model;
 
 namespace CellStore.Test
 {
