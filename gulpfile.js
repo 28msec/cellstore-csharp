@@ -16,12 +16,13 @@ var isWindows = /^win/.test(process.platform);
 var nugetCmd = isWindows ? 'build-resources/nuget' : 'mono build-resources/nuget.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
-var docsUrl = 'http://secxbrl-24-2-0.28.io/v1/_queries/public/api/docs';
+//var docsUrl = 'http://secxbrl-24-2-0.28.io/v1/_queries/public/api/docs';
 //var docsUrl = 'https://www.dropbox.com/s/5v43dzjmxef0a9e/swagger-fully-resolved.json?dl=1';
-//var docsUrl = 'http://secxbrl-3.28.io/v1/_queries/public/api/docs';
+var docsUrl = 'http://secxbrl-3.28.io/v1/_queries/public/api/docs';
 
 var cellstoreFolder = '~/cellstore/cellstore-pro';
 var swaggerCodegenFolder = '~/cellstore/swagger-codegen';
+var swaggerCodegenVersion = '2.7.0';
 
 var cellstore_nuspec;
 parseString(fs.readFileSync('resources/CellStore.dll.nuspec', 'utf-8'), { async: false }, function (err, result) {
@@ -55,7 +56,7 @@ gulp.task('swagger:resolve-repository', ['swagger:clean'], $.shell.task([
 ]));
 
 gulp.task('swagger:install-codegen', $.shell.task(
-  'cd build-resources && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v2.6.0/swagger-codegen-cli.jar'
+  'cd build-resources && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v' + swaggerCodegenVersion + '/swagger-codegen-cli.jar'
 ));
 
 gulp.task('swagger:install-codegen-dev', $.shell.task([
@@ -128,6 +129,6 @@ gulp.task('swagger-dev', function(done){
         $.runSequence('swagger:resolve-dev', 'swagger:install-codegen-dev', 'swagger:generate-csharp', 'swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', done);  
 });
 
-//gulp.task('default', ['swagger']); //Use released swagger-codegen and documentation
+gulp.task('default', ['swagger']); //Use released swagger-codegen and documentation
 //gulp.task('default', ['swagger-repository']); //Use released swagger-codegen and documentation committed in this repository
-gulp.task('default', ['swagger-dev']); //Use local swagger-codegen and documentation
+//gulp.task('default', ['swagger-dev']); //Use local swagger-codegen and documentation

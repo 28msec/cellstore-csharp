@@ -1,6 +1,6 @@
 # CellStore.Api.ReportsApi
 
-All URIs are relative to *http://cellstore.28.io/v1/_queries/public*
+All URIs are relative to *http://secxbrl-3.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

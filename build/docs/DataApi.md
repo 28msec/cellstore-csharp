@@ -1,6 +1,6 @@
 # CellStore.Api.DataApi
 
-All URIs are relative to *http://cellstore.28.io/v1/_queries/public*
+All URIs are relative to *http://secxbrl-3.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -589,8 +589,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
 
             try
@@ -621,8 +621,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
 
 ### Return type
@@ -1014,8 +1014,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
 
             try
@@ -1047,8 +1047,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
 
 ### Return type
@@ -1295,8 +1295,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var language = language_example;  // string | A language code (default: en-US) for displaying labels. (optional)  (default to null)
             var count = true;  // bool? | If true, only outputs statistics (default: false). (optional)  (default to false)
@@ -1331,8 +1331,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **language** | **string**| A language code (default: en-US) for displaying labels. | [optional] [default to null]
  **count** | **bool?**| If true, only outputs statistics (default: false). | [optional] [default to false]
@@ -1384,8 +1384,8 @@ namespace Example
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var section = new List<string>(); // List<string> | The URI of a particular section, to retrieve a section, component or report element. (optional)  (default to null)
@@ -1426,8 +1426,8 @@ Name | Type | Description  | Notes
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **section** | [**List<string>**](string.md)| The URI of a particular section, to retrieve a section, component or report element. | [optional] [default to null]
@@ -1493,8 +1493,8 @@ namespace Example
             var fiscalYear = new List<string>(); // List<string> | A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional)  (default to null)
             var fiscalPeriod = new List<string>(); // List<string> | A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional)  (default to null)
             var fiscalPeriodType = new List<string>(); // List<string> | A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var labels = true;  // bool? | Whether human-readable labels should be included for concepts in each fact (default: false). (optional)  (default to false)
             var metadata = true;  // bool? | Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional)  (default to false)
             var open = true;  // bool? | Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional)  (default to false)
@@ -1547,8 +1547,8 @@ Name | Type | Description  | Notes
  **fiscalYear** | [**List<string>**](string.md)| A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). | [optional] [default to null]
  **fiscalPeriod** | [**List<string>**](string.md)| A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). | [optional] [default to null]
  **fiscalPeriodType** | [**List<string>**](string.md)| A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **labels** | **bool?**| Whether human-readable labels should be included for concepts in each fact (default: false). | [optional] [default to false]
  **metadata** | **bool?**| Whether metadata about the facts concept and dimensions should be included in each fact (default: false). | [optional] [default to false]
  **open** | **bool?**| Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). | [optional] [default to false]
@@ -1707,8 +1707,8 @@ namespace Example
             var fiscalYear = new List<string>(); // List<string> | A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional)  (default to null)
             var fiscalPeriod = new List<string>(); // List<string> | A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional)  (default to null)
             var fiscalPeriodType = new List<string>(); // List<string> | A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var additionalRules = additionalRules_example;  // string | The name of a report from which to use rules in addition to a report's rules (e.g. FundamentalAccountingConcepts). (optional)  (default to null)
             var labels = true;  // bool? | Whether human-readable labels should be included for concepts in each fact (default: false). (optional)  (default to false)
             var metadata = true;  // bool? | Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional)  (default to false)
@@ -1765,8 +1765,8 @@ Name | Type | Description  | Notes
  **fiscalYear** | [**List<string>**](string.md)| A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). | [optional] [default to null]
  **fiscalPeriod** | [**List<string>**](string.md)| A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). | [optional] [default to null]
  **fiscalPeriodType** | [**List<string>**](string.md)| A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **additionalRules** | **string**| The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). | [optional] [default to null]
  **labels** | **bool?**| Whether human-readable labels should be included for concepts in each fact (default: false). | [optional] [default to false]
  **metadata** | **bool?**| Whether metadata about the facts concept and dimensions should be included in each fact (default: false). | [optional] [default to false]
@@ -1839,8 +1839,8 @@ namespace Example
             var fiscalYear = new List<string>(); // List<string> | A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional)  (default to null)
             var fiscalPeriod = new List<string>(); // List<string> | A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional)  (default to null)
             var fiscalPeriodType = new List<string>(); // List<string> | A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var open = true;  // bool? | Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional)  (default to false)
             var report = report_example;  // string | The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). (optional)  (default to null)
             var labels = true;  // bool? | Whether human-readable labels should be included for concepts in each fact (default: false). (optional)  (default to false)
@@ -1886,8 +1886,8 @@ Name | Type | Description  | Notes
  **fiscalYear** | [**List<string>**](string.md)| A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). | [optional] [default to null]
  **fiscalPeriod** | [**List<string>**](string.md)| A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). | [optional] [default to null]
  **fiscalPeriodType** | [**List<string>**](string.md)| A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **open** | **bool?**| Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). | [optional] [default to false]
  **report** | **string**| The report to use as a context to retrieve the facts. In particular, concept maps and rules found in this report will be used. (default: none). | [optional] [default to null]
  **labels** | **bool?**| Whether human-readable labels should be included for concepts in each fact (default: false). | [optional] [default to false]
@@ -2077,8 +2077,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var section = new List<string>(); // List<string> | The URI of a particular section, to retrieve a section, component or report element. (optional)  (default to null)
             var hypercube = new List<string>(); // List<string> | The name of a hypercube report element, to retrieve labels. (optional)  (default to null)
@@ -2122,8 +2122,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **section** | [**List<string>**](string.md)| The URI of a particular section, to retrieve a section, component or report element. | [optional] [default to null]
  **hypercube** | [**List<string>**](string.md)| The name of a hypercube report element, to retrieve labels. | [optional] [default to null]
@@ -2185,8 +2185,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var section = new List<string>(); // List<string> | The URI of a particular section, to retrieve a section, component or report element. (optional)  (default to null)
             var hypercube = new List<string>(); // List<string> | The name of a hypercube report element, to retrieve components / sections. (optional)  (default to null)
@@ -2227,8 +2227,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **section** | [**List<string>**](string.md)| The URI of a particular section, to retrieve a section, component or report element. | [optional] [default to null]
  **hypercube** | [**List<string>**](string.md)| The name of a hypercube report element, to retrieve components / sections. | [optional] [default to null]
@@ -2287,8 +2287,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var count = true;  // bool? | If true, only outputs statistics (default: false). (optional)  (default to false)
             var top = 56;  // int? | Output only the first [top] results (default: no limit). (optional)  (default to null)
@@ -2322,8 +2322,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **count** | **bool?**| If true, only outputs statistics (default: false). | [optional] [default to false]
  **top** | **int?**| Output only the first [top] results (default: no limit). | [optional] [default to null]
@@ -2375,8 +2375,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var section = new List<string>(); // List<string> | The URI of a particular section, to retrieve a section, component or report element. (optional)  (default to null)
             var hypercube = new List<string>(); // List<string> | The name of a hypercube report element, to retrieve labels. (optional)  (default to null)
@@ -2422,8 +2422,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **section** | [**List<string>**](string.md)| The URI of a particular section, to retrieve a section, component or report element. | [optional] [default to null]
  **hypercube** | [**List<string>**](string.md)| The name of a hypercube report element, to retrieve labels. | [optional] [default to null]
@@ -2487,8 +2487,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var section = new List<string>(); // List<string> | The URI of a particular section, to retrieve a section, component or report element. (optional)  (default to null)
             var disclosure = new List<string>(); // List<string> | A disclosure, to identify sections or components (e.g. BalanceSheet). (optional)  (default to null)
@@ -2526,8 +2526,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **section** | [**List<string>**](string.md)| The URI of a particular section, to retrieve a section, component or report element. | [optional] [default to null]
  **disclosure** | [**List<string>**](string.md)| A disclosure, to identify sections or components (e.g. BalanceSheet). | [optional] [default to null]
@@ -2583,8 +2583,8 @@ namespace Example
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var section = new List<string>(); // List<string> | The URI of a particular section, to retrieve a section, component or report element. (optional)  (default to null)
             var hypercube = new List<string>(); // List<string> | The name of a hypercube report element, to retrieve components / sections. (optional)  (default to null)
@@ -2625,8 +2625,8 @@ Name | Type | Description  | Notes
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **section** | [**List<string>**](string.md)| The URI of a particular section, to retrieve a section, component or report element. | [optional] [default to null]
  **hypercube** | [**List<string>**](string.md)| The name of a hypercube report element, to retrieve components / sections. | [optional] [default to null]
@@ -2691,8 +2691,8 @@ namespace Example
             var fiscalYear = new List<string>(); // List<string> | A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). (optional)  (default to null)
             var fiscalPeriod = new List<string>(); // List<string> | A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). (optional)  (default to null)
             var fiscalPeriodType = new List<string>(); // List<string> | A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var additionalRules = additionalRules_example;  // string | The name of a report from which to use rules in addition to a report's rules (e.g. FundamentalAccountingConcepts). (optional)  (default to null)
             var auditTrails = auditTrails_example;  // string | Whether audit trails should be included in each fact (default: no). (optional)  (default to no)
             var open = true;  // bool? | Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional)  (default to false)
@@ -2751,8 +2751,8 @@ Name | Type | Description  | Notes
  **fiscalYear** | [**List<string>**](string.md)| A fiscal year to slice facts (a synonym for the dimension xbrl28:FiscalYear, default: no filtering). | [optional] [default to null]
  **fiscalPeriod** | [**List<string>**](string.md)| A fiscal period to slice facts (a synonym for the dimension xbrl28:FiscalPeriod, default: no filtering). | [optional] [default to null]
  **fiscalPeriodType** | [**List<string>**](string.md)| A fiscal period type to slice facts (a synonym for the dimension xbrl28:FiscalPeriodType, default: no filtering). | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **additionalRules** | **string**| The name of a report from which to use rules in addition to a report&#39;s rules (e.g. FundamentalAccountingConcepts). | [optional] [default to null]
  **auditTrails** | **string**| Whether audit trails should be included in each fact (default: no). | [optional] [default to no]
  **open** | **bool?**| Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). | [optional] [default to false]
@@ -2837,8 +2837,8 @@ namespace Example
             var column = new List<int?>(); // List<int?> | Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional)  (default to null)
             var flattenRowHeaders = true;  // bool? | Whether to flatten row headers to single columns (Default: true). (optional)  (default to true)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
-            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
-            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var _override = true;  // bool? | Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). (optional)  (default to null)
             var open = true;  // bool? | Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). (optional)  (default to false)
             var dimensions = new Dictionary<string, List<string>>(); // Dictionary<string, List<string>> | A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional)  (default to null)
@@ -2889,8 +2889,8 @@ Name | Type | Description  | Notes
  **column** | [**List<int?>**](int?.md)| Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. | [optional] [default to null]
  **flattenRowHeaders** | **bool?**| Whether to flatten row headers to single columns (Default: true). | [optional] [default to true]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
- **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
- **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **_override** | **bool?**| Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, otherwise automatically activated). | [optional] [default to null]
  **open** | **bool?**| Whether the hypercube query has open hypercube semantics, i.e., automatically stretches to accommodate for all found dimensions (default: false). | [optional] [default to false]
  **dimensions** | [**Dictionary<string, List<string>>**](List&lt;string&gt;.md)| A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. | [optional] [default to null]
