@@ -94,8 +94,7 @@ gulp.task('swagger:pack', $.shell.task([
 ]));
 
 gulp.task('swagger:push', $.shell.task([
-    'sudo ' + nugetCmd + ' setApiKey ' + process.env.NUGET_API_KEY + ' | cat &> /dev/null',
-    'sudo ' + nugetCmd + ' push CellStore.NET.' + version + '.nupkg'
+    'sudo ' + nugetCmd + ' push CellStore.NET.' + version + '.nupkg -Source nuget.org -ApiKey ' + process.env.NUGET_API_KEY    
 ]));
 
 gulp.task('swagger:copy', $.shell.task([
