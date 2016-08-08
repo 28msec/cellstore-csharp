@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 VisualStudioVersion = 12.0.0.0
 MinimumVisualStudioVersion = 10.0.0.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellStore", "src\CellStore\CellStore.csproj", "{67A63183-09E7-4B08-B421-0CBDB2B320A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellStore", "src\CellStore\CellStore.csproj", "{C3F17059-F3E4-4714-A585-7D6232894DEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellStore.Test", "src\CellStore.Test\CellStore.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
 EndProject
@@ -12,10 +12,10 @@ Debug|Any CPU = Debug|Any CPU
 Release|Any CPU = Release|Any CPU
 EndGlobalSection
 GlobalSection(ProjectConfigurationPlatforms) = postSolution
-{67A63183-09E7-4B08-B421-0CBDB2B320A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-{67A63183-09E7-4B08-B421-0CBDB2B320A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-{67A63183-09E7-4B08-B421-0CBDB2B320A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-{67A63183-09E7-4B08-B421-0CBDB2B320A6}.Release|Any CPU.Build.0 = Release|Any CPU
+{C3F17059-F3E4-4714-A585-7D6232894DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+{C3F17059-F3E4-4714-A585-7D6232894DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+{C3F17059-F3E4-4714-A585-7D6232894DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+{C3F17059-F3E4-4714-A585-7D6232894DEF}.Release|Any CPU.Build.0 = Release|Any CPU
 {19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 {19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.Build.0 = Debug|Any CPU
 {19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.ActiveCfg = Release|Any CPU
