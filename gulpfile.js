@@ -16,9 +16,9 @@ var isWindows = /^win/.test(process.platform);
 var nugetCmd = isWindows ? 'build-resources/nuget' : 'mono build-resources/nuget.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
-//var docsUrl = 'http://secxbrl-24-2-0.28.io/v1/_queries/public/api/docs';
+var docsUrl = 'http://secxbrl-24-2-2.28.io/v1/_queries/public/api/docs';
 //var docsUrl = 'https://www.dropbox.com/s/5v43dzjmxef0a9e/swagger-fully-resolved.json?dl=1';
-var docsUrl = 'http://secxbrl-3.28.io/v1/_queries/public/api/docs';
+//var docsUrl = 'http://secxbrl-3.28.io/v1/_queries/public/api/docs';
 
 var cellstoreFolder = '~/cellstore/cellstore-pro';
 var swaggerCodegenFolder = '~/cellstore/swagger-codegen';
