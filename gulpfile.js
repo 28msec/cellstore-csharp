@@ -12,7 +12,7 @@ var artifactsDir = process.env.CIRCLE_ARTIFACTS;
 var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && process.env.CIRCLE_BRANCH === 'master';
 var version;
 
-var isWindows = /^win/.test(process.platform);
+var isWindows = /^win/.test(process.platform) && !/^darwin/.test(process.platform);
 var nugetCmd = isWindows ? 'build-resources/nuget' : 'mono build-resources/nuget.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
