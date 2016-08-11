@@ -7,6 +7,10 @@ dependencies:
     - echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
     - sudo apt-get update
     - sudo apt-get install mono-devel
+    - sudo apt-get remove mono-devel
+    - sudo rm /etc/apt/sources.list.d/mono-xamarin.list
+    - sudo apt-get update
+    - sudo apt-get install mono-devel
 test:
   override:
     - gulp
