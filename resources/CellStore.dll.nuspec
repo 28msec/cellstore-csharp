@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>CellStore.NET</id>
-    <version>4.7.0</version>
+    <version>4.7.1</version>
     <authors>dknochen,fcavalieri</authors>
     <owners>dknochen,fcavalieri</owners>
     <licenseUrl>https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE</licenseUrl>
