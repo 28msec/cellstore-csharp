@@ -8,7 +8,7 @@ dependencies:
     - echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
     - sudo apt-get update
     - sudo apt-get download ca-certificates-mono
-    - sudp dpkg --force-all -i *.deb
+    - sudo dpkg --force-all -i *.deb
 test:
   override:
     - gulp
