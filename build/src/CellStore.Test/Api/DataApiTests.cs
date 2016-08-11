@@ -162,6 +162,19 @@ namespace CellStore.Test
         }
         
         /// <summary>
+        /// Test AddRules
+        /// </summary>
+        [Test]
+        public void AddRulesTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string token = null;
+            //Object rules = null;
+            //var response = instance.AddRules(token, rules);
+            //Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
         /// Test AddSections
         /// </summary>
         [Test]

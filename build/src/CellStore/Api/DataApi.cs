@@ -189,6 +189,29 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddReportElementsWithHttpInfo (string token, Object reportElement);
         /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="rules">The rule objects.</param>
+        /// <returns>Object</returns>
+        Object AddRules (string token, Object rules);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="rules">The rule objects.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> AddRulesWithHttpInfo (string token, Object rules);
+        /// <summary>
         /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
@@ -1818,6 +1841,29 @@ namespace CellStore.Api
         /// <param name="reportElement">The report element objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddReportElementsAsyncWithHttpInfo (string token, Object reportElement);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="rules">The rule objects.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> AddRulesAsync (string token, Object rules);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="rules">The rule objects.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddRulesAsyncWithHttpInfo (string token, Object rules);
         /// <summary>
         /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
@@ -4465,6 +4511,177 @@ namespace CellStore.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("AddReportElements", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="rules">The rule objects.</param>
+        /// <returns>Object</returns>
+        public Object AddRules (string token, Object rules)
+        {
+             ApiResponse<Object> localVarResponse = AddRulesWithHttpInfo(token, rules);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="rules">The rule objects.</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > AddRulesWithHttpInfo (string token, Object rules)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddRules");
+            // verify the required parameter 'rules' is set
+            if (rules == null)
+                throw new ApiException(400, "Missing required parameter 'rules' when calling DataApi->AddRules");
+
+            var localVarPath = "/api/rules";
+            var localVarPathParams = new Dictionary<String, String>();
+/* 28msec */
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+/* 28msec */
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+/* 28msec */
+                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            /* 28msec */
+            if (rules != null && rules.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(rules); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = rules; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("AddRules", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="rules">The rule objects.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> AddRulesAsync (string token, Object rules)
+        {
+             ApiResponse<Object> localVarResponse = await AddRulesAsyncWithHttpInfo(token, rules);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="rules">The rule objects.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddRulesAsyncWithHttpInfo (string token, Object rules)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->AddRules");
+            // verify the required parameter 'rules' is set
+            if (rules == null)
+                throw new ApiException(400, "Missing required parameter 'rules' when calling DataApi->AddRules");
+
+            var localVarPath = "/api/rules";
+            var localVarPathParams = new Dictionary<String, String>();
+/* 28msec */
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+/* 28msec */
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+/* 28msec */
+                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            /* 28msec */
+            if (rules != null && rules.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(rules); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = rules; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("AddRules", localVarResponse);
                 if (exception != null) throw exception;
             }
 
