@@ -13,7 +13,8 @@ var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && pr
 var version;
 
 var isWindows = /^win/.test(process.platform);
-var nugetCmd = isWindows ? 'build-resources/nuget' : 'mono build-resources/nuget.exe';
+var nugetCmd = isWindows ? 'resources/nuget-3.4.4.exe' : 'mono resources/nuget-3.4.4.exe';
+var legacyNugetCmd = isWindows ? 'resources/nuget-2.8.6.exe' : 'mono resources/nuget-2.8.6.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
 var docsUrl = 'http://secxbrl-24-2-2.28.io/v1/_queries/public/api/docs';
@@ -70,7 +71,6 @@ gulp.task('swagger:generate-csharp', $.shell.task([
 ]));
 
 gulp.task('swagger:csharp', $.shell.task([
-    isWindows ? ':' : 'wget http://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O build-resources/nuget.exe',
     path.normalize(nugetCmd + ' install build/src/CellStore/packages.config -o build-resources/dependencies'),
     'mkdir -p build-binary/lib',
     'cp build-resources/dependencies/Newtonsoft.Json.8.0.3/lib/net45/Newtonsoft.Json.dll build-binary/lib/Newtonsoft.Json.dll',
@@ -90,8 +90,7 @@ gulp.task('swagger:test', $.shell.task([
 
 gulp.task('swagger:pack', $.shell.task([
     'cp resources/CellStore.dll.nuspec build-binary',
-    isWindows ? ':' : 'wget http://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O build-resources/nuget.exe',
-    nugetCmd + ' pack build-binary/CellStore.dll.nuspec'
+    legacyNugetCmd + ' pack build-binary/CellStore.dll.nuspec'
 ]));
 
 gulp.task('swagger:push', $.shell.task([
