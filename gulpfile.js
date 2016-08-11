@@ -13,7 +13,8 @@ var isOnTravisAndMaster = isOnTravis && process.env.CI_PULL_REQUEST === '' && pr
 var version;
 
 var isWindows = /^win/.test(process.platform);
-var nugetCmd = isWindows ? 'nuget' : 'mono resources/nuget.exe';
+var nugetCmd = isWindows ? 'resources/nuget-3.4.4.exe' : 'mono resources/nuget-3.4.4.exe';
+var legacyNugetCmd = isWindows ? 'resources/nuget-2.8.6.exe' : 'mono resources/nuget-2.8.6.exe';
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
 //var docsUrl = 'http://secxbrl-24-2-0.28.io/v1/_queries/public/api/docs';
@@ -88,7 +89,7 @@ gulp.task('swagger:test', $.shell.task([
 
 gulp.task('swagger:pack', $.shell.task([
     'cp resources/CellStore.dll.nuspec build-binary',
-    nugetCmd + ' pack build-binary/CellStore.dll.nuspec'
+    legacyNugetCmd + ' pack build-binary/CellStore.dll.nuspec'
 ]));
 
 gulp.task('swagger:push', $.shell.task([
