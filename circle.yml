@@ -8,6 +8,7 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install mono-devel
     - sudo apt-get remove mono-devel
+    - sudo apt-get autoremove
     - sudo rm /etc/apt/sources.list.d/mono-xamarin.list
     - sudo apt-get update
     - sudo apt-get install mono-devel
