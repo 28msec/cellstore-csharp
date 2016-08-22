@@ -268,6 +268,35 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
         /// <summary>
+        /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fromAid">Archive ID of the archive or taxonomy to copy.</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Object</returns>
+        Object CopyArchive (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null);
+
+        /// <summary>
+        /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fromAid">Archive ID of the archive or taxonomy to copy.</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> CopyArchiveWithHttpInfo (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null);
+        /// <summary>
         /// Deletes an archive.
         /// </summary>
         /// <remarks>
@@ -642,11 +671,12 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="dts">Whether DTS and entrypoint information should be included for each archive (default: false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object GetArchives (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        Object GetArchives (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve metadata about the archives, also called archives. The archives are identified with Archive IDs (AIDs). Facts can be bound with archives with the xbrl28:Archive aspect, whose values are AIDs.
@@ -668,11 +698,12 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="dts">Whether DTS and entrypoint information should be included for each archive (default: false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> GetArchivesWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        ApiResponse<Object> GetArchivesWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null);
         /// <summary>
         /// Retrieve a summary for all components of a given archive
         /// </summary>
@@ -1921,6 +1952,35 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
         /// <summary>
+        /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fromAid">Archive ID of the archive or taxonomy to copy.</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> CopyArchiveAsync (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null);
+
+        /// <summary>
+        /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fromAid">Archive ID of the archive or taxonomy to copy.</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> CopyArchiveAsyncWithHttpInfo (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null);
+        /// <summary>
         /// Deletes an archive.
         /// </summary>
         /// <remarks>
@@ -2295,11 +2355,12 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="dts">Whether DTS and entrypoint information should be included for each archive (default: false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> GetArchivesAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<Object> GetArchivesAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null);
 
         /// <summary>
         /// Retrieve metadata about the archives, also called archives. The archives are identified with Archive IDs (AIDs). Facts can be bound with archives with the xbrl28:Archive aspect, whose values are AIDs.
@@ -2321,11 +2382,12 @@ namespace CellStore.Api
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="dts">Whether DTS and entrypoint information should be included for each archive (default: false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> GetArchivesAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> GetArchivesAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null);
         /// <summary>
         /// Retrieve a summary for all components of a given archive
         /// </summary>
@@ -5056,6 +5118,181 @@ namespace CellStore.Api
         }
 
         /// <summary>
+        /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified.  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fromAid">Archive ID of the archive or taxonomy to copy.</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Object</returns>
+        public Object CopyArchive (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null)
+        {
+             ApiResponse<Object> localVarResponse = CopyArchiveWithHttpInfo(token, fromAid, aid, eid, insertEntity);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified.  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fromAid">Archive ID of the archive or taxonomy to copy.</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > CopyArchiveWithHttpInfo (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->CopyArchive");
+            // verify the required parameter 'fromAid' is set
+            if (fromAid == null)
+                throw new ApiException(400, "Missing required parameter 'fromAid' when calling DataApi->CopyArchive");
+
+            var localVarPath = "/api/archives/copy";
+            var localVarPathParams = new Dictionary<String, String>();
+/* 28msec */
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+/* 28msec */
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+/* 28msec */
+                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (fromAid != null) localVarQueryParams.Add("from-aid", Configuration.ApiClient.ParameterToString(fromAid)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
+            /* 28msec */
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("CopyArchive", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified.  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fromAid">Archive ID of the archive or taxonomy to copy.</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> CopyArchiveAsync (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null)
+        {
+             ApiResponse<Object> localVarResponse = await CopyArchiveAsyncWithHttpInfo(token, fromAid, aid, eid, insertEntity);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified.  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="fromAid">Archive ID of the archive or taxonomy to copy.</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="eid">The EID (scheme + local name) of a company. (optional, default to null)</param>
+        /// <param name="insertEntity">If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> CopyArchiveAsyncWithHttpInfo (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->CopyArchive");
+            // verify the required parameter 'fromAid' is set
+            if (fromAid == null)
+                throw new ApiException(400, "Missing required parameter 'fromAid' when calling DataApi->CopyArchive");
+
+            var localVarPath = "/api/archives/copy";
+            var localVarPathParams = new Dictionary<String, String>();
+/* 28msec */
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+/* 28msec */
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+/* 28msec */
+                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (fromAid != null) localVarQueryParams.Add("from-aid", Configuration.ApiClient.ParameterToString(fromAid)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
+            /* 28msec */
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("CopyArchive", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
         /// Deletes an archive. 
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
@@ -6935,13 +7172,14 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="dts">Whether DTS and entrypoint information should be included for each archive (default: false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Object</returns>
-        public Object GetArchives (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public Object GetArchives (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null)
         {
-             ApiResponse<Object> localVarResponse = GetArchivesWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, count, top, skip);
+             ApiResponse<Object> localVarResponse = GetArchivesWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, dts, count, top, skip);
              return localVarResponse.Data;
         }
 
@@ -6962,11 +7200,12 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="dts">Whether DTS and entrypoint information should be included for each archive (default: false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > GetArchivesWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public ApiResponse< Object > GetArchivesWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -7010,6 +7249,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
             if (archiveTag != null) localVarQueryParams.Add("archive-tag", Configuration.ApiClient.ParameterToString(archiveTag)); // query parameter
             if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
+            if (dts != null) localVarQueryParams.Add("dts", Configuration.ApiClient.ParameterToString(dts)); // query parameter
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
@@ -7052,13 +7292,14 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="dts">Whether DTS and entrypoint information should be included for each archive (default: false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> GetArchivesAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<Object> GetArchivesAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null)
         {
-             ApiResponse<Object> localVarResponse = await GetArchivesAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, count, top, skip);
+             ApiResponse<Object> localVarResponse = await GetArchivesAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, dts, count, top, skip);
              return localVarResponse.Data;
 
         }
@@ -7080,11 +7321,12 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
+        /// <param name="dts">Whether DTS and entrypoint information should be included for each archive (default: false). (optional, default to false)</param>
         /// <param name="count">If true, only outputs statistics (default: false). (optional, default to false)</param>
         /// <param name="top">Output only the first [top] results (default: no limit). (optional, default to null)</param>
         /// <param name="skip">Skip the first [skip] results. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> GetArchivesAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> GetArchivesAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -7128,6 +7370,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
             if (archiveTag != null) localVarQueryParams.Add("archive-tag", Configuration.ApiClient.ParameterToString(archiveTag)); // query parameter
             if (language != null) localVarQueryParams.Add("language", Configuration.ApiClient.ParameterToString(language)); // query parameter
+            if (dts != null) localVarQueryParams.Add("dts", Configuration.ApiClient.ParameterToString(dts)); // query parameter
             if (count != null) localVarQueryParams.Add("count", Configuration.ApiClient.ParameterToString(count)); // query parameter
             if (top != null) localVarQueryParams.Add("top", Configuration.ApiClient.ParameterToString(top)); // query parameter
             if (skip != null) localVarQueryParams.Add("skip", Configuration.ApiClient.ParameterToString(skip)); // query parameter
