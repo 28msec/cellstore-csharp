@@ -1,6 +1,6 @@
 # CellStore.Api.DataApi
 
-All URIs are relative to *http://secxbrl-24-2-2.28.io/v1/_queries/public*
+All URIs are relative to *http://edinet-federico.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**AddRules**](DataApi.md#addrules) | **POST** /api/rules | 
 [**AddSections**](DataApi.md#addsections) | **POST** /api/sections | Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
 [**AddTaxonomy**](DataApi.md#addtaxonomy) | **POST** /api/taxonomies | Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
+[**CopyArchive**](DataApi.md#copyarchive) | **POST** /api/archives/copy | Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
 [**DeleteArchive**](DataApi.md#deletearchive) | **DELETE** /api/archives | Deletes an archive.
 [**DeleteEntity**](DataApi.md#deleteentity) | **DELETE** /api/entities | Deletes an entity.
 [**DeleteLabel**](DataApi.md#deletelabel) | **DELETE** /api/labels | Deletes a label.
@@ -605,6 +606,74 @@ Name | Type | Description  | Notes
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **insertEntity** | **bool?**| If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) | [optional] [default to true]
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="copyarchive"></a>
+# **CopyArchive**
+> Object CopyArchive (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null)
+
+Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using CellStore.Api;
+using CellStore.Client;
+using CellStore.Model;
+
+namespace Example
+{
+    public class CopyArchiveExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DataApi();
+            var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var fromAid = fromAid_example;  // string | Archive ID of the archive or taxonomy to copy. (default to null)
+            var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
+            var eid = eid_example;  // string | The EID (scheme + local name) of a company. (optional)  (default to null)
+            var insertEntity = true;  // bool? | If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional)  (default to true)
+
+            try
+            {
+                // Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
+                Object result = apiInstance.CopyArchive(token, fromAid, aid, eid, insertEntity);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DataApi.CopyArchive: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **fromAid** | **string**| Archive ID of the archive or taxonomy to copy. | [default to null]
+ **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
+ **eid** | **string**| The EID (scheme + local name) of a company. | [optional] [default to null]
+ **insertEntity** | **bool?**| If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) | [optional] [default to true]
 
 ### Return type
 
@@ -1329,7 +1398,7 @@ No authorization required
 
 <a name="getarchives"></a>
 # **GetArchives**
-> Object GetArchives (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetArchives (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve metadata about the archives, also called archives. The archives are identified with Archive IDs (AIDs). Facts can be bound with archives with the xbrl28:Archive aspect, whose values are AIDs.
 
@@ -1362,6 +1431,7 @@ namespace Example
             var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
             var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
             var language = language_example;  // string | A language code (default: en-US) for displaying labels. (optional)  (default to null)
+            var dts = true;  // bool? | Whether DTS and entrypoint information should be included for each archive (default: false). (optional)  (default to false)
             var count = true;  // bool? | If true, only outputs statistics (default: false). (optional)  (default to false)
             var top = 56;  // int? | Output only the first [top] results (default: no limit). (optional)  (default to null)
             var skip = 56;  // int? | Skip the first [skip] results. (optional)  (default to null)
@@ -1369,7 +1439,7 @@ namespace Example
             try
             {
                 // Retrieve metadata about the archives, also called archives. The archives are identified with Archive IDs (AIDs). Facts can be bound with archives with the xbrl28:Archive aspect, whose values are AIDs.
-                Object result = apiInstance.GetArchives(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, count, top, skip);
+                Object result = apiInstance.GetArchives(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, dts, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1398,6 +1468,7 @@ Name | Type | Description  | Notes
  **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
  **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
  **language** | **string**| A language code (default: en-US) for displaying labels. | [optional] [default to null]
+ **dts** | **bool?**| Whether DTS and entrypoint information should be included for each archive (default: false). | [optional] [default to false]
  **count** | **bool?**| If true, only outputs statistics (default: false). | [optional] [default to false]
  **top** | **int?**| Output only the first [top] results (default: no limit). | [optional] [default to null]
  **skip** | **int?**| Skip the first [skip] results. | [optional] [default to null]

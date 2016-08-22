@@ -206,6 +206,22 @@ namespace CellStore.Test
         }
         
         /// <summary>
+        /// Test CopyArchive
+        /// </summary>
+        [Test]
+        public void CopyArchiveTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string token = null;
+            //string fromAid = null;
+            //string aid = null;
+            //string eid = null;
+            //bool? insertEntity = null;
+            //var response = instance.CopyArchive(token, fromAid, aid, eid, insertEntity);
+            //Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
         /// Test DeleteArchive
         /// </summary>
         [Test]
@@ -416,10 +432,11 @@ namespace CellStore.Test
             //List<string> archiveFiscalPeriod = null;
             //List<string> archiveTag = null;
             //string language = null;
+            //bool? dts = null;
             //bool? count = null;
             //int? top = null;
             //int? skip = null;
-            //var response = instance.GetArchives(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, count, top, skip);
+            //var response = instance.GetArchives(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, dts, count, top, skip);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
