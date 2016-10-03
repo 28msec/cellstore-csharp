@@ -18,7 +18,7 @@ var legacyNugetCmd = isWindows ? 'resources/nuget-2.8.6.exe' : 'mono resources/n
 var compileCmd = isWindows ? 'csc' : 'mcs -sdk:4.5';
 
 //var docsUrl = 'http://secxbrl-24-2-2.28.io/v1/_queries/public/api/docs';
-var docsUrl = 'http://edinet-federico.28.io/v1/_queries/public/api/docs';
+var docsUrl = 'http://edinet-1.28.io/v1/_queries/public/api/docs';
 //var docsUrl = 'https://www.dropbox.com/s/5v43dzjmxef0a9e/swagger-fully-resolved.json?dl=1';
 
 var cellstoreFolder = '~/cellstore/cellstore-pro';
@@ -57,7 +57,7 @@ gulp.task('swagger:resolve-repository', ['swagger:clean'], $.shell.task([
 ]));
 
 gulp.task('swagger:install-codegen', $.shell.task(
-  'cd build-resources && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 60 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v' + swaggerCodegenVersion + '/swagger-codegen-cli.jar'
+  'cd build-resources && curl --retry-delay 0 --retry-max-time 600 --retry 5 --max-time 600 -L -o swagger-codegen-cli.jar https://github.com/28msec/swagger-codegen/releases/download/v' + swaggerCodegenVersion + '/swagger-codegen-cli.jar'
 ));
 
 gulp.task('swagger:install-codegen-dev', $.shell.task([
@@ -101,7 +101,7 @@ gulp.task('swagger:copy', $.shell.task([
 ]));
 
 gulp.task('swagger', function(done){
-    $.runSequence('swagger:resolve', 'swagger:install-codegen', 'swagger:generate-csharp', 'swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', function(){
+    $.runSequence('swagger:resolve', 'swagger:install-codegen-dev', 'swagger:generate-csharp', 'swagger:csharp', 'swagger:test', 'swagger:pack', 'swagger:copy', function(){
         if(isOnTravisAndMaster) {
             $.runSequence('swagger:push', done);
         } else {

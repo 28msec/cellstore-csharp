@@ -217,7 +217,8 @@ namespace CellStore.Test
             //string aid = null;
             //string eid = null;
             //bool? insertEntity = null;
-            //var response = instance.CopyArchive(token, fromAid, aid, eid, insertEntity);
+            //bool? copyFacts = null;
+            //var response = instance.CopyArchive(token, fromAid, aid, eid, insertEntity, copyFacts);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -469,7 +470,11 @@ namespace CellStore.Test
             //int? skip = null;
             //bool? validate = null;
             //string language = null;
-            //var response = instance.GetComponents(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language);
+            //List<string> concept = null;
+            //Dictionary<string, List<string>> dimensions = null;
+            //Dictionary<string, string> dimensionTypes = null;
+            //Dictionary<string, string> defaultDimensionValues = null;
+            //var response = instance.GetComponents(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language, concept, dimensions, dimensionTypes, defaultDimensionValues);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -802,12 +807,15 @@ namespace CellStore.Test
             //List<string> label = null;
             //bool? onlyTextBlocks = null;
             //List<string> kind = null;
+            //string reportElementSearch = null;
+            //int? reportElementSearchOffset = null;
+            //int? reportElementSearchLimit = null;
             //string language = null;
             //string contentType = null;
             //bool? count = null;
             //int? top = null;
             //int? skip = null;
-            //var response = instance.GetReportElements(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
+            //var response = instance.GetReportElements(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, reportElementSearch, reportElementSearchOffset, reportElementSearchLimit, language, contentType, count, top, skip);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -965,6 +973,57 @@ namespace CellStore.Test
             //Dictionary<string, bool?> dimensionSlicers = null;
             //string aggregationFunction = null;
             //var response = instance.GetSpreadsheetForReport(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, archiveTag, archiveFiscalYear, archiveFiscalPeriod, _override, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, aggregationFunction);
+            //Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
+        /// Test GetTables
+        /// </summary>
+        [Test]
+        public void GetTablesTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string token = null;
+            //string profileName = null;
+            //List<string> eid = null;
+            //List<string> ticker = null;
+            //List<string> entityTag = null;
+            //List<string> sic = null;
+            //List<string> cik = null;
+            //List<string> edinetcode = null;
+            //List<string> archiveFiscalYear = null;
+            //List<string> archiveFiscalPeriod = null;
+            //List<string> archiveTag = null;
+            //List<string> aid = null;
+            //List<string> section = null;
+            //List<string> reportElement = null;
+            //List<string> label = null;
+            //bool? count = null;
+            //int? top = null;
+            //int? skip = null;
+            //string language = null;
+            //List<string> table = null;
+            //string tableLabelSearch = null;
+            //string tableColumnSearch = null;
+            //string tableRowSearch = null;
+            //int? tableSearchOffset = null;
+            //int? tableSearchLimit = null;
+            //var response = instance.GetTables(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, reportElement, label, count, top, skip, language, table, tableLabelSearch, tableColumnSearch, tableRowSearch, tableSearchOffset, tableSearchLimit);
+            //Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
+        /// Test RemoveRule
+        /// </summary>
+        [Test]
+        public void RemoveRuleTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string token = null;
+            //string id = null;
+            //string aid = null;
+            //string section = null;
+            //var response = instance.RemoveRule(token, id, aid, section);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         

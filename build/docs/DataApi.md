@@ -1,6 +1,6 @@
 # CellStore.Api.DataApi
 
-All URIs are relative to *http://edinet-federico.28.io/v1/_queries/public*
+All URIs are relative to *http://edinet-1.28.io/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -38,6 +38,8 @@ Method | HTTP request | Description
 [**GetSections**](DataApi.md#getsections) | **GET** /api/sections | Retrieve a summary for all sections of a given archive
 [**GetSpreadsheetForComponent**](DataApi.md#getspreadsheetforcomponent) | **GET** /api/spreadsheet-for-component | Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
 [**GetSpreadsheetForReport**](DataApi.md#getspreadsheetforreport) | **GET** /api/spreadsheet-for-report | Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
+[**GetTables**](DataApi.md#gettables) | **GET** /api/tables | Retrieve tables metadata
+[**RemoveRule**](DataApi.md#removerule) | **DELETE** /api/rules | Delete a rule for a given section
 
 
 <a name="addarchives"></a>
@@ -624,7 +626,7 @@ No authorization required
 
 <a name="copyarchive"></a>
 # **CopyArchive**
-> Object CopyArchive (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null)
+> Object CopyArchive (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null, bool? copyFacts = null)
 
 Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
 
@@ -649,11 +651,12 @@ namespace Example
             var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var eid = eid_example;  // string | The EID (scheme + local name) of a company. (optional)  (default to null)
             var insertEntity = true;  // bool? | If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional)  (default to true)
+            var copyFacts = true;  // bool? | Whether to copy the archive facts or not. (optional)  (default to true)
 
             try
             {
                 // Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
-                Object result = apiInstance.CopyArchive(token, fromAid, aid, eid, insertEntity);
+                Object result = apiInstance.CopyArchive(token, fromAid, aid, eid, insertEntity, copyFacts);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -674,6 +677,7 @@ Name | Type | Description  | Notes
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **eid** | **string**| The EID (scheme + local name) of a company. | [optional] [default to null]
  **insertEntity** | **bool?**| If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) | [optional] [default to true]
+ **copyFacts** | **bool?**| Whether to copy the archive facts or not. | [optional] [default to true]
 
 ### Return type
 
@@ -1490,7 +1494,7 @@ No authorization required
 
 <a name="getcomponents"></a>
 # **GetComponents**
-> Object GetComponents (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null)
+> Object GetComponents (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null, List<string> concept = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null)
 
 Retrieve a summary for all components of a given archive
 
@@ -1532,11 +1536,15 @@ namespace Example
             var skip = 56;  // int? | Skip the first [skip] results. (optional)  (default to null)
             var validate = true;  // bool? | Whether to run validation on the output components (default: false). Adds a column ValidationErrors (optional)  (default to false)
             var language = language_example;  // string | A language code (default: en-US) for displaying labels. (optional)  (default to null)
+            var concept = new List<string>(); // List<string> | The name of a concept to specify a data point to restrict components. (optional)  (default to null)
+            var dimensions = new Dictionary<string, List<string>>(); // Dictionary<string, List<string>> | A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. (optional)  (default to null)
+            var dimensionTypes = prefixdimensiontype_example;  // Dictionary<string, string> | Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. (optional)  (default to null)
+            var defaultDimensionValues = prefixdimensiondefault_example;  // Dictionary<string, string> | Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. (optional)  (default to null)
 
             try
             {
                 // Retrieve a summary for all components of a given archive
-                Object result = apiInstance.GetComponents(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language);
+                Object result = apiInstance.GetComponents(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language, concept, dimensions, dimensionTypes, defaultDimensionValues);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1574,6 +1582,10 @@ Name | Type | Description  | Notes
  **skip** | **int?**| Skip the first [skip] results. | [optional] [default to null]
  **validate** | **bool?**| Whether to run validation on the output components (default: false). Adds a column ValidationErrors | [optional] [default to false]
  **language** | **string**| A language code (default: en-US) for displaying labels. | [optional] [default to null]
+ **concept** | [**List<string>**](string.md)| The name of a concept to specify a data point to restrict components. | [optional] [default to null]
+ **dimensions** | [**Dictionary<string, List<string>>**](List&lt;string&gt;.md)| A set of dimension names and values used for filtering. As a value, the value of the dimension or ALL can be provided if all facts with this dimension should be retrieved. Each key is in the form prefix:dimension, each value is a string. | [optional] [default to null]
+ **dimensionTypes** | **Dictionary<string, string>**| Sets the given dimensions to be typed dimensions with the specified type (Default: xbrl:Entity/xbrl:Period/xbrl:Unit/xbrl28:Archive are typed string, others are explicit dimensions; Some further dimensions may have default types depending on the profile). Each key is in the form prefix:dimension::type, each value is a string. | [optional] [default to null]
+ **defaultDimensionValues** | **Dictionary<string, string>**| Specifies the default value of the given dimensions that should be returned if the dimension was not provided explicitly for a fact. Each key is in the form  prefix:dimension::default, each value is a string. | [optional] [default to null]
 
 ### Return type
 
@@ -1748,7 +1760,7 @@ namespace Example
             var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entitySearch = entitySearch_example;  // string | Includes in the results the entities whose name match this full-text query (optional)  (default to null)
             var entitySearchOffset = 56;  // int? | Includes in the results the entities whose name match the entity-search parameter skipping the first entity-search-offset results (default: 0) (optional)  (default to null)
-            var entitySearchLimit = 56;  // int? | Includes in the results the entities whose name match the entity-search parameter limited to a maximum of entity-search-limit results (default: 10) (optional)  (default to null)
+            var entitySearchLimit = 56;  // int? | Includes in the results the entities whose name match the entity-search parameter limited to a maximum of entity-search-limit results (default: 100) (optional)  (default to null)
             var language = language_example;  // string | Specifies in which language to perform the entity-search query (default: en-US) (optional)  (default to en-US)
             var count = true;  // bool? | If true, only outputs statistics (default: false). (optional)  (default to false)
             var top = 56;  // int? | Output only the first [top] results (default: no limit). (optional)  (default to null)
@@ -1783,7 +1795,7 @@ Name | Type | Description  | Notes
  **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entitySearch** | **string**| Includes in the results the entities whose name match this full-text query | [optional] [default to null]
  **entitySearchOffset** | **int?**| Includes in the results the entities whose name match the entity-search parameter skipping the first entity-search-offset results (default: 0) | [optional] [default to null]
- **entitySearchLimit** | **int?**| Includes in the results the entities whose name match the entity-search parameter limited to a maximum of entity-search-limit results (default: 10) | [optional] [default to null]
+ **entitySearchLimit** | **int?**| Includes in the results the entities whose name match the entity-search parameter limited to a maximum of entity-search-limit results (default: 100) | [optional] [default to null]
  **language** | **string**| Specifies in which language to perform the entity-search query (default: en-US) | [optional] [default to en-US]
  **count** | **bool?**| If true, only outputs statistics (default: false). | [optional] [default to false]
  **top** | **int?**| Output only the first [top] results (default: no limit). | [optional] [default to null]
@@ -2480,7 +2492,7 @@ No authorization required
 
 <a name="getreportelements"></a>
 # **GetReportElements**
-> Object GetReportElements (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, List<string> label = null, bool? onlyTextBlocks = null, List<string> kind = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetReportElements (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, List<string> label = null, bool? onlyTextBlocks = null, List<string> kind = null, string reportElementSearch = null, int? reportElementSearchOffset = null, int? reportElementSearchLimit = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve the report elements contained in a set of archives.
 
@@ -2522,6 +2534,9 @@ namespace Example
             var label = new List<string>(); // List<string> | A search term to search in the labels of report elements (e.g. stock) (optional)  (default to null)
             var onlyTextBlocks = true;  // bool? | Filters by text block/not text block (default: no filtering) (optional)  (default to null)
             var kind = new List<string>(); // List<string> | Filters by concept kind (default: no filtering) (optional)  (default to null)
+            var reportElementSearch = reportElementSearch_example;  // string | Includes in the results the report elements that have a label matching this full-text query (optional)  (default to null)
+            var reportElementSearchOffset = 56;  // int? | Includes in the results the report elements that have a label matching the report-element-search parameter skipping the first report-element-search-offset results (default: 0) (optional)  (default to null)
+            var reportElementSearchLimit = 56;  // int? | Includes in the results the report elements that have a label matching the report-element-search parameter limited to a maximum of report-element-search-limit results (default: 100) (optional)  (default to null)
             var language = language_example;  // string | A language code (default: en-US) for displaying labels. (optional)  (default to null)
             var contentType = contentType_example;  // string | Content-Type of the request (optional)  (default to null)
             var count = true;  // bool? | If true, only outputs statistics (default: false). (optional)  (default to false)
@@ -2531,7 +2546,7 @@ namespace Example
             try
             {
                 // Retrieve the report elements contained in a set of archives.
-                Object result = apiInstance.GetReportElements(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, language, contentType, count, top, skip);
+                Object result = apiInstance.GetReportElements(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, reportElementSearch, reportElementSearchOffset, reportElementSearchLimit, language, contentType, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2569,6 +2584,9 @@ Name | Type | Description  | Notes
  **label** | [**List<string>**](string.md)| A search term to search in the labels of report elements (e.g. stock) | [optional] [default to null]
  **onlyTextBlocks** | **bool?**| Filters by text block/not text block (default: no filtering) | [optional] [default to null]
  **kind** | [**List<string>**](string.md)| Filters by concept kind (default: no filtering) | [optional] [default to null]
+ **reportElementSearch** | **string**| Includes in the results the report elements that have a label matching this full-text query | [optional] [default to null]
+ **reportElementSearchOffset** | **int?**| Includes in the results the report elements that have a label matching the report-element-search parameter skipping the first report-element-search-offset results (default: 0) | [optional] [default to null]
+ **reportElementSearchLimit** | **int?**| Includes in the results the report elements that have a label matching the report-element-search parameter limited to a maximum of report-element-search-limit results (default: 100) | [optional] [default to null]
  **language** | **string**| A language code (default: en-US) for displaying labels. | [optional] [default to null]
  **contentType** | **string**| Content-Type of the request | [optional] [default to null]
  **count** | **bool?**| If true, only outputs statistics (default: false). | [optional] [default to false]
@@ -3032,6 +3050,180 @@ Name | Type | Description  | Notes
  **dimensionsVisible** | **Dictionary<string, bool?>**| Specifies whether the dimension is visible in the output. Only applies to dimensions defined as slicers. Default: false for slicers, but always true for dicers. | [optional] [default to null]
  **dimensionSlicers** | **Dictionary<string, bool?>**| [Deprecated] Specifies whether the dimension is a slicer (true) or not (false). Slicer dimensions do not appear in the output fact table, and if an aggregation function is specified, facts are aggregated along this dimension (default: false). | [optional] [default to null]
  **aggregationFunction** | **string**| Specify an aggregation function to aggregate facts. Will aggregate facts, grouped by dicers, but aggregated along slicers, with this function. | [optional] [default to null]
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="gettables"></a>
+# **GetTables**
+> Object GetTables (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, string language = null, List<string> table = null, string tableLabelSearch = null, string tableColumnSearch = null, string tableRowSearch = null, int? tableSearchOffset = null, int? tableSearchLimit = null)
+
+Retrieve tables metadata
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using CellStore.Api;
+using CellStore.Client;
+using CellStore.Model;
+
+namespace Example
+{
+    public class GetTablesExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DataApi();
+            var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
+            var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
+            var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
+            var sic = new List<string>(); // List<string> | The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
+            var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
+            var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
+            var archiveFiscalYear = new List<string>(); // List<string> | The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveFiscalPeriod = new List<string>(); // List<string> | The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional)  (default to ALL)
+            var archiveTag = new List<string>(); // List<string> | The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional)  (default to null)
+            var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
+            var section = new List<string>(); // List<string> | The URI of a particular section, to retrieve a section, component or report element. (optional)  (default to null)
+            var reportElement = new List<string>(); // List<string> | The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). (optional)  (default to null)
+            var label = new List<string>(); // List<string> | A search term to search in the labels of components, to retrieve components (e.g. stock). (optional)  (default to null)
+            var count = true;  // bool? | If true, only outputs statistics (default: false). (optional)  (default to false)
+            var top = 56;  // int? | Output only the first [top] results (default: no limit). (optional)  (default to null)
+            var skip = 56;  // int? | Skip the first [skip] results. (optional)  (default to null)
+            var language = language_example;  // string | A language code (default: en-US) for displaying labels. (optional)  (default to null)
+            var table = new List<string>(); // List<string> | Table names, to retrieve tables. (optional)  (default to null)
+            var tableLabelSearch = tableLabelSearch_example;  // string | Includes in the results the tables whose label matches this full-text query (optional)  (default to null)
+            var tableColumnSearch = tableColumnSearch_example;  // string | Includes in the results the tables that have a column label matching this full-text query (optional)  (default to null)
+            var tableRowSearch = tableRowSearch_example;  // string | Includes in the results the tables that have a row label matching this full-text query (optional)  (default to null)
+            var tableSearchOffset = 56;  // int? | Includes in the results the tables matching one of the required full-text searches skipping the first table-search-offset results (default: 0) (optional)  (default to null)
+            var tableSearchLimit = 56;  // int? | Includes in the results the tables matching one of the required full-text searches limited to a maximum of table-search-limit results (default: 100) (optional)  (default to null)
+
+            try
+            {
+                // Retrieve tables metadata
+                Object result = apiInstance.GetTables(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, reportElement, label, count, top, skip, language, table, tableLabelSearch, tableColumnSearch, tableRowSearch, tableSearchOffset, tableSearchLimit);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DataApi.GetTables: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
+ **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
+ **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
+ **sic** | [**List<string>**](string.md)| The SIC (industry group) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
+ **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
+ **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
+ **archiveFiscalYear** | [**List<string>**](string.md)| The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveFiscalPeriod** | [**List<string>**](string.md)| The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). | [optional] [default to ALL]
+ **archiveTag** | [**List<string>**](string.md)| The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). | [optional] [default to null]
+ **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
+ **section** | [**List<string>**](string.md)| The URI of a particular section, to retrieve a section, component or report element. | [optional] [default to null]
+ **reportElement** | [**List<string>**](string.md)| The name of the report element to search for, to retrieve a section, a component or a report element (e.g. us-gaap:Goodwill). | [optional] [default to null]
+ **label** | [**List<string>**](string.md)| A search term to search in the labels of components, to retrieve components (e.g. stock). | [optional] [default to null]
+ **count** | **bool?**| If true, only outputs statistics (default: false). | [optional] [default to false]
+ **top** | **int?**| Output only the first [top] results (default: no limit). | [optional] [default to null]
+ **skip** | **int?**| Skip the first [skip] results. | [optional] [default to null]
+ **language** | **string**| A language code (default: en-US) for displaying labels. | [optional] [default to null]
+ **table** | [**List<string>**](string.md)| Table names, to retrieve tables. | [optional] [default to null]
+ **tableLabelSearch** | **string**| Includes in the results the tables whose label matches this full-text query | [optional] [default to null]
+ **tableColumnSearch** | **string**| Includes in the results the tables that have a column label matching this full-text query | [optional] [default to null]
+ **tableRowSearch** | **string**| Includes in the results the tables that have a row label matching this full-text query | [optional] [default to null]
+ **tableSearchOffset** | **int?**| Includes in the results the tables matching one of the required full-text searches skipping the first table-search-offset results (default: 0) | [optional] [default to null]
+ **tableSearchLimit** | **int?**| Includes in the results the tables matching one of the required full-text searches limited to a maximum of table-search-limit results (default: 100) | [optional] [default to null]
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="removerule"></a>
+# **RemoveRule**
+> Object RemoveRule (string token, string id, string aid = null, string section = null)
+
+Delete a rule for a given section
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using CellStore.Api;
+using CellStore.Client;
+using CellStore.Model;
+
+namespace Example
+{
+    public class RemoveRuleExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DataApi();
+            var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var id = id_example;  // string | Rule id. (default to null)
+            var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
+            var section = section_example;  // string | The URI of a particular section. (optional)  (default to null)
+
+            try
+            {
+                // Delete a rule for a given section
+                Object result = apiInstance.RemoveRule(token, id, aid, section);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DataApi.RemoveRule: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **id** | **string**| Rule id. | [default to null]
+ **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
+ **section** | **string**| The URI of a particular section. | [optional] [default to null]
 
 ### Return type
 
