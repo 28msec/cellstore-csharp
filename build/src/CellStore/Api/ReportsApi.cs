@@ -448,7 +448,7 @@ namespace CellStore.Api
             if (label != null) localVarQueryParams.Add("label", Configuration.ApiClient.ParameterToString(label)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (report != null && report.GetType() != typeof(byte[]))
+            if (report != null && report.GetType() != typeof(byte[]) && report.GetType() != typeof(String))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(report); // http body (model) parameter
             }
@@ -552,7 +552,7 @@ namespace CellStore.Api
             if (label != null) localVarQueryParams.Add("label", Configuration.ApiClient.ParameterToString(label)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (report != null && report.GetType() != typeof(byte[]))
+            if (report != null && report.GetType() != typeof(byte[]) && report.GetType() != typeof(String))
             {
                 localVarPostBody = Configuration.ApiClient.Serialize(report); // http body (model) parameter
             }
