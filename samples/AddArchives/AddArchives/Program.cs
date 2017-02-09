@@ -25,7 +25,7 @@ namespace AddArchives
        
       byte[] archive = File.ReadAllBytes(@"filing.zip");
 
-      dynamic result = dataAPI.AddArchives(token: token, archive: archive, contentType: "application/xbrlx", profileName: "SEC");
+      dynamic result = dataAPI.ImportArchive(token: token, archive: archive, profileName: "SEC");
 
       Console.WriteLine(JsonConvert.SerializeObject(result));
       Console.ReadKey();

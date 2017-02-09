@@ -24,7 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Collections;
 using RestSharp;
+using Newtonsoft.Json.Linq;
 using CellStore.Client;
 using CellStore.Model;
 
@@ -37,42 +40,32 @@ namespace CellStore.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="archive">The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
-        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Object</returns>
-        Object AddArchives (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        Object AddArchives (string token, Object archive, string profileName = null);
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="archive">The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
-        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> AddArchivesWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        ApiResponse<Object> AddArchivesWithHttpInfo (string token, Object archive, string profileName = null);
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -84,7 +77,7 @@ namespace CellStore.Api
         Object AddEntities (string token, Object entity);
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -212,7 +205,7 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> AddRulesWithHttpInfo (string token, Object rules);
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -225,7 +218,7 @@ namespace CellStore.Api
         Object AddSections (string token, Object section, string profileName = null);
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -248,9 +241,10 @@ namespace CellStore.Api
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Object</returns>
-        Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null);
 
         /// <summary>
         /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
@@ -264,9 +258,10 @@ namespace CellStore.Api
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        ApiResponse<Object> AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null);
         /// <summary>
         /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
         /// </summary>
@@ -1592,15 +1587,16 @@ namespace CellStore.Api
         /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, but false if a definition model is defined in the component). (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <returns>Object</returns>
-        Object GetSpreadsheetForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        Object GetSpreadsheetForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null);
 
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
@@ -1642,15 +1638,16 @@ namespace CellStore.Api
         /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, but false if a definition model is defined in the component). (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> GetSpreadsheetForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        ApiResponse<Object> GetSpreadsheetForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null);
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
@@ -1674,12 +1671,12 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
@@ -1716,12 +1713,12 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
@@ -1804,6 +1801,41 @@ namespace CellStore.Api
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> GetTablesWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, string language = null, List<string> table = null, string tableLabelSearch = null, string tableColumnSearch = null, string tableRowSearch = null, int? tableSearchOffset = null, int? tableSearchLimit = null);
         /// <summary>
+        /// Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="archive">The body of the request, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether to import the XBRL taxonomy of the specified archive or the archive itself. (optional, default to false)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
+        /// <returns>Object</returns>
+        Object ImportArchive (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null);
+
+        /// <summary>
+        /// Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="archive">The body of the request, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether to import the XBRL taxonomy of the specified archive or the archive itself. (optional, default to false)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> ImportArchiveWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null);
+        /// <summary>
         /// Delete a rule for a given section
         /// </summary>
         /// <remarks>
@@ -1833,42 +1865,32 @@ namespace CellStore.Api
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="archive">The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
-        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> AddArchivesAsync (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        System.Threading.Tasks.Task<Object> AddArchivesAsync (string token, Object archive, string profileName = null);
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="archive">The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
-        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> AddArchivesAsyncWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddArchivesAsyncWithHttpInfo (string token, Object archive, string profileName = null);
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -1880,7 +1902,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddEntitiesAsync (string token, Object entity);
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -2008,7 +2030,7 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> AddRulesAsyncWithHttpInfo (string token, Object rules);
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -2021,7 +2043,7 @@ namespace CellStore.Api
         System.Threading.Tasks.Task<Object> AddSectionsAsync (string token, Object section, string profileName = null);
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
         /// </summary>
         /// <remarks>
         /// 
@@ -2044,9 +2066,10 @@ namespace CellStore.Api
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null);
 
         /// <summary>
         /// Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
@@ -2060,9 +2083,10 @@ namespace CellStore.Api
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null);
         /// <summary>
         /// Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
         /// </summary>
@@ -3388,15 +3412,16 @@ namespace CellStore.Api
         /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, but false if a definition model is defined in the component). (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> GetSpreadsheetForComponentAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        System.Threading.Tasks.Task<Object> GetSpreadsheetForComponentAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null);
 
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
@@ -3438,15 +3463,16 @@ namespace CellStore.Api
         /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, but false if a definition model is defined in the component). (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null);
         /// <summary>
         /// Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
         /// </summary>
@@ -3470,12 +3496,12 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
@@ -3512,12 +3538,12 @@ namespace CellStore.Api
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
@@ -3600,6 +3626,41 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetTablesAsyncWithHttpInfo (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, string language = null, List<string> table = null, string tableLabelSearch = null, string tableColumnSearch = null, string tableRowSearch = null, int? tableSearchOffset = null, int? tableSearchLimit = null);
         /// <summary>
+        /// Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="archive">The body of the request, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether to import the XBRL taxonomy of the specified archive or the archive itself. (optional, default to false)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> ImportArchiveAsync (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null);
+
+        /// <summary>
+        /// Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="archive">The body of the request, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether to import the XBRL taxonomy of the specified archive or the archive itself. (optional, default to false)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ImportArchiveAsyncWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null);
+        /// <summary>
         /// Delete a rule for a given section
         /// </summary>
         /// <remarks>
@@ -3634,7 +3695,7 @@ namespace CellStore.Api
     /// </summary>
     public partial class DataApi : IDataApi
     {
-        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
+        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, request, response) => null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataApi"/> class.
@@ -3739,38 +3800,28 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="archive">The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
-        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Object</returns>
-        public Object AddArchives (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
+        public Object AddArchives (string token, Object archive, string profileName = null)
         {
-             ApiResponse<Object> localVarResponse = AddArchivesWithHttpInfo(token, archive, profileName, aid, archiveDetectionProfileName, taxonomy, insertEntity, contentType);
+             ApiResponse<Object> localVarResponse = AddArchivesWithHttpInfo(token, archive, profileName);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="archive">The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
-        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > AddArchivesWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
+        public ApiResponse< Object > AddArchivesWithHttpInfo (string token, Object archive, string profileName = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -3806,32 +3857,59 @@ namespace CellStore.Api
 /* 28msec */
                         if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
-            if (archiveDetectionProfileName != null) localVarQueryParams.Add("archive-detection-profile-name", Configuration.ApiClient.ParameterToString(archiveDetectionProfileName)); // query parameter
-            if (taxonomy != null) localVarQueryParams.Add("taxonomy", Configuration.ApiClient.ParameterToString(taxonomy)); // query parameter
-            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
-                        if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
-/* 28msec */
-            if (archive != null && archive.GetType() != typeof(byte[]) && archive.GetType() != typeof(String))
+            /* 28msec */
+            if (archive != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(archive); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = archive; // byte array
+                if (archive is byte[] || archive is string || archive is String)
+                    localVarPostBody = archive;
+                else if (archive is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(archive);
+                else if (archive is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in archive as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in archive as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in archive as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable && !(archive is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in archive as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(archive);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddArchives", localVarResponse);
+                Exception exception = ExceptionFactory("AddArchives", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -3842,39 +3920,29 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="archive">The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
-        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> AddArchivesAsync (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
+        public async System.Threading.Tasks.Task<Object> AddArchivesAsync (string token, Object archive, string profileName = null)
         {
-             ApiResponse<Object> localVarResponse = await AddArchivesAsyncWithHttpInfo(token, archive, profileName, aid, archiveDetectionProfileName, taxonomy, insertEntity, contentType);
+             ApiResponse<Object> localVarResponse = await AddArchivesAsyncWithHttpInfo(token, archive, profileName);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  There are two ways to create an archive: a full import of an XBRL instance and taxonomy out of a ZIP file, or a new empty archive with a JSON object containing its metadata.  A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  Alternatively, a new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
-        /// <param name="archive">The body of the request. If the content type is application/json, the archive JSON objects, which must satisfy the constraints described in the field table. If the content type is application/xbrlx, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="archive">The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
-        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
-        /// <param name="archiveDetectionProfileName">this parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
-        /// <param name="taxonomy">Whether the specified archive is an XBRL taxonomy or not. (Only used when providing compressed XBRL archives) (optional, default to false)</param>
-        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
-        /// <param name="contentType">Content-Type of the request, as an HTTP header. It must be set to \&quot;application/json\&quot; when providing an archive in json format, or to \&quot;application/xbrlx\&quot; when providing a ZIP Deflate-compressed XBRL archive. (optional, default to null)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddArchivesAsyncWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null, string contentType = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddArchivesAsyncWithHttpInfo (string token, Object archive, string profileName = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -3910,32 +3978,60 @@ namespace CellStore.Api
 /* 28msec */
                         if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
-            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
-            if (archiveDetectionProfileName != null) localVarQueryParams.Add("archive-detection-profile-name", Configuration.ApiClient.ParameterToString(archiveDetectionProfileName)); // query parameter
-            if (taxonomy != null) localVarQueryParams.Add("taxonomy", Configuration.ApiClient.ParameterToString(taxonomy)); // query parameter
-            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
-                        if (contentType != null) localVarHeaderParams.Add("Content-Type", Configuration.ApiClient.SingleParameterToString(contentType)); // header parameter
-/* 28msec */
-            if (archive != null && archive.GetType() != typeof(byte[]) && archive.GetType() != typeof(String))
+            /* 28msec */
+            if (archive != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(archive); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = archive; // byte array
+                if (archive is byte[] || archive is string || archive is String)
+                    localVarPostBody = archive;
+                else if (archive is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(archive);
+                else if (archive is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in archive as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in archive as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in archive as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable && !(archive is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in archive as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(archive);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddArchives", localVarResponse);
+                Exception exception = ExceptionFactory("AddArchives", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -3946,7 +4042,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -3959,7 +4055,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4001,26 +4097,58 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (entity != null && entity.GetType() != typeof(byte[]) && entity.GetType() != typeof(String))
+            if (entity != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(entity); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = entity; // byte array
+                if (entity is byte[] || entity is string || entity is String)
+                    localVarPostBody = entity;
+                else if (entity is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(entity);
+                else if (entity is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in entity as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (entity is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in entity as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (entity is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in entity as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (entity is IEnumerable && !(entity is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in entity as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(entity);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddEntities", localVarResponse);
+                Exception exception = ExceptionFactory("AddEntities", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4031,7 +4159,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4045,7 +4173,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EID   | string | optional | The entity ID (EID). | | EIDs  | array of strings (at least one) | required if EID is absent | The EIDs, if more than one EID exists for this entity. Must be present if and only if EID is absent. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4087,26 +4215,59 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (entity != null && entity.GetType() != typeof(byte[]) && entity.GetType() != typeof(String))
+            if (entity != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(entity); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = entity; // byte array
+                if (entity is byte[] || entity is string || entity is String)
+                    localVarPostBody = entity;
+                else if (entity is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(entity);
+                else if (entity is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in entity as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (entity is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in entity as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (entity is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in entity as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (entity is IEnumerable && !(entity is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in entity as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(entity);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddEntities", localVarResponse);
+                Exception exception = ExceptionFactory("AddEntities", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4172,26 +4333,58 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (fact != null && fact.GetType() != typeof(byte[]) && fact.GetType() != typeof(String))
+            if (fact != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(fact); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = fact; // byte array
+                if (fact is byte[] || fact is string || fact is String)
+                    localVarPostBody = fact;
+                else if (fact is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(fact);
+                else if (fact is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in fact as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (fact is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in fact as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (fact is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in fact as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (fact is IEnumerable && !(fact is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in fact as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(fact);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddFacts", localVarResponse);
+                Exception exception = ExceptionFactory("AddFacts", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4258,26 +4451,59 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (fact != null && fact.GetType() != typeof(byte[]) && fact.GetType() != typeof(String))
+            if (fact != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(fact); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = fact; // byte array
+                if (fact is byte[] || fact is string || fact is String)
+                    localVarPostBody = fact;
+                else if (fact is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(fact);
+                else if (fact is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in fact as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (fact is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in fact as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (fact is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in fact as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (fact is IEnumerable && !(fact is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in fact as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(fact);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddFacts", localVarResponse);
+                Exception exception = ExceptionFactory("AddFacts", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4343,26 +4569,58 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (label != null && label.GetType() != typeof(byte[]) && label.GetType() != typeof(String))
+            if (label != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(label); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = label; // byte array
+                if (label is byte[] || label is string || label is String)
+                    localVarPostBody = label;
+                else if (label is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(label);
+                else if (label is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in label as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (label is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in label as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (label is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in label as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (label is IEnumerable && !(label is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in label as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(label);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddLabels", localVarResponse);
+                Exception exception = ExceptionFactory("AddLabels", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4429,26 +4687,59 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (label != null && label.GetType() != typeof(byte[]) && label.GetType() != typeof(String))
+            if (label != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(label); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = label; // byte array
+                if (label is byte[] || label is string || label is String)
+                    localVarPostBody = label;
+                else if (label is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(label);
+                else if (label is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in label as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (label is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in label as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (label is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in label as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (label is IEnumerable && !(label is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in label as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(label);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddLabels", localVarResponse);
+                Exception exception = ExceptionFactory("AddLabels", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4517,26 +4808,58 @@ namespace CellStore.Api
                         if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (modelStructure != null && modelStructure.GetType() != typeof(byte[]) && modelStructure.GetType() != typeof(String))
+            if (modelStructure != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(modelStructure); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = modelStructure; // byte array
+                if (modelStructure is byte[] || modelStructure is string || modelStructure is String)
+                    localVarPostBody = modelStructure;
+                else if (modelStructure is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(modelStructure);
+                else if (modelStructure is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in modelStructure as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (modelStructure is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in modelStructure as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (modelStructure is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in modelStructure as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (modelStructure is IEnumerable && !(modelStructure is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in modelStructure as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(modelStructure);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddModelStructureForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("AddModelStructureForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4606,26 +4929,59 @@ namespace CellStore.Api
                         if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (modelStructure != null && modelStructure.GetType() != typeof(byte[]) && modelStructure.GetType() != typeof(String))
+            if (modelStructure != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(modelStructure); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = modelStructure; // byte array
+                if (modelStructure is byte[] || modelStructure is string || modelStructure is String)
+                    localVarPostBody = modelStructure;
+                else if (modelStructure is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(modelStructure);
+                else if (modelStructure is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in modelStructure as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (modelStructure is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in modelStructure as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (modelStructure is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in modelStructure as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (modelStructure is IEnumerable && !(modelStructure is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in modelStructure as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(modelStructure);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddModelStructureForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("AddModelStructureForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4691,26 +5047,58 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (reportElement != null && reportElement.GetType() != typeof(byte[]) && reportElement.GetType() != typeof(String))
+            if (reportElement != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(reportElement); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = reportElement; // byte array
+                if (reportElement is byte[] || reportElement is string || reportElement is String)
+                    localVarPostBody = reportElement;
+                else if (reportElement is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(reportElement);
+                else if (reportElement is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in reportElement as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (reportElement is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in reportElement as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (reportElement is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in reportElement as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (reportElement is IEnumerable && !(reportElement is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in reportElement as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(reportElement);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddReportElements", localVarResponse);
+                Exception exception = ExceptionFactory("AddReportElements", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4777,26 +5165,59 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (reportElement != null && reportElement.GetType() != typeof(byte[]) && reportElement.GetType() != typeof(String))
+            if (reportElement != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(reportElement); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = reportElement; // byte array
+                if (reportElement is byte[] || reportElement is string || reportElement is String)
+                    localVarPostBody = reportElement;
+                else if (reportElement is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(reportElement);
+                else if (reportElement is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in reportElement as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (reportElement is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in reportElement as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (reportElement is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in reportElement as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (reportElement is IEnumerable && !(reportElement is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in reportElement as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(reportElement);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddReportElements", localVarResponse);
+                Exception exception = ExceptionFactory("AddReportElements", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4862,26 +5283,58 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (rules != null && rules.GetType() != typeof(byte[]) && rules.GetType() != typeof(String))
+            if (rules != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(rules); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = rules; // byte array
+                if (rules is byte[] || rules is string || rules is String)
+                    localVarPostBody = rules;
+                else if (rules is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(rules);
+                else if (rules is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in rules as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (rules is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in rules as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (rules is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in rules as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (rules is IEnumerable && !(rules is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in rules as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(rules);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddRules", localVarResponse);
+                Exception exception = ExceptionFactory("AddRules", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4948,26 +5401,59 @@ namespace CellStore.Api
 /* 28msec */
                         if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (rules != null && rules.GetType() != typeof(byte[]) && rules.GetType() != typeof(String))
+            if (rules != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(rules); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = rules; // byte array
+                if (rules is byte[] || rules is string || rules is String)
+                    localVarPostBody = rules;
+                else if (rules is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(rules);
+                else if (rules is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in rules as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (rules is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in rules as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (rules is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in rules as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (rules is IEnumerable && !(rules is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in rules as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(rules);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddRules", localVarResponse);
+                Exception exception = ExceptionFactory("AddRules", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -4978,7 +5464,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -4992,7 +5478,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -5036,26 +5522,58 @@ namespace CellStore.Api
                         if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (section != null && section.GetType() != typeof(byte[]) && section.GetType() != typeof(String))
+            if (section != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(section); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = section; // byte array
+                if (section is byte[] || section is string || section is String)
+                    localVarPostBody = section;
+                else if (section is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(section);
+                else if (section is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in section as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (section is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in section as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (section is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in section as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (section is IEnumerable && !(section is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in section as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(section);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddSections", localVarResponse);
+                Exception exception = ExceptionFactory("AddSections", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5066,7 +5584,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -5081,7 +5599,7 @@ namespace CellStore.Api
         }
 
         /// <summary>
-        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
+        /// Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above.  
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
@@ -5125,26 +5643,59 @@ namespace CellStore.Api
                         if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (section != null && section.GetType() != typeof(byte[]) && section.GetType() != typeof(String))
+            if (section != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(section); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = section; // byte array
+                if (section is byte[] || section is string || section is String)
+                    localVarPostBody = section;
+                else if (section is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(section);
+                else if (section is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in section as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (section is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in section as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (section is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in section as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (section is IEnumerable && !(section is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in section as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(section);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddSections", localVarResponse);
+                Exception exception = ExceptionFactory("AddSections", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5163,11 +5714,12 @@ namespace CellStore.Api
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Object</returns>
-        public Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        public Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null)
         {
-             ApiResponse<Object> localVarResponse = AddTaxonomyWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
+             ApiResponse<Object> localVarResponse = AddTaxonomyWithHttpInfo(token, eid, entrypoint, profileName, aid, timeout, insertEntity);
              return localVarResponse.Data;
         }
 
@@ -5180,9 +5732,10 @@ namespace CellStore.Api
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        public ApiResponse< Object > AddTaxonomyWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -5223,21 +5776,25 @@ namespace CellStore.Api
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (timeout != null) localVarQueryParams.Add("timeout", Configuration.ApiClient.ParameterToString(timeout)); // query parameter
             if (entrypoint != null) localVarQueryParams.Add("entrypoint", Configuration.ApiClient.ParameterToString(entrypoint)); // query parameter
             if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddTaxonomy", localVarResponse);
+                Exception exception = ExceptionFactory("AddTaxonomy", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5256,11 +5813,12 @@ namespace CellStore.Api
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        public async System.Threading.Tasks.Task<Object> AddTaxonomyAsync (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null)
         {
-             ApiResponse<Object> localVarResponse = await AddTaxonomyAsyncWithHttpInfo(token, eid, entrypoint, profileName, aid, insertEntity);
+             ApiResponse<Object> localVarResponse = await AddTaxonomyAsyncWithHttpInfo(token, eid, entrypoint, profileName, aid, timeout, insertEntity);
              return localVarResponse.Data;
 
         }
@@ -5274,9 +5832,10 @@ namespace CellStore.Api
         /// <param name="entrypoint">The URI of a taxonomy entrypoint.</param>
         /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
         /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
         /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional, default to true)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, bool? insertEntity = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> AddTaxonomyAsyncWithHttpInfo (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -5317,21 +5876,26 @@ namespace CellStore.Api
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
             if (eid != null) localVarQueryParams.Add("eid", Configuration.ApiClient.ParameterToString(eid)); // query parameter
+            if (timeout != null) localVarQueryParams.Add("timeout", Configuration.ApiClient.ParameterToString(timeout)); // query parameter
             if (entrypoint != null) localVarQueryParams.Add("entrypoint", Configuration.ApiClient.ParameterToString(entrypoint)); // query parameter
             if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddTaxonomy", localVarResponse);
+                Exception exception = ExceptionFactory("AddTaxonomy", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5412,16 +5976,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("CopyArchive", localVarResponse);
+                Exception exception = ExceptionFactory("CopyArchive", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5503,16 +6070,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("CopyArchive", localVarResponse);
+                Exception exception = ExceptionFactory("CopyArchive", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5608,16 +6179,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteArchive", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteArchive", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5714,16 +6288,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteArchive", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteArchive", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5801,16 +6379,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteEntity", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteEntity", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5889,16 +6470,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteEntity", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteEntity", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -5979,16 +6564,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteLabel", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteLabel", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6070,16 +6658,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteLabel", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteLabel", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6151,16 +6743,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteModelStructureForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteModelStructureForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6233,16 +6828,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteModelStructureForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteModelStructureForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6317,16 +6916,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteReportElement", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteReportElement", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6402,16 +7004,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteReportElement", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteReportElement", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6483,16 +7089,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteSection", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteSection", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6565,16 +7174,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("DeleteSection", localVarResponse);
+                Exception exception = ExceptionFactory("DeleteSection", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6673,26 +7286,58 @@ namespace CellStore.Api
             if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
             if (archiveTag != null) localVarQueryParams.Add("archive-tag", Configuration.ApiClient.ParameterToString(archiveTag)); // query parameter
             /* 28msec */
-            if (patch != null && patch.GetType() != typeof(byte[]) && patch.GetType() != typeof(String))
+            if (patch != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = patch; // byte array
+                if (patch is byte[] || patch is string || patch is String)
+                    localVarPostBody = patch;
+                else if (patch is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
+                else if (patch is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable && !(patch is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("EditArchives", localVarResponse);
+                Exception exception = ExceptionFactory("EditArchives", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6792,26 +7437,59 @@ namespace CellStore.Api
             if (archiveFiscalPeriod != null) localVarQueryParams.Add("archiveFiscalPeriod", Configuration.ApiClient.ParameterToString(archiveFiscalPeriod)); // query parameter
             if (archiveTag != null) localVarQueryParams.Add("archive-tag", Configuration.ApiClient.ParameterToString(archiveTag)); // query parameter
             /* 28msec */
-            if (patch != null && patch.GetType() != typeof(byte[]) && patch.GetType() != typeof(String))
+            if (patch != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = patch; // byte array
+                if (patch is byte[] || patch is string || patch is String)
+                    localVarPostBody = patch;
+                else if (patch is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
+                else if (patch is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable && !(patch is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("EditArchives", localVarResponse);
+                Exception exception = ExceptionFactory("EditArchives", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -6898,26 +7576,58 @@ namespace CellStore.Api
             if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
             if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
             /* 28msec */
-            if (patch != null && patch.GetType() != typeof(byte[]) && patch.GetType() != typeof(String))
+            if (patch != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = patch; // byte array
+                if (patch is byte[] || patch is string || patch is String)
+                    localVarPostBody = patch;
+                else if (patch is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
+                else if (patch is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable && !(patch is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("EditEntities", localVarResponse);
+                Exception exception = ExceptionFactory("EditEntities", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -7005,26 +7715,59 @@ namespace CellStore.Api
             if (sic != null) localVarQueryParams.Add("sic", Configuration.ApiClient.ParameterToString(sic)); // query parameter
             if (ticker != null) localVarQueryParams.Add("ticker", Configuration.ApiClient.ParameterToString(ticker)); // query parameter
             /* 28msec */
-            if (patch != null && patch.GetType() != typeof(byte[]) && patch.GetType() != typeof(String))
+            if (patch != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = patch; // byte array
+                if (patch is byte[] || patch is string || patch is String)
+                    localVarPostBody = patch;
+                else if (patch is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
+                else if (patch is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable && !(patch is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("EditEntities", localVarResponse);
+                Exception exception = ExceptionFactory("EditEntities", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -7180,26 +7923,58 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
 if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
 /* 28msec */
-            if (patch != null && patch.GetType() != typeof(byte[]) && patch.GetType() != typeof(String))
+            if (patch != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = patch; // byte array
+                if (patch is byte[] || patch is string || patch is String)
+                    localVarPostBody = patch;
+                else if (patch is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
+                else if (patch is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable && !(patch is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("EditFacts", localVarResponse);
+                Exception exception = ExceptionFactory("EditFacts", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -7356,26 +8131,59 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 if (dimensionColumns != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionColumns, "^[^:]+:[^:]+::column$", localVarQueryParams); // pattern query parameter
 if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionAggregation, "^[^:]+:[^:]+::aggregation$", localVarQueryParams); // pattern query parameter
 /* 28msec */
-            if (patch != null && patch.GetType() != typeof(byte[]) && patch.GetType() != typeof(String))
+            if (patch != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(patch); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = patch; // byte array
+                if (patch is byte[] || patch is string || patch is String)
+                    localVarPostBody = patch;
+                else if (patch is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
+                else if (patch is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in patch as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (patch is IEnumerable && !(patch is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in patch as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(patch);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("EditFacts", localVarResponse);
+                Exception exception = ExceptionFactory("EditFacts", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -7486,16 +8294,19 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetArchives", localVarResponse);
+                Exception exception = ExceptionFactory("GetArchives", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -7607,16 +8418,20 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetArchives", localVarResponse);
+                Exception exception = ExceptionFactory("GetArchives", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -7754,16 +8569,19 @@ if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParam
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetComponents", localVarResponse);
+                Exception exception = ExceptionFactory("GetComponents", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -7902,16 +8720,20 @@ if (defaultDimensionValues != null) Configuration.ApiClient.AddPatternQueryParam
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetComponents", localVarResponse);
+                Exception exception = ExceptionFactory("GetComponents", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -8073,16 +8895,19 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetDataPointsForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("GetDataPointsForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -8245,16 +9070,20 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetDataPointsForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("GetDataPointsForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -8359,16 +9188,19 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetEntities", localVarResponse);
+                Exception exception = ExceptionFactory("GetEntities", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -8474,16 +9306,20 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetEntities", localVarResponse);
+                Exception exception = ExceptionFactory("GetEntities", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -8657,16 +9493,19 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetFactTableForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("GetFactTableForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -8841,16 +9680,20 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetFactTableForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("GetFactTableForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -8991,16 +9834,19 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetFactTableForReport", localVarResponse);
+                Exception exception = ExceptionFactory("GetFactTableForReport", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -9142,16 +9988,20 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetFactTableForReport", localVarResponse);
+                Exception exception = ExceptionFactory("GetFactTableForReport", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -9319,16 +10169,19 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetFacts", localVarResponse);
+                Exception exception = ExceptionFactory("GetFacts", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -9497,16 +10350,20 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetFacts", localVarResponse);
+                Exception exception = ExceptionFactory("GetFacts", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -9641,16 +10498,19 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetLabels", localVarResponse);
+                Exception exception = ExceptionFactory("GetLabels", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -9786,16 +10646,20 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetLabels", localVarResponse);
+                Exception exception = ExceptionFactory("GetLabels", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -9921,16 +10785,19 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetModelStructureForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("GetModelStructureForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -10057,16 +10924,20 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetModelStructureForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("GetModelStructureForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -10171,16 +11042,19 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetPeriods", localVarResponse);
+                Exception exception = ExceptionFactory("GetPeriods", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -10286,16 +11160,20 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetPeriods", localVarResponse);
+                Exception exception = ExceptionFactory("GetPeriods", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -10445,16 +11323,19 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetReportElements", localVarResponse);
+                Exception exception = ExceptionFactory("GetReportElements", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -10605,16 +11486,20 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetReportElements", localVarResponse);
+                Exception exception = ExceptionFactory("GetReportElements", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -10731,16 +11616,19 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetRules", localVarResponse);
+                Exception exception = ExceptionFactory("GetRules", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -10858,16 +11746,20 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetRules", localVarResponse);
+                Exception exception = ExceptionFactory("GetRules", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -10993,16 +11885,19 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetSections", localVarResponse);
+                Exception exception = ExceptionFactory("GetSections", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -11129,16 +12024,20 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetSections", localVarResponse);
+                Exception exception = ExceptionFactory("GetSections", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -11185,17 +12084,18 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, but false if a definition model is defined in the component). (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <returns>Object</returns>
-        public Object GetSpreadsheetForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public Object GetSpreadsheetForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null)
         {
-             ApiResponse<Object> localVarResponse = GetSpreadsheetForComponentWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders);
+             ApiResponse<Object> localVarResponse = GetSpreadsheetForComponentWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders, metadata);
              return localVarResponse.Data;
         }
 
@@ -11236,15 +12136,16 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
         /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, but false if a definition model is defined in the component). (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > GetSpreadsheetForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public ApiResponse< Object > GetSpreadsheetForComponentWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -11311,6 +12212,7 @@ if (dimensionAggregation != null) Configuration.ApiClient.AddPatternQueryParamet
             if (row != null) localVarQueryParams.Add("row", Configuration.ApiClient.ParameterToString(row)); // query parameter
             if (column != null) localVarQueryParams.Add("column", Configuration.ApiClient.ParameterToString(column)); // query parameter
             if (flattenRowHeaders != null) localVarQueryParams.Add("flatten-row-headers", Configuration.ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
+            if (metadata != null) localVarQueryParams.Add("metadata", Configuration.ApiClient.ParameterToString(metadata)); // query parameter
             if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
 if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
 if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
@@ -11318,16 +12220,19 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetSpreadsheetForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("GetSpreadsheetForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -11374,17 +12279,18 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, but false if a definition model is defined in the component). (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> GetSpreadsheetForComponentAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public async System.Threading.Tasks.Task<Object> GetSpreadsheetForComponentAsync (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null)
         {
-             ApiResponse<Object> localVarResponse = await GetSpreadsheetForComponentAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders);
+             ApiResponse<Object> localVarResponse = await GetSpreadsheetForComponentAsyncWithHttpInfo(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders, metadata);
              return localVarResponse.Data;
 
         }
@@ -11426,15 +12332,16 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="merge">Whether to merge components if multiple components are retrieved. By default, it is true. If false, a random component is selected if multiple are retrieved (default: true). (optional, default to true)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
         /// <param name="_override">Whether the static component or report hypercube should be tampered with using the same hypercube-building API as the facts endpoint (default: true if a profile is active, but false if a definition model is defined in the component). (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="autoSlice">If set to true then slicers are automatically defined (default: true). (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
+        /// <param name="metadata">Whether metadata about the facts concept and dimensions should be included in each fact (default: false). (optional, default to false)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> GetSpreadsheetForComponentAsyncWithHttpInfo (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -11501,6 +12408,7 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             if (row != null) localVarQueryParams.Add("row", Configuration.ApiClient.ParameterToString(row)); // query parameter
             if (column != null) localVarQueryParams.Add("column", Configuration.ApiClient.ParameterToString(column)); // query parameter
             if (flattenRowHeaders != null) localVarQueryParams.Add("flatten-row-headers", Configuration.ApiClient.ParameterToString(flattenRowHeaders)); // query parameter
+            if (metadata != null) localVarQueryParams.Add("metadata", Configuration.ApiClient.ParameterToString(metadata)); // query parameter
             if (dimensions != null) Configuration.ApiClient.AddPatternQueryParameters(dimensions, "^[^:]+:[^:]+$", localVarQueryParams); // pattern query parameter
 if (dimensionsCategory != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsCategory, "^[^:]+:[^:]+::category$", localVarQueryParams); // pattern query parameter
 if (dimensionsVisible != null) Configuration.ApiClient.AddPatternQueryParameters(dimensionsVisible, "^[^:]+:[^:]+::visible$", localVarQueryParams); // pattern query parameter
@@ -11508,16 +12416,20 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetSpreadsheetForComponent", localVarResponse);
+                Exception exception = ExceptionFactory("GetSpreadsheetForComponent", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -11547,12 +12459,12 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
@@ -11590,12 +12502,12 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
@@ -11673,16 +12585,19 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetSpreadsheetForReport", localVarResponse);
+                Exception exception = ExceptionFactory("GetSpreadsheetForReport", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -11712,12 +12627,12 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
@@ -11756,12 +12671,12 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
         /// <param name="validate">Whether or not to stamp facts for validity (default is false). (optional, default to false)</param>
         /// <param name="auditTrails">Whether audit trails should be included in each fact (default: no). (optional, default to no)</param>
         /// <param name="language">A language code (default: en-US) for displaying labels. (optional, default to null)</param>
-        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: true if no row / column parameter is used). (optional, default to null)</param>
+        /// <param name="eliminate">Whether to eliminate empty rows / columns (Default: false). (optional, default to false)</param>
         /// <param name="eliminationThreshold">When you eliminate, you can specify a threshold of elimination between 0 and 100. If the threshold is set to 0 (which is the default), only fully empty rows and columns are eliminated. With 100, everything is eliminated. With a value inbetween, say, 50, the rows and columns with less than 50% of filled cells are eliminated (Default: 0). (optional, default to 0)</param>
         /// <param name="populate">Whether to populate cells with facts (Default: true). If false, populate with metadata, that is, aspects and concept data type, period type, balance. (optional, default to true)</param>
         /// <param name="row">Filters the spreadsheet to display only the rows specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
         /// <param name="column">Filters the spreadsheet to display only the columns specified (default: no filter). Deactivates elimination. (optional, default to null)</param>
-        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: true). (optional, default to true)</param>
+        /// <param name="flattenRowHeaders">Whether to flatten row headers to single columns (Default: false). (optional, default to false)</param>
         /// <param name="archiveTag">The tag of the archive, to retrieve archives, sections, components or slice facts (default: no filtering). (optional, default to null)</param>
         /// <param name="archiveFiscalYear">The fiscal year focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
         /// <param name="archiveFiscalPeriod">The fiscal period focus of the archive, to retrieve archives, sections, components or slice facts (default: ALL). (optional, default to ALL)</param>
@@ -11839,16 +12754,20 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
 /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetSpreadsheetForReport", localVarResponse);
+                Exception exception = ExceptionFactory("GetSpreadsheetForReport", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -11983,16 +12902,19 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetTables", localVarResponse);
+                Exception exception = ExceptionFactory("GetTables", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -12128,16 +13050,292 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetTables", localVarResponse);
+                Exception exception = ExceptionFactory("GetTables", localVarRequest, localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="archive">The body of the request, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether to import the XBRL taxonomy of the specified archive or the archive itself. (optional, default to false)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
+        /// <returns>Object</returns>
+        public Object ImportArchive (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null)
+        {
+             ApiResponse<Object> localVarResponse = ImportArchiveWithHttpInfo(token, archive, profileName, aid, timeout, archiveDetectionProfileName, taxonomy, insertEntity);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="archive">The body of the request, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether to import the XBRL taxonomy of the specified archive or the archive itself. (optional, default to false)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > ImportArchiveWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->ImportArchive");
+            // verify the required parameter 'archive' is set
+            if (archive == null)
+                throw new ApiException(400, "Missing required parameter 'archive' when calling DataApi->ImportArchive");
+
+            var localVarPath = "/api/archives/import";
+            var localVarPathParams = new Dictionary<String, String>();
+/* 28msec */
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+/* 28msec */
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+/* 28msec */
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (timeout != null) localVarQueryParams.Add("timeout", Configuration.ApiClient.ParameterToString(timeout)); // query parameter
+            if (archiveDetectionProfileName != null) localVarQueryParams.Add("archive-detection-profile-name", Configuration.ApiClient.ParameterToString(archiveDetectionProfileName)); // query parameter
+            if (taxonomy != null) localVarQueryParams.Add("taxonomy", Configuration.ApiClient.ParameterToString(taxonomy)); // query parameter
+            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
+            /* 28msec */
+            if (archive != null)
+            {
+                if (archive is byte[] || archive is string || archive is String)
+                    localVarPostBody = archive;
+                else if (archive is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(archive);
+                else if (archive is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in archive as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in archive as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in archive as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable && !(archive is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in archive as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(archive);
+            }
+
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ImportArchive", localVarRequest, localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="archive">The body of the request, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether to import the XBRL taxonomy of the specified archive or the archive itself. (optional, default to false)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> ImportArchiveAsync (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null)
+        {
+             ApiResponse<Object> localVarResponse = await ImportArchiveAsyncWithHttpInfo(token, archive, profileName, aid, timeout, archiveDetectionProfileName, taxonomy, insertEntity);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases.  
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="archive">The body of the request, a single ZIP-Deflate-compressed XBRL archive.</param>
+        /// <param name="profileName">Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional, default to null)</param>
+        /// <param name="aid">Archive ID of the archive or taxonomy. (optional, default to null)</param>
+        /// <param name="timeout">Timeout for the operation. (optional, default to null)</param>
+        /// <param name="archiveDetectionProfileName">This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional, default to AUTO)</param>
+        /// <param name="taxonomy">Whether to import the XBRL taxonomy of the specified archive or the archive itself. (optional, default to false)</param>
+        /// <param name="insertEntity">If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true, only used when providing compressed XBRL archives) (optional, default to true)</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ImportArchiveAsyncWithHttpInfo (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling DataApi->ImportArchive");
+            // verify the required parameter 'archive' is set
+            if (archive == null)
+                throw new ApiException(400, "Missing required parameter 'archive' when calling DataApi->ImportArchive");
+
+            var localVarPath = "/api/archives/import";
+            var localVarPathParams = new Dictionary<String, String>();
+/* 28msec */
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+/* 28msec */
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+/* 28msec */
+                        if (profileName != null) localVarQueryParams.Add("profile-name", Configuration.ApiClient.ParameterToString(profileName)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (aid != null) localVarQueryParams.Add("aid", Configuration.ApiClient.ParameterToString(aid)); // query parameter
+            if (timeout != null) localVarQueryParams.Add("timeout", Configuration.ApiClient.ParameterToString(timeout)); // query parameter
+            if (archiveDetectionProfileName != null) localVarQueryParams.Add("archive-detection-profile-name", Configuration.ApiClient.ParameterToString(archiveDetectionProfileName)); // query parameter
+            if (taxonomy != null) localVarQueryParams.Add("taxonomy", Configuration.ApiClient.ParameterToString(taxonomy)); // query parameter
+            if (insertEntity != null) localVarQueryParams.Add("insert-entity", Configuration.ApiClient.ParameterToString(insertEntity)); // query parameter
+            /* 28msec */
+            if (archive != null)
+            {
+                if (archive is byte[] || archive is string || archive is String)
+                    localVarPostBody = archive;
+                else if (archive is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(archive);
+                else if (archive is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in archive as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in archive as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in archive as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (archive is IEnumerable && !(archive is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in archive as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(archive);
+            }
+
+
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ImportArchive", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -12212,16 +13410,19 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RemoveRule", localVarResponse);
+                Exception exception = ExceptionFactory("RemoveRule", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -12297,16 +13498,20 @@ if (dimensionSlicers != null) Configuration.ApiClient.AddPatternQueryParameters(
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RemoveRule", localVarResponse);
+                Exception exception = ExceptionFactory("RemoveRule", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 

@@ -24,7 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Collections;
 using RestSharp;
+using Newtonsoft.Json.Linq;
 using CellStore.Client;
 
 namespace CellStore.Api
@@ -83,7 +86,7 @@ namespace CellStore.Api
     /// </summary>
     public partial class DefaultApi : IDefaultApi
     {
-        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
+        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, request, response) => null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultApi"/> class.
@@ -234,16 +237,19 @@ namespace CellStore.Api
                         /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetDocs", localVarResponse);
+                Exception exception = ExceptionFactory("GetDocs", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -301,16 +307,20 @@ namespace CellStore.Api
                         /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetDocs", localVarResponse);
+                Exception exception = ExceptionFactory("GetDocs", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 

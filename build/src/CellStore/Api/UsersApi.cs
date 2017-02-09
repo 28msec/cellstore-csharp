@@ -24,7 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Collections;
 using RestSharp;
+using Newtonsoft.Json.Linq;
 using CellStore.Client;
 using CellStore.Model;
 
@@ -404,7 +407,7 @@ namespace CellStore.Api
     /// </summary>
     public partial class UsersApi : IUsersApi
     {
-        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
+        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, request, response) => null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UsersApi"/> class.
@@ -582,16 +585,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("EditUser", localVarResponse);
+                Exception exception = ExceptionFactory("EditUser", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -676,16 +682,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("EditUser", localVarResponse);
+                Exception exception = ExceptionFactory("EditUser", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -748,16 +758,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ForgotPassword", localVarResponse);
+                Exception exception = ExceptionFactory("ForgotPassword", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -821,16 +834,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ForgotPassword", localVarResponse);
+                Exception exception = ExceptionFactory("ForgotPassword", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -899,16 +916,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetUser", localVarResponse);
+                Exception exception = ExceptionFactory("GetUser", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -978,16 +998,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetUser", localVarResponse);
+                Exception exception = ExceptionFactory("GetUser", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1056,16 +1080,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("IsAuthorized", localVarResponse);
+                Exception exception = ExceptionFactory("IsAuthorized", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1135,16 +1162,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("IsAuthorized", localVarResponse);
+                Exception exception = ExceptionFactory("IsAuthorized", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1225,16 +1256,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("NewUser", localVarResponse);
+                Exception exception = ExceptionFactory("NewUser", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1316,16 +1350,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("NewUser", localVarResponse);
+                Exception exception = ExceptionFactory("NewUser", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1406,16 +1444,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ResetPassword", localVarResponse);
+                Exception exception = ExceptionFactory("ResetPassword", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1497,16 +1538,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ResetPassword", localVarResponse);
+                Exception exception = ExceptionFactory("ResetPassword", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1581,16 +1626,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("SetPassword", localVarResponse);
+                Exception exception = ExceptionFactory("SetPassword", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1666,16 +1714,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("SetPassword", localVarResponse);
+                Exception exception = ExceptionFactory("SetPassword", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 

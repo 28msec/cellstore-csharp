@@ -1,6 +1,6 @@
 # CellStore.Api.UsersApi
 
-All URIs are relative to *http://edinet-1.28.io/v1/_queries/public*
+All URIs are relative to *http://fcavalieri.com:28080/secxbrl/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

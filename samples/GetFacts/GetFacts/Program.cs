@@ -11,7 +11,7 @@ namespace GetFacts
   {
     static void Main(string[] args)
     {
-      String endpoint = "http://secxbrl.28.io/v1/_queries/public";
+      String endpoint = "http://fcavalieri.com:28080/secxbrl/v1/_queries/public";
       CellStore.Api.DataApi dataAPI = new CellStore.Api.DataApi(endpoint);
 
       String token = "c3049752-4d35-43da-82a2-f89f1b06f7a4";

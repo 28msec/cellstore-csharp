@@ -21,6 +21,8 @@
  */
 
 using System;
+using System.Text;
+using RestSharp;
 
 namespace CellStore.Client
 {
@@ -36,10 +38,16 @@ namespace CellStore.Client
         public int ErrorCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the error content (body json object)
+        /// Gets or sets the request
         /// </summary>
-        /// <value>The error content (Http response body).</value>
-        public dynamic ErrorContent { get; private set; }
+        /// <value>The http request that generated the error.</value>
+        public IRestRequest Request { get; set; }
+
+        /// <summary>
+        /// Gets or sets the request
+        /// </summary>
+        /// <value>The http response containing the generated error.</value>
+        public IRestResponse Response { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiException"/> class.
@@ -62,11 +70,61 @@ namespace CellStore.Client
         /// <param name="errorCode">HTTP status code.</param>
         /// <param name="message">Error message.</param>
         /// <param name="errorContent">Error content.</param>
-        public ApiException(int errorCode, string message, dynamic errorContent = null) : base(message)
+        public ApiException(int errorCode, string message, IRestRequest request, IRestResponse response) : base(message)
         {
-            this.ErrorCode = errorCode;
-            this.ErrorContent = errorContent;
+          this.ErrorCode = errorCode;
+          this.Request = request;
+          this.Response = response;
         }
+
+        public string ToStringDebug()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(base.ToString());
+            sb.AppendLine("\n====Library====");
+            sb.AppendLine(Configuration.ToDebugReport());
+            if (Request != null)
+            {
+                sb.AppendLine("\n====Request====");
+                sb.AppendLine("Timeout: " + Request.Timeout + "ms");
+                sb.AppendLine("Method: " + Request.Method);
+                sb.AppendLine("URI: " + Request.Resource);
+                sb.AppendLine("Parameters: ");
+                if (Request.Parameters != null)
+                {
+                    foreach (Parameter parameter in Request.Parameters)
+                    {
+                        if (parameter != null)
+                        {
+                            sb.AppendFormat("* Type: {0}, Name: {1}, Value: {2}\n", parameter.Type, parameter.Name, parameter.Value);
+                            if ("token".Equals(parameter.Name))
+                                sb.AppendFormat("* Type: {0}, Name: {1}, Value: ***hidden***\n", parameter.Type, parameter.Name);
+                        }
+                    }
+                }
+            }
+
+            if (Response != null)
+            {
+                sb.AppendLine("\n====Response====");
+                sb.AppendLine("Status: " + Response.StatusCode + " " + Response.StatusDescription);
+                if (Response.ResponseUri != null)
+                  sb.AppendFormat("URI: {0}://{1}:{2}{3}\n", Response.ResponseUri.Scheme, Response.ResponseUri.Host, Response.ResponseUri.Port, Response.ResponseUri.AbsolutePath);
+                sb.AppendLine("Headers: ");
+                if (Response.Headers != null)
+                {
+                    foreach (Parameter header in Response.Headers)
+                    {
+                        if (header != null)
+                            sb.AppendFormat("* Name: {0}, Value: {1}\n", header.Name, header.Value);
+                    }
+                }
+                sb.AppendLine("Content Type: " + Response.ContentType);
+                sb.AppendLine("Content: " + Response.Content);
+            }
+            return sb.ToString();
+        }
+
     }
 
 }
