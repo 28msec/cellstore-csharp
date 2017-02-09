@@ -116,6 +116,19 @@ namespace CellStore.Test
         }
         
         /// <summary>
+        /// Test SetPermissions
+        /// </summary>
+        [Test]
+        public void SetPermissionsTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string token = null;
+            //Object permissions = null;
+            //var response = instance.SetPermissions(token, permissions);
+            //Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
         /// Test Token
         /// </summary>
         [Test]

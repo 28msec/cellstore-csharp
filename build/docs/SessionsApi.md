@@ -1,12 +1,13 @@
 # CellStore.Api.SessionsApi
 
-All URIs are relative to *http://edinet-1.28.io/v1/_queries/public*
+All URIs are relative to *http://fcavalieri.com:28080/secxbrl/v1/_queries/public*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Login**](SessionsApi.md#login) | **POST** /session/login | Login with email and password in order to retrieve a token.
 [**Logout**](SessionsApi.md#logout) | **POST** /session/logout | Logout the user identified by the given API key.
 [**Revoke**](SessionsApi.md#revoke) | **POST** /session/revoke | Revoke a token having a custom expiration duration.
+[**SetPermissions**](SessionsApi.md#setpermissions) | **PUT** /session/permissions | Updates the cellstore users and permissions
 [**Token**](SessionsApi.md#token) | **POST** /session/token | Create a token having a custom expiration duration.
 [**Tokens**](SessionsApi.md#tokens) | **GET** /session/tokens | List tokens of a user identified by its token.
 
@@ -185,6 +186,68 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Outcome**](Outcome.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="setpermissions"></a>
+# **SetPermissions**
+> Object SetPermissions (string token, Object permissions)
+
+Updates the cellstore users and permissions
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using CellStore.Api;
+using CellStore.Client;
+using CellStore.Model;
+
+namespace Example
+{
+    public class SetPermissionsExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new SessionsApi();
+            var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var permissions = ;  // Object | The permissions and user definitions. (default to null)
+
+            try
+            {
+                // Updates the cellstore users and permissions
+                Object result = apiInstance.SetPermissions(token, permissions);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling SessionsApi.SetPermissions: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **permissions** | **Object**| The permissions and user definitions. | [default to null]
+
+### Return type
+
+**Object**
 
 ### Authorization
 

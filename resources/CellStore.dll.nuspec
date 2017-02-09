@@ -2,7 +2,9 @@
 <package>
   <metadata>
     <id>CellStore.NET</id>
-    <version>4.8.0</version>
+    <!-- ALSO UPDATE codegen-options.json -->
+    <version>5.4.3</version>
+    <!-- ALSO UPDATE codegen-options.json -->
     <authors>dknochen,fcavalieri</authors>
     <owners>dknochen,fcavalieri</owners>
     <licenseUrl>https://raw.githubusercontent.com/28msec/cellstore-csharp/master/LICENSE</licenseUrl>

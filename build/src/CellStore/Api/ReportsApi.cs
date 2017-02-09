@@ -24,7 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Collections;
 using RestSharp;
+using Newtonsoft.Json.Linq;
 using CellStore.Client;
 using CellStore.Model;
 
@@ -270,7 +273,7 @@ namespace CellStore.Api
     /// </summary>
     public partial class ReportsApi : IReportsApi
     {
-        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
+        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, request, response) => null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportsApi"/> class.
@@ -448,26 +451,58 @@ namespace CellStore.Api
             if (label != null) localVarQueryParams.Add("label", Configuration.ApiClient.ParameterToString(label)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (report != null && report.GetType() != typeof(byte[]) && report.GetType() != typeof(String))
+            if (report != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(report); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = report; // byte array
+                if (report is byte[] || report is string || report is String)
+                    localVarPostBody = report;
+                else if (report is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(report);
+                else if (report is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in report as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (report is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in report as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (report is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in report as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (report is IEnumerable && !(report is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in report as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(report);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddOrReplaceOrValidateReport", localVarResponse);
+                Exception exception = ExceptionFactory("AddOrReplaceOrValidateReport", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -552,26 +587,59 @@ namespace CellStore.Api
             if (label != null) localVarQueryParams.Add("label", Configuration.ApiClient.ParameterToString(label)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
-            if (report != null && report.GetType() != typeof(byte[]) && report.GetType() != typeof(String))
+            if (report != null)
             {
-                localVarPostBody = Configuration.ApiClient.Serialize(report); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = report; // byte array
+                if (report is byte[] || report is string || report is String)
+                    localVarPostBody = report;
+                else if (report is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(report);
+                else if (report is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in report as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (report is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in report as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (report is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in report as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (report is IEnumerable && !(report is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in report as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(report);
             }
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AddOrReplaceOrValidateReport", localVarResponse);
+                Exception exception = ExceptionFactory("AddOrReplaceOrValidateReport", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -631,16 +699,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetParameters", localVarResponse);
+                Exception exception = ExceptionFactory("GetParameters", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -701,16 +772,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetParameters", localVarResponse);
+                Exception exception = ExceptionFactory("GetParameters", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -791,16 +866,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetReports", localVarResponse);
+                Exception exception = ExceptionFactory("GetReports", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -882,16 +960,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("GetReports", localVarResponse);
+                Exception exception = ExceptionFactory("GetReports", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -959,16 +1041,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RemoveReport", localVarResponse);
+                Exception exception = ExceptionFactory("RemoveReport", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1037,16 +1122,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RemoveReport", localVarResponse);
+                Exception exception = ExceptionFactory("RemoveReport", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 

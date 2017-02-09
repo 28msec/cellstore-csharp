@@ -24,7 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Collections;
 using RestSharp;
+using Newtonsoft.Json.Linq;
 using CellStore.Client;
 using CellStore.Model;
 
@@ -105,6 +108,29 @@ namespace CellStore.Api
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <returns>ApiResponse of Outcome</returns>
         ApiResponse<Outcome> RevokeWithHttpInfo (string email, string password, string token);
+        /// <summary>
+        /// Updates the cellstore users and permissions
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="permissions">The permissions and user definitions.</param>
+        /// <returns>Object</returns>
+        Object SetPermissions (string token, Object permissions);
+
+        /// <summary>
+        /// Updates the cellstore users and permissions
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="permissions">The permissions and user definitions.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> SetPermissionsWithHttpInfo (string token, Object permissions);
         /// <summary>
         /// Create a token having a custom expiration duration.
         /// </summary>
@@ -223,6 +249,29 @@ namespace CellStore.Api
         /// <returns>Task of ApiResponse (Outcome)</returns>
         System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token);
         /// <summary>
+        /// Updates the cellstore users and permissions
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="permissions">The permissions and user definitions.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> SetPermissionsAsync (string token, Object permissions);
+
+        /// <summary>
+        /// Updates the cellstore users and permissions
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="permissions">The permissions and user definitions.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> SetPermissionsAsyncWithHttpInfo (string token, Object permissions);
+        /// <summary>
         /// Create a token having a custom expiration duration.
         /// </summary>
         /// <remarks>
@@ -276,7 +325,7 @@ namespace CellStore.Api
     /// </summary>
     public partial class SessionsApi : ISessionsApi
     {
-        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
+        private CellStore.Client.ExceptionFactory _exceptionFactory = (name, request, response) => null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SessionsApi"/> class.
@@ -439,16 +488,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Login", localVarResponse);
+                Exception exception = ExceptionFactory("Login", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -518,16 +570,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Login", localVarResponse);
+                Exception exception = ExceptionFactory("Login", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -590,16 +646,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Logout", localVarResponse);
+                Exception exception = ExceptionFactory("Logout", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -663,16 +722,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Logout", localVarResponse);
+                Exception exception = ExceptionFactory("Logout", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -747,16 +810,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Revoke", localVarResponse);
+                Exception exception = ExceptionFactory("Revoke", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -832,22 +898,262 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Revoke", localVarResponse);
+                Exception exception = ExceptionFactory("Revoke", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+            
+        }
+
+        /// <summary>
+        /// Updates the cellstore users and permissions 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="permissions">The permissions and user definitions.</param>
+        /// <returns>Object</returns>
+        public Object SetPermissions (string token, Object permissions)
+        {
+             ApiResponse<Object> localVarResponse = SetPermissionsWithHttpInfo(token, permissions);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Updates the cellstore users and permissions 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="permissions">The permissions and user definitions.</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > SetPermissionsWithHttpInfo (string token, Object permissions)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling SessionsApi->SetPermissions");
+            // verify the required parameter 'permissions' is set
+            if (permissions == null)
+                throw new ApiException(400, "Missing required parameter 'permissions' when calling SessionsApi->SetPermissions");
+
+            var localVarPath = "/session/permissions";
+            var localVarPathParams = new Dictionary<String, String>();
+/* 28msec */
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+/* 28msec */
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+/* 28msec */
+                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            /* 28msec */
+            if (permissions != null)
+            {
+                if (permissions is byte[] || permissions is string || permissions is String)
+                    localVarPostBody = permissions;
+                else if (permissions is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(permissions);
+                else if (permissions is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in permissions as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (permissions is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in permissions as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (permissions is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in permissions as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (permissions is IEnumerable && !(permissions is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in permissions as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(permissions);
+            }
+
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
+                Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("SetPermissions", localVarRequest, localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+            
+        }
+
+        /// <summary>
+        /// Updates the cellstore users and permissions 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="permissions">The permissions and user definitions.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> SetPermissionsAsync (string token, Object permissions)
+        {
+             ApiResponse<Object> localVarResponse = await SetPermissionsAsyncWithHttpInfo(token, permissions);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Updates the cellstore users and permissions 
+        /// </summary>
+        /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="permissions">The permissions and user definitions.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> SetPermissionsAsyncWithHttpInfo (string token, Object permissions)
+        {
+            // verify the required parameter 'token' is set
+            if (token == null)
+                throw new ApiException(400, "Missing required parameter 'token' when calling SessionsApi->SetPermissions");
+            // verify the required parameter 'permissions' is set
+            if (permissions == null)
+                throw new ApiException(400, "Missing required parameter 'permissions' when calling SessionsApi->SetPermissions");
+
+            var localVarPath = "/session/permissions";
+            var localVarPathParams = new Dictionary<String, String>();
+/* 28msec */
+            var localVarQueryParams = new Dictionary<String, List<String>>();
+/* 28msec */
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+/* 28msec */
+                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            /* 28msec */
+            if (permissions != null)
+            {
+                if (permissions is byte[] || permissions is string || permissions is String)
+                    localVarPostBody = permissions;
+                else if (permissions is JObject)
+                    localVarPostBody = Configuration.ApiClient.Serialize(permissions);
+                else if (permissions is IEnumerable<string>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in permissions as IEnumerable<string>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (permissions is IEnumerable<String>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (string localVarItem in permissions as IEnumerable<String>)
+                        localVarSb.AppendLine(localVarItem);
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (permissions is IEnumerable<JObject>)
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in permissions as IEnumerable<JObject>)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else if (permissions is IEnumerable && !(permissions is JContainer))
+                {
+                    StringBuilder localVarSb = new StringBuilder();
+                    foreach (dynamic localVarItem in permissions as IEnumerable)
+                        localVarSb.AppendLine(Configuration.ApiClient.Serialize(localVarItem));
+                    localVarPostBody = localVarSb.ToString();
+                }
+                else
+                    localVarPostBody = Configuration.ApiClient.Serialize(permissions);
+            }
+
+
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
+                Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("SetPermissions", localVarRequest, localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
             
         }
 
@@ -916,16 +1222,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Token", localVarResponse);
+                Exception exception = ExceptionFactory("Token", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1001,16 +1310,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Token", localVarResponse);
+                Exception exception = ExceptionFactory("Token", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1073,16 +1386,19 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Tokens", localVarResponse);
+                Exception exception = ExceptionFactory("Tokens", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1146,16 +1462,20 @@ namespace CellStore.Api
             /* 28msec */
 
 
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+
+            // build the HTTP request
+            IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
+
+            // execute the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("Tokens", localVarResponse);
+                Exception exception = ExceptionFactory("Tokens", localVarRequest, localVarResponse);
                 if (exception != null) throw exception;
             }
 

@@ -60,17 +60,17 @@ namespace CellStore.Client
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class
-        /// with default configuration and base path (http://edinet-1.28.io/v1/_queries/public).
+        /// with default configuration and base path (http://fcavalieri.com:28080/secxbrl/v1/_queries/public).
         /// </summary>
         public ApiClient()
         {
             Configuration = Configuration.Default;
-            RestClient = new RestClient("http://edinet-1.28.io/v1/_queries/public");
+            RestClient = new RestClient("http://fcavalieri.com:28080/secxbrl/v1/_queries/public");
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class
-        /// with default base path (http://edinet-1.28.io/v1/_queries/public).
+        /// with default base path (http://fcavalieri.com:28080/secxbrl/v1/_queries/public).
         /// </summary>
         /// <param name="config">An instance of Configuration.</param>
         public ApiClient(Configuration config = null)
@@ -80,7 +80,7 @@ namespace CellStore.Client
             else
                 Configuration = config;
 
-            RestClient = new RestClient("http://edinet-1.28.io/v1/_queries/public");
+            RestClient = new RestClient("http://fcavalieri.com:28080/secxbrl/v1/_queries/public");
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace CellStore.Client
         /// with default configuration.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath = "http://edinet-1.28.io/v1/_queries/public")
+        public ApiClient(String basePath = "http://fcavalieri.com:28080/secxbrl/v1/_queries/public")
         {
            if (String.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");
@@ -116,9 +116,9 @@ namespace CellStore.Client
         /// <value>An instance of the RestClient</value>
         public RestClient RestClient { get; set; }
 
-        // Creates and sets up a RestRequest prior to a call.
-        private RestRequest PrepareRequest(
 /* 28msec */
+        // Creates and sets up a RestRequest prior to a call.
+        public RestRequest PrepareRequest(
             String path, RestSharp.Method method, Dictionary<String, List<String>> queryParams, Object postBody,
 /* 28msec */
             Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
@@ -182,31 +182,15 @@ namespace CellStore.Client
             return request;
         }
 
+/* 28msec */
         /// <summary>
         /// Makes the HTTP request (Sync).
         /// </summary>
-        /// <param name="path">URL path.</param>
-        /// <param name="method">HTTP method.</param>
-        /// <param name="queryParams">Query parameters.</param>
-        /// <param name="postBody">HTTP body (POST request).</param>
-        /// <param name="headerParams">Header parameters.</param>
-        /// <param name="formParams">Form parameters.</param>
-        /// <param name="fileParams">File parameters.</param>
-        /// <param name="pathParams">Path parameters.</param>
-        /// <param name="contentType">Content Type of the request</param>
+        /// <param name="request">REST request to execute</param>
         /// <returns>Object</returns>
-        public Object CallApi(
+        public Object CallApi(IRestRequest request)
+       {
 /* 28msec */
-            String path, RestSharp.Method method, Dictionary<String, List<String>> queryParams, Object postBody,
-/* 28msec */
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
-            Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
-            String contentType)
-        {
-            var request = PrepareRequest(
-                path, method, queryParams, postBody, headerParams, formParams, fileParams,
-                pathParams, contentType);
-
             // set timeout
             RestClient.Timeout = Configuration.Timeout;
             // set user agent
@@ -218,30 +202,16 @@ namespace CellStore.Client
 
             return (Object) response;
         }
+
+/* 28msec */
         /// <summary>
         /// Makes the asynchronous HTTP request.
         /// </summary>
-        /// <param name="path">URL path.</param>
-        /// <param name="method">HTTP method.</param>
-        /// <param name="queryParams">Query parameters.</param>
-        /// <param name="postBody">HTTP body (POST request).</param>
-        /// <param name="headerParams">Header parameters.</param>
-        /// <param name="formParams">Form parameters.</param>
-        /// <param name="fileParams">File parameters.</param>
-        /// <param name="pathParams">Path parameters.</param>
-        /// <param name="contentType">Content type.</param>
+        /// <param name="request">REST request to execute</param>
         /// <returns>The Task instance.</returns>
-        public async System.Threading.Tasks.Task<Object> CallApiAsync(
-/* 28msec */
-            String path, RestSharp.Method method, Dictionary<String, List<String>> queryParams, Object postBody,
-/* 28msec */
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
-            Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
-            String contentType)
+        public async System.Threading.Tasks.Task<Object> CallApiAsync(IRestRequest request)
         {
-            var request = PrepareRequest(
-                path, method, queryParams, postBody, headerParams, formParams, fileParams,
-                pathParams, contentType);
+/* 28msec */
             InterceptRequest(request);
             var response = await RestClient.ExecuteTaskAsync(request);
             InterceptResponse(request, response);

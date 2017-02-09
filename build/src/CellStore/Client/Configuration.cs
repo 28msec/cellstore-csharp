@@ -57,8 +57,8 @@ namespace CellStore.Client
                              Dictionary<String, String> apiKeyPrefix = null,
                              string tempFolderPath = null,
                              string dateTimeFormat = null,
-                             int timeout = 100000,
-                             string userAgent = "Swagger-Codegen/1.0.0/csharp"
+                             int timeout = 1800000,
+                             string userAgent = "Swagger-Codegen/5.4.3/csharp"
                             )
         {
             setApiClientUsingDefault(apiClient);
@@ -93,7 +93,7 @@ namespace CellStore.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "1.0.0";
+        public const string Version = "5.4.3";
 
         /// <summary>
         /// Gets or sets the default Configuration.
@@ -104,16 +104,16 @@ namespace CellStore.Client
         /// <summary>
         /// Default creation of exceptions for a given method name and response object
         /// </summary>
-        public static readonly ExceptionFactory DefaultExceptionFactory = (methodName, response) =>
+        public static readonly ExceptionFactory DefaultExceptionFactory = (methodName, request, response) =>
         {
             int status = (int) response.StatusCode;
-            if (status >= 400) return new ApiException(status, String.Format("Error calling {0}: {1}", methodName, response.Content), response.Content);
-            if (status == 0) return new ApiException(status, String.Format("Error calling {0}: {1}", methodName, response.ErrorMessage), response.ErrorMessage);
+            if (status >= 400) return new ApiException(status, String.Format("Error calling {0}: {1}", methodName, response.Content), request, response);
+            if (status == 0) return new ApiException(status, String.Format("Error calling {0}: {1}", methodName, response.ErrorMessage), request, response);
             return null;
         };
 
         /// <summary>
-        /// Gets or sets the HTTP timeout (milliseconds) of ApiClient. Default to 100000 milliseconds.
+        /// Gets or sets the HTTP timeout (milliseconds) of ApiClient. Default to 1800000 milliseconds.
         /// </summary>
         /// <value>Timeout.</value>
         public int Timeout
@@ -330,7 +330,7 @@ namespace CellStore.Client
                      .GetReferencedAssemblies()
                      .Where(x => x.Name == "System.Core").First().Version.ToString()  + "\n";
             report += "    Version of the API: vX.X.X\n";
-            report += "    SDK Package Version: 1.0.0\n";
+            report += "    SDK Package Version: 5.4.3\n";
 
             return report;
         }

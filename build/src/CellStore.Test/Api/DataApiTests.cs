@@ -86,12 +86,7 @@ namespace CellStore.Test
             //string token = null;
             //Object archive = null;
             //string profileName = null;
-            //string aid = null;
-            //string archiveDetectionProfileName = null;
-            //bool? taxonomy = null;
-            //bool? insertEntity = null;
-            //string contentType = null;
-            //var response = instance.AddArchives(token, archive, profileName, aid, archiveDetectionProfileName, taxonomy, insertEntity, contentType);
+            //var response = instance.AddArchives(token, archive, profileName);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -200,8 +195,9 @@ namespace CellStore.Test
             //List<string> entrypoint = null;
             //string profileName = null;
             //string aid = null;
+            //int? timeout = null;
             //bool? insertEntity = null;
-            //var response = instance.AddTaxonomy(token, eid, entrypoint, profileName, aid, insertEntity);
+            //var response = instance.AddTaxonomy(token, eid, entrypoint, profileName, aid, timeout, insertEntity);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -929,7 +925,8 @@ namespace CellStore.Test
             //List<int?> row = null;
             //List<int?> column = null;
             //bool? flattenRowHeaders = null;
-            //var response = instance.GetSpreadsheetForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders);
+            //bool? metadata = null;
+            //var response = instance.GetSpreadsheetForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders, metadata);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -1009,6 +1006,25 @@ namespace CellStore.Test
             //int? tableSearchOffset = null;
             //int? tableSearchLimit = null;
             //var response = instance.GetTables(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, reportElement, label, count, top, skip, language, table, tableLabelSearch, tableColumnSearch, tableRowSearch, tableSearchOffset, tableSearchLimit);
+            //Assert.IsInstanceOf<Object> (response, "response is Object");
+        }
+        
+        /// <summary>
+        /// Test ImportArchive
+        /// </summary>
+        [Test]
+        public void ImportArchiveTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string token = null;
+            //Object archive = null;
+            //string profileName = null;
+            //string aid = null;
+            //int? timeout = null;
+            //string archiveDetectionProfileName = null;
+            //bool? taxonomy = null;
+            //bool? insertEntity = null;
+            //var response = instance.ImportArchive(token, archive, profileName, aid, timeout, archiveDetectionProfileName, taxonomy, insertEntity);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
