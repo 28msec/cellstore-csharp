@@ -86,7 +86,7 @@ limitations under the License.
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
       <ProjectReference Include="..\CellStore\CellStore.csproj">
-          <Project>{7F5A6CFE-DA2D-4B74-9744-ACFE64C062DD}</Project>
+          <Project>{A4066C1D-B9C2-4DE2-9583-125F42D681D8}</Project>
           <Name>CellStore</Name>
       </ProjectReference>
   </ItemGroup>

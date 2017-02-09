@@ -58,7 +58,7 @@ namespace CellStore.Client
                              string tempFolderPath = null,
                              string dateTimeFormat = null,
                              int timeout = 1800000,
-                             string userAgent = "Swagger-Codegen/1.0.0/csharp"
+                             string userAgent = "Swagger-Codegen/5.4.3/csharp"
                             )
         {
             setApiClientUsingDefault(apiClient);
@@ -93,7 +93,7 @@ namespace CellStore.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "1.0.0";
+        public const string Version = "5.4.3";
 
         /// <summary>
         /// Gets or sets the default Configuration.
@@ -330,7 +330,7 @@ namespace CellStore.Client
                      .GetReferencedAssemblies()
                      .Where(x => x.Name == "System.Core").First().Version.ToString()  + "\n";
             report += "    Version of the API: vX.X.X\n";
-            report += "    SDK Package Version: 1.0.0\n";
+            report += "    SDK Package Version: 5.4.3\n";
 
             return report;
         }

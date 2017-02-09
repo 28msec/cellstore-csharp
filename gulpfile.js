@@ -21,7 +21,7 @@ var docsUrl = 'http://fcavalieri.com:28080/secxbrl/v1/_queries/public/api/docs';
 
 var cellstoreFolder = '~/cellstore/cellstore-pro';
 var swaggerCodegenFolder = '~/cellstore/swagger-codegen';
-var swaggerCodegenVersion = '2.7.0';
+var swaggerCodegenVersion = '2.8.1';
 
 var cellstore_nuspec;
 parseString(fs.readFileSync('resources/CellStore.dll.nuspec', 'utf-8'), { async: false }, function (err, result) {
@@ -87,7 +87,7 @@ gulp.task('swagger:test', $.shell.task([
 
 gulp.task('swagger:pack', $.shell.task([
     'cp resources/CellStore.dll.nuspec build-binary',
-    legacyNugetCmd + ' pack build-binary/CellStore.dll.nuspec'
+    legacyNugetCmd + ' pack build-binary/CellStore.dll.nuspec -outputdirectory releases'
 ]));
 
 gulp.task('swagger:push', $.shell.task([

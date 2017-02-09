@@ -1,3 +1,4 @@
 {
-  "packageName" : "CellStore"
+  "packageName" : "CellStore",
+  "packageVersion": "5.4.3"
 }
