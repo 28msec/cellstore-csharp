@@ -224,7 +224,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -232,7 +233,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
+/* 28msec */
 /* 28msec */
                         /* 28msec */
 
@@ -253,9 +255,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -294,7 +306,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -302,7 +315,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
+/* 28msec */
 /* 28msec */
                         /* 28msec */
 
@@ -324,9 +338,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 <a name="login"></a>
 # **Login**
-> Object Login (string email, string password)
+> Object Login (string email, string password, string format = null)
 
 Login with email and password in order to retrieve a token.
 
@@ -36,11 +36,12 @@ namespace Example
             var apiInstance = new SessionsApi();
             var email = email_example;  // string | Email of user to login (default to null)
             var password = password_example;  // string | Password of user to login (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Login with email and password in order to retrieve a token.
-                Object result = apiInstance.Login(email, password);
+                Object result = apiInstance.Login(email, password, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -58,6 +59,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **email** | **string**| Email of user to login | [default to null]
  **password** | **string**| Password of user to login | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -76,7 +78,7 @@ No authorization required
 
 <a name="logout"></a>
 # **Logout**
-> Outcome Logout (string token)
+> Outcome Logout (string token, string format = null)
 
 Logout the user identified by the given API key.
 
@@ -97,11 +99,12 @@ namespace Example
             
             var apiInstance = new SessionsApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Logout the user identified by the given API key.
-                Outcome result = apiInstance.Logout(token);
+                Outcome result = apiInstance.Logout(token, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -118,6 +121,7 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -136,7 +140,7 @@ No authorization required
 
 <a name="revoke"></a>
 # **Revoke**
-> Outcome Revoke (string email, string password, string token)
+> Outcome Revoke (string email, string password, string token, string format = null)
 
 Revoke a token having a custom expiration duration.
 
@@ -159,11 +163,12 @@ namespace Example
             var email = email_example;  // string | Email of user that owns the token (default to null)
             var password = password_example;  // string | Password of user that owns the token (default to null)
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Revoke a token having a custom expiration duration.
-                Outcome result = apiInstance.Revoke(email, password, token);
+                Outcome result = apiInstance.Revoke(email, password, token, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -182,6 +187,7 @@ Name | Type | Description  | Notes
  **email** | **string**| Email of user that owns the token | [default to null]
  **password** | **string**| Password of user that owns the token | [default to null]
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -200,7 +206,7 @@ No authorization required
 
 <a name="setpermissions"></a>
 # **SetPermissions**
-> Object SetPermissions (string token, Object permissions)
+> Object SetPermissions (string token, Object permissions, string format = null)
 
 Updates the cellstore users and permissions
 
@@ -222,11 +228,12 @@ namespace Example
             var apiInstance = new SessionsApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var permissions = ;  // Object | The permissions and user definitions. (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Updates the cellstore users and permissions
-                Object result = apiInstance.SetPermissions(token, permissions);
+                Object result = apiInstance.SetPermissions(token, permissions, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -244,6 +251,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **permissions** | **Object**| The permissions and user definitions. | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -262,7 +270,7 @@ No authorization required
 
 <a name="token"></a>
 # **Token**
-> Object Token (string email, string password, string expiration)
+> Object Token (string email, string password, string expiration, string format = null)
 
 Create a token having a custom expiration duration.
 
@@ -285,11 +293,12 @@ namespace Example
             var email = email_example;  // string | Email of user that creates the token (default to null)
             var password = password_example;  // string | Password of user that creates the token (default to null)
             var expiration = expiration_example;  // string | Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z) (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Create a token having a custom expiration duration.
-                Object result = apiInstance.Token(email, password, expiration);
+                Object result = apiInstance.Token(email, password, expiration, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -308,6 +317,7 @@ Name | Type | Description  | Notes
  **email** | **string**| Email of user that creates the token | [default to null]
  **password** | **string**| Password of user that creates the token | [default to null]
  **expiration** | **string**| Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z) | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -326,7 +336,7 @@ No authorization required
 
 <a name="tokens"></a>
 # **Tokens**
-> Object Tokens (string token)
+> Object Tokens (string token, string format = null)
 
 List tokens of a user identified by its token.
 
@@ -347,11 +357,12 @@ namespace Example
             
             var apiInstance = new SessionsApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // List tokens of a user identified by its token.
-                Object result = apiInstance.Tokens(token);
+                Object result = apiInstance.Tokens(token, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -368,6 +379,7 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 

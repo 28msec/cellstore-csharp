@@ -52,8 +52,9 @@ namespace CellStore.Api
         /// <param name="newemail">The user new email (optional, default to null)</param>
         /// <param name="email">Current email of the authorized user (needed if changing the email) (optional, default to null)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email) (optional, default to null)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        Outcome EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null);
+        Outcome EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null);
 
         /// <summary>
         /// Change a user firstname and lastname, and, optionally, his email.
@@ -68,8 +69,9 @@ namespace CellStore.Api
         /// <param name="newemail">The user new email (optional, default to null)</param>
         /// <param name="email">Current email of the authorized user (needed if changing the email) (optional, default to null)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email) (optional, default to null)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        ApiResponse<Outcome> EditUserWithHttpInfo (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null);
+        ApiResponse<Outcome> EditUserWithHttpInfo (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null);
         /// <summary>
         /// Send an email with the reset password token.
         /// </summary>
@@ -78,8 +80,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">The user email</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        Outcome ForgotPassword (string email);
+        Outcome ForgotPassword (string email, string format = null);
 
         /// <summary>
         /// Send an email with the reset password token.
@@ -89,8 +92,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">The user email</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        ApiResponse<Outcome> ForgotPasswordWithHttpInfo (string email);
+        ApiResponse<Outcome> ForgotPasswordWithHttpInfo (string email, string format = null);
         /// <summary>
         /// Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
         /// </summary>
@@ -203,8 +207,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        Outcome SetPassword (string email, string password, string resetToken);
+        Outcome SetPassword (string email, string password, string resetToken, string format = null);
 
         /// <summary>
         /// Set the password for a user based on email and the reset password token
@@ -216,8 +221,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        ApiResponse<Outcome> SetPasswordWithHttpInfo (string email, string password, string resetToken);
+        ApiResponse<Outcome> SetPasswordWithHttpInfo (string email, string password, string resetToken, string format = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -233,8 +239,9 @@ namespace CellStore.Api
         /// <param name="newemail">The user new email (optional, default to null)</param>
         /// <param name="email">Current email of the authorized user (needed if changing the email) (optional, default to null)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email) (optional, default to null)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> EditUserAsync (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null);
+        System.Threading.Tasks.Task<Outcome> EditUserAsync (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null);
 
         /// <summary>
         /// Change a user firstname and lastname, and, optionally, his email.
@@ -249,8 +256,9 @@ namespace CellStore.Api
         /// <param name="newemail">The user new email (optional, default to null)</param>
         /// <param name="email">Current email of the authorized user (needed if changing the email) (optional, default to null)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email) (optional, default to null)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> EditUserAsyncWithHttpInfo (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null);
+        System.Threading.Tasks.Task<ApiResponse<Outcome>> EditUserAsyncWithHttpInfo (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null);
         /// <summary>
         /// Send an email with the reset password token.
         /// </summary>
@@ -259,8 +267,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">The user email</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> ForgotPasswordAsync (string email);
+        System.Threading.Tasks.Task<Outcome> ForgotPasswordAsync (string email, string format = null);
 
         /// <summary>
         /// Send an email with the reset password token.
@@ -270,8 +279,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">The user email</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> ForgotPasswordAsyncWithHttpInfo (string email);
+        System.Threading.Tasks.Task<ApiResponse<Outcome>> ForgotPasswordAsyncWithHttpInfo (string email, string format = null);
         /// <summary>
         /// Retrieve user record by user ID or email. If no user ID or email is specified, the record of the current user is returned.
         /// </summary>
@@ -384,8 +394,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> SetPasswordAsync (string email, string password, string resetToken);
+        System.Threading.Tasks.Task<Outcome> SetPasswordAsync (string email, string password, string resetToken, string format = null);
 
         /// <summary>
         /// Set the password for a user based on email and the reset password token
@@ -397,8 +408,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> SetPasswordAsyncWithHttpInfo (string email, string password, string resetToken);
+        System.Threading.Tasks.Task<ApiResponse<Outcome>> SetPasswordAsyncWithHttpInfo (string email, string password, string resetToken, string format = null);
         #endregion Asynchronous Operations
     }
 
@@ -521,10 +533,11 @@ namespace CellStore.Api
         /// <param name="newemail">The user new email (optional, default to null)</param>
         /// <param name="email">Current email of the authorized user (needed if changing the email) (optional, default to null)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email) (optional, default to null)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        public Outcome EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
+        public Outcome EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = EditUserWithHttpInfo(firstname, lastname, token, newemail, email, password);
+             ApiResponse<Outcome> localVarResponse = EditUserWithHttpInfo(firstname, lastname, token, newemail, email, password, format);
              return localVarResponse.Data;
         }
 
@@ -538,8 +551,9 @@ namespace CellStore.Api
         /// <param name="newemail">The user new email (optional, default to null)</param>
         /// <param name="email">Current email of the authorized user (needed if changing the email) (optional, default to null)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email) (optional, default to null)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        public ApiResponse< Outcome > EditUserWithHttpInfo (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
+        public ApiResponse< Outcome > EditUserWithHttpInfo (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null)
         {
             // verify the required parameter 'firstname' is set
             if (firstname == null)
@@ -566,7 +580,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -574,7 +589,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
+/* 28msec */
 /* 28msec */
                         if (firstname != null) localVarQueryParams.Add("firstname", Configuration.ApiClient.ParameterToString(firstname)); // query parameter
             if (lastname != null) localVarQueryParams.Add("lastname", Configuration.ApiClient.ParameterToString(lastname)); // query parameter
@@ -582,6 +598,7 @@ namespace CellStore.Api
             if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
             /* 28msec */
 
 
@@ -601,9 +618,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -617,10 +644,11 @@ namespace CellStore.Api
         /// <param name="newemail">The user new email (optional, default to null)</param>
         /// <param name="email">Current email of the authorized user (needed if changing the email) (optional, default to null)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email) (optional, default to null)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> EditUserAsync (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
+        public async System.Threading.Tasks.Task<Outcome> EditUserAsync (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = await EditUserAsyncWithHttpInfo(firstname, lastname, token, newemail, email, password);
+             ApiResponse<Outcome> localVarResponse = await EditUserAsyncWithHttpInfo(firstname, lastname, token, newemail, email, password, format);
              return localVarResponse.Data;
 
         }
@@ -635,8 +663,9 @@ namespace CellStore.Api
         /// <param name="newemail">The user new email (optional, default to null)</param>
         /// <param name="email">Current email of the authorized user (needed if changing the email) (optional, default to null)</param>
         /// <param name="password">Current password of the authorized user (needed if changing the email) (optional, default to null)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> EditUserAsyncWithHttpInfo (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> EditUserAsyncWithHttpInfo (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null)
         {
             // verify the required parameter 'firstname' is set
             if (firstname == null)
@@ -663,7 +692,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -671,7 +701,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
+/* 28msec */
 /* 28msec */
                         if (firstname != null) localVarQueryParams.Add("firstname", Configuration.ApiClient.ParameterToString(firstname)); // query parameter
             if (lastname != null) localVarQueryParams.Add("lastname", Configuration.ApiClient.ParameterToString(lastname)); // query parameter
@@ -679,6 +710,7 @@ namespace CellStore.Api
             if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
             /* 28msec */
 
 
@@ -699,9 +731,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -710,10 +751,11 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">The user email</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        public Outcome ForgotPassword (string email)
+        public Outcome ForgotPassword (string email, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = ForgotPasswordWithHttpInfo(email);
+             ApiResponse<Outcome> localVarResponse = ForgotPasswordWithHttpInfo(email, format);
              return localVarResponse.Data;
         }
 
@@ -722,8 +764,9 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">The user email</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        public ApiResponse< Outcome > ForgotPasswordWithHttpInfo (string email)
+        public ApiResponse< Outcome > ForgotPasswordWithHttpInfo (string email, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -744,7 +787,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -752,9 +796,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
+/* 28msec */
 /* 28msec */
                         if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
             /* 28msec */
 
 
@@ -774,9 +820,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -785,10 +841,11 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">The user email</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> ForgotPasswordAsync (string email)
+        public async System.Threading.Tasks.Task<Outcome> ForgotPasswordAsync (string email, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = await ForgotPasswordAsyncWithHttpInfo(email);
+             ApiResponse<Outcome> localVarResponse = await ForgotPasswordAsyncWithHttpInfo(email, format);
              return localVarResponse.Data;
 
         }
@@ -798,8 +855,9 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">The user email</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> ForgotPasswordAsyncWithHttpInfo (string email)
+        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> ForgotPasswordAsyncWithHttpInfo (string email, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -820,7 +878,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -828,9 +887,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
+/* 28msec */
 /* 28msec */
                         if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
             /* 28msec */
 
 
@@ -851,9 +912,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -900,7 +970,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -908,7 +979,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
+/* 28msec */
 /* 28msec */
                         if (userid != null) localVarQueryParams.Add("userid", Configuration.ApiClient.ParameterToString(userid)); // query parameter
             if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
@@ -932,9 +1004,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -982,7 +1064,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -990,7 +1073,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
+/* 28msec */
 /* 28msec */
                         if (userid != null) localVarQueryParams.Add("userid", Configuration.ApiClient.ParameterToString(userid)); // query parameter
             if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
@@ -1015,9 +1099,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -1065,7 +1158,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1073,7 +1167,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
+/* 28msec */
 /* 28msec */
                         if (right != null) localVarQueryParams.Add("right", Configuration.ApiClient.ParameterToString(right)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
@@ -1096,9 +1191,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -1147,7 +1252,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1155,7 +1261,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
+/* 28msec */
 /* 28msec */
                         if (right != null) localVarQueryParams.Add("right", Configuration.ApiClient.ParameterToString(right)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
@@ -1179,9 +1286,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -1239,7 +1355,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1247,7 +1364,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
+/* 28msec */
 /* 28msec */
                         if (firstname != null) localVarQueryParams.Add("firstname", Configuration.ApiClient.ParameterToString(firstname)); // query parameter
             if (lastname != null) localVarQueryParams.Add("lastname", Configuration.ApiClient.ParameterToString(lastname)); // query parameter
@@ -1272,9 +1390,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -1333,7 +1461,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1341,7 +1470,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
+/* 28msec */
 /* 28msec */
                         if (firstname != null) localVarQueryParams.Add("firstname", Configuration.ApiClient.ParameterToString(firstname)); // query parameter
             if (lastname != null) localVarQueryParams.Add("lastname", Configuration.ApiClient.ParameterToString(lastname)); // query parameter
@@ -1367,9 +1497,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -1427,7 +1566,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1435,7 +1575,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
+/* 28msec */
 /* 28msec */
                         if (newpassword != null) localVarQueryParams.Add("newpassword", Configuration.ApiClient.ParameterToString(newpassword)); // query parameter
             if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
@@ -1460,9 +1601,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -1521,7 +1672,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1529,7 +1681,8 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
+/* 28msec */
 /* 28msec */
                         if (newpassword != null) localVarQueryParams.Add("newpassword", Configuration.ApiClient.ParameterToString(newpassword)); // query parameter
             if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
@@ -1555,9 +1708,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -1568,10 +1730,11 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        public Outcome SetPassword (string email, string password, string resetToken)
+        public Outcome SetPassword (string email, string password, string resetToken, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = SetPasswordWithHttpInfo(email, password, resetToken);
+             ApiResponse<Outcome> localVarResponse = SetPasswordWithHttpInfo(email, password, resetToken, format);
              return localVarResponse.Data;
         }
 
@@ -1582,8 +1745,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        public ApiResponse< Outcome > SetPasswordWithHttpInfo (string email, string password, string resetToken)
+        public ApiResponse< Outcome > SetPasswordWithHttpInfo (string email, string password, string resetToken, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -1610,7 +1774,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1618,11 +1783,13 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
+/* 28msec */
 /* 28msec */
                         if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             if (resetToken != null) localVarQueryParams.Add("resetToken", Configuration.ApiClient.ParameterToString(resetToken)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
             /* 28msec */
 
 
@@ -1642,9 +1809,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -1655,10 +1832,11 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> SetPasswordAsync (string email, string password, string resetToken)
+        public async System.Threading.Tasks.Task<Outcome> SetPasswordAsync (string email, string password, string resetToken, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = await SetPasswordAsyncWithHttpInfo(email, password, resetToken);
+             ApiResponse<Outcome> localVarResponse = await SetPasswordAsyncWithHttpInfo(email, password, resetToken, format);
              return localVarResponse.Data;
 
         }
@@ -1670,8 +1848,9 @@ namespace CellStore.Api
         /// <param name="email">The email of the user to set the password</param>
         /// <param name="password">The new password</param>
         /// <param name="resetToken">The reset password token</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> SetPasswordAsyncWithHttpInfo (string email, string password, string resetToken)
+        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> SetPasswordAsyncWithHttpInfo (string email, string password, string resetToken, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -1698,7 +1877,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1706,11 +1886,13 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
+/* 28msec */
 /* 28msec */
                         if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             if (resetToken != null) localVarQueryParams.Add("resetToken", Configuration.ApiClient.ParameterToString(resetToken)); // query parameter
+            if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
             /* 28msec */
 
 
@@ -1731,9 +1913,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 

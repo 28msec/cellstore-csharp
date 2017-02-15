@@ -48,8 +48,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Object</returns>
-        Object Login (string email, string password);
+        Object Login (string email, string password, string format = null);
 
         /// <summary>
         /// Login with email and password in order to retrieve a token.
@@ -60,8 +61,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> LoginWithHttpInfo (string email, string password);
+        ApiResponse<Object> LoginWithHttpInfo (string email, string password, string format = null);
         /// <summary>
         /// Logout the user identified by the given API key.
         /// </summary>
@@ -70,8 +72,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        Outcome Logout (string token);
+        Outcome Logout (string token, string format = null);
 
         /// <summary>
         /// Logout the user identified by the given API key.
@@ -81,8 +84,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        ApiResponse<Outcome> LogoutWithHttpInfo (string token);
+        ApiResponse<Outcome> LogoutWithHttpInfo (string token, string format = null);
         /// <summary>
         /// Revoke a token having a custom expiration duration.
         /// </summary>
@@ -93,8 +97,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        Outcome Revoke (string email, string password, string token);
+        Outcome Revoke (string email, string password, string token, string format = null);
 
         /// <summary>
         /// Revoke a token having a custom expiration duration.
@@ -106,8 +111,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        ApiResponse<Outcome> RevokeWithHttpInfo (string email, string password, string token);
+        ApiResponse<Outcome> RevokeWithHttpInfo (string email, string password, string token, string format = null);
         /// <summary>
         /// Updates the cellstore users and permissions
         /// </summary>
@@ -117,8 +123,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="permissions">The permissions and user definitions.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Object</returns>
-        Object SetPermissions (string token, Object permissions);
+        Object SetPermissions (string token, Object permissions, string format = null);
 
         /// <summary>
         /// Updates the cellstore users and permissions
@@ -129,8 +136,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="permissions">The permissions and user definitions.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> SetPermissionsWithHttpInfo (string token, Object permissions);
+        ApiResponse<Object> SetPermissionsWithHttpInfo (string token, Object permissions, string format = null);
         /// <summary>
         /// Create a token having a custom expiration duration.
         /// </summary>
@@ -141,8 +149,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Object</returns>
-        Object Token (string email, string password, string expiration);
+        Object Token (string email, string password, string expiration, string format = null);
 
         /// <summary>
         /// Create a token having a custom expiration duration.
@@ -154,8 +163,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> TokenWithHttpInfo (string email, string password, string expiration);
+        ApiResponse<Object> TokenWithHttpInfo (string email, string password, string expiration, string format = null);
         /// <summary>
         /// List tokens of a user identified by its token.
         /// </summary>
@@ -164,8 +174,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Object</returns>
-        Object Tokens (string token);
+        Object Tokens (string token, string format = null);
 
         /// <summary>
         /// List tokens of a user identified by its token.
@@ -175,8 +186,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> TokensWithHttpInfo (string token);
+        ApiResponse<Object> TokensWithHttpInfo (string token, string format = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -188,8 +200,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> LoginAsync (string email, string password);
+        System.Threading.Tasks.Task<Object> LoginAsync (string email, string password, string format = null);
 
         /// <summary>
         /// Login with email and password in order to retrieve a token.
@@ -200,8 +213,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password);
+        System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password, string format = null);
         /// <summary>
         /// Logout the user identified by the given API key.
         /// </summary>
@@ -210,8 +224,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> LogoutAsync (string token);
+        System.Threading.Tasks.Task<Outcome> LogoutAsync (string token, string format = null);
 
         /// <summary>
         /// Logout the user identified by the given API key.
@@ -221,8 +236,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token);
+        System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token, string format = null);
         /// <summary>
         /// Revoke a token having a custom expiration duration.
         /// </summary>
@@ -233,8 +249,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token);
+        System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token, string format = null);
 
         /// <summary>
         /// Revoke a token having a custom expiration duration.
@@ -246,8 +263,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token);
+        System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token, string format = null);
         /// <summary>
         /// Updates the cellstore users and permissions
         /// </summary>
@@ -257,8 +275,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="permissions">The permissions and user definitions.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SetPermissionsAsync (string token, Object permissions);
+        System.Threading.Tasks.Task<Object> SetPermissionsAsync (string token, Object permissions, string format = null);
 
         /// <summary>
         /// Updates the cellstore users and permissions
@@ -269,8 +288,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="permissions">The permissions and user definitions.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> SetPermissionsAsyncWithHttpInfo (string token, Object permissions);
+        System.Threading.Tasks.Task<ApiResponse<Object>> SetPermissionsAsyncWithHttpInfo (string token, Object permissions, string format = null);
         /// <summary>
         /// Create a token having a custom expiration duration.
         /// </summary>
@@ -281,8 +301,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration);
+        System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration, string format = null);
 
         /// <summary>
         /// Create a token having a custom expiration duration.
@@ -294,8 +315,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration);
+        System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration, string format = null);
         /// <summary>
         /// List tokens of a user identified by its token.
         /// </summary>
@@ -304,8 +326,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> TokensAsync (string token);
+        System.Threading.Tasks.Task<Object> TokensAsync (string token, string format = null);
 
         /// <summary>
         /// List tokens of a user identified by its token.
@@ -315,8 +338,9 @@ namespace CellStore.Api
         /// </remarks>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> TokensAsyncWithHttpInfo (string token);
+        System.Threading.Tasks.Task<ApiResponse<Object>> TokensAsyncWithHttpInfo (string token, string format = null);
         #endregion Asynchronous Operations
     }
 
@@ -435,10 +459,11 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Object</returns>
-        public Object Login (string email, string password)
+        public Object Login (string email, string password, string format = null)
         {
-             ApiResponse<Object> localVarResponse = LoginWithHttpInfo(email, password);
+             ApiResponse<Object> localVarResponse = LoginWithHttpInfo(email, password, format);
              return localVarResponse.Data;
         }
 
@@ -448,8 +473,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > LoginWithHttpInfo (string email, string password)
+        public ApiResponse< Object > LoginWithHttpInfo (string email, string password, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -473,7 +499,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -481,9 +508,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
 /* 28msec */
-                        if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             /* 28msec */
 
@@ -504,9 +533,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -516,10 +555,11 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> LoginAsync (string email, string password)
+        public async System.Threading.Tasks.Task<Object> LoginAsync (string email, string password, string format = null)
         {
-             ApiResponse<Object> localVarResponse = await LoginAsyncWithHttpInfo(email, password);
+             ApiResponse<Object> localVarResponse = await LoginAsyncWithHttpInfo(email, password, format);
              return localVarResponse.Data;
 
         }
@@ -530,8 +570,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email">Email of user to login</param>
         /// <param name="password">Password of user to login</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> LoginAsyncWithHttpInfo (string email, string password, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -555,7 +596,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -563,9 +605,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
 /* 28msec */
-                        if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             /* 28msec */
 
@@ -587,9 +631,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -598,10 +651,11 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        public Outcome Logout (string token)
+        public Outcome Logout (string token, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = LogoutWithHttpInfo(token);
+             ApiResponse<Outcome> localVarResponse = LogoutWithHttpInfo(token, format);
              return localVarResponse.Data;
         }
 
@@ -610,8 +664,9 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        public ApiResponse< Outcome > LogoutWithHttpInfo (string token)
+        public ApiResponse< Outcome > LogoutWithHttpInfo (string token, string format = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -632,7 +687,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -640,9 +696,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
 /* 28msec */
-                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
 
 
@@ -662,9 +720,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -673,10 +741,11 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> LogoutAsync (string token)
+        public async System.Threading.Tasks.Task<Outcome> LogoutAsync (string token, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = await LogoutAsyncWithHttpInfo(token);
+             ApiResponse<Outcome> localVarResponse = await LogoutAsyncWithHttpInfo(token, format);
              return localVarResponse.Data;
 
         }
@@ -686,8 +755,9 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token)
+        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> LogoutAsyncWithHttpInfo (string token, string format = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -708,7 +778,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -716,9 +787,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
 /* 28msec */
-                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
 
 
@@ -739,9 +812,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -752,10 +834,11 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Outcome</returns>
-        public Outcome Revoke (string email, string password, string token)
+        public Outcome Revoke (string email, string password, string token, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = RevokeWithHttpInfo(email, password, token);
+             ApiResponse<Outcome> localVarResponse = RevokeWithHttpInfo(email, password, token, format);
              return localVarResponse.Data;
         }
 
@@ -766,8 +849,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Outcome</returns>
-        public ApiResponse< Outcome > RevokeWithHttpInfo (string email, string password, string token)
+        public ApiResponse< Outcome > RevokeWithHttpInfo (string email, string password, string token, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -794,7 +878,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -802,9 +887,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
 /* 28msec */
-                        if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
@@ -826,9 +913,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -839,10 +936,11 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Outcome</returns>
-        public async System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token)
+        public async System.Threading.Tasks.Task<Outcome> RevokeAsync (string email, string password, string token, string format = null)
         {
-             ApiResponse<Outcome> localVarResponse = await RevokeAsyncWithHttpInfo(email, password, token);
+             ApiResponse<Outcome> localVarResponse = await RevokeAsyncWithHttpInfo(email, password, token, format);
              return localVarResponse.Data;
 
         }
@@ -854,8 +952,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that owns the token</param>
         /// <param name="password">Password of user that owns the token</param>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Outcome)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token)
+        public async System.Threading.Tasks.Task<ApiResponse<Outcome>> RevokeAsyncWithHttpInfo (string email, string password, string token, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -882,7 +981,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -890,9 +990,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
 /* 28msec */
-                        if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
@@ -915,9 +1017,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Outcome>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome)));
+                (Outcome) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Outcome), localResponseFormat));
             
         }
 
@@ -927,10 +1038,11 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="permissions">The permissions and user definitions.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Object</returns>
-        public Object SetPermissions (string token, Object permissions)
+        public Object SetPermissions (string token, Object permissions, string format = null)
         {
-             ApiResponse<Object> localVarResponse = SetPermissionsWithHttpInfo(token, permissions);
+             ApiResponse<Object> localVarResponse = SetPermissionsWithHttpInfo(token, permissions, format);
              return localVarResponse.Data;
         }
 
@@ -940,8 +1052,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="permissions">The permissions and user definitions.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > SetPermissionsWithHttpInfo (string token, Object permissions)
+        public ApiResponse< Object > SetPermissionsWithHttpInfo (string token, Object permissions, string format = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -965,7 +1078,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -973,9 +1087,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
 /* 28msec */
-                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
             if (permissions != null)
             {
@@ -1032,9 +1148,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -1044,10 +1170,11 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="permissions">The permissions and user definitions.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> SetPermissionsAsync (string token, Object permissions)
+        public async System.Threading.Tasks.Task<Object> SetPermissionsAsync (string token, Object permissions, string format = null)
         {
-             ApiResponse<Object> localVarResponse = await SetPermissionsAsyncWithHttpInfo(token, permissions);
+             ApiResponse<Object> localVarResponse = await SetPermissionsAsyncWithHttpInfo(token, permissions, format);
              return localVarResponse.Data;
 
         }
@@ -1058,8 +1185,9 @@ namespace CellStore.Api
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
         /// <param name="permissions">The permissions and user definitions.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> SetPermissionsAsyncWithHttpInfo (string token, Object permissions)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> SetPermissionsAsyncWithHttpInfo (string token, Object permissions, string format = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -1083,7 +1211,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1091,9 +1220,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
 /* 28msec */
-                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
             if (permissions != null)
             {
@@ -1151,9 +1282,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -1164,10 +1304,11 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Object</returns>
-        public Object Token (string email, string password, string expiration)
+        public Object Token (string email, string password, string expiration, string format = null)
         {
-             ApiResponse<Object> localVarResponse = TokenWithHttpInfo(email, password, expiration);
+             ApiResponse<Object> localVarResponse = TokenWithHttpInfo(email, password, expiration, format);
              return localVarResponse.Data;
         }
 
@@ -1178,8 +1319,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > TokenWithHttpInfo (string email, string password, string expiration)
+        public ApiResponse< Object > TokenWithHttpInfo (string email, string password, string expiration, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -1206,7 +1348,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1214,9 +1357,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
 /* 28msec */
-                        if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             if (expiration != null) localVarQueryParams.Add("expiration", Configuration.ApiClient.ParameterToString(expiration)); // query parameter
             /* 28msec */
@@ -1238,9 +1383,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -1251,10 +1406,11 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration)
+        public async System.Threading.Tasks.Task<Object> TokenAsync (string email, string password, string expiration, string format = null)
         {
-             ApiResponse<Object> localVarResponse = await TokenAsyncWithHttpInfo(email, password, expiration);
+             ApiResponse<Object> localVarResponse = await TokenAsyncWithHttpInfo(email, password, expiration, format);
              return localVarResponse.Data;
 
         }
@@ -1266,8 +1422,9 @@ namespace CellStore.Api
         /// <param name="email">Email of user that creates the token</param>
         /// <param name="password">Password of user that creates the token</param>
         /// <param name="expiration">Expiration of the token, in ISO format (e.g.: 2014-04-29T14:32:05.0321Z)</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> TokenAsyncWithHttpInfo (string email, string password, string expiration, string format = null)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -1294,7 +1451,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1302,9 +1460,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
 /* 28msec */
-                        if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (email != null) localVarQueryParams.Add("email", Configuration.ApiClient.ParameterToString(email)); // query parameter
             if (password != null) localVarQueryParams.Add("password", Configuration.ApiClient.ParameterToString(password)); // query parameter
             if (expiration != null) localVarQueryParams.Add("expiration", Configuration.ApiClient.ParameterToString(expiration)); // query parameter
             /* 28msec */
@@ -1327,9 +1487,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -1338,10 +1507,11 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Object</returns>
-        public Object Tokens (string token)
+        public Object Tokens (string token, string format = null)
         {
-             ApiResponse<Object> localVarResponse = TokensWithHttpInfo(token);
+             ApiResponse<Object> localVarResponse = TokensWithHttpInfo(token, format);
              return localVarResponse.Data;
         }
 
@@ -1350,8 +1520,9 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > TokensWithHttpInfo (string token)
+        public ApiResponse< Object > TokensWithHttpInfo (string token, string format = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -1372,7 +1543,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1380,9 +1552,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+*/
 /* 28msec */
-                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
 
 
@@ -1402,9 +1576,19 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 
@@ -1413,10 +1597,11 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> TokensAsync (string token)
+        public async System.Threading.Tasks.Task<Object> TokensAsync (string token, string format = null)
         {
-             ApiResponse<Object> localVarResponse = await TokensAsyncWithHttpInfo(token);
+             ApiResponse<Object> localVarResponse = await TokensAsyncWithHttpInfo(token, format);
              return localVarResponse.Data;
 
         }
@@ -1426,8 +1611,9 @@ namespace CellStore.Api
         /// </summary>
         /// <exception cref="CellStore.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="token">The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials.</param>
+        /// <param name="format">Returns the results in the supplied format (optional, default to json)</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> TokensAsyncWithHttpInfo (string token)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> TokensAsyncWithHttpInfo (string token, string format = null)
         {
             // verify the required parameter 'token' is set
             if (token == null)
@@ -1448,7 +1634,8 @@ namespace CellStore.Api
                 "application/json"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
+/* 28msec */
+            /*
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 "application/json"
@@ -1456,9 +1643,11 @@ namespace CellStore.Api
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
+            */
 /* 28msec */
-                        if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
+/* 28msec */
+                        if (format != null) localVarQueryParams.Add("format", Configuration.ApiClient.ParameterToString(format)); // query parameter
+            if (token != null) localVarQueryParams.Add("token", Configuration.ApiClient.ParameterToString(token)); // query parameter
             /* 28msec */
 
 
@@ -1479,9 +1668,18 @@ namespace CellStore.Api
                 if (exception != null) throw exception;
             }
 
+            String localResponseFormat = null;
+            List<String> formatParameter = null;
+            if (localVarQueryParams.ContainsKey("format"))
+            {
+                formatParameter = localVarQueryParams["format"];
+                if (formatParameter != null && formatParameter.Count == 1)
+                    localResponseFormat = formatParameter.ElementAt(0);
+            }
+
             return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object), localResponseFormat));
             
         }
 

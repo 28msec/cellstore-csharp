@@ -306,7 +306,7 @@ namespace CellStore.Client
         /// <param name="response">The HTTP response.</param>
         /// <param name="type">Object type.</param>
         /// <returns>Object representation of the JSON string.</returns>
-        public object Deserialize(IRestResponse response, Type type)
+        public object Deserialize(IRestResponse response, Type type, String cellstoreFormatParameter)
         {
             IList<Parameter> headers = response.Headers;
             if (type == typeof(byte[])) // return byte array
