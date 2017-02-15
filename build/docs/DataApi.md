@@ -45,7 +45,7 @@ Method | HTTP request | Description
 
 <a name="addarchives"></a>
 # **AddArchives**
-> Object AddArchives (string token, Object archive, string profileName = null)
+> Object AddArchives (string token, Object archive, string profileName = null, string format = null)
 
 Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
 
@@ -68,11 +68,12 @@ namespace Example
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var archive = ;  // Object | The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Add or update archives. The archives are identified with Archive IDs (AIDs).  A new empty archive can be created by submitting a JSON object containing general information about the archive. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive | | Entity   | string | optional | The EID to which the archive belongs | | Entities  | array of strings (at least one) | required if Entity is absent | Used if the archive reports information on more than one entity. | | InstanceURL  | string | optional | The URL of the original XBRL instance | | Namespaces  | object with string values | optional | Maps prefixes to namespaces for the archive (common bindings are automatically added) | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the archives endpoint as input:  - Components (string) - Sections (string) - NumSections (integer) - NumFacts (integer) - NumFootnotes (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer)  Several empty archives can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
-                Object result = apiInstance.AddArchives(token, archive, profileName);
+                Object result = apiInstance.AddArchives(token, archive, profileName, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -91,6 +92,7 @@ Name | Type | Description  | Notes
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **archive** | **Object**| The body of the request. The archive JSON objects, which must satisfy the constraints described in the field table. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -109,7 +111,7 @@ No authorization required
 
 <a name="addentities"></a>
 # **AddEntities**
-> Object AddEntities (string token, Object entity)
+> Object AddEntities (string token, Object entity, string format = null)
 
 Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
 
@@ -131,11 +133,12 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var entity = ;  // Object | The entity objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table. (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Add or update entity. The entities are identified with Entity IDs (EIDs).  An entity must be specified as a JSON object that must be valid against a JSound schema.  It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | EIDs  | array of strings (at least one) | required | The EIDs for this entity. | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following field is allowed for the purpose of feeding back the output of the entities endpoint as input:  - Archives (string)  Several entities can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
-                Object result = apiInstance.AddEntities(token, entity);
+                Object result = apiInstance.AddEntities(token, entity, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -153,6 +156,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **entity** | **Object**| The entity objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table. | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -171,7 +175,7 @@ No authorization required
 
 <a name="addfacts"></a>
 # **AddFacts**
-> Object AddFacts (string token, Object fact)
+> Object AddFacts (string token, Object fact, string format = null)
 
 Add a fact to a archive.
 
@@ -193,11 +197,12 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var fact = ;  // Object | The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field. (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Add a fact to a archive.
-                Object result = apiInstance.AddFacts(token, fact);
+                Object result = apiInstance.AddFacts(token, fact, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -215,6 +220,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **fact** | **Object**| The fact objects (they must be valid, and have an archive aspect that points to an existing archive). To logically delete a fact, omit the Value field. | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -233,7 +239,7 @@ No authorization required
 
 <a name="addlabels"></a>
 # **AddLabels**
-> Object AddLabels (string token, Object label)
+> Object AddLabels (string token, Object label, string format = null)
 
 Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |- -- -- -- -- -- -- --|- -- -- -- -|- -- -- -- -- -|- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
 
@@ -255,11 +261,12 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var label = ;  // Object | The label objects (they must be valid). (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Add or update labels. A label is identified with an Archive ID (AID), a section URI, a report element, a language and a label role.  A label can be created by submitting a JSON object containing general information about the label. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field         | Type   | Presence | Content                          | |- -- -- -- -- -- -- --|- -- -- -- -|- -- -- -- -- -|- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -| | AID           | string | required | The AID of the archive to which the section belongs | | SectionURI    | string | required | The URI of the section           | | ReportElement | string | required | The name of a report element     | | Language      | string | required | A language code, e.g., en-US or de | | Role          | string | required | A label role                     | | Value         | string | required | The label itself                 |  Several labels can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
-                Object result = apiInstance.AddLabels(token, label);
+                Object result = apiInstance.AddLabels(token, label, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -277,6 +284,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **label** | **Object**| The label objects (they must be valid). | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -295,7 +303,7 @@ No authorization required
 
 <a name="addmodelstructureforcomponent"></a>
 # **AddModelStructureForComponent**
-> Object AddModelStructureForComponent (string token, Object modelStructure, string profileName = null)
+> Object AddModelStructureForComponent (string token, Object modelStructure, string profileName = null, string format = null)
 
 Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | Name | string | required | The qualified name of a report element that exists in the component's section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |- -- -- -- -- -- -- -- -- -- -- -- -|- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
 
@@ -318,11 +326,12 @@ namespace Example
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var modelStructure = ;  // Object | The model structures, which must satisfy the constraints described in the properties table. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Add or update components by providing their model structures. The components are identified with an AID, a section URI and the qualified name of a hypercube.  A new component can be created by submitting a JSON object containing the model structure of the component. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the component belongs | | SectionURI   | string (URI) | optional | The URI of the section to which the component belongs | | HypercubeName  | string (QName lexical space) | required | The name of the hypercube that this component involves | | ModelStructure  | array of model structure node objects | required | The hierarchical model structure, as a tree of nodes that reference report elements (see below) |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Section (string) - Hypercube (string)  #### Model structure node properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | Name | string | required | The qualified name of a report element that exists in the component's section | | Children   | array | optional | An array of model structure node objects that reference further children report elements |  Additionally, the following fields are allowed for the purpose of feeding back the output of the modelstructure-for-component endpoint as input:  - Depth (integer) - Label (string) - BaseType (string) - Kind (string) - Order (integer) - DataType (string) - BaseDataType (string) - Balance (string) - Abstract (boolean) - PeriodType (string)  The hierarchy of the model structure must fulfill the constraints described in the documentation of model structures. We repeat it here for convenience:  | Kind of report element |  Allowed children                           | |- -- -- -- -- -- -- -- -- -- -- -- -|- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --| | Abstract               | Hypercube (if top-level), Abstract, Concept | | Hypercube              | Dimension, LineItems                        | | Dimension              | Member                                      | | Member                 | Member                                      | | LineItems              | Abstract, Concept                           | | Concept                | none                                        |  The model structure MUST involve the hypercube referred to in the top-level HypercubeName field, only this one, and only once, either top-level or below a top-level abstract. Its children are the dimensions with their members, as well as the line items hierarchy.  The only exception to the requirement of the hypercube report element is the special xbrl28:ImpliedTable hypercube. If HypercubeName is xbrl28:ImpliedTable, then the model structure can only involve Abstracts and Concepts, and has no dimensionality.  Several components can be created at the same time by posting a sequence of non-comma-separated JSON model structure objects as above. 
-                Object result = apiInstance.AddModelStructureForComponent(token, modelStructure, profileName);
+                Object result = apiInstance.AddModelStructureForComponent(token, modelStructure, profileName, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -341,6 +350,7 @@ Name | Type | Description  | Notes
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **modelStructure** | **Object**| The model structures, which must satisfy the constraints described in the properties table. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -359,7 +369,7 @@ No authorization required
 
 <a name="addreportelements"></a>
 # **AddReportElements**
-> Object AddReportElements (string token, Object reportElement)
+> Object AddReportElements (string token, Object reportElement, string format = null)
 
 Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
 
@@ -381,11 +391,12 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var reportElement = ;  // Object | The report element objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table. (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Add or update report elements. The report elements are identified with an AID, a section URI and a qualified name.  A new report element can be created by submitting a JSON object containing general information about the report element. This JSON object must be valid agains a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the report element belongs | | SectionURI   | string (URI) | required | The URI of the section to which the report element belongs | | Name  | string (QName lexical space) | required | The name of the report element (of the form foo:Bar) | | Kind  | One of: Concept, Abstract, LineItems, Hypercube, Dimension, Member | optional | One of the six kinds of report element | | PeriodType  | One of: instant, duration | optional | Only allowed for the Concept kind. Indicates the period type (whether facts against this concept must have instant or duration periods). | | DataType | string (QName lexical space) | optional | Only allowed for the Concept kind. Indicates the data type (value facts against this concept must have). | | Balance | One of: credit, debit | optional | Only allowed for the Concept kind, and if the data type is monetary. Indicates the balance. | | IsNillable | boolean | optional | Only allowed for the Concept kind. Specifies whether null is accepted as a fact value. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the report-elements endpoint as input:  - Components (string) - IsAbstract (boolean) - BaseType (string) - ClosestSchemaBuiltinType (string) - IsTextBlock (boolean) - Labels (string) - Facts (string) - Labels (string) - Label (string) - Section (string) - CIK (string) - EntityRegistrantName (string) - FiscalYear (integer) - FiscalPeriod (string)  For report elements with the kind Concept, the data type must be one of the following:  - xbrli:decimalItemType - xbrli:floatItemType - xbrli:doubleItemType - xbrli:integerItemType - xbrli:positiveIntegerItemType - xbrli:nonPositiveIntegerItemType - xbrli:nonNegativeIntegerItemType - xbrli:negativeIntegershortItemType - xbrli:byteItemType - xbrli:intItemType - xbrli:longItemType - xbrli:unsignedShorItemType - xbrli:unsignedByteItemType - xbrli:unsignedIntItemType - xbrli:unsignedLongItemType - xbrli:stringItemType (implied/only one allowed for Hypercube, Dimension, LineItems and Abstract kinds) - xbrli:booleanItemType - xbrli:hexBinaryItemType - xbrli:base64BinaryItemType - xbrli:anyURIItemType - xbrli:QNameItemType - xbrli:durationItemType - xbrli:timeItemType - xbrli:dateItemType - xbrli:gYearMonthItemType - xbrli:gYearItemType - xbrli:gMonthItemType - xbrli:gMonthDayItemType - xbrli:gDayItemType - xbrli:normalizedStringItemType - xbrli:tokenItemType - xbrli:languageItemType - xbrli:NameItemType - xbrli:NCNameItemType - xbrli:monetaryItemType (allows Balance) - xbrli:pureItemType - xbrli:sharesItemType - xbrli:fractionItemType - nonnum:domainItemType (implied/only one allowed for Member kind) - nonnum:escapedItemType - nonnum:xmlNodesItemType - nonnum:xmlItemType - nonnum:textBlockItemType - num:percentItemType - num:perShareItemType - num:areaItemType - num:volumeItemType - num:massItemType - num:weightItemType - num:energyItemType - num:powerItemType - num:lengthItemType - num:noDecimalsMonetaryItemType (allows Balance) - num:nonNegativeMonetaryItemType (allows Balance) - num:nonNegativeNoDecimalsMonetaryItemType (allows Balance) - num:enumerationItemType  Several report elements can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
-                Object result = apiInstance.AddReportElements(token, reportElement);
+                Object result = apiInstance.AddReportElements(token, reportElement, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -403,6 +414,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **reportElement** | **Object**| The report element objects, which must be supplied in the body of the request, and which must satisfy the constraints described in the field table. | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -483,7 +495,7 @@ No authorization required
 
 <a name="addsections"></a>
 # **AddSections**
-> Object AddSections (string token, Object section, string profileName = null)
+> Object AddSections (string token, Object section, string profileName = null, string format = null)
 
 Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
 
@@ -506,11 +518,12 @@ namespace Example
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var section = ;  // Object | The section objects (they must be valid). (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Add or update sections. A section is identified with an Archive ID (AID) and a section URI.  A section can be created by submitting a JSON object containing general information about the section. This JSON object must be valid against a JSound schema. It can be either taken from the output of a GET request to the same endpoint (in which case it will be valid), or created manually.  For convenience, we offer a user-friendly summary of the fields involved. The JSound schema is available on request.  #### Body properties  | Field | Type | Presence | Content | |- -- -- --|- -- -- -|- -- -- -- -- -|- -- -- -- --| | AID | string | required | The AID of the archive to which the section belongs | | SectionURI   | string | required | The URI of the section | | Section  | string | required | A user-friendly label for the section (preferably in English). | | Profiles | object | optional | Maps profile names to additional profile-specific information. The profile-specific information must have a Name field containing the profile name, that is, identical to its key. The other fields in the profile information is not restricted. |  Additionally, the following fields are allowed for the purpose of feeding back the output of the sections endpoint as input:  - Components (string) - ReportElements (string) - FactTable (string) - Spreadsheet (string) - Category (string) - SubCategory (string) - Disclosure (string) - NumRules (integer) - NumReportElements (integer) - NumHypercubes (integer) - NumDimensions (integer) - NumMembers (integer) - NumLineItems (integer) - NumAbstracts (integer) - NumConcepts (integer) - EntityRegistrantName (string) - CIK (string) - FiscalYear (integer) - FiscalPeriod (string) - AcceptanceDatetime (string) - FormType (string)  Several empty sections can be created at the same time by posting a sequence of non-comma-separated JSON objects as above. 
-                Object result = apiInstance.AddSections(token, section, profileName);
+                Object result = apiInstance.AddSections(token, section, profileName, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -529,6 +542,7 @@ Name | Type | Description  | Notes
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **section** | **Object**| The section objects (they must be valid). | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -547,7 +561,7 @@ No authorization required
 
 <a name="addtaxonomy"></a>
 # **AddTaxonomy**
-> Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string aid = null, int? timeout = null, bool? insertEntity = null)
+> Object AddTaxonomy (string token, string eid, List<string> entrypoint, string profileName = null, string format = null, string aid = null, int? timeout = null, bool? insertEntity = null)
 
 Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
 
@@ -571,6 +585,7 @@ namespace Example
             var eid = eid_example;  // string | The EID (scheme + local name) of a company, to add a new taxonomy. (default to null)
             var entrypoint = new List<string>(); // List<string> | The URI of a taxonomy entrypoint. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var timeout = 56;  // int? | Timeout for the operation. (optional)  (default to null)
             var insertEntity = true;  // bool? | If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) (optional)  (default to true)
@@ -578,7 +593,7 @@ namespace Example
             try
             {
                 // Adds a new taxonomy archive given one or more entrypoints. The taxonomy archive is identified with an Archive ID (AID). 
-                Object result = apiInstance.AddTaxonomy(token, eid, entrypoint, profileName, aid, timeout, insertEntity);
+                Object result = apiInstance.AddTaxonomy(token, eid, entrypoint, profileName, format, aid, timeout, insertEntity);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -598,6 +613,7 @@ Name | Type | Description  | Notes
  **eid** | **string**| The EID (scheme + local name) of a company, to add a new taxonomy. | [default to null]
  **entrypoint** | [**List<string>**](string.md)| The URI of a taxonomy entrypoint. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **timeout** | **int?**| Timeout for the operation. | [optional] [default to null]
  **insertEntity** | **bool?**| If false, and one or more of the archive entities are not present in the repository an error is raised. If true, the missing entity is inserted. (Default is true) | [optional] [default to true]
@@ -619,7 +635,7 @@ No authorization required
 
 <a name="copyarchive"></a>
 # **CopyArchive**
-> Object CopyArchive (string token, string fromAid, string aid = null, string eid = null, bool? insertEntity = null, bool? copyFacts = null)
+> Object CopyArchive (string token, string fromAid, string format = null, string aid = null, string eid = null, bool? insertEntity = null, bool? copyFacts = null)
 
 Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
 
@@ -641,6 +657,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var fromAid = fromAid_example;  // string | Archive ID of the archive or taxonomy to copy. (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var eid = eid_example;  // string | The EID (scheme + local name) of a company. (optional)  (default to null)
             var insertEntity = true;  // bool? | If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) (optional)  (default to true)
@@ -649,7 +666,7 @@ namespace Example
             try
             {
                 // Copies an existing archive. The new archive copy will retain all the data (components, report-elements, facts, footnotes) of the copied archive and will have a new Archive ID. Optionally a new Entity ID for the copied archive can be specified. 
-                Object result = apiInstance.CopyArchive(token, fromAid, aid, eid, insertEntity, copyFacts);
+                Object result = apiInstance.CopyArchive(token, fromAid, format, aid, eid, insertEntity, copyFacts);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -667,6 +684,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **fromAid** | **string**| Archive ID of the archive or taxonomy to copy. | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **eid** | **string**| The EID (scheme + local name) of a company. | [optional] [default to null]
  **insertEntity** | **bool?**| If false, and the specified new Entity ID is not present in the Cellstore an error is raised. If true, the missing entity is inserted. (Default is true) | [optional] [default to true]
@@ -689,7 +707,7 @@ No authorization required
 
 <a name="deletearchive"></a>
 # **DeleteArchive**
-> Object DeleteArchive (string token, string profileName = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
+> Object DeleteArchive (string token, string profileName = null, string format = null, string aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
 
 Deletes an archive.
 
@@ -711,6 +729,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -725,7 +744,7 @@ namespace Example
             try
             {
                 // Deletes an archive.
-                Object result = apiInstance.DeleteArchive(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
+                Object result = apiInstance.DeleteArchive(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -743,6 +762,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -771,7 +791,7 @@ No authorization required
 
 <a name="deleteentity"></a>
 # **DeleteEntity**
-> Object DeleteEntity (string token, string profileName = null, string eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> ticker = null)
+> Object DeleteEntity (string token, string profileName = null, string format = null, string eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> ticker = null)
 
 Deletes an entity.
 
@@ -793,6 +813,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var eid = eid_example;  // string | The EID (scheme + local name) of a company. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var edinetcode = new List<string>(); // List<string> | The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -801,7 +822,7 @@ namespace Example
             try
             {
                 // Deletes an entity.
-                Object result = apiInstance.DeleteEntity(token, profileName, eid, cik, edinetcode, ticker);
+                Object result = apiInstance.DeleteEntity(token, profileName, format, eid, cik, edinetcode, ticker);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -819,6 +840,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **eid** | **string**| The EID (scheme + local name) of a company. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **edinetcode** | [**List<string>**](string.md)| The EDINET code of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -841,7 +863,7 @@ No authorization required
 
 <a name="deletelabel"></a>
 # **DeleteLabel**
-> Object DeleteLabel (string token, string profileName = null, string aid = null, string section = null, string reportElement = null, string language = null, List<string> labelRole = null)
+> Object DeleteLabel (string token, string profileName = null, string format = null, string aid = null, string section = null, string reportElement = null, string language = null, List<string> labelRole = null)
 
 Deletes a label.
 
@@ -863,6 +885,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var section = section_example;  // string | The URI of a particular section. (optional)  (default to null)
             var reportElement = reportElement_example;  // string | The name of the report element (e.g. us-gaap:Goodwill). (optional)  (default to null)
@@ -872,7 +895,7 @@ namespace Example
             try
             {
                 // Deletes a label.
-                Object result = apiInstance.DeleteLabel(token, profileName, aid, section, reportElement, language, labelRole);
+                Object result = apiInstance.DeleteLabel(token, profileName, format, aid, section, reportElement, language, labelRole);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -890,6 +913,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **section** | **string**| The URI of a particular section. | [optional] [default to null]
  **reportElement** | **string**| The name of the report element (e.g. us-gaap:Goodwill). | [optional] [default to null]
@@ -979,7 +1003,7 @@ No authorization required
 
 <a name="deletereportelement"></a>
 # **DeleteReportElement**
-> Object DeleteReportElement (string token, string profileName = null, string aid = null, string section = null, string reportElement = null)
+> Object DeleteReportElement (string token, string profileName = null, string format = null, string aid = null, string section = null, string reportElement = null)
 
 Deletes a report element.
 
@@ -1001,6 +1025,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var section = section_example;  // string | The URI of a particular section. (optional)  (default to null)
             var reportElement = reportElement_example;  // string | The name of the report element (e.g. us-gaap:Goodwill). (optional)  (default to null)
@@ -1008,7 +1033,7 @@ namespace Example
             try
             {
                 // Deletes a report element.
-                Object result = apiInstance.DeleteReportElement(token, profileName, aid, section, reportElement);
+                Object result = apiInstance.DeleteReportElement(token, profileName, format, aid, section, reportElement);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1026,6 +1051,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **section** | **string**| The URI of a particular section. | [optional] [default to null]
  **reportElement** | **string**| The name of the report element (e.g. us-gaap:Goodwill). | [optional] [default to null]
@@ -1047,7 +1073,7 @@ No authorization required
 
 <a name="deletesection"></a>
 # **DeleteSection**
-> Object DeleteSection (string token, string profileName = null, string aid = null, string section = null)
+> Object DeleteSection (string token, string profileName = null, string format = null, string aid = null, string section = null)
 
 Deletes a section.
 
@@ -1069,13 +1095,14 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var section = section_example;  // string | The URI of a particular section. (optional)  (default to null)
 
             try
             {
                 // Deletes a section.
-                Object result = apiInstance.DeleteSection(token, profileName, aid, section);
+                Object result = apiInstance.DeleteSection(token, profileName, format, aid, section);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1093,6 +1120,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **section** | **string**| The URI of a particular section. | [optional] [default to null]
 
@@ -1113,7 +1141,7 @@ No authorization required
 
 <a name="editarchives"></a>
 # **EditArchives**
-> Object EditArchives (string token, Object patch, string profileName = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
+> Object EditArchives (string token, Object patch, string profileName = null, string format = null, List<string> aid = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null)
 
 Update one or more archives with partial information
 
@@ -1136,6 +1164,7 @@ namespace Example
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var patch = ;  // Object | The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed.  (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1150,7 +1179,7 @@ namespace Example
             try
             {
                 // Update one or more archives with partial information
-                Object result = apiInstance.EditArchives(token, patch, profileName, aid, entityTag, eid, cik, edinetcode, sic, ticker, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
+                Object result = apiInstance.EditArchives(token, patch, profileName, format, aid, entityTag, eid, cik, edinetcode, sic, ticker, archiveFiscalYear, archiveFiscalPeriod, archiveTag);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1169,6 +1198,7 @@ Name | Type | Description  | Notes
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **patch** | **Object**| The patch object, which will be merged into each archive (the archive objects must be valid after applying it).  Updating the AID of an archive is not allowed.  | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -1197,7 +1227,7 @@ No authorization required
 
 <a name="editentities"></a>
 # **EditEntities**
-> Object EditEntities (string token, Object patch, string profileName = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null)
+> Object EditEntities (string token, Object patch, string profileName = null, string format = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null)
 
 Update one or more entities with partial information
 
@@ -1220,6 +1250,7 @@ namespace Example
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var patch = ;  // Object | The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed.  (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1230,7 +1261,7 @@ namespace Example
             try
             {
                 // Update one or more entities with partial information
-                Object result = apiInstance.EditEntities(token, patch, profileName, entityTag, eid, cik, edinetcode, sic, ticker);
+                Object result = apiInstance.EditEntities(token, patch, profileName, format, entityTag, eid, cik, edinetcode, sic, ticker);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1249,6 +1280,7 @@ Name | Type | Description  | Notes
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **patch** | **Object**| The patch object, which will be merged into each entity (the entities must be valid after applying it).  Updating the EID of an entity is not allowed.  | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -1273,7 +1305,7 @@ No authorization required
 
 <a name="editfacts"></a>
 # **EditFacts**
-> Object EditFacts (string token, Object patch, string profileName = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
+> Object EditFacts (string token, Object patch, string profileName = null, string format = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, List<string> aid = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null)
 
 Patch one or more facts
 
@@ -1296,6 +1328,7 @@ namespace Example
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var patch = ;  // Object | The patch object, which will be merged into each facts (the facts must be valid after applying it). (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1329,7 +1362,7 @@ namespace Example
             try
             {
                 // Patch one or more facts
-                Object result = apiInstance.EditFacts(token, patch, profileName, entityTag, eid, cik, edinetcode, sic, ticker, aid, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count);
+                Object result = apiInstance.EditFacts(token, patch, profileName, format, entityTag, eid, cik, edinetcode, sic, ticker, aid, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1348,6 +1381,7 @@ Name | Type | Description  | Notes
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **patch** | **Object**| The patch object, which will be merged into each facts (the facts must be valid after applying it). | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -1395,7 +1429,7 @@ No authorization required
 
 <a name="getarchives"></a>
 # **GetArchives**
-> Object GetArchives (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetArchives (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, string language = null, bool? dts = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve metadata about the archives, also called archives. The archives are identified with Archive IDs (AIDs). Facts can be bound with archives with the xbrl28:Archive aspect, whose values are AIDs.
 
@@ -1417,6 +1451,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1436,7 +1471,7 @@ namespace Example
             try
             {
                 // Retrieve metadata about the archives, also called archives. The archives are identified with Archive IDs (AIDs). Facts can be bound with archives with the xbrl28:Archive aspect, whose values are AIDs.
-                Object result = apiInstance.GetArchives(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, dts, count, top, skip);
+                Object result = apiInstance.GetArchives(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, language, dts, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1454,6 +1489,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -1487,7 +1523,7 @@ No authorization required
 
 <a name="getcomponents"></a>
 # **GetComponents**
-> Object GetComponents (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null, List<string> concept = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null)
+> Object GetComponents (string token, string profileName = null, string format = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, bool? validate = null, string language = null, List<string> concept = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null)
 
 Retrieve a summary for all components of a given archive
 
@@ -1509,6 +1545,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1537,7 +1574,7 @@ namespace Example
             try
             {
                 // Retrieve a summary for all components of a given archive
-                Object result = apiInstance.GetComponents(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language, concept, dimensions, dimensionTypes, defaultDimensionValues);
+                Object result = apiInstance.GetComponents(token, profileName, format, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, hypercube, disclosure, reportElement, label, count, top, skip, validate, language, concept, dimensions, dimensionTypes, defaultDimensionValues);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1555,6 +1592,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -1597,7 +1635,7 @@ No authorization required
 
 <a name="getdatapointsforcomponent"></a>
 # **GetDataPointsForComponent**
-> Object GetDataPointsForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> archiveTag = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetDataPointsForComponent (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? labels = null, bool? metadata = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> archiveTag = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
 
@@ -1619,6 +1657,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1655,7 +1694,7 @@ namespace Example
             try
             {
                 // Retrieve the data points for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
-                Object result = apiInstance.GetDataPointsForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, labels, metadata, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, archiveTag, disclosure, reportElement, label, merge, language, _override, count, top, skip);
+                Object result = apiInstance.GetDataPointsForComponent(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, labels, metadata, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, archiveTag, disclosure, reportElement, label, merge, language, _override, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1673,6 +1712,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -1723,7 +1763,7 @@ No authorization required
 
 <a name="getentities"></a>
 # **GetEntities**
-> Object GetEntities (string token, string profileName = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, string entitySearch = null, int? entitySearchOffset = null, int? entitySearchLimit = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetEntities (string token, string profileName = null, string format = null, List<string> entityTag = null, List<string> eid = null, List<string> cik = null, List<string> edinetcode = null, List<string> sic = null, List<string> ticker = null, string entitySearch = null, int? entitySearchOffset = null, int? entitySearchLimit = null, string language = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve metadata about the entities that submit archives. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
 
@@ -1745,6 +1785,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1762,7 +1803,7 @@ namespace Example
             try
             {
                 // Retrieve metadata about the entities that submit archives. These entities are also referred to by facts with the xbrl:Entity aspect, of which the values are called Entity IDs (EIDs). One entity might have several EIDs.
-                Object result = apiInstance.GetEntities(token, profileName, entityTag, eid, cik, edinetcode, sic, ticker, entitySearch, entitySearchOffset, entitySearchLimit, language, count, top, skip);
+                Object result = apiInstance.GetEntities(token, profileName, format, entityTag, eid, cik, edinetcode, sic, ticker, entitySearch, entitySearchOffset, entitySearchLimit, language, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1780,6 +1821,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -1811,7 +1853,7 @@ No authorization required
 
 <a name="getfacttableforcomponent"></a>
 # **GetFactTableForComponent**
-> Object GetFactTableForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> archiveTag = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetFactTableForComponent (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> archiveTag = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
 
@@ -1833,6 +1875,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1873,7 +1916,7 @@ namespace Example
             try
             {
                 // Retrieve the fact table for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
-                Object result = apiInstance.GetFactTableForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, archiveTag, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, count, top, skip);
+                Object result = apiInstance.GetFactTableForComponent(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, archiveTag, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1891,6 +1934,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -1945,7 +1989,7 @@ No authorization required
 
 <a name="getfacttableforreport"></a>
 # **GetFactTableForReport**
-> Object GetFactTableForReport (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, bool? metadata = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetFactTableForReport (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? open = null, string report = null, bool? labels = null, bool? metadata = null, string auditTrails = null, string language = null, string aggregationFunction = null, bool? validate = null, bool? _override = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
 
@@ -1967,6 +2011,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -1996,7 +2041,7 @@ namespace Example
             try
             {
                 // Retrieve the fact table for a given report. Filters can be overriden. Filters MUST be overriden if the report is not already filtering.
-                Object result = apiInstance.GetFactTableForReport(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, open, report, labels, metadata, auditTrails, language, aggregationFunction, validate, _override, count, top, skip);
+                Object result = apiInstance.GetFactTableForReport(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, open, report, labels, metadata, auditTrails, language, aggregationFunction, validate, _override, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2014,6 +2059,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2057,7 +2103,7 @@ No authorization required
 
 <a name="getfacts"></a>
 # **GetFacts**
-> Object GetFacts (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetFacts (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string map = null, string rule = null, string report = null, string additionalRules = null, bool? labels = null, bool? metadata = null, string auditTrails = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionTypes = null, Dictionary<string, string> defaultDimensionValues = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, Dictionary<string, int?> dimensionColumns = null, Dictionary<string, string> dimensionAggregation = null, string aggregationFunction = null, bool? validate = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve one or more facts for a combination of archives.
 
@@ -2079,6 +2125,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2117,7 +2164,7 @@ namespace Example
             try
             {
                 // Retrieve one or more facts for a combination of archives.
-                Object result = apiInstance.GetFacts(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count, top, skip);
+                Object result = apiInstance.GetFacts(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, map, rule, report, additionalRules, labels, metadata, auditTrails, open, dimensions, dimensionTypes, defaultDimensionValues, dimensionsCategory, dimensionsVisible, dimensionSlicers, dimensionColumns, dimensionAggregation, aggregationFunction, validate, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2135,6 +2182,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2187,7 +2235,7 @@ No authorization required
 
 <a name="getlabels"></a>
 # **GetLabels**
-> Object GetLabels (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string language = null, List<string> labelRole = null, bool? onlyTextBlocks = null, List<string> kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetLabels (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string language = null, List<string> labelRole = null, bool? onlyTextBlocks = null, List<string> kind = null, bool? eliminateReportElementDuplicates = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve labels for the supplied components and report elements
 
@@ -2209,6 +2257,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2236,7 +2285,7 @@ namespace Example
             try
             {
                 // Retrieve labels for the supplied components and report elements
-                Object result = apiInstance.GetLabels(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, language, labelRole, onlyTextBlocks, kind, eliminateReportElementDuplicates, count, top, skip);
+                Object result = apiInstance.GetLabels(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, language, labelRole, onlyTextBlocks, kind, eliminateReportElementDuplicates, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2254,6 +2303,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2295,7 +2345,7 @@ No authorization required
 
 <a name="getmodelstructureforcomponent"></a>
 # **GetModelStructureForComponent**
-> Object GetModelStructureForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetModelStructureForComponent (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string language = null, bool? indent = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
 
@@ -2317,6 +2367,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2341,7 +2392,7 @@ namespace Example
             try
             {
                 // Retrieve the model structure for a given component. A component can be selected in several ways, for example with an accession number (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc.
-                Object result = apiInstance.GetModelStructureForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
+                Object result = apiInstance.GetModelStructureForComponent(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, language, indent, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2359,6 +2410,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2397,7 +2449,7 @@ No authorization required
 
 <a name="getperiods"></a>
 # **GetPeriods**
-> Object GetPeriods (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetPeriods (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve the periods of the archives filed by a particular entity
 
@@ -2419,6 +2471,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2436,7 +2489,7 @@ namespace Example
             try
             {
                 // Retrieve the periods of the archives filed by a particular entity
-                Object result = apiInstance.GetPeriods(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, count, top, skip);
+                Object result = apiInstance.GetPeriods(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2454,6 +2507,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2485,7 +2539,7 @@ No authorization required
 
 <a name="getreportelements"></a>
 # **GetReportElements**
-> Object GetReportElements (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, List<string> label = null, bool? onlyTextBlocks = null, List<string> kind = null, string reportElementSearch = null, int? reportElementSearchOffset = null, int? reportElementSearchLimit = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetReportElements (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, bool? builtin = null, bool? onlyNames = null, string report = null, List<string> label = null, bool? onlyTextBlocks = null, List<string> kind = null, string reportElementSearch = null, int? reportElementSearchOffset = null, int? reportElementSearchLimit = null, string language = null, string contentType = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve the report elements contained in a set of archives.
 
@@ -2507,6 +2561,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2539,7 +2594,7 @@ namespace Example
             try
             {
                 // Retrieve the report elements contained in a set of archives.
-                Object result = apiInstance.GetReportElements(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, reportElementSearch, reportElementSearchOffset, reportElementSearchLimit, language, contentType, count, top, skip);
+                Object result = apiInstance.GetReportElements(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, builtin, onlyNames, report, label, onlyTextBlocks, kind, reportElementSearch, reportElementSearchOffset, reportElementSearchLimit, language, contentType, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2557,6 +2612,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2603,7 +2659,7 @@ No authorization required
 
 <a name="getrules"></a>
 # **GetRules**
-> Object GetRules (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetRules (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve a summary for all rules of a given section
 
@@ -2625,6 +2681,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2646,7 +2703,7 @@ namespace Example
             try
             {
                 // Retrieve a summary for all rules of a given section
-                Object result = apiInstance.GetRules(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, disclosure, reportElement, label, count, top, skip);
+                Object result = apiInstance.GetRules(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, disclosure, reportElement, label, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2664,6 +2721,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2699,7 +2757,7 @@ No authorization required
 
 <a name="getsections"></a>
 # **GetSections**
-> Object GetSections (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
+> Object GetSections (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> section = null, List<string> hypercube = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, bool? validate = null, string language = null, bool? count = null, int? top = null, int? skip = null)
 
 Retrieve a summary for all sections of a given archive
 
@@ -2721,6 +2779,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2745,7 +2804,7 @@ namespace Example
             try
             {
                 // Retrieve a summary for all sections of a given archive
-                Object result = apiInstance.GetSections(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, validate, language, count, top, skip);
+                Object result = apiInstance.GetSections(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, archiveFiscalYear, archiveFiscalPeriod, archiveTag, section, hypercube, disclosure, reportElement, label, validate, language, count, top, skip);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2763,6 +2822,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2801,7 +2861,7 @@ No authorization required
 
 <a name="getspreadsheetforcomponent"></a>
 # **GetSpreadsheetForComponent**
-> Object GetSpreadsheetForComponent (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null)
+> Object GetSpreadsheetForComponent (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> section = null, List<string> hypercube = null, List<string> concept = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, string additionalRules = null, string auditTrails = null, bool? open = null, List<string> archiveTag = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, List<string> disclosure = null, List<string> reportElement = null, List<string> label = null, string aggregationFunction = null, bool? validate = null, bool? merge = null, string language = null, bool? _override = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, bool? autoSlice = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, bool? metadata = null)
 
 Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
 
@@ -2823,6 +2883,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2866,7 +2927,7 @@ namespace Example
             try
             {
                 // Retrieve the business-friendly spreadsheet for a given component.  A component can be selected in several ways, for example with an Archive ID (AID), section URI and hypercube name, or with a CIK, fiscal year, fiscal period, and disclosure, etc. 
-                Object result = apiInstance.GetSpreadsheetForComponent(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders, metadata);
+                Object result = apiInstance.GetSpreadsheetForComponent(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, section, hypercube, concept, fiscalYear, fiscalPeriod, fiscalPeriodType, archiveFiscalYear, archiveFiscalPeriod, additionalRules, auditTrails, open, archiveTag, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, disclosure, reportElement, label, aggregationFunction, validate, merge, language, _override, eliminate, eliminationThreshold, populate, autoSlice, row, column, flattenRowHeaders, metadata);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2884,6 +2945,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -2941,7 +3003,7 @@ No authorization required
 
 <a name="getspreadsheetforreport"></a>
 # **GetSpreadsheetForReport**
-> Object GetSpreadsheetForReport (string token, string profileName = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> archiveTag = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, string aggregationFunction = null)
+> Object GetSpreadsheetForReport (string token, string profileName = null, string format = null, List<string> aid = null, List<string> eid = null, List<string> cik = null, List<string> ticker = null, List<string> edinetcode = null, List<string> entityTag = null, List<string> sic = null, List<string> fiscalYear = null, List<string> fiscalPeriod = null, List<string> fiscalPeriodType = null, string report = null, bool? validate = null, string auditTrails = null, string language = null, bool? eliminate = null, int? eliminationThreshold = null, bool? populate = null, List<int?> row = null, List<int?> column = null, bool? flattenRowHeaders = null, List<string> archiveTag = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, bool? _override = null, bool? open = null, Dictionary<string, List<string>> dimensions = null, Dictionary<string, string> dimensionsCategory = null, Dictionary<string, bool?> dimensionsVisible = null, Dictionary<string, bool?> dimensionSlicers = null, string aggregationFunction = null)
 
 Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
 
@@ -2963,6 +3025,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = new List<string>(); // List<string> | Archive IDs, to retrieve archives, sections, components or slice facts. (optional)  (default to null)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var cik = new List<string>(); // List<string> | The CIK of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -2997,7 +3060,7 @@ namespace Example
             try
             {
                 // Retrieve the business-friendly spreadsheet for a report.  Filters can be overriden. Filters MUST be overriden if the report is not already filtering. 
-                Object result = apiInstance.GetSpreadsheetForReport(token, profileName, aid, eid, cik, ticker, edinetcode, entityTag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, archiveTag, archiveFiscalYear, archiveFiscalPeriod, _override, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, aggregationFunction);
+                Object result = apiInstance.GetSpreadsheetForReport(token, profileName, format, aid, eid, cik, ticker, edinetcode, entityTag, sic, fiscalYear, fiscalPeriod, fiscalPeriodType, report, validate, auditTrails, language, eliminate, eliminationThreshold, populate, row, column, flattenRowHeaders, archiveTag, archiveFiscalYear, archiveFiscalPeriod, _override, open, dimensions, dimensionsCategory, dimensionsVisible, dimensionSlicers, aggregationFunction);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -3015,6 +3078,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | [**List<string>**](string.md)| Archive IDs, to retrieve archives, sections, components or slice facts. | [optional] [default to null]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **cik** | [**List<string>**](string.md)| The CIK of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -3063,7 +3127,7 @@ No authorization required
 
 <a name="gettables"></a>
 # **GetTables**
-> Object GetTables (string token, string profileName = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, string language = null, List<string> table = null, string tableLabelSearch = null, string tableColumnSearch = null, string tableRowSearch = null, int? tableSearchOffset = null, int? tableSearchLimit = null)
+> Object GetTables (string token, string profileName = null, string format = null, List<string> eid = null, List<string> ticker = null, List<string> entityTag = null, List<string> sic = null, List<string> cik = null, List<string> edinetcode = null, List<string> archiveFiscalYear = null, List<string> archiveFiscalPeriod = null, List<string> archiveTag = null, List<string> aid = null, List<string> section = null, List<string> reportElement = null, List<string> label = null, bool? count = null, int? top = null, int? skip = null, string language = null, List<string> table = null, string tableLabelSearch = null, string tableColumnSearch = null, string tableRowSearch = null, int? tableSearchOffset = null, int? tableSearchLimit = null)
 
 Retrieve tables metadata
 
@@ -3085,6 +3149,7 @@ namespace Example
             var apiInstance = new DataApi();
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var eid = new List<string>(); // List<string> | The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var ticker = new List<string>(); // List<string> | The ticker of a company, to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
             var entityTag = new List<string>(); // List<string> | The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. (optional)  (default to null)
@@ -3112,7 +3177,7 @@ namespace Example
             try
             {
                 // Retrieve tables metadata
-                Object result = apiInstance.GetTables(token, profileName, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, reportElement, label, count, top, skip, language, table, tableLabelSearch, tableColumnSearch, tableRowSearch, tableSearchOffset, tableSearchLimit);
+                Object result = apiInstance.GetTables(token, profileName, format, eid, ticker, entityTag, sic, cik, edinetcode, archiveFiscalYear, archiveFiscalPeriod, archiveTag, aid, section, reportElement, label, count, top, skip, language, table, tableLabelSearch, tableColumnSearch, tableRowSearch, tableSearchOffset, tableSearchLimit);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -3130,6 +3195,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **eid** | [**List<string>**](string.md)| The EIDs (scheme + local name) of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **ticker** | [**List<string>**](string.md)| The ticker of a company, to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
  **entityTag** | [**List<string>**](string.md)| The tag of an entity (such as an index), to retrieve entities, archives, sections, components or dice facts. | [optional] [default to null]
@@ -3171,7 +3237,7 @@ No authorization required
 
 <a name="importarchive"></a>
 # **ImportArchive**
-> Object ImportArchive (string token, Object archive, string profileName = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null)
+> Object ImportArchive (string token, Object archive, string profileName = null, string format = null, string aid = null, int? timeout = null, string archiveDetectionProfileName = null, bool? taxonomy = null, bool? insertEntity = null)
 
 Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases. 
 
@@ -3194,6 +3260,7 @@ namespace Example
             var token = token_example;  // string | The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. (default to null)
             var archive = ;  // Object | The body of the request, a single ZIP-Deflate-compressed XBRL archive. (default to null)
             var profileName = profileName_example;  // string | Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
             var aid = aid_example;  // string | Archive ID of the archive or taxonomy. (optional)  (default to null)
             var timeout = 56;  // int? | Timeout for the operation. (optional)  (default to null)
             var archiveDetectionProfileName = archiveDetectionProfileName_example;  // string | This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). (optional)  (default to AUTO)
@@ -3203,7 +3270,7 @@ namespace Example
             try
             {
                 // Imports an archive.   A full import is performed by provided, in the body of the request, a ZIP Deflate-compressed archive. This will import all the facts from the instance, as well as the taxonomy schema and linkbases. 
-                Object result = apiInstance.ImportArchive(token, archive, profileName, aid, timeout, archiveDetectionProfileName, taxonomy, insertEntity);
+                Object result = apiInstance.ImportArchive(token, archive, profileName, format, aid, timeout, archiveDetectionProfileName, taxonomy, insertEntity);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -3222,6 +3289,7 @@ Name | Type | Description  | Notes
  **token** | **string**| The token that allows you to use this API. Gives you read (GET) and/or write (POST, DELETE, PATCH) credentials. | [default to null]
  **archive** | **Object**| The body of the request, a single ZIP-Deflate-compressed XBRL archive. | [default to null]
  **profileName** | **string**| Specifies which profile to use, which will enable some parameters or modify hypercube queries accordingly. The default depends on the underlying repository | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
  **aid** | **string**| Archive ID of the archive or taxonomy. | [optional] [default to null]
  **timeout** | **int?**| Timeout for the operation. | [optional] [default to null]
  **archiveDetectionProfileName** | **string**| This parameter can be used to override the algorithm used to identify which files are the archive entrypoint. Allowed values are: AUTO (automatic detection) and FSA (automatic detection, with identification of Audit and Public documents). | [optional] [default to AUTO]

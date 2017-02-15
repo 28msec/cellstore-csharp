@@ -85,7 +85,8 @@ namespace CellStore.Test
             // TODO uncomment below to test the method and replace null with proper value
             //string email = null;
             //string password = null;
-            //var response = instance.Login(email, password);
+            //string format = null;
+            //var response = instance.Login(email, password, format);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -97,7 +98,8 @@ namespace CellStore.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             //string token = null;
-            //var response = instance.Logout(token);
+            //string format = null;
+            //var response = instance.Logout(token, format);
             //Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
         }
         
@@ -111,7 +113,8 @@ namespace CellStore.Test
             //string email = null;
             //string password = null;
             //string token = null;
-            //var response = instance.Revoke(email, password, token);
+            //string format = null;
+            //var response = instance.Revoke(email, password, token, format);
             //Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
         }
         
@@ -124,7 +127,8 @@ namespace CellStore.Test
             // TODO uncomment below to test the method and replace null with proper value
             //string token = null;
             //Object permissions = null;
-            //var response = instance.SetPermissions(token, permissions);
+            //string format = null;
+            //var response = instance.SetPermissions(token, permissions, format);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -138,7 +142,8 @@ namespace CellStore.Test
             //string email = null;
             //string password = null;
             //string expiration = null;
-            //var response = instance.Token(email, password, expiration);
+            //string format = null;
+            //var response = instance.Token(email, password, expiration, format);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         
@@ -150,7 +155,8 @@ namespace CellStore.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             //string token = null;
-            //var response = instance.Tokens(token);
+            //string format = null;
+            //var response = instance.Tokens(token, format);
             //Assert.IsInstanceOf<Object> (response, "response is Object");
         }
         

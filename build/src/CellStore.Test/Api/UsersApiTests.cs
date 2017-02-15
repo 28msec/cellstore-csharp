@@ -89,7 +89,8 @@ namespace CellStore.Test
             //string newemail = null;
             //string email = null;
             //string password = null;
-            //var response = instance.EditUser(firstname, lastname, token, newemail, email, password);
+            //string format = null;
+            //var response = instance.EditUser(firstname, lastname, token, newemail, email, password, format);
             //Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
         }
         
@@ -101,7 +102,8 @@ namespace CellStore.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             //string email = null;
-            //var response = instance.ForgotPassword(email);
+            //string format = null;
+            //var response = instance.ForgotPassword(email, format);
             //Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
         }
         
@@ -172,7 +174,8 @@ namespace CellStore.Test
             //string email = null;
             //string password = null;
             //string resetToken = null;
-            //var response = instance.SetPassword(email, password, resetToken);
+            //string format = null;
+            //var response = instance.SetPassword(email, password, resetToken, format);
             //Assert.IsInstanceOf<Outcome> (response, "response is Outcome");
         }
         

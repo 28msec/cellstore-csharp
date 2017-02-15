@@ -47,7 +47,7 @@ gulp.task('swagger:resolve', ['swagger:clean'], function(done){
 
 gulp.task('swagger:resolve-dev', ['swagger:clean'], $.shell.task([
   'cd ' + cellstoreFolder + ' && gulp swagger:resolve',
-  'cp ' + cellstoreFolder + '/swagger/swagger-remotes-resolved.json build-resources/swagger.json'
+  'cp ' + cellstoreFolder + '/swagger/swagger.json build-resources/swagger.json'
 ]));
 
 gulp.task('swagger:resolve-repository', ['swagger:clean'], $.shell.task([

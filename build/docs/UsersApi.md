@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="edituser"></a>
 # **EditUser**
-> Outcome EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null)
+> Outcome EditUser (string firstname, string lastname, string token, string newemail = null, string email = null, string password = null, string format = null)
 
 Change a user firstname and lastname, and, optionally, his email.
 
@@ -41,11 +41,12 @@ namespace Example
             var newemail = newemail_example;  // string | The user new email (optional)  (default to null)
             var email = email_example;  // string | Current email of the authorized user (needed if changing the email) (optional)  (default to null)
             var password = password_example;  // string | Current password of the authorized user (needed if changing the email) (optional)  (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Change a user firstname and lastname, and, optionally, his email.
-                Outcome result = apiInstance.EditUser(firstname, lastname, token, newemail, email, password);
+                Outcome result = apiInstance.EditUser(firstname, lastname, token, newemail, email, password, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -67,6 +68,7 @@ Name | Type | Description  | Notes
  **newemail** | **string**| The user new email | [optional] [default to null]
  **email** | **string**| Current email of the authorized user (needed if changing the email) | [optional] [default to null]
  **password** | **string**| Current password of the authorized user (needed if changing the email) | [optional] [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -85,7 +87,7 @@ No authorization required
 
 <a name="forgotpassword"></a>
 # **ForgotPassword**
-> Outcome ForgotPassword (string email)
+> Outcome ForgotPassword (string email, string format = null)
 
 Send an email with the reset password token.
 
@@ -106,11 +108,12 @@ namespace Example
             
             var apiInstance = new UsersApi();
             var email = email_example;  // string | The user email (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Send an email with the reset password token.
-                Outcome result = apiInstance.ForgotPassword(email);
+                Outcome result = apiInstance.ForgotPassword(email, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -127,6 +130,7 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **email** | **string**| The user email | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
@@ -403,7 +407,7 @@ No authorization required
 
 <a name="setpassword"></a>
 # **SetPassword**
-> Outcome SetPassword (string email, string password, string resetToken)
+> Outcome SetPassword (string email, string password, string resetToken, string format = null)
 
 Set the password for a user based on email and the reset password token
 
@@ -426,11 +430,12 @@ namespace Example
             var email = email_example;  // string | The email of the user to set the password (default to null)
             var password = password_example;  // string | The new password (default to null)
             var resetToken = resetToken_example;  // string | The reset password token (default to null)
+            var format = format_example;  // string | Returns the results in the supplied format (optional)  (default to json)
 
             try
             {
                 // Set the password for a user based on email and the reset password token
-                Outcome result = apiInstance.SetPassword(email, password, resetToken);
+                Outcome result = apiInstance.SetPassword(email, password, resetToken, format);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -449,6 +454,7 @@ Name | Type | Description  | Notes
  **email** | **string**| The email of the user to set the password | [default to null]
  **password** | **string**| The new password | [default to null]
  **resetToken** | **string**| The reset password token | [default to null]
+ **format** | **string**| Returns the results in the supplied format | [optional] [default to json]
 
 ### Return type
 
