@@ -350,7 +350,10 @@ namespace CellStore.Client
             // at this point, it must be a model (json)
             try
             {
-                return JsonConvert.DeserializeObject(response.Content, type, serializerSettings);
+                if (cellstoreFormatParameter == null || cellstoreFormatParameter.ToLower().Equals("json"))
+                    return JsonConvert.DeserializeObject(response.Content, type, serializerSettings);
+                else
+                    return response.Content;
             }
             catch (Exception e)
             {
